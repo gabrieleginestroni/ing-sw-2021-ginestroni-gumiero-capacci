@@ -17,8 +17,8 @@ public abstract class Depot {
      *
      * @param resource type of the resource to add
      * @param quantity amount of resource to add
-     * @throws addResourceLimitExceededException throwed if the new quantity would exceed the storage limit
-     * @throws invalidResourceTypeException throwed if the resource type is illegal
+     * @throws addResourceLimitExceededException thrown if the new quantity would exceed the storage limit
+     * @throws invalidResourceTypeException thrown if the resource type is illegal
      */
     public void addResource(Resource resource, int quantity) throws addResourceLimitExceededException,invalidResourceTypeException {
         int newQuantity;
@@ -39,8 +39,8 @@ public abstract class Depot {
      * the quantity to remove is smaller than the actual quantity stored
      * @param resource type of the resource to remove
      * @param quantity amount of resource to remove
-     * @throws removeResourceLimitExceededException throwed if the quantity to remove is greater than the actual quantity stored
-     * @throws invalidResourceTypeException throwed if the resource type is illegal
+     * @throws removeResourceLimitExceededException thrown if the quantity to remove is greater than the actual quantity stored
+     * @throws invalidResourceTypeException thrown if the resource type is illegal
      */
     public void removeResource(Resource resource,int quantity) throws removeResourceLimitExceededException,invalidResourceTypeException{
         int newQuantity;
@@ -58,7 +58,7 @@ public abstract class Depot {
     /**
      * Checks if the resource type is allowed to be stored in a depot
      * @param resource resource type to check
-     * @throws invalidResourceTypeException throwed if the resource type is illegal
+     * @throws invalidResourceTypeException thrown if the resource type is illegal
      */
      void invalidResourceCheck(Resource resource) throws invalidResourceTypeException {
          if( resource == Resource.FAITH || resource == Resource.WHITE){
@@ -69,7 +69,7 @@ public abstract class Depot {
     /**
      * Checks if the resource type matches the one of the depot
      * @param resource resource type to check
-     * @throws invalidResourceTypeException throwed if the resource type is illegal
+     * @throws invalidResourceTypeException thrown if the resource type is illegal
      */
     private void wrongResourceCheck(Resource resource) throws invalidResourceTypeException {
         if(resource != this.resourceType){

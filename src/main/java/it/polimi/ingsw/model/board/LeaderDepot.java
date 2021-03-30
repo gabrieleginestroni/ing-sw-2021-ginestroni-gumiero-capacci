@@ -12,7 +12,7 @@ public class LeaderDepot extends Depot {
      *Constructor that creates a Leader Depot if the resource type is allowed and initializes the instance
      * with the default value for an empty Leader Depot with its storage limit
      * @param resource resource type of Leader depot to create
-     * @throws invalidResourceTypeException throwed if the resource type is illegal
+     * @throws invalidResourceTypeException thrown if the resource type is illegal
      */
     public LeaderDepot(Resource resource) throws invalidResourceTypeException {
 

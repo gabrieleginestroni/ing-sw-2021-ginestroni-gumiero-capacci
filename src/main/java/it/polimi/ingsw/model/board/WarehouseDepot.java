@@ -13,7 +13,7 @@ public class WarehouseDepot extends Depot {
      * is allowed
      * @param resource resource type of the storage to be created
      * @param storageLimit storage resource limit of the storage to be created
-     * @throws invalidResourceTypeException throwed if the resource type is illegal
+     * @throws invalidResourceTypeException thrown if the resource type is illegal
      */
     public WarehouseDepot(Resource resource,int storageLimit) throws invalidResourceTypeException {
 
@@ -27,8 +27,8 @@ public class WarehouseDepot extends Depot {
     /**
      * Sets the depot's storage resource type if it's empty
      * @param resourceType resource type to set
-     * @throws invalidWarehouseDepotTypeChangeException throwed if the depot isn't empty
-     * @throws invalidResourceTypeException throwed if the resource type is illegal
+     * @throws invalidWarehouseDepotTypeChangeException thrown if the depot isn't empty
+     * @throws invalidResourceTypeException thrown if the resource type is illegal
      */
     public void setResourceType(Resource resourceType) throws invalidWarehouseDepotTypeChangeException,invalidResourceTypeException {
 
