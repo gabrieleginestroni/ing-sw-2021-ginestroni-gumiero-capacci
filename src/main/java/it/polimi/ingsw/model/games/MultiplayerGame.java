@@ -6,9 +6,15 @@ import it.polimi.ingsw.model.cards.*;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
+/**
+ * @author Tommaso Capacci
+ * Class that represents the multiplayer version of a game.
+ */
 public class MultiplayerGame extends Game{
+
+    private int numPlayer;
+    //private List<Player> players;
 
     public MultiplayerGame(){
         Gson gson = new Gson();
@@ -26,17 +32,13 @@ public class MultiplayerGame extends Game{
         }catch(Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    @Override
-    public String toString() {
-        StringBuilder testo = new StringBuilder("Multiplayer Game{");
-        for(int i = 0; i < leaderCards.length; i++){
-            testo.append(leaderCards[i].toString() + ",\n");
-        }
 
-        return testo.toString();
+    /*
+    public void giveInkwell(Player p){
+        p.setInkwell(true);
     }
+    */
 
 }

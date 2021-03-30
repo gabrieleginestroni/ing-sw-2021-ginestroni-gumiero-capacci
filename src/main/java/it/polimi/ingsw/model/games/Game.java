@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.games;
 
+import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 
@@ -12,17 +13,21 @@ import java.util.Date;
  */
 public abstract class Game {
 
-    String gameId = null;
-    Date gameDate = null;
-    PopeTile[] popeTiles = null;
-    LeaderCard[] leaderCards = null;
-    DevelopmentCard[] developmentCards = null;
-    DevelopmentCardGrid devCardsGrid = null;
+    String gameId;
+    Date gameDate;
+    PopeTile[] popeTiles;
+    LeaderCard[] leaderCards;
+    DevelopmentCard[] developmentCards;
+    DevelopmentCardGrid devCardsGrid;
     boolean gameOver;
 
     //public abstract void giveMarketResource(Player p);
 
     //public abstract void giveProductionResource(Player p);
+
+    public void discard2Cards(Resource res){
+
+    }
 
     //public abstract void buyCard(int column, int row, Player p);
 
