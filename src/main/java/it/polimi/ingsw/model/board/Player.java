@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Resource;
 import java.util.ArrayList;
 
 public class Player {
-    private String nickName;
+    private final String nickName;
     private final Board board;
     private final ArrayList<Resource> whiteMarbles;
     private final ArrayList<Resource> discount;
@@ -14,9 +14,9 @@ public class Player {
     public Player(String nickName) {
         this.nickName = nickName;
         this.board = new Board();
-        this.discount = new ArrayList<Resource>();
-        this.productionEffectInput = new ArrayList<Resource>();
-        this.whiteMarbles = new ArrayList<Resource>();
+        this.discount = new ArrayList<>();
+        this.productionEffectInput = new ArrayList<>();
+        this.whiteMarbles = new ArrayList<>();
     }
 
     public void addWhiteMarblePowerEffect(Resource resource){
@@ -33,7 +33,7 @@ public class Player {
 
     }
     public void addLeaderStorageDepot(Resource resource){
-        
+
 
     }
 
