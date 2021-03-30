@@ -1,0 +1,81 @@
+package it.polimi.ingsw.model.board;
+
+import it.polimi.ingsw.model.Resource;
+
+/**
+ * @author Gabriele Ginestroni
+ * Class that represents a single storage unit without any distinction between Warehouse and Leader Cards' depots
+ */
+public abstract class Depot {
+    int storageQuantity;
+    int storageLimit;
+    Resource resourceType;
+
+    /**
+     *Adds an amount of resources to the depot, if the resource type matches to the one of the depot and if the new
+     * quantity doesn't exceed the storage limit quantity
+     *
+     * @param resource type of the resource to add
+     * @param quantity amount of resource to add
+     * @throws addResourceLimitExceededException throwed if the new quantity would exceed the storage limit
+     * @throws invalidResourceTypeException throwed if the resource type is illegal
+     */
+    public void addResource(Resource resource, int quantity) throws addResourceLimitExceededException,invalidResourceTypeException {
+        int newQuantity;
+
+        invalidResourceCheck(resource);
+        wrongResourceCheck(resource);
+
+        newQuantity= this.storageQuantity + quantity;
+        if(newQuantity>storageLimit){
+            throw new addResourceLimitExceededException();
+        }
+        this.storageQuantity = newQuantity;
+
+    }
+
+    /**
+     *Adds an amount of resources to the depot, if the resource type matches to the one of the depot and if
+     * the quantity to remove is smaller than the actual quantity stored
+     * @param resource type of the resource to remove
+     * @param quantity amount of resource to remove
+     * @throws removeResourceLimitExceededException throwed if the quantity to remove is greater than the actual quantity stored
+     * @throws invalidResourceTypeException throwed if the resource type is illegal
+     */
+    public void removeResource(Resource resource,int quantity) throws removeResourceLimitExceededException,invalidResourceTypeException{
+        int newQuantity;
+
+        invalidResourceCheck(resource);
+        wrongResourceCheck(resource);
+
+        newQuantity= this.storageQuantity - quantity;
+        if(newQuantity<0){
+            throw new removeResourceLimitExceededException();
+        }
+        this.storageQuantity = newQuantity;
+    }
+
+    /**
+     * Checks if the resource type is allowed to be stored in a depot
+     * @param resource resource type to check
+     * @throws invalidResourceTypeException throwed if the resource type is illegal
+     */
+     void invalidResourceCheck(Resource resource) throws invalidResourceTypeException {
+         if( resource == Resource.FAITH || resource == Resource.WHITE){
+             throw new invalidResourceTypeException();
+         }
+    }
+
+    /**
+     * Checks if the resource type matches the one of the depot
+     * @param resource resource type to check
+     * @throws invalidResourceTypeException throwed if the resource type is illegal
+     */
+    private void wrongResourceCheck(Resource resource) throws invalidResourceTypeException {
+        if(resource != this.resourceType){
+            throw new invalidResourceTypeException();
+        }
+    }
+
+
+}
