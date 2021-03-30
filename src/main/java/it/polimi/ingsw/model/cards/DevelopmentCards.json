@@ -1,0 +1,753 @@
+[{
+  "id" : 1,
+  "type" : "GREEN",
+  "level" : 1,
+  "cost" : {
+    "SHIELD" : 4
+  },
+  "productionInput" : {
+    "COIN" : 2
+  },
+  "productionOutput" : {
+    "FAITH" : 1
+  },
+  "victoryPoints" : 1
+},{
+  "id" : 2,
+  "type" : "PURPLE",
+  "level" : 1,
+  "cost" : {
+    "SERVANT" : 3
+  },
+  "productionInput" : {
+    "COIN" : 2
+  },
+  "productionOutput" : {
+    "SERVANT" : 1,
+    "SHIELD" : 1,
+    "STONE" : 1
+  },
+  "victoryPoints" : 3
+},{
+  "id" : 3,
+  "type" : "BLUE",
+  "level" : 1,
+  "cost" : {
+    "COIN" : 3
+  },
+  "productionInput" : {
+    "STONE" : 2
+  },
+  "productionOutput" : {
+    "COIN" : 1,
+    "SERVANT" : 1,
+    "SHIELD" : 1
+  },
+  "victoryPoints" : 3
+},{
+  "id" : 4,
+  "type" : "YELLOW",
+  "level" : 1,
+  "cost" : {
+    "STONE" : 3
+  },
+  "productionInput" : {
+    "SHIELD" : 2
+  },
+  "productionOutput" : {
+    "COIN" : 1,
+    "SERVANT" : 1,
+    "STONE" : 1
+  },
+  "victoryPoints" : 3
+},{
+  "id" : 5,
+  "type" : "GREEN",
+  "level" : 1,
+  "cost" : {
+    "SHIELD" : 2,
+    "COIN" : 2
+  },
+  "productionInput" : {
+    "STONE" : 1,
+    "SERVANT" : 1
+  },
+  "productionOutput" : {
+    "COIN" : 2,
+    "FAITH" : 1
+  },
+  "victoryPoints" : 4
+},{
+  "id" : 6,
+  "type" : "PURPLE",
+  "level" : 1,
+  "cost" : {
+    "SERVANT" : 2,
+    "STONE" : 2
+  },
+  "productionInput" : {
+    "COIN" : 1,
+    "SHIELD" : 1
+  },
+  "productionOutput" : {
+    "STONE" : 2,
+    "FAITH" : 1
+  },
+  "victoryPoints" : 4
+},{
+  "id" : 7,
+  "type" : "BLUE",
+  "level" : 1,
+  "cost" : {
+    "COIN" : 2,
+    "SERVANT" : 2
+  },
+  "productionInput" : {
+    "SHIELD" : 1,
+    "STONE" : 1
+  },
+  "productionOutput" : {
+    "SERVANT" : 2,
+    "FAITH" : 1
+  },
+  "victoryPoints" : 4
+},{
+  "id" : 8,
+  "type" : "YELLOW",
+  "level" : 1,
+  "cost" : {
+    "STONE" : 2,
+    "SHIELD" : 2
+  },
+  "productionInput" : {
+    "COIN" : 1,
+    "SERVANT" : 1
+  },
+  "productionOutput" : {
+    "STONE" : 2,
+    "FAITH" : 1
+  },
+  "victoryPoints" : 4
+},{
+  "id" : 9,
+  "type" : "GREEN",
+  "level" : 2,
+  "cost" : {
+    "SHIELD" : 4
+  },
+  "productionInput" : {
+    "STONE" : 1
+  },
+  "productionOutput" : {
+    "FAITH" : 2
+  },
+  "victoryPoints" : 5
+},{
+  "id" : 10,
+  "type" : "PURPLE",
+  "level" : 2,
+  "cost" : {
+    "SERVANT" : 4
+  },
+  "productionInput" : {
+    "COIN" : 1
+  },
+  "productionOutput" : {
+    "FAITH" : 2
+  },
+  "victoryPoints" : 5
+},{
+  "id" : 11,
+  "type" : "BLUE",
+  "level" : 2,
+  "cost" : {
+    "COIN" : 4
+  },
+  "productionInput" : {
+    "SERVANT" : 1
+  },
+  "productionOutput" : {
+    "FAITH" : 2
+  },
+  "victoryPoints" : 5
+},{
+  "id" : 12,
+  "type" : "PURPLE",
+  "level" : 1,
+  "cost" : {
+    "SERVANT" : 2
+  },
+  "productionInput" : {
+    "STONE" : 1
+  },
+  "productionOutput" : {
+    "FAITH" : 1
+  },
+  "victoryPoints" : 1
+},{
+  "id" : 13,
+  "type" : "YELLOW",
+  "level" : 2,
+  "cost" : {
+    "STONE" : 4
+  },
+  "productionInput" : {
+    "SHIELD" : 1
+  },
+  "productionOutput" : {
+    "FAITH" : 2
+  },
+  "victoryPoints" : 5
+},{
+  "id" : 14,
+  "type" : "GREEN",
+  "level" : 2,
+  "cost" : {
+    "SHIELD" : 3,
+    "SERVANT" : 2
+  },
+  "productionInput" : {
+    "SHIELD" : 1,
+    "SERVANT" : 1
+  },
+  "productionOutput" : {
+    "STONE" : 3
+  },
+  "victoryPoints" : 6
+},{
+  "id" : 15,
+  "type" : "PURPLE",
+  "level" : 2,
+  "cost" : {
+    "SERVANT" : 3,
+    "COIN" : 2
+  },
+  "productionInput" : {
+    "COIN" : 1,
+    "SERVANT" : 1
+  },
+  "productionOutput" : {
+    "SHIELD" : 3
+  },
+  "victoryPoints" : 6
+},{
+  "id" : 16,
+  "type" : "BLUE",
+  "level" : 2,
+  "cost" : {
+    "COIN" : 3,
+    "STONE" : 2
+  },
+  "productionInput" : {
+    "COIN" : 1,
+    "SHIELD" : 1
+  },
+  "productionOutput" : {
+    "SERVANT" : 3
+  },
+  "victoryPoints" : 6
+},{
+  "id" : 17,
+  "type" : "YELLOW",
+  "level" : 2,
+  "cost" : {
+    "STONE" : 3,
+    "SHIELD" : 2
+  },
+  "productionInput" : {
+    "STONE" : 1,
+    "SHIELD" : 1
+  },
+  "productionOutput" : {
+    "COIN" : 3
+  },
+  "victoryPoints" : 6
+},{
+  "id" : 18,
+  "type" : "GREEN",
+  "level" : 2,
+  "cost" : {
+    "SHIELD" : 5
+  },
+  "productionInput" : {
+    "COIN" : 2
+  },
+  "productionOutput" : {
+    "SHIELD" : 2,
+    "FAITH" : 2
+  },
+  "victoryPoints" : 7
+},{
+  "id" : 19,
+  "type" : "PURPLE",
+  "level" : 2,
+  "cost" : {
+    "SERVANT" : 5
+  },
+  "productionInput" : {
+    "STONE" : 2
+  },
+  "productionOutput" : {
+    "COIN" : 2,
+    "FAITH" : 2
+  },
+  "victoryPoints" : 7
+},{
+  "id" : 20,
+  "type" : "BLUE",
+  "level" : 2,
+  "cost" : {
+    "COIN" : 5
+  },
+  "productionInput" : {
+    "SERVANT" : 2
+  },
+  "productionOutput" : {
+    "SHIELD" : 2,
+    "FAITH" : 2
+  },
+  "victoryPoints" : 7
+},{
+  "id" : 21,
+  "type" : "YELLOW",
+  "level" : 2,
+  "cost" : {
+    "STONE" : 5
+  },
+  "productionInput" : {
+    "SHIELD" : 2
+  },
+  "productionOutput" : {
+    "SERVANT" : 2,
+    "FAITH" : 2
+  },
+  "victoryPoints" : 7
+},{
+  "id" : 22,
+  "type" : "GREEN",
+  "level" : 2,
+  "cost" : {
+    "SHIELD" : 3,
+    "COIN" : 3
+  },
+  "productionInput" : {
+    "COIN" : 1
+  },
+  "productionOutput" : {
+    "SHIELD" : 2,
+    "FAITH" : 1
+  },
+  "victoryPoints" : 8
+},{
+  "id" : 23,
+  "type" : "BLUE",
+  "level" : 1,
+  "cost" : {
+    "COIN" : 2
+  },
+  "productionInput" : {
+    "SHIELD" : 1
+  },
+  "productionOutput" : {
+    "FAITH" : 1
+  },
+  "victoryPoints" : 1
+},{
+  "id" : 24,
+  "type" : "PURPLE",
+  "level" : 2,
+  "cost" : {
+    "SERVANT" : 3,
+    "SHIELD" : 3
+  },
+  "productionInput" : {
+    "STONE" : 1
+  },
+  "productionOutput" : {
+    "SERVANT" : 2,
+    "FAITH" : 1
+  },
+  "victoryPoints" : 8
+},{
+  "id" : 25,
+  "type" : "BLUE",
+  "level" : 2,
+  "cost" : {
+    "COIN" : 3,
+    "STONE" : 3
+  },
+  "productionInput" : {
+    "SERVANT" : 1
+  },
+  "productionOutput" : {
+    "STONE" : 2,
+    "FAITH" : 1
+  },
+  "victoryPoints" : 8
+},{
+  "id" : 26,
+  "type" : "YELLOW",
+  "level" : 2,
+  "cost" : {
+    "STONE" : 3,
+    "SERVANT" : 3
+  },
+  "productionInput" : {
+    "SHIELD" : 1
+  },
+  "productionOutput" : {
+    "COIN" : 2,
+    "FAITH" : 1
+  },
+  "victoryPoints" : 8
+},{
+  "id" : 27,
+  "type" : "GREEN",
+  "level" : 3,
+  "cost" : {
+    "SHIELD" : 6
+  },
+  "productionInput" : {
+    "COIN" : 2
+  },
+  "productionOutput" : {
+    "STONE" : 3,
+    "FAITH" : 2
+  },
+  "victoryPoints" : 9
+},{
+  "id" : 28,
+  "type" : "PURPLE",
+  "level" : 3,
+  "cost" : {
+    "SERVANT" : 6
+  },
+  "productionInput" : {
+    "STONE" : 2
+  },
+  "productionOutput" : {
+    "COIN" : 3,
+    "FAITH" : 2
+  },
+  "victoryPoints" : 9
+},{
+  "id" : 29,
+  "type" : "BLUE",
+  "level" : 3,
+  "cost" : {
+    "COIN" : 6
+  },
+  "productionInput" : {
+    "SERVANT" : 2
+  },
+  "productionOutput" : {
+    "SHIELD" : 3,
+    "FAITH" : 2
+  },
+  "victoryPoints" : 9
+},{
+  "id" : 30,
+  "type" : "YELLOW",
+  "level" : 3,
+  "cost" : {
+    "STONE" : 6
+  },
+  "productionInput" : {
+    "SHIELD" : 2
+  },
+  "productionOutput" : {
+    "SERVANT" : 3,
+    "FAITH" : 2
+  },
+  "victoryPoints" : 9
+},{
+  "id" : 31,
+  "type" : "GREEN",
+  "level" : 3,
+  "cost" : {
+    "SHIELD" : 5,
+    "SERVANT" : 2
+  },
+  "productionInput" : {
+    "COIN" : 1,
+    "SERVANT" : 1
+  },
+  "productionOutput" : {
+    "SHIELD" : 2,
+    "STONE" : 2,
+    "FAITH" : 1
+  },
+  "victoryPoints" : 10
+},{
+  "id" : 32,
+  "type" : "PURPLE",
+  "level" : 3,
+  "cost" : {
+    "SERVANT" : 5,
+    "COIN" : 2
+  },
+  "productionInput" : {
+    "STONE" : 1,
+    "SHIELD" : 1
+  },
+  "productionOutput" : {
+    "COIN" : 2,
+    "SERVANT" : 2,
+    "FAITH" : 1
+  },
+  "victoryPoints" : 10
+},{
+  "id" : 33,
+  "type" : "BLUE",
+  "level" : 3,
+  "cost" : {
+    "COIN" : 5,
+    "STONE" : 2
+  },
+  "productionInput" : {
+    "COIN" : 1,
+    "SHIELD" : 1
+  },
+  "productionOutput" : {
+    "SERVANT" : 2,
+    "STONE" : 2,
+    "FAITH" : 1
+  },
+  "victoryPoints" : 10
+},{
+  "id" : 34,
+  "type" : "YELLOW",
+  "level" : 1,
+  "cost" : {
+    "STONE" : 2
+  },
+  "productionInput" : {
+    "SERVANT" : 1
+  },
+  "productionOutput" : {
+    "FAITH" : 1
+  },
+  "victoryPoints" : 1
+},{
+  "id" : 35,
+  "type" : "YELLOW",
+  "level" : 3,
+  "cost" : {
+    "STONE" : 5,
+    "SERVANT" : 2
+  },
+  "productionInput" : {
+    "SHIELD" : 1,
+    "SERVANT" : 1
+  },
+  "productionOutput" : {
+    "COIN" : 2,
+    "SHIELD" : 2,
+    "FAITH" : 1
+  },
+  "victoryPoints" : 1
+},{
+  "id" : 36,
+  "type" : "GREEN",
+  "level" : 3,
+  "cost" : {
+    "SHIELD" : 7
+  },
+  "productionInput" : {
+    "SERVANT" : 1
+  },
+  "productionOutput" : {
+    "COIN" : 1,
+    "FAITH" : 3
+  },
+  "victoryPoints" : 11
+},{
+  "id" : 37,
+  "type" : "PURPLE",
+  "level" : 3,
+  "cost" : {
+    "SERVANT" : 7
+  },
+  "productionInput" : {
+    "COIN" : 1
+  },
+  "productionOutput" : {
+    "STONE" : 1,
+    "FAITH" : 3
+  },
+  "victoryPoints" : 11
+},{
+  "id" : 38,
+  "type" : "BLUE",
+  "level" : 3,
+  "cost" : {
+    "COIN" : 7
+  },
+  "productionInput" : {
+    "STONE" : 1
+  },
+  "productionOutput" : {
+    "SHIELD" : 1,
+    "FAITH" : 3
+  },
+  "victoryPoints" : 11
+},{
+  "id" : 39,
+  "type" : "YELLOW",
+  "level" : 3,
+  "cost" : {
+    "STONE" : 7
+  },
+  "productionInput" : {
+    "SHIELD" : 1
+  },
+  "productionOutput" : {
+    "SERVANT" : 1,
+    "FAITH" : 3
+  },
+  "victoryPoints" : 11
+},{
+  "id" : 40,
+  "type" : "GREEN",
+  "level" : 3,
+  "cost" : {
+    "SHIELD" : 4,
+    "COIN" : 4
+  },
+  "productionInput" : {
+    "STONE" : 1
+  },
+  "productionOutput" : {
+    "COIN" : 3,
+    "SHIELD" : 1
+  },
+  "victoryPoints" : 12
+},{
+  "id" : 41,
+  "type" : "PURPLE",
+  "level" : 3,
+  "cost" : {
+    "SERVANT" : 4,
+    "SHIELD" : 4
+  },
+  "productionInput" : {
+    "COIN" : 1
+  },
+  "productionOutput" : {
+    "STONE" : 3,
+    "SERVANT" : 1
+  },
+  "victoryPoints" : 12
+},{
+  "id" : 42,
+  "type" : "BLUE",
+  "level" : 3,
+  "cost" : {
+    "COIN" : 4,
+    "STONE" : 4
+  },
+  "productionInput" : {
+    "SERVANT" : 1
+  },
+  "productionOutput" : {
+    "COIN" : 1,
+    "SHIELD" : 3
+  },
+  "victoryPoints" : 12
+},{
+  "id" : 43,
+  "type" : "YELLOW",
+  "level" : 3,
+  "cost" : {
+    "STONE" : 4,
+    "SERVANT" : 4
+  },
+  "productionInput" : {
+    "SHIELD" : 1
+  },
+  "productionOutput" : {
+    "STONE" : 1,
+    "SERVANT" : 3
+  },
+  "victoryPoints" : 12
+},{
+  "id" : 44,
+  "type" : "GREEN",
+  "level" : 1,
+  "cost" : {
+    "SHIELD" : 1,
+    "SERVANT" : 1,
+    "STONE" : 1
+  },
+  "productionInput" : {
+    "STONE" : 1
+  },
+  "productionOutput" : {
+    "SERVANT" : 1
+  },
+  "victoryPoints" : 2
+},{
+  "id" : 45,
+  "type" : "PURPLE",
+  "level" : 1,
+  "cost" : {
+    "SHIELD" : 1,
+    "SERVANT" : 1,
+    "COIN" : 1
+  },
+  "productionInput" : {
+    "COIN" : 1
+  },
+  "productionOutput" : {
+    "SHIELD" : 1
+  },
+  "victoryPoints" : 2
+},{
+  "id" : 46,
+  "type" : "BLUE",
+  "level" : 1,
+  "cost" : {
+    "COIN" : 1,
+    "SERVANT" : 1,
+    "STONE" : 1
+  },
+  "productionInput" : {
+    "SERVANT" : 1
+  },
+  "productionOutput" : {
+    "STONE" : 1
+  },
+  "victoryPoints" : 2
+},{
+  "id" : 47,
+  "type" : "YELLOW",
+  "level" : 1,
+  "cost" : {
+    "SHIELD" : 1,
+    "STONE" : 1,
+    "COIN" : 1
+  },
+  "productionInput" : {
+    "SHIELD" : 1
+  },
+  "productionOutput" : {
+    "COIN" : 1
+  },
+  "victoryPoints" : 2
+},{
+  "id" : 48,
+  "type" : "GREEN",
+  "level" : 1,
+  "cost" : {
+    "SHIELD" : 3
+  },
+  "productionInput" : {
+    "SERVANT" : 2
+  },
+  "productionOutput" : {
+    "COIN" : 1,
+    "SHIELD" : 1,
+    "STONE" : 1
+  },
+  "victoryPoints" : 3
+}]

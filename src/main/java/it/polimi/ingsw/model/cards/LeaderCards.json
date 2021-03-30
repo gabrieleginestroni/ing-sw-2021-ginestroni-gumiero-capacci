@@ -1,0 +1,205 @@
+[{
+  "id" : 1,
+  "requirements" : {
+    "yellow" : {
+      "level" : 0,
+      "number" : 1
+    },
+    "green" : {
+      "level" : 0,
+      "number" : 1
+    }
+  },
+  "power" : "discount",
+  "resource" : "SERVANT",
+  "victoryPoints" : 2
+},{
+  "id" : 2,
+  "requirements" : {
+    "blu" : {
+      "level" : 0,
+      "number" : 1
+    },
+    "purple" : {
+      "level" : 0,
+      "number" : 1
+    }
+  },
+  "power" : "discount",
+  "resource" : "SHIELD",
+  "victoryPoints" : 2
+},{
+  "id" : 3,
+  "requirements" : {
+    "green" : {
+      "level" : 0,
+      "number" : 1
+    },
+    "blu" : {
+      "level" : 0,
+      "number" : 1
+    }
+  },
+  "power" : "discount",
+  "resource" : "SHIELD",
+  "victoryPoints" : 2
+},{
+  "id" : 4,
+  "requirements" : {
+    "yellow" : {
+      "level" : 0,
+      "number" : 1
+    },
+    "purple" : {
+      "level" : 0,
+      "number" : 1
+    }
+  },
+  "power" : "discount",
+  "resource" : "COIN",
+  "victoryPoints" : 2
+},{
+  "id" : 5,
+  "requirements" : {
+    "coin" : {
+      "number" : 5
+    }
+  },
+  "power" : "depots",
+  "resource" : "STONE",
+  "victoryPoints" : 3
+},{
+  "id" : 6,
+  "requirements" : {
+    "stone" : {
+      "number" : 5
+    }
+  },
+  "power" : "depots",
+  "resource" : "SERVANT",
+  "victoryPoints" : 3
+},{
+  "id" : 7,
+  "requirements" : {
+    "servant" : {
+      "number" : 5
+    }
+  },
+  "power" : "depots",
+  "resource" : "SHIELD",
+  "victoryPoints" : 3
+},{
+  "id" : 8,
+  "requirements" : {
+    "shield" : {
+      "number" : 5
+    }
+  },
+  "power" : "depots",
+  "resource" : "COIN",
+  "victoryPoints" : 3
+},{
+  "id" : 9,
+  "requirements" : {
+    "gold" : {
+      "level" : 0,
+      "number" : 2
+    },
+    "blu" : {
+      "level" : 0,
+      "number" : 1
+    }
+  },
+  "power" : "whiteMarble",
+  "resource" : "SERVANT",
+  "victoryPoints" : 5
+},{
+  "id" : 10,
+  "requirements" : {
+    "green" : {
+      "level" : 0,
+      "number" : 2
+    },
+    "purple" : {
+      "level" : 0,
+      "number" : 1
+    }
+  },
+  "power" : "whiteMarble",
+  "resource" : "SHIELD",
+  "victoryPoints" : 5
+},{
+  "id" : 11,
+  "requirements" : {
+    "blu" : {
+      "level" : 0,
+      "number" : 2
+    },
+    "yellow" : {
+      "level" : 0,
+      "number" : 1
+    }
+  },
+  "power" : "whiteMarble",
+  "resource" : "STONE",
+  "victoryPoints" : 5
+},{
+  "id" : 12,
+  "requirements" : {
+    "purple" : {
+      "level" : 0,
+      "number" : 2
+    },
+    "green" : {
+      "level" : 0,
+      "number" : 1
+    }
+  },
+  "power" : "whiteMarble",
+  "resource" : "COIN",
+  "victoryPoints" : 5
+},{
+  "id" : 13,
+  "requirements" : {
+    "gold" : {
+      "level" : 2,
+      "number" : 1
+    }
+  },
+  "power" : "production",
+  "resource" : "SHIELD",
+  "victoryPoints" : 4
+},{
+  "id" : 14,
+  "requirements" : {
+    "blu" : {
+      "level" : 2,
+      "number" : 1
+    }
+  },
+  "power" : "production",
+  "resource" : "SERVANT",
+  "victoryPoints" : 4
+},{
+  "id" : 15,
+  "requirements" : {
+    "purple" : {
+      "level" : 2,
+      "number" : 1
+    }
+  },
+  "power" : "production",
+  "resource" : "STONE",
+  "victoryPoints" : 4
+},{
+  "id" : 16,
+  "requirements" : {
+    "green" : {
+      "level" : 2,
+      "number" : 1
+    }
+  },
+  "power" : "production",
+  "resource" : "COIN",
+  "victoryPoints" : 4
+}]
