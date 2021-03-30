@@ -7,7 +7,6 @@ import java.util.Map;
  * Class of leader card, used to gain special power during the game
  */
 public class LeaderCard extends Card{
-    private int id;
     private Map<String, Map<String, Integer>> requirements;
     private Power powerType;
     private String power;
@@ -23,8 +22,7 @@ public class LeaderCard extends Card{
 
     @Override
     public String toString() {
-        return "LeaderCards{" +
-                "id=" + id +
+        return "LeaderCards{"+
                 ", requirements=" + requirements +
                 ", powerType=" + powerType +
                 ", power='" + power +
