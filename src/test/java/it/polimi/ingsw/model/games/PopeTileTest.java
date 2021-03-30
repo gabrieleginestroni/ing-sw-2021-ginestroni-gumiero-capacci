@@ -1,6 +1,5 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.games;
 
-import org.junit.After;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -29,4 +28,5 @@ public class PopeTileTest {
 
         assertTrue(pt.isActive());
     }
+
 }
