@@ -13,11 +13,18 @@ public class LeaderCard extends Card{
     private Resource resource;
     private boolean active;
 
+    /**
+     * Creates the strategy power of the card
+     */
     public void createPower(){
         if(this.power.equals("production"))
             this.powerType = new ProductionPowerStrategy();
-        else
-            this.powerType = new ProductionPowerStrategy();
+        else if(this.power.equals("discount"))
+            this.powerType = new DiscountPowerStrategy();
+        else if(this.power.equals("whiteMarble"))
+            this.powerType = new WhiteMarblePowerStrategy();
+        else if(this.power.equals("depots"))
+            this.powerType = new StoragePowerStrategy();
     }
 
     @Override

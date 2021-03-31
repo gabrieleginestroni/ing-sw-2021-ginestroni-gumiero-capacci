@@ -15,6 +15,9 @@ public class DevelopmentCard extends Card{
     private Map<Resource, Integer> productionOutput;
     private int cardslot;
 
+    /**
+     * @return Map<Resource, Integer> Map of resources that can be produced by the card
+     */
     public Map<Resource, Integer> produce() {
         return productionOutput;
     }

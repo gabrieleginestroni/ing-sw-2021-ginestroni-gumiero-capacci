@@ -6,7 +6,7 @@ package it.polimi.ingsw.model.cards;
 public interface Power {
 
     /*
-    public void activatePower(Player p, Resouce res){
+    public void activatePower(Player p, Resource res){
 
     }
     */
