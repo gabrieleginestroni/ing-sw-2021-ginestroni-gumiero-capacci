@@ -77,5 +77,22 @@ public abstract class Depot {
         }
     }
 
+    /**
+     *  Depot's resource quantity getter
+     * @return storageQuantity
+     */
+    int getResourceQuantity(){
+        return this.storageQuantity;
+    }
+
+    /**
+     * Depot's resource type getter
+     * @return resourceType
+     */
+    Resource getResourceType(){
+        return this.resourceType;
+    }
+
+
 
 }
