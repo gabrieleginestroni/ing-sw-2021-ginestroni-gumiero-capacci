@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.games;
 
+import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Resource;
+import it.polimi.ingsw.model.board.Player;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 
@@ -17,7 +19,7 @@ public abstract class Game {
     Date gameDate;
     PopeTile[] popeTiles;
     LeaderCard[] leaderCards;
-    DevelopmentCard[] developmentCards;
+    DevelopmentCard[] devCards;
     DevelopmentCardGrid devCardsGrid;
     boolean gameOver;
 
@@ -25,22 +27,15 @@ public abstract class Game {
 
     //public abstract void giveProductionResource(Player p);
 
-    public void discard2Cards(Resource res){
-
+    public void discard2Cards(Color color){
+        this.devCardsGrid.discard2Cards(color);
     }
 
     //public abstract void buyCard(int column, int row, Player p);
 
     public void gameIsOver(){
+
         this.gameOver = true;
-    }
 
-    @Override
-    public String toString() {
-        return "Game{" +
-                "leaderCards=" + Arrays.toString(leaderCards) +
-                ", developmentCards=" + Arrays.toString(developmentCards) +
-                '}';
     }
-
 }

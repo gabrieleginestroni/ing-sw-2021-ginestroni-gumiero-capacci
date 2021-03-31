@@ -27,7 +27,7 @@ public class MultiplayerGame extends Game{
             }
             //Lettura DevelopmentCards
             reader = Files.newBufferedReader(Paths.get("src/main/java/it/polimi/ingsw/model/cards/DevelopmentCards.json"));
-            this.developmentCards = gson.fromJson(reader, DevelopmentCard[].class);
+            this.devCards = gson.fromJson(reader, DevelopmentCard[].class);
             reader.close();
         }catch(Exception e) {
             e.printStackTrace();
