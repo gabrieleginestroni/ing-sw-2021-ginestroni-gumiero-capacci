@@ -23,8 +23,8 @@ public class Market {
 
         Gson gson = new Gson();
         try {
-            //Lettura LeaderCards
-            Reader reader = Files.newBufferedReader(Paths.get("src/main/java/it/polimi/ingsw/model/games/Marbles.json"));
+            //Lettura Marbles
+            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/Marbles.json"));
             Marble[] marbles = gson.fromJson(reader, Marble[].class);
             ArrayList<Marble>  tmpArr = new ArrayList<>(Arrays.asList(marbles));
             for (int i = 0; i < marbles.length-1; i++) {

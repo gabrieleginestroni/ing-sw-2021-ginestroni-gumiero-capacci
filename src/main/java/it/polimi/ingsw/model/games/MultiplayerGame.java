@@ -20,13 +20,13 @@ public class MultiplayerGame extends Game{
         Gson gson = new Gson();
         try{
             //Lettura LeaderCards
-            Reader reader = Files.newBufferedReader(Paths.get("src/main/java/it/polimi/ingsw/model/cards/LeaderCards.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
             this.leaderCards = gson.fromJson(reader, LeaderCard[].class);
             for(int i = 0; i < leaderCards.length; i++){
                 leaderCards[i].createPower();
             }
             //Lettura DevelopmentCards
-            reader = Files.newBufferedReader(Paths.get("src/main/java/it/polimi/ingsw/model/cards/DevelopmentCards.json"));
+            reader = Files.newBufferedReader(Paths.get("src/main/resources/DevelopmentCards.json"));
             this.devCards = gson.fromJson(reader, DevelopmentCard[].class);
             reader.close();
         }catch(Exception e) {
