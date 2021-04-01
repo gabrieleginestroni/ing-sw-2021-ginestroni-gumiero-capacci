@@ -15,15 +15,15 @@ public class PopeTile {
     }
 
     /**
-     * Getter
-     * @return Victory Points
+     * Victory Points getter.
+     * @return vVictory Points
      */
     public int getVictoryPoints() {
         return victoryPoints;
     }
 
     /**
-     * Getter
+     * Activation state getter.
      * @return active
      */
     public boolean isActive() {
@@ -31,7 +31,7 @@ public class PopeTile {
     }
 
     /**
-     * Active setter
+     * Sets activation state to "TRUE".
      */
     public void setActive(){
         active = true;

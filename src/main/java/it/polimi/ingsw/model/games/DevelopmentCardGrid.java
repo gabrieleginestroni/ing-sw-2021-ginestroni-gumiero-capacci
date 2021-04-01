@@ -3,9 +3,7 @@ package it.polimi.ingsw.model.games;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class DevelopmentCardGrid {
 
-    private List<DevelopmentCard>[][] grid;
+    private GridSlot[][] grid;
     private Map<Color, Integer> remainingCards;
 
     /**
@@ -30,16 +28,18 @@ public class DevelopmentCardGrid {
         remainingCards.put(Color.YELLOW, 0);
         remainingCards.put(Color.PURPLE, 0);
 
-        //grid = new ArrayList<DevelopmentCard>[3][Color.values().length]; PROBLEMAAAA!!!
+        grid = new GridSlot[3][4];
+        for(int i = 0; i < 3; i++)
+            for(int j = 0; j < 4; j++)
+                grid[i][j] = new GridSlot();
 
         int[] shuffle_array = new int[devCards.length];
-        int max = devCards.length-1;
         int randomNumber;
         int temp;
 
         for(int i = 0; i < devCards.length; i++)
             shuffle_array[i] = i;
-        for( ; max >= 0 ; max--){
+        for(int max = devCards.length - 1; max > 0 ; max--){
             randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
             temp = shuffle_array[randomNumber];
             shuffle_array[randomNumber] = shuffle_array[max];
@@ -68,12 +68,12 @@ public class DevelopmentCardGrid {
         if (grid[row][col].isEmpty())
             throw new emptyDevCardGridSlotSelected();
         else {
-            DevelopmentCard tempCard = grid[row][col].get(grid[row][col].size() - 1);
+            DevelopmentCard tempCard = grid[row][col].get();
             Color tempColor = tempCard.getType();
             int prevQuantity = remainingCards.get(tempColor);
             int newQuantity = prevQuantity - 1;
 
-            grid[row][col].remove(tempCard);
+            grid[row][col].remove();
 
             remainingCards.replace(tempColor, newQuantity);
 
@@ -83,7 +83,7 @@ public class DevelopmentCardGrid {
     }
 
     /**
-     * This method is used only in the solo game to apply the effect of the action Tokens that discard 2 Development Card of a certain color from the grid.
+     * This method is used only in the solo version of the game to apply the effect of the Action Tokens that discard 2 Development Card of a certain color from the grid.
      * @param color The color of the cards to discard.
      * @throws gameEndsException Thrown when the elimination of the requested type of cards leads to the end of the game.
      */
@@ -91,8 +91,18 @@ public class DevelopmentCardGrid {
         int cardQuantity = remainingCards.get(color);
 
         if (cardQuantity > 2){
-            //int lastLevel = cardQuantity%(Color.values().length);RIPRENDERE DA QUI
+            int newQuantity = cardQuantity - 2;
 
+            int lastOccupiedLevel = (12 - cardQuantity)/4;
+
+            if(grid[lastOccupiedLevel][color.getColumn()].size() > 1){
+                grid[lastOccupiedLevel][color.getColumn()].remove();
+                grid[lastOccupiedLevel][color.getColumn()].remove();
+            }else{
+                grid[lastOccupiedLevel][color.getColumn()].remove();
+                grid[lastOccupiedLevel + 1][color.getColumn()].remove();
+            }
+            remainingCards.replace(color, newQuantity);
         }else{
             grid[2][color.getColumn()].clear();
             remainingCards.replace(color, 0);
