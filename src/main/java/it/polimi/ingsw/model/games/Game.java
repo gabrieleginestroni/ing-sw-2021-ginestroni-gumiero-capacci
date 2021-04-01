@@ -28,7 +28,7 @@ public abstract class Game {
     //public abstract void giveProductionResource(Player p);
 
     public void discard2Cards(Color color){
-        this.devCardsGrid.discard2Cards(color);
+        //this.devCardsGrid.discard2Cards(color); GESTIRE L'ECCEZIONE!
     }
 
     //public abstract void buyCard(int column, int row, Player p);

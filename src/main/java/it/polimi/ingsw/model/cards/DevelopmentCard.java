@@ -22,6 +22,14 @@ public class DevelopmentCard extends Card{
         return productionOutput;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public Color getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
         return "DevelopmentCards{" +
