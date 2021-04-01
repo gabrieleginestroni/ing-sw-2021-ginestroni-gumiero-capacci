@@ -1,13 +1,14 @@
 package it.polimi.ingsw.model.cards;
 import it.polimi.ingsw.model.*;
-import java.util.Map;
+import java.util.List;
 
 /**
  * @author Giacomo Gumiero
  * Class of leader card, used to gain special power during the game
  */
 public class LeaderCard extends Card{
-    private Map<String, Map<String, Integer>> requirements;
+    private List<CardRequirement> cardRequirements;
+    private List<ResourceRequirement> resourceRequirements;
     private Power powerType;
     private String power;
     private Resource resource;
@@ -25,17 +26,5 @@ public class LeaderCard extends Card{
             this.powerType = new WhiteMarblePowerStrategy();
         else if(this.power.equals("depots"))
             this.powerType = new StoragePowerStrategy();
-    }
-
-    @Override
-    public String toString() {
-        return "LeaderCards{"+
-                ", requirements=" + requirements +
-                ", powerType=" + powerType +
-                ", power='" + power +
-                ", resource=" + resource +
-                ", active=" + active +
-                super.toString() +
-                '}';
     }
 }

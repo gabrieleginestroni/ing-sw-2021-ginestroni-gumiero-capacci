@@ -1,205 +1,35 @@
 [{
 	"id" : 1,
-	"requirements" : {
-		"YELLOW" : {
-			"level" : 0,
-			"number" : 1
-		},
-		"GREEN" : {
-			"level" : 0,
-			"number" : 1
-		}
-	},
+	"cardRequirements" : [{
+		"color" : "YELLOW",
+		"level" : 0,
+		"quantity" : 1
+	},{
+		"color" : "GREEN",
+		"level" : 0,
+		"quantity" : 1
+	}
+	],
 	"power" : "discount",
 	"resource" : "SERVANT",
-	"victoryPoints" : 2
-},{
-	"id" : 2,
-	"requirements" : {
-		"BLUE" : {
-			"level" : 0,
-			"number" : 1
-		},
-		"PURPLE" : {
-			"level" : 0,
-			"number" : 1
-		}
-	},
-	"power" : "discount",
-	"resource" : "SHIELD",
-	"victoryPoints" : 2
-},{
-	"id" : 3,
-	"requirements" : {
-		"GREEN" : {
-			"level" : 0,
-			"number" : 1
-		},
-		"BLUE" : {
-			"level" : 0,
-			"number" : 1
-		}
-	},
-	"power" : "discount",
-	"resource" : "SHIELD",
-	"victoryPoints" : 2
-},{
-	"id" : 4,
-	"requirements" : {
-		"YELLOW" : {
-			"level" : 0,
-			"number" : 1
-		},
-		"PURPLE" : {
-			"level" : 0,
-			"number" : 1
-		}
-	},
-	"power" : "discount",
-	"resource" : "COIN",
 	"victoryPoints" : 2
 },{
 	"id" : 5,
-	"requirements" : {
-		"COIN" : {
-			"number" : 5
-		}
-	},
+	"resourceRequirements" : [{
+		"resource" : "COIN",
+		"quantity" : 5
+	}],
 	"power" : "depots",
 	"resource" : "STONE",
 	"victoryPoints" : 3
-},{
-	"id" : 6,
-	"requirements" : {
-		"STONE" : {
-			"number" : 5
-		}
-	},
-	"power" : "depots",
-	"resource" : "SERVANT",
-	"victoryPoints" : 3
-},{
-	"id" : 7,
-	"requirements" : {
-		"SERVANT" : {
-			"number" : 5
-		}
-	},
-	"power" : "depots",
-	"resource" : "SHIELD",
-	"victoryPoints" : 3
-},{
-	"id" : 8,
-	"requirements" : {
-		"SHIELD" : {
-			"number" : 5
-		}
-	},
-	"power" : "depots",
-	"resource" : "COIN",
-	"victoryPoints" : 3
-},{
-	"id" : 9,
-	"requirements" : {
-		"YELLOW" : {
-			"level" : 0,
-			"number" : 2
-		},
-		"BLUE" : {
-			"level" : 0,
-			"number" : 1
-		}
-	},
-	"power" : "whiteMarble",
-	"resource" : "SERVANT",
-	"victoryPoints" : 5
-},{
-	"id" : 10,
-	"requirements" : {
-		"GREEN" : {
-			"level" : 0,
-			"number" : 2
-		},
-		"PURPLE" : {
-			"level" : 0,
-			"number" : 1
-		}
-	},
-	"power" : "whiteMarble",
-	"resource" : "SHIELD",
-	"victoryPoints" : 5
-},{
-	"id" : 11,
-	"requirements" : {
-		"BLUE" : {
-			"level" : 0,
-			"number" : 2
-		},
-		"YELLOW" : {
-			"level" : 0,
-			"number" : 1
-		}
-	},
-	"power" : "whiteMarble",
-	"resource" : "STONE",
-	"victoryPoints" : 5
-},{
-	"id" : 12,
-	"requirements" : {
-		"PURPLE" : {
-			"level" : 0,
-			"number" : 2
-		},
-		"GREEN" : {
-			"level" : 0,
-			"number" : 1
-		}
-	},
-	"power" : "whiteMarble",
-	"resource" : "COIN",
-	"victoryPoints" : 5
 },{
 	"id" : 13,
-	"requirements" : {
-		"YELLOW" : {
-			"level" : 2,
-			"number" : 1
-		}
-	},
+	"cardRequirements" : [{
+		"color" : "YELLOW",
+		"level" : 2,
+		"quantity" : 1
+	}],
 	"power" : "production",
 	"resource" : "SHIELD",
-	"victoryPoints" : 4
-},{
-	"id" : 14,
-	"requirements" : {
-		"BLUE" : {
-			"level" : 2,
-			"number" : 1
-		}
-	},
-	"power" : "production",
-	"resource" : "SERVANT",
-	"victoryPoints" : 4
-},{
-	"id" : 15,
-	"requirements" : {
-		"PURPLE" : {
-			"level" : 2,
-			"number" : 1
-		}
-	},
-	"power" : "production",
-	"resource" : "STONE",
-	"victoryPoints" : 4
-},{
-	"id" : 16,
-	"requirements" : {
-		"GREEN" : {
-			"level" : 2,
-			"number" : 1
-		}
-	},
-	"power" : "production",
-	"resource" : "COIN",
 	"victoryPoints" : 4
 }]
