@@ -21,6 +21,7 @@ public class StrongBox {
     public int getResource(Resource res){
         return resources.getOrDefault(res,0);
     }
+
     public void removeResource(Resource res,int quantity) throws invalidStrongBoxRemoveException {
         int newQuantity;
         newQuantity = resources.getOrDefault(res,0) - quantity;

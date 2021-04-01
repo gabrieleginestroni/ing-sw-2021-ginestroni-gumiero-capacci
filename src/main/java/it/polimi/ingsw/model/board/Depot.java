@@ -23,7 +23,7 @@ public abstract class Depot {
     public void addResource(Resource resource, int quantity) throws addResourceLimitExceededException,invalidResourceTypeException {
         int newQuantity;
 
-        invalidResourceCheck(resource);
+
         wrongResourceCheck(resource);
 
         newQuantity= this.storageQuantity + quantity;
@@ -45,7 +45,7 @@ public abstract class Depot {
     public void removeResource(Resource resource,int quantity) throws removeResourceLimitExceededException,invalidResourceTypeException{
         int newQuantity;
 
-        invalidResourceCheck(resource);
+
         wrongResourceCheck(resource);
 
         newQuantity= this.storageQuantity - quantity;
@@ -55,16 +55,7 @@ public abstract class Depot {
         this.storageQuantity = newQuantity;
     }
 
-    /**
-     * Checks if the resource type is allowed to be stored in a depot
-     * @param resource resource type to check
-     * @throws invalidResourceTypeException thrown if the resource type is illegal
-     */
-     void invalidResourceCheck(Resource resource) throws invalidResourceTypeException {
-         if( resource == Resource.FAITH || resource == Resource.WHITE){
-             throw new invalidResourceTypeException();
-         }
-    }
+
 
     /**
      * Checks if the resource type matches the one of the depot
@@ -76,6 +67,23 @@ public abstract class Depot {
             throw new invalidResourceTypeException();
         }
     }
+    /**
+     * Sets the depot's storage resource type if it's empty
+     * @param resourceType resource type to set
+     * @throws invalidDepotTypeChangeException thrown if the depot isn't empty
+     *
+     */
+    public void setResourceType(Resource resourceType) throws invalidDepotTypeChangeException {
+
+
+
+        if(this.storageQuantity != 0){
+            throw new invalidDepotTypeChangeException();
+        }
+        this.resourceType = resourceType;
+
+    }
+
 
     /**
      *  Depot's resource quantity getter

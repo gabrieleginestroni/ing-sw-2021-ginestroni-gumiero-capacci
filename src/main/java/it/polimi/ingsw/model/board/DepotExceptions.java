@@ -7,7 +7,9 @@ class invalidResourceTypeException extends Exception{}
 
 class removeResourceLimitExceededException extends Exception{}
 
-class invalidWarehouseDepotTypeChangeException extends Exception{}
+class invalidDepotTypeChangeException extends Exception{}
+
+class invalidStrongBoxRemoveException extends Exception{}
 
 
 
