@@ -11,7 +11,10 @@ public class CardSlot {
         this.devCards = new ArrayList<>();
     }
 
-    public void addCard(DevelopmentCard card) throws developmentCardSlotLimitExceededException,invalidDevelopmentCardLevelPlacementException {
+    public void addCard(DevelopmentCard card) throws developmentCardSlotLimitExceededException,
+            invalidDevelopmentCardLevelPlacementException {
+
+
         if(devCards.size()==3){
             throw new developmentCardSlotLimitExceededException();
         }
