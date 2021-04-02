@@ -11,5 +11,7 @@ class invalidDepotTypeChangeException extends Exception{}
 
 class invalidStrongBoxRemoveException extends Exception{}
 
+class invalidSwapException extends Exception{}
 
+class duplicatedWarehouseTypeException extends Exception{}
 
