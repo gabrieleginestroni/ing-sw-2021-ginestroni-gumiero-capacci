@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.games;
 
 import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 
 import java.util.HashMap;
@@ -14,8 +13,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class DevelopmentCardGrid {
 
-    private GridSlot[][] grid;
-    private Map<Color, Integer> remainingCards;
+    private final GridSlot[][] grid;
+    private final Map<Color, Integer> remainingCards;
 
     /**
      * This constructor requires an array of all Development Cards because it initializes randomly the grid with all of them.
@@ -63,9 +62,8 @@ public class DevelopmentCardGrid {
      * @param row The row (which represents also the level of the cards that contains) which the selected slot belongs to.
      * @param col The column (which represents also the color of the cards that contains) which the selected slot belongs to.
      * @throws emptyDevCardGridSlotSelected Thrown when the selected slot is already empty.
-     * @throws gameEndsException Thrown when the removal of the card leads to the end of the game.
      */
-    public void removeCard(int row, int col) throws emptyDevCardGridSlotSelected, gameEndsException{
+    public void removeCard(int row, int col) throws emptyDevCardGridSlotSelected{
         if (grid[row][col].isEmpty())
             throw new emptyDevCardGridSlotSelected();
         else {
@@ -78,17 +76,14 @@ public class DevelopmentCardGrid {
 
             remainingCards.replace(tempColor, newQuantity);
 
-            if (newQuantity == 0)
-                throw new gameEndsException();
         }
     }
 
     /**
      * This method is used only in the solo version of the game to apply the effect of the Action Tokens that discard 2 Development Card of a certain color from the grid.
      * @param color The color of the cards to discard.
-     * @throws gameEndsException Thrown when the elimination of the requested type of cards leads to the end of the game.
      */
-    public void discard2Cards(Color color) throws gameEndsException{
+    public void discard2Cards(Color color){
         int cardQuantity = remainingCards.get(color);
 
         if (cardQuantity > 2){
@@ -107,7 +102,6 @@ public class DevelopmentCardGrid {
         }else{
             grid[2][color.getColumn()].clear();
             remainingCards.replace(color, 0);
-            throw new gameEndsException();
         }
     }
 
