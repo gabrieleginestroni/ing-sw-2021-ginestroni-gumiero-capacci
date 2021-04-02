@@ -29,4 +29,8 @@ public class CardSlot {
         this.devCards.add(0,card);
 
     }
+
+    public DevelopmentCard getTopCard(){
+        return this.devCards.get(0);
+    }
 }
