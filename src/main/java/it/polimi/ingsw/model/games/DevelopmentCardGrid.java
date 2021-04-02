@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.games;
 
 import it.polimi.ingsw.model.Color;
+import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 
 import java.util.HashMap;
@@ -51,7 +52,7 @@ public class DevelopmentCardGrid {
             int prevQuantity = remainingCards.get(tempColor);
             int newQuantity = prevQuantity + 1;
 
-            grid[devCards[shuffle_array[i]].getType().getColumn()][devCards[shuffle_array[i]].getLevel()-1].add(devCards[shuffle_array[i]]);
+            grid[devCards[shuffle_array[i]].getLevel()-1][devCards[shuffle_array[i]].getType().getColumn()].add(devCards[shuffle_array[i]]);
 
             remainingCards.replace(tempColor, newQuantity);
         }
@@ -108,5 +109,15 @@ public class DevelopmentCardGrid {
             remainingCards.replace(color, 0);
             throw new gameEndsException();
         }
+    }
+
+    /**
+     * Method that returns the last card inside the slot placed at the specified coordinates.
+     * @param row The row of the slot.
+     * @param col The column of the slot.
+     * @return The last card of the slot.
+     */
+    public DevelopmentCard getCard(int row, int col){
+        return grid[row][col].get();
     }
 }

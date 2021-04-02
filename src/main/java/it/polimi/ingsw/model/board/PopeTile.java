@@ -1,8 +1,8 @@
-package it.polimi.ingsw.model.games;
+package it.polimi.ingsw.model.board;
 
 /**
  * @author Tommaso Capacci
- * Class that represents the Pope tile, with its activation state and Victory Points
+ * Class that represents a Pope Tile, with its activation state and Victory Points
  */
 public class PopeTile {
 
