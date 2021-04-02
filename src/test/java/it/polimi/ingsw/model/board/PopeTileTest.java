@@ -1,6 +1,5 @@
-package it.polimi.ingsw.model.games;
+package it.polimi.ingsw.model.board;
 
-import it.polimi.ingsw.model.board.PopeTile;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
