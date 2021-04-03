@@ -46,15 +46,9 @@ public class FaithTrack {
         vaticanReport[index] = true;
     }
 
-    public void vaticanReportCheck(int index){
+    public void computeActivationPopeTiles(int index){
         if(this.faithMarker>=this.sections[index].getFirstTileNumber()){
             this.sections[index].activatePopeTile();
         }
     }
-
-
-
-
-
-
 }
