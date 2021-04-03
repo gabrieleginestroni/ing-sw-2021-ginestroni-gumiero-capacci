@@ -9,22 +9,37 @@ import java.util.List;
 public class LeaderCard extends Card{
     private List<CardRequirement> cardRequirements;
     private List<ResourceRequirement> resourceRequirements;
-    private Power powerType;
     private String power;
     private Resource resource;
     private boolean active;
 
     /**
-     * Creates the strategy power of the card
+     * Activates the card, implementing the strategy power
      */
-    public void createPower(){
-        if(this.power.equals("production"))
-            this.powerType = new ProductionPowerStrategy();
-        else if(this.power.equals("discount"))
-            this.powerType = new DiscountPowerStrategy();
-        else if(this.power.equals("whiteMarble"))
-            this.powerType = new WhiteMarblePowerStrategy();
-        else if(this.power.equals("depots"))
-            this.powerType = new StoragePowerStrategy();
+    public void activateCard(){
+        Power powerType;
+        switch (this.power) {
+            case "production":
+                powerType = new ProductionPowerStrategy();
+                break;
+            case "discount":
+                powerType = new DiscountPowerStrategy();
+                break;
+            case "whiteMarble":
+                powerType = new WhiteMarblePowerStrategy();
+                break;
+            case "depots":
+                powerType = new StoragePowerStrategy();
+                break;
+            default:
+                powerType = new StoragePowerStrategy();
+                //throw new powerMissingException();
+        }
+        this.active = true;
+        powerType.activatePower(super.getOwner(), resource);
+    }
+
+    public void discardCard(){
+        this.setOwner(null);
     }
 }

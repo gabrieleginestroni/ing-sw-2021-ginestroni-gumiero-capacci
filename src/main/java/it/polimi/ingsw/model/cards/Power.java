@@ -1,13 +1,13 @@
 package it.polimi.ingsw.model.cards;
+
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.board.*;
+
 /**
  * @author Giacomo Gumiero
  * Interface that represents a power
  */
 public interface Power {
 
-    /*
-    public void activatePower(Player p, Resource res){
-
-    }
-    */
+    public void activatePower(Player p, Resource res);
 }

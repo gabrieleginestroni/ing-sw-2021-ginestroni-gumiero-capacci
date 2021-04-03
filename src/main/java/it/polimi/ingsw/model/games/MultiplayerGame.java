@@ -41,9 +41,6 @@ public class MultiplayerGame extends Game{
             //Lettura LeaderCards
             Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
             this.leaderCards = gson.fromJson(reader, LeaderCard[].class);
-            for (LeaderCard card : leaderCards) {
-                card.createPower();
-            }
             //Lettura DevelopmentCards
             reader = Files.newBufferedReader(Paths.get("src/main/resources/DevelopmentCards.json"));
             this.devCards = gson.fromJson(reader, DevelopmentCard[].class);
