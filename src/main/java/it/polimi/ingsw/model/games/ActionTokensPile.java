@@ -56,12 +56,10 @@ public class ActionTokensPile {
      * Method that shuffles the status of the Action Token pile.
      */
     public void shufflePile(){
-        int randomNumber;
-        int temp;
 
         for(int max = tokenPileStatus.length - 1 ; max > 0 ; max--){
-            randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
-            temp = tokenPileStatus[randomNumber];
+            int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
+            int temp = tokenPileStatus[randomNumber];
             tokenPileStatus[randomNumber] = tokenPileStatus[max];
             tokenPileStatus[max] = temp;
         }

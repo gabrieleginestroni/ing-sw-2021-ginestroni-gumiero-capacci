@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,10 +18,22 @@ public abstract class Game {
     String gameId;
     Date gameDate;
     Market market;
-    LeaderCard[] leaderCards;
+    List<LeaderCard> leaderCards;
     DevelopmentCard[] devCards;
     DevelopmentCardGrid devCardsGrid;
     boolean gameOver;
+
+
+    /**
+     * Method used in the initialization phase of the game to get 4 random Leader Cards.
+     * @return The list that contains 4 Leader Cards
+     */
+    public List<LeaderCard> get4LeaderCards(){
+        List<LeaderCard> temp = new LinkedList<>();
+        for (int i = 0; i<4; i++)
+            temp.add(leaderCards.remove(leaderCards.size() - 1));
+        return temp;
+    }
 
     /**
      * Method that propagates the request to buy a card from a certain slot of the Development Card grid.

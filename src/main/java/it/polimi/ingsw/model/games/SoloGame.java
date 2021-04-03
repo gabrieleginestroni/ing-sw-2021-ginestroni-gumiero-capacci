@@ -11,6 +11,8 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SoloGame extends Game{
     private final Lorenzo lorenzo;
@@ -31,18 +33,36 @@ public class SoloGame extends Game{
 
         market = new Market();
 
+        LeaderCard[] tempArray = null;
         Gson gson = new Gson();
         try{
+
             //Lettura LeaderCards
             Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
-            this.leaderCards = gson.fromJson(reader, LeaderCard[].class);
+            tempArray = gson.fromJson(reader, LeaderCard[].class);
+
             //Lettura DevelopmentCards
             reader = Files.newBufferedReader(Paths.get("src/main/resources/DevelopmentCards.json"));
             this.devCards = gson.fromJson(reader, DevelopmentCard[].class);
+
             reader.close();
+
         }catch(Exception e) {
             e.printStackTrace();
         }
+
+        int[] shuffleLeader = new int[tempArray.length];
+        for (int i = 0; i<shuffleLeader.length; i++)
+            shuffleLeader[i] = i;
+        for(int max = shuffleLeader.length - 1; max > 0 ; max--){
+            int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
+            int temp = shuffleLeader[randomNumber];
+            shuffleLeader[randomNumber] = shuffleLeader[max];
+            shuffleLeader[max] = temp;
+        }
+        leaderCards = new LinkedList<>();
+        for(int num : shuffleLeader)
+            leaderCards.add(tempArray[shuffleLeader[num]]);
 
         devCardsGrid = new DevelopmentCardGrid(devCards);
 

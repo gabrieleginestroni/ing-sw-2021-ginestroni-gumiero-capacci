@@ -34,14 +34,12 @@ public class DevelopmentCardGrid {
                 grid[i][j] = new GridSlot();
 
         int[] shuffle_array = new int[devCards.length];
-        int randomNumber;
-        int temp;
 
         for(int i = 0; i < devCards.length; i++)
             shuffle_array[i] = i;
         for(int max = devCards.length - 1; max > 0 ; max--){
-            randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
-            temp = shuffle_array[randomNumber];
+            int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
+            int temp = shuffle_array[randomNumber];
             shuffle_array[randomNumber] = shuffle_array[max];
             shuffle_array[max] = temp;
         }
@@ -67,12 +65,10 @@ public class DevelopmentCardGrid {
         if (grid[row][col].isEmpty())
             throw new emptyDevCardGridSlotSelected();
         else {
-            DevelopmentCard tempCard = grid[row][col].get();
+            DevelopmentCard tempCard = grid[row][col].removeLast();
             Color tempColor = tempCard.getType();
             int prevQuantity = remainingCards.get(tempColor);
             int newQuantity = prevQuantity - 1;
-
-            grid[row][col].remove();
 
             remainingCards.replace(tempColor, newQuantity);
 
@@ -92,11 +88,11 @@ public class DevelopmentCardGrid {
             int lastOccupiedLevel = (12 - cardQuantity)/4;
 
             if(grid[lastOccupiedLevel][color.getColumn()].size() > 1){
-                grid[lastOccupiedLevel][color.getColumn()].remove();
-                grid[lastOccupiedLevel][color.getColumn()].remove();
+                grid[lastOccupiedLevel][color.getColumn()].removeLast();
+                grid[lastOccupiedLevel][color.getColumn()].removeLast();
             }else{
-                grid[lastOccupiedLevel][color.getColumn()].remove();
-                grid[lastOccupiedLevel + 1][color.getColumn()].remove();
+                grid[lastOccupiedLevel][color.getColumn()].removeLast();
+                grid[lastOccupiedLevel + 1][color.getColumn()].removeLast();
             }
             remainingCards.replace(color, newQuantity);
         }else{
@@ -109,9 +105,9 @@ public class DevelopmentCardGrid {
      * Method that returns the last card inside the slot placed at the specified coordinates.
      * @param row The row of the slot.
      * @param col The column of the slot.
-     * @return The last card of the slot.
+     * @return the last card of the slot.
      */
     public DevelopmentCard getCard(int row, int col){
-        return grid[row][col].get();
+        return grid[row][col].getLast();
     }
 }

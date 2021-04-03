@@ -32,7 +32,7 @@ public class GridSlot {
      * Method that consents to get the last card of that specific slot
      * @return the last card of the slot.
      */
-    public DevelopmentCard get(){
+    public DevelopmentCard getLast(){
         return cards.get(cards.size() - 1);
     }
 
@@ -46,9 +46,10 @@ public class GridSlot {
 
     /**
      * Method that consents to remove the last of the cards contained in the slot.
+     * @return the removed card.
      */
-    public void remove(){
-        cards.remove(cards.size() - 1);
+    public DevelopmentCard removeLast(){
+        return cards.remove(cards.size() - 1);
     }
 
     /**
