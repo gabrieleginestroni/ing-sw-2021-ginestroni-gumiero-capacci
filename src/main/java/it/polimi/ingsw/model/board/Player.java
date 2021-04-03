@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.board;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
+import it.polimi.ingsw.model.cards.LeaderCard;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -60,9 +61,6 @@ public class Player {
         //
     }
 
-    public int getFaithPoints(){
-        //
-    }
 
     public void addDepotResource(Depot depot, int quantity){
         //
@@ -73,7 +71,7 @@ public class Player {
     }
 
     public int getCardNumber(int level, Color color){
-        //
+        return 0 ; //TODO
     }
 
     public void giveProductionResource(){
@@ -82,6 +80,18 @@ public class Player {
 
     public void giveDevelopmentCard(DevelopmentCard card,CardSlot cardSlot){
         //
+    }
+
+    public void giveLeaderCard(LeaderCard card){
+        this.board.addLeaderCard(card);
+    }
+
+    public void setReportedSection(int index) {
+        //
+    }
+
+    public int getFaithPoints(){
+        return this.board.getFaithPoints();
     }
 
 

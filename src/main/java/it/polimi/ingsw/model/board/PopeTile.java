@@ -11,7 +11,7 @@ public class PopeTile {
 
     public PopeTile(int victoryPoints) {
         this.victoryPoints = victoryPoints;
-        active = false;
+        this.active = false;
     }
 
     /**
