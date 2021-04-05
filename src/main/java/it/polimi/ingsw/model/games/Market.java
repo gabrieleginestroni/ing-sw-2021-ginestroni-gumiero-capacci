@@ -20,16 +20,17 @@ public class Market {
      * Pseudo-Random initialize the grid
      */
     public Market() {
-
+        this.layout = new Marble[3][4];
         Gson gson = new Gson();
         try {
-            //Lettura Marbles
+            //Reading Marbles from JSON
             Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/Marbles.json"));
             Marble[] marbles = gson.fromJson(reader, Marble[].class);
             ArrayList<Marble>  tmpArr = new ArrayList<>(Arrays.asList(marbles));
             for (int i = 0; i < marbles.length-1; i++) {
                 int randomNumber = ThreadLocalRandom.current().nextInt(0, tmpArr.size());
-                this.layout[i/3][i%3] = tmpArr.remove(randomNumber);
+                this.layout[i/4][i%4] = tmpArr.get(randomNumber);
+                tmpArr.remove(randomNumber);
             }
             this.freeMarble = tmpArr.get(0);
         }catch(Exception e) {
@@ -66,15 +67,15 @@ public class Market {
             if(gain.containsKey(layout[row][i].getResource()))
                 cur = 1 + gain.get(layout[row][i].getResource());
             else
-                cur = 0;
+                cur = 1;
            gain.put(layout[row][i].getResource(), cur);
         }
 
         //shift marbles
         tmp = this.freeMarble;
         this.freeMarble = layout[row][0];
-        for(int i = layout[row].length-1; i > 0; i--) {
-            layout[row][i-1] = layout[row][i];
+        for(int i = 0; i < layout[row].length-1; i++) {
+            layout[row][i] = layout[row][i+1];
         }
         layout[row][layout[row].length-1] = tmp;
         return gain;
@@ -100,8 +101,8 @@ public class Market {
         //shift marbles
         tmp = this.freeMarble;
         this.freeMarble = layout[0][col];
-        for(int i = layout.length-1; i > 0; i--) {
-            layout[i-1][col] = layout[i][col];
+        for(int i = 0; i < layout.length-1; i++) {
+            layout[i][col] = layout[i+1][col];
         }
         layout[layout.length-1][col] = tmp;
         return gain;
