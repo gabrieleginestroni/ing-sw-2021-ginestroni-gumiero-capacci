@@ -4,10 +4,7 @@ import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Tommaso Capacci
@@ -29,7 +26,7 @@ public abstract class Game {
      * @return The list that contains 4 Leader Cards
      */
     public List<LeaderCard> get4LeaderCards(){
-        List<LeaderCard> temp = new LinkedList<>();
+        List<LeaderCard> temp = new ArrayList<>();
         for (int i = 0; i<4; i++)
             temp.add(leaderCards.remove(leaderCards.size() - 1));
         return temp;

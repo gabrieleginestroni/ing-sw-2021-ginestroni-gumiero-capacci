@@ -43,6 +43,12 @@ public class DevelopmentCardGrid {
             shuffle_array[randomNumber] = shuffle_array[max];
             shuffle_array[max] = temp;
         }
+        for(int max = devCards.length - 1; max > 0 ; max--){
+            int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
+            int temp = shuffle_array[randomNumber];
+            shuffle_array[randomNumber] = shuffle_array[max];
+            shuffle_array[max] = temp;
+        }
 
         for(int i = 0; i < devCards.length; i++){
             Color tempColor = devCards[shuffle_array[i]].getType();

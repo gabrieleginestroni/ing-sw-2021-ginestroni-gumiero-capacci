@@ -65,7 +65,13 @@ public class MultiplayerGame extends Game{
             shuffleLeader[randomNumber] = shuffleLeader[max];
             shuffleLeader[max] = temp;
         }
-        leaderCards = new LinkedList<>();
+        for(int max = shuffleLeader.length - 1; max > 0 ; max--){
+            int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
+            int temp = shuffleLeader[randomNumber];
+            shuffleLeader[randomNumber] = shuffleLeader[max];
+            shuffleLeader[max] = temp;
+        }
+        leaderCards = new ArrayList<>();
         for(int num : shuffleLeader)
             leaderCards.add(tempArray[shuffleLeader[num]]);
 
