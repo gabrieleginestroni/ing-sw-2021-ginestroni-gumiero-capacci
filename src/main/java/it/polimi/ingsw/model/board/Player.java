@@ -114,4 +114,9 @@ public class Player {
 
     }
 
+    public void discardLeaderCard(LeaderCard card) throws vaticanReportSection3Exception,
+            vaticanReportSection2Exception, vaticanReportSection1Exception {
+        this.board.discardLeaderCard(card);
+    }
+
 }

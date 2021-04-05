@@ -96,4 +96,10 @@ public class Board {
 
     }
 
+    public void discardLeaderCard(LeaderCard card) throws vaticanReportSection1Exception,
+            vaticanReportSection3Exception, vaticanReportSection2Exception {
+        hand.remove(card);
+        giveFaithPoints(1);
+    }
+
 }
