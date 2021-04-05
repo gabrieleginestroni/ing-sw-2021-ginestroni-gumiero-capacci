@@ -8,6 +8,12 @@ public class ControllerPlayer {
     private String nickname;
     private Player player;
 
+    public ControllerPlayer(String ipAddress, int portNumber, String nickname) {
+        this.ipAddress = ipAddress;
+        this.portNumber = portNumber;
+        this.nickname = nickname;
+    }
+
     public String getNickname() {
         return nickname;
     }

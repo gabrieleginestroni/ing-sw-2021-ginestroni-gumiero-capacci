@@ -29,8 +29,7 @@ public class Market {
             ArrayList<Marble>  tmpArr = new ArrayList<>(Arrays.asList(marbles));
             for (int i = 0; i < marbles.length-1; i++) {
                 int randomNumber = ThreadLocalRandom.current().nextInt(0, tmpArr.size());
-                this.layout[i/4][i%4] = tmpArr.get(randomNumber);
-                tmpArr.remove(randomNumber);
+                this.layout[i/4][i%4] = tmpArr.remove(randomNumber);
             }
             this.freeMarble = tmpArr.get(0);
         }catch(Exception e) {

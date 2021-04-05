@@ -27,6 +27,13 @@ public class Board {
         this.hand = new ArrayList<>();
         this.faithTrack = new FaithTrack();
     }
+
+    //TODO
+    //REMOVE
+    public ArrayList<LeaderCard> getHand() {
+        return hand;
+    }
+
     public void addLeaderCard(LeaderCard card){
         this.hand.add(card);
     }
@@ -99,6 +106,7 @@ public class Board {
     public void discardLeaderCard(LeaderCard card) throws vaticanReportSection1Exception,
             vaticanReportSection3Exception, vaticanReportSection2Exception {
         hand.remove(card);
+        card.discardCard();
         giveFaithPoints(1);
     }
 

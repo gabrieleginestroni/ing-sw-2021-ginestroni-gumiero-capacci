@@ -28,10 +28,7 @@ public class LeaderCard extends Card{
             case "whiteMarble":
                 powerType = new WhiteMarblePowerStrategy();
                 break;
-            case "depots":
-                powerType = new StoragePowerStrategy();
-                break;
-            default:
+            default: //"depots"
                 powerType = new StoragePowerStrategy();
                 //throw new powerMissingException();
         }

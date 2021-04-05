@@ -18,7 +18,19 @@ public class Warehouse {
         this.leaderStorages = new ArrayList<>();
     }
 
-    public void addResource(Depot depot, Resource res,int quantity) throws invalidDepotTypeChangeException,
+    //TODO
+    //REMOVE
+    public ArrayList<LeaderDepot> getLeaderStorages() {
+        return leaderStorages;
+    }
+
+    //TODO
+    //REMOVE
+    public WarehouseDepot[] getStorages() {
+        return storages;
+    }
+
+    public void addResource(Depot depot, Resource res, int quantity) throws invalidDepotTypeChangeException,
             invalidResourceTypeException,addResourceLimitExceededException,duplicatedWarehouseTypeException{
 
         invalidResourceCheck(res);
