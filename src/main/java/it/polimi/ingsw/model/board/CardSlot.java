@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 
 import java.util.ArrayList;
@@ -33,4 +34,9 @@ public class CardSlot {
     public DevelopmentCard getTopCard(){
         return this.devCards.get(0);
     }
+
+    public int getCardNumber(int level, Color color){
+        return this.devCards.stream().filter(c->c.getLevel()>=level && c.getType() == color).mapToInt(c->1).sum();
+    }
+
 }

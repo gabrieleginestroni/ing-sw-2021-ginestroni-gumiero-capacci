@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+
 
 public class Player {
     private final String nickName;
@@ -50,36 +50,41 @@ public class Player {
     }
 
     public ArrayList<Resource> getWhiteMarbles() {
-        return new ArrayList<Resource>(whiteMarbles);
+        return new ArrayList<>(whiteMarbles);
     }
 
     public ArrayList<Resource> getDiscount() {
-        return new ArrayList<Resource>(discount);
-    }
-
-    public void giveFaithPoints(){
-        //
+        return new ArrayList<>(discount);
     }
 
 
-    public void addDepotResource(Depot depot, int quantity){
-        //
+
+
+    public void addDepotResource(Depot depot,Resource res, int quantity) throws invalidDepotTypeChangeException,
+            duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
+        this.board.addDepotResource(depot,res,quantity);
     }
 
-    public void removeDepotResource(Depot depot, int quantity){
-        //
+    public void removeDepotResource(Depot depot,Resource res, int quantity) throws invalidResourceTypeException,
+            removeResourceLimitExceededException {
+        this.board.removeDepotResource(depot,res,quantity);
+    }
+
+    public void swapDepot(WarehouseDepot depot1,WarehouseDepot depot2) throws invalidSwapException {
+        this.board.swapDepot(depot1,depot2);
     }
 
     public int getCardNumber(int level, Color color){
-        return 0 ; //TODO
+        return this.board.getCardNumber(level,color);
     }
 
     public void giveProductionResource(){
-        //
+        //TODO
     }
 
-    public void giveDevelopmentCard(DevelopmentCard card,CardSlot cardSlot){
-        //
+    public void giveDevelopmentCard(DevelopmentCard card,CardSlot cardSlot) throws developmentCardSlotLimitExceededException,
+            invalidDevelopmentCardLevelPlacementException {
+        this.board.addDevelopmentCard(card,cardSlot);
     }
 
     public void giveLeaderCard(LeaderCard card){
@@ -87,13 +92,26 @@ public class Player {
     }
 
     public void setReportedSection(int index) {
-        //
+        //TODO
     }
 
     public int getFaithPoints(){
         return this.board.getFaithPoints();
     }
 
+    public void giveFaithPoints(int steps) throws vaticanReportSection1Exception,
+            vaticanReportSection3Exception, vaticanReportSection2Exception {
+        this.board.giveFaithPoints(steps);
+    }
 
+    public void addStrongboxResource(Resource res,int quantity){
+        this.board.addStrongboxResource(res,quantity);
+
+    }
+
+    public void removeStrongboxResource(Resource res,int quantity) throws invalidStrongBoxRemoveException {
+        this.board.removeStrongboxResource(res,quantity);
+
+    }
 
 }
