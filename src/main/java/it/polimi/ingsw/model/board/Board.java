@@ -110,4 +110,8 @@ public class Board {
         giveFaithPoints(1);
     }
 
+    public CardSlot[] getCardSlot(){
+        return this.cardSlot;
+    }
+
 }
