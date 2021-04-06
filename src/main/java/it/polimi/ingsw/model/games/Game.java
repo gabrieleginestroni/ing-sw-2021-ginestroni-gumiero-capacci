@@ -33,14 +33,27 @@ public abstract class Game {
     }
 
     /**
-     * Method that propagates the request to buy a card from a certain slot of the Development Card grid.
+     * Method that propagates the request to buy the last card from a certain slot of the Development Card grid.
      * @param row The row of the grid which the slot belongs to.
      * @param col The column of the grid which the slot belongs to.
      * @return The last card of the selected slot.
+     * @throws emptyDevCardGridSlotSelected Thrown when the selected slot is already empty.
      */
-    public DevelopmentCard getCardFromGrid(int row, int col){
+    public DevelopmentCard getCardFromGrid(int row, int col) throws emptyDevCardGridSlotSelected {
 
         return devCardsGrid.getCard(row, col);
+
+    }
+
+    /**
+     * Method that propagates the request to delete the last card from a certain slot of the Development Card grid.
+     * @param row The row of the grid which the slot belongs to.
+     * @param col The column of the grid which the slot belongs to.
+     * @throws emptyDevCardGridSlotSelected Thrown when the selected slot is already empty.
+     */
+    public void removeCardFromGrid(int row, int col) throws emptyDevCardGridSlotSelected {
+
+        devCardsGrid.removeCard(row, col);
 
     }
 

@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.games.MultiplayerGame;
+import it.polimi.ingsw.model.games.emptyDevCardGridSlotSelected;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class BoardTest {
     }
 
     @Test
-    public void TestAddDevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException {
+    public void TestAddDevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, emptyDevCardGridSlotSelected {
         Board b = new Board();
         ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
         ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
@@ -200,7 +201,7 @@ public class BoardTest {
     }
 
     @Test
-    public void Test2DevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException {
+    public void Test2DevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, emptyDevCardGridSlotSelected {
         Board b = new Board();
         ControllerPlayer controllerPlayer1 = new ControllerPlayer("localhost", 8080, "giagum");
         ControllerPlayer controllerPlayer2 = new ControllerPlayer("localhost", 8080, "gabry");

@@ -108,12 +108,16 @@ public class DevelopmentCardGrid {
     }
 
     /**
-     * Method that returns the last card inside the slot placed at the specified coordinates.
+     * If the slot placed at the specified coordinates is not empty this method returns the last card inside of it.
      * @param row The row of the slot.
      * @param col The column of the slot.
-     * @return the last card of the slot.
+     * @return The last card of the slot.
+     * @throws emptyDevCardGridSlotSelected Thrown when the selected slot is already empty.
      */
-    public DevelopmentCard getCard(int row, int col){
-        return grid[row][col].getLast();
+    public DevelopmentCard getCard(int row, int col) throws emptyDevCardGridSlotSelected{
+        if(grid[row][col].isEmpty())
+            throw new emptyDevCardGridSlotSelected();
+        else
+            return grid[row][col].getLast();
     }
 }
