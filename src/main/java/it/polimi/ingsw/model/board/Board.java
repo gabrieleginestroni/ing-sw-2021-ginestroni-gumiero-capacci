@@ -152,4 +152,12 @@ public class Board {
     public Warehouse getWareHouse() {
         return wareHouse;
     }
+
+    public int computeVictoryPoints() {
+        // TODO
+        //Faith track
+        //Risorse
+        //Leader Card
+        //Development Card
+    }
 }

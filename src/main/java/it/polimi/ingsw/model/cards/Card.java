@@ -24,11 +24,5 @@ public class Card {
         return victoryPoints;
     }
 
-    @Override
-    public String toString() {
-        return "Card{" +
-                "id=" + id +
-                ", victoryPoints=" + victoryPoints +
-                '}';
-    }
+
 }

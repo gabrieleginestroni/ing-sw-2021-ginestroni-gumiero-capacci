@@ -73,7 +73,39 @@ public class BoardTest {
     }
 
     @Test
-    public void TestRemoveDepotResource() {
+    public void TestRemoveDepotResource() throws invalidDepotTypeChangeException,
+            duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException, removeResourceLimitExceededException {
+        Board b = new Board();
+        ControllerPlayer controllerPlayer1 = new ControllerPlayer("localhost", 8080, "giagum");
+        ControllerPlayer controllerPlayer2 = new ControllerPlayer("localhost", 8080, "gabry");
+        List<ControllerPlayer> controllerPlayer = new ArrayList<>();
+        controllerPlayer.add(controllerPlayer1);
+        controllerPlayer.add(controllerPlayer2);
+        MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+
+        List<LeaderCard> list = multiplayerGame.get4LeaderCards();
+        LeaderCard l = list.get(0);
+        b.addLeaderCard(l);
+        l.activateCard();
+        System.out.println(l.getPower() + " " + l.getResource());
+        switch (l.getPower()) {
+            case "depots":
+                b.addDepotResource(b.getWareHouse().getLeaderStorages().get(0), l.getResource(), 2);
+                assertEquals(2, b.getWarehouseResource(l.getResource()));
+                assertEquals(2, b.getResourceNumber(l.getResource()));
+                b.removeDepotResource(b.getWareHouse().getLeaderStorages().get(0),l.getResource(),1);
+                assertEquals(1,b.getResourceNumber(l.getResource()));
+                break;
+            case "discount":
+                assertEquals(l.getResource(), b.getDiscount().get(b.getDiscount().size()-1));
+                break;
+            case "whiteMarble":
+                assertEquals(l.getResource(), b.getWhiteMarbles().get(0));
+                break;
+            default: //"production"
+                assertTrue(l.isActive());
+
+        }
     }
 
     @Test
@@ -153,6 +185,7 @@ public class BoardTest {
                 b.addDepotResource(b.getWareHouse().getLeaderStorages().get(b.getWareHouse().getLeaderStorages().size()-1), l.getResource(), 2);
                 assertEquals(2, b.getWarehouseResource(l.getResource()));
                 assertEquals(2, b.getResourceNumber(l.getResource()));
+
                 break;
             case "discount":
                 assertEquals(l.getResource(), b.getDiscount().get(b.getDiscount().size()-1));
@@ -185,6 +218,7 @@ public class BoardTest {
 
         c = multiplayerGame.getCardFromGrid(2,0);
         b.addDevelopmentCard(c,b.getCardSlot()[0]);
+        assertEquals(c,b.getCardSlot()[0].getTopCard());
         assertEquals(1,b.getCardNumber(3, Color.GREEN));
         assertEquals(2,b.getCardNumber(1, Color.GREEN));
 
@@ -198,4 +232,6 @@ public class BoardTest {
 
 
     }
+
+
 }

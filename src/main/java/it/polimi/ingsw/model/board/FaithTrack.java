@@ -51,4 +51,9 @@ public class FaithTrack {
             this.sections[index].activatePopeTile();
         }
     }
+
+
+    public int getVictoryPoints(){
+        // TODO
+    }
 }

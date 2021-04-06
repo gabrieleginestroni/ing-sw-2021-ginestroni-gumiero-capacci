@@ -108,4 +108,8 @@ public class Warehouse {
             throw new invalidResourceTypeException();
         }
     }
+
+    public int getVictoryPoints(){
+         // TODO
+    }
 }

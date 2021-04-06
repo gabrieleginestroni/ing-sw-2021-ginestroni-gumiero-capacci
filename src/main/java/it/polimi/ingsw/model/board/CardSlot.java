@@ -39,4 +39,8 @@ public class CardSlot {
         return this.devCards.stream().filter(c->c.getLevel()>=level && c.getType() == color).mapToInt(c->1).sum();
     }
 
+    public int getVictoryPoints(){
+        // TODO
+    }
+
 }
