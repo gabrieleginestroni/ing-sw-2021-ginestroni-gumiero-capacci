@@ -39,4 +39,16 @@ public class LeaderCard extends Card{
     public void discardCard(){
         this.setOwner(null);
     }
+
+    public String getPower() {
+        return power;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
 }

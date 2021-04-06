@@ -70,6 +70,7 @@ public class Board {
 
     public void addLeaderCard(LeaderCard card){
         this.hand.add(card);
+        card.setOwner(this);
     }
 
     public void addDevelopmentCard(DevelopmentCard card, CardSlot cardSlot) throws developmentCardSlotLimitExceededException,
@@ -148,6 +149,7 @@ public class Board {
         return this.cardSlot;
     }
 
-
-
+    public Warehouse getWareHouse() {
+        return wareHouse;
+    }
 }

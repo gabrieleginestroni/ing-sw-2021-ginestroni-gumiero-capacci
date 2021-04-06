@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class WarehouseTest {
 
     @Test
-    public void testAddResourceTest() throws invalidDepotTypeChangeException,
+    public void TestAddResourceTest() throws invalidDepotTypeChangeException,
         duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
         Warehouse w = new Warehouse();
         w.addResource(w.getStorages()[0], Resource.COIN, 1);
@@ -22,7 +22,7 @@ public class WarehouseTest {
     }
 
     @Test
-    public void removeResourceTest() throws invalidResourceTypeException, removeResourceLimitExceededException,
+    public void TestRemoveResource() throws invalidResourceTypeException, removeResourceLimitExceededException,
             addResourceLimitExceededException, invalidDepotTypeChangeException, duplicatedWarehouseTypeException {
         Warehouse w = new Warehouse();
         w.addResource(w.getStorages()[0], Resource.COIN, 1);
@@ -32,7 +32,7 @@ public class WarehouseTest {
     }
 
     @Test
-    public void swapDepotTest() throws invalidDepotTypeChangeException, duplicatedWarehouseTypeException,
+    public void TestSwapDepot() throws invalidDepotTypeChangeException, duplicatedWarehouseTypeException,
             addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException {
         Warehouse w = new Warehouse();
         w.addResource(w.getStorages()[0], Resource.COIN, 1);
@@ -45,7 +45,7 @@ public class WarehouseTest {
     }
 
     @Test
-    public void getTotalWarehouseQuantityTest() throws invalidDepotTypeChangeException,
+    public void TestGetTotalWarehouseQuantity() throws invalidDepotTypeChangeException,
             duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
         Warehouse w = new Warehouse();
         w.addResource(w.getStorages()[0], Resource.COIN, 1);
@@ -60,7 +60,7 @@ public class WarehouseTest {
     }
 
     @Test
-    public void createLeaderDepotTest() throws invalidDepotTypeChangeException,
+    public void TestCreateLeaderDepot() throws invalidDepotTypeChangeException,
             duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
         Warehouse w = new Warehouse();
         w.createLeaderDepot(Resource.SERVANT);

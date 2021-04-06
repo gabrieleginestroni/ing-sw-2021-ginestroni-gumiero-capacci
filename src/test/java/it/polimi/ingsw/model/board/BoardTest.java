@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.board;
 import it.polimi.ingsw.controller.ControllerPlayer;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Resource;
-import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.games.MultiplayerGame;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class BoardTest {
 
     @Test
-    public void addLeaderCardTest() {
+    public void TestAddLeaderCard() {
         Board b = new Board();
         ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
         ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
@@ -29,7 +29,7 @@ public class BoardTest {
     }
 
     @Test
-    public void addDevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException {
+    public void TestAddDevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException {
         Board b = new Board();
         ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
         ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
@@ -42,44 +42,42 @@ public class BoardTest {
     }
 
     @Test
-    public void getWarehouseResourceTest(){
+    public void TestGetWarehouseResource(){
 
     }
 
     @Test
-    public void getStrongBoxResource() {
+    public void TestGetStrongBoxResource() {
     }
 
     @Test
-    public void addLeaderDepot() {
+    public void TestAddLeaderDepot() {
+    }
+
+
+
+    @Test
+    public void TestGetFaithPoints() {
     }
 
     @Test
-    public void setInkwell() {
+    public void TestGiveFaithPoints() {
     }
 
     @Test
-    public void getFaithPoints() {
+    public void TestGetCardNumber() {
     }
 
     @Test
-    public void giveFaithPoints() {
+    public void TestAddDepotResource() {
     }
 
     @Test
-    public void getCardNumber() {
+    public void TestRemoveDepotResource() {
     }
 
     @Test
-    public void addDepotResource() {
-    }
-
-    @Test
-    public void removeDepotResource() {
-    }
-
-    @Test
-    public void addStrongboxResourceTest() {
+    public void TestAddStrongboxResource() {
         Board b = new Board();
        b.addStrongboxResource( Resource.SERVANT, 2);
         assertEquals(2, b.getStrongBoxResource(Resource.SERVANT));
@@ -88,7 +86,7 @@ public class BoardTest {
     }
 
     @Test
-    public void removeStrongboxResource() throws invalidStrongBoxRemoveException {
+    public void TestRemoveStrongboxResource() throws invalidStrongBoxRemoveException {
         Board b = new Board();
         b.addStrongboxResource( Resource.SERVANT, 2);
         b.removeStrongboxResource( Resource.SERVANT, 2);
@@ -96,7 +94,75 @@ public class BoardTest {
     }
 
     @Test
-    public void discardLeaderCard() {
+    public void TestDiscardLeaderCard() {
     }
 
+
+    @Test
+    public void TestGetWhiteMarbles() {
+    }
+
+    @Test
+    public void TestGetResourceNumber() {
+    }
+
+    @Test
+    public void TestGetWhiteMarble() {
+    }
+
+    @Test
+    public void TestGetDiscount() {
+    }
+
+    @Test
+    public void Test() throws invalidDepotTypeChangeException, duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
+        Board b = new Board();
+        ControllerPlayer controllerPlayer1 = new ControllerPlayer("localhost", 8080, "giagum");
+        ControllerPlayer controllerPlayer2 = new ControllerPlayer("localhost", 8080, "gabry");
+        List<ControllerPlayer> controllerPlayer = new ArrayList<>();
+        controllerPlayer.add(controllerPlayer1);
+        controllerPlayer.add(controllerPlayer2);
+        MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+
+        List<LeaderCard> list = multiplayerGame.get4LeaderCards();
+        LeaderCard l = list.get(0);
+        b.addLeaderCard(l);
+        l.activateCard();
+        System.out.println(l.getPower() + " " + l.getResource());
+        switch (l.getPower()) {
+            case "depots":
+                b.addDepotResource(b.getWareHouse().getLeaderStorages().get(0), l.getResource(), 2);
+                assertEquals(2, b.getWarehouseResource(l.getResource()));
+                assertEquals(2, b.getResourceNumber(l.getResource()));
+                break;
+            case "discount":
+                assertEquals(l.getResource(), b.getDiscount().get(b.getDiscount().size()-1));
+                break;
+            case "whiteMarble":
+                assertEquals(l.getResource(), b.getWhiteMarbles().get(0));
+                break;
+            default: //"production"
+                assertTrue(l.isActive());
+        }
+        l = list.get(1);
+        b.addLeaderCard(l);
+        l.activateCard();
+        System.out.println(l.getPower() + " " + l.getResource());
+        switch (l.getPower()) {
+            case "depots":
+                b.addDepotResource(b.getWareHouse().getLeaderStorages().get(b.getWareHouse().getLeaderStorages().size()-1), l.getResource(), 2);
+                assertEquals(2, b.getWarehouseResource(l.getResource()));
+                assertEquals(2, b.getResourceNumber(l.getResource()));
+                break;
+            case "discount":
+                assertEquals(l.getResource(), b.getDiscount().get(b.getDiscount().size()-1));
+                break;
+            case "whiteMarble":
+                assertEquals(l.getResource(), b.getWhiteMarbles().get(b.getWhiteMarbles().size()-1));
+                break;
+            default: //"production"
+                assertTrue(l.isActive());
+
+        }
+    }
 }

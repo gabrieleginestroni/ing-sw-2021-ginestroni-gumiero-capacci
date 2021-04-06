@@ -22,6 +22,8 @@ public class DevelopmentCard extends Card{
         return productionOutput;
     }
 
+    public Map<Resource, Integer> getProductionInput() { return productionInput; }
+
     public int getLevel() {
         return level;
     }
@@ -30,16 +32,5 @@ public class DevelopmentCard extends Card{
         return type;
     }
 
-    @Override
-    public String toString() {
-        return "DevelopmentCards{" +
-                "level=" + level +
-                ", type=" + type +
-                ", cost=" + cost +
-                ", productionInput=" + productionInput +
-                ", productionOutput=" + productionOutput +
-                ", cardslot=" + cardslot +
-                super.toString() +
-                '}';
-    }
+
 }
