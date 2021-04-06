@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.games;
 import com.google.gson.Gson;
 import it.polimi.ingsw.controller.ControllerPlayer;
 import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.board.Player;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 
@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SoloGame extends Game{
     private final Lorenzo lorenzo;
-    private final Player player;
+    private final Board board;
     private final ActionTokensPile actionTokensPile;
 
     public SoloGame(ControllerPlayer controllerPlayer){
@@ -24,7 +24,7 @@ public class SoloGame extends Game{
         lorenzo = new Lorenzo();
 
         controllerPlayer.buildPlayer();
-        player = controllerPlayer.getPlayer();
+        board = controllerPlayer.getPlayer();
 
         actionTokensPile = new ActionTokensPile();
 

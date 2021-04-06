@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.model.Resource;
-import it.polimi.ingsw.model.board.Player;
+import it.polimi.ingsw.model.board.Board;
 
 /**
  * @author Giacomo Gumiero
@@ -13,6 +13,6 @@ public class ProductionPowerStrategy implements Power {
     }
 
     @Override
-    public void activatePower(Player p, Resource res) {
+    public void activatePower(Board p, Resource res) {
     }
 }

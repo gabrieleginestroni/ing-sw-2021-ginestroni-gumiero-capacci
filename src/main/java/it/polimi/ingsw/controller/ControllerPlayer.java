@@ -1,12 +1,12 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.board.Player;
+import it.polimi.ingsw.model.board.Board;
 
 public class ControllerPlayer {
     private String ipAddress;
     private int portNumber;
     private String nickname;
-    private Player player;
+    private Board board;
 
     public ControllerPlayer(String ipAddress, int portNumber, String nickname) {
         this.ipAddress = ipAddress;
@@ -19,10 +19,10 @@ public class ControllerPlayer {
     }
 
     public void buildPlayer(){
-        player = new Player(nickname);
+        board = new Board();
     }
 
-    public Player getPlayer(){
-        return player;
+    public Board getPlayer(){
+        return board;
     }
 }

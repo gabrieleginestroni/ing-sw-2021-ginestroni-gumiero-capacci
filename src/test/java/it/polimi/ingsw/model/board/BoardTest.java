@@ -18,7 +18,7 @@ public class BoardTest {
         Board b = new Board();
         ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
         ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
-        List<ControllerPlayer>  controllerPlayer = new ArrayList<>();
+        List<ControllerPlayer> controllerPlayer = new ArrayList<>();
         controllerPlayer.add(controllerPlayer1);
         controllerPlayer.add(controllerPlayer2);
         MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
@@ -66,7 +66,7 @@ public class BoardTest {
     @Test
     public void addStrongboxResourceTest() {
         Board b = new Board();
-        b.addStrongboxResource( Resource.SERVANT, 2);
+       b.addStrongboxResource( Resource.SERVANT, 2);
         assertEquals(2, b.getStrongBoxResource(Resource.SERVANT));
         b.addStrongboxResource( Resource.SERVANT, 2);
         assertEquals(4, b.getStrongBoxResource(Resource.SERVANT));
@@ -83,4 +83,5 @@ public class BoardTest {
     @Test
     public void discardLeaderCard() {
     }
+
 }

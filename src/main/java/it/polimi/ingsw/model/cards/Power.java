@@ -9,5 +9,5 @@ import it.polimi.ingsw.model.board.*;
  */
 public interface Power {
 
-    public void activatePower(Player p, Resource res);
+    public void activatePower(Board p, Resource res);
 }

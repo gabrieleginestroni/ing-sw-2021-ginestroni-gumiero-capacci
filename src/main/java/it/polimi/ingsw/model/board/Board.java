@@ -1,4 +1,5 @@
 package it.polimi.ingsw.model.board;
+
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
@@ -8,6 +9,11 @@ import java.util.ArrayList;
 
 
 public class Board {
+
+
+    private final ArrayList<Resource> whiteMarbles;
+    private final ArrayList<Resource> discount;
+
     private final CardSlot[] cardSlot;
     private final Warehouse wareHouse;
     private final StrongBox strongBox;
@@ -15,8 +21,12 @@ public class Board {
     private boolean inkwell;
     private final FaithTrack faithTrack;
 
-
     public Board() {
+
+
+        this.discount = new ArrayList<>();
+        this.whiteMarbles = new ArrayList<>();
+
         this.wareHouse = new Warehouse();
         this.cardSlot = new CardSlot[3];
         cardSlot[0] = new CardSlot();
@@ -26,6 +36,30 @@ public class Board {
         this.inkwell = false;
         this.hand = new ArrayList<>();
         this.faithTrack = new FaithTrack();
+
+
+    }
+
+    public void addWhiteMarble(Resource res){
+        whiteMarbles.add(res);
+
+
+    }
+    public void addDiscount(Resource res){
+        discount.add(res);
+
+    }
+    public ArrayList<Resource> getWhiteMarbles() { return whiteMarbles;}
+
+
+    public ArrayList<Resource> getDiscount() {
+        return discount;
+    }
+
+
+
+    public int getResourceNumber(Resource res){
+        return  getStrongBoxResource(res) + getWarehouseResource(res);
     }
 
     //TODO
@@ -71,11 +105,11 @@ public class Board {
         this.faithTrack.addFaith(steps); }
 
     public int getCardNumber(int level, Color color){
-       int tot1 = this.cardSlot[0].getCardNumber(level,color);
-       int tot2 = this.cardSlot[1].getCardNumber(level,color);
-       int tot3 = this.cardSlot[2].getCardNumber(level,color);
+        int tot1 = this.cardSlot[0].getCardNumber(level,color);
+        int tot2 = this.cardSlot[1].getCardNumber(level,color);
+        int tot3 = this.cardSlot[2].getCardNumber(level,color);
 
-       return tot1+tot2+tot3;
+        return tot1+tot2+tot3;
 
     }
 
@@ -113,5 +147,7 @@ public class Board {
     public CardSlot[] getCardSlot(){
         return this.cardSlot;
     }
+
+
 
 }

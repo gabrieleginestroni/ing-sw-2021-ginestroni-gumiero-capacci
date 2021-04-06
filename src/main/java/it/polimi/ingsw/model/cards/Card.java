@@ -8,15 +8,15 @@ import it.polimi.ingsw.model.board.*;
  */
 public class Card {
     private int id;
-    private Player owner;
+    private Board owner;
     private int victoryPoints;
 
 
-    public Player getOwner() {
+    public Board getOwner() {
         return owner;
     }
 
-    public void setOwner(Player owner) {
+    public void setOwner(Board owner) {
         this.owner = owner;
     }
 

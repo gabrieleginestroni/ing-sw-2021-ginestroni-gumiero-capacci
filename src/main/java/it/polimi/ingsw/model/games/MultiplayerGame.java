@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.games;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.controller.ControllerPlayer;
-import it.polimi.ingsw.model.board.Player;
+import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.*;
 
 import java.io.Reader;
@@ -10,7 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -21,16 +20,16 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MultiplayerGame extends Game{
 
     private final int numPlayer;
-    private final List<Player> players;
+    private final List<Board> boards;
 
     public MultiplayerGame(List<ControllerPlayer> controllerPlayers){
 
         numPlayer = controllerPlayers.size();
 
-        players = new ArrayList<>();
+        boards = new ArrayList<>();
         for(ControllerPlayer player : controllerPlayers){
             player.buildPlayer();
-            players.add(player.getPlayer());
+            boards.add(player.getPlayer());
         }
 
         gameId = "multiplayer id";
