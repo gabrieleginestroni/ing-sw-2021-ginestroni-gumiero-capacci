@@ -33,14 +33,8 @@ public class ActionTokensPile {
         for(int i = 0; i < tokenPileStatus.length; i++)
             tokenPileStatus[i] = i;
 
-        for(int max = tokenPileStatus.length - 1 ; max > 0 ; max--){
-            randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
-            temp = tokenPileStatus[randomNumber];
-            tokenPileStatus[randomNumber] = tokenPileStatus[max];
-            tokenPileStatus[max] = temp;
-        }
-
-        nextToDraw = 0;
+        shufflePile();
+        shufflePile();
     }
 
     /**

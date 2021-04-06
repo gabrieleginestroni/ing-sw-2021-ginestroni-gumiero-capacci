@@ -43,7 +43,6 @@ public class DevelopmentCardGrid {
             shuffle_array[randomNumber] = shuffle_array[max];
             shuffle_array[max] = temp;
         }
-        //TODO
         for(int max = devCards.length - 1; max > 0 ; max--){
             int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
             int temp = shuffle_array[randomNumber];

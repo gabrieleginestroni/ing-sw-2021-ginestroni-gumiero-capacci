@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.controller.ControllerPlayer;
+import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.games.MultiplayerGame;
@@ -28,7 +29,21 @@ public class BoardTest {
     }
 
     @Test
-    public void addDevelopmentCard() {
+    public void addDevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException {
+        Board b = new Board();
+        ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
+        ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
+        List<ControllerPlayer>  controllerPlayer = new ArrayList<>();
+        controllerPlayer.add(controllerPlayer1);
+        controllerPlayer.add(controllerPlayer2);
+        MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+        b.addDevelopmentCard(multiplayerGame.getCardFromGrid(0,1), b.getCardSlot()[0]);
+        assertEquals(1, b.getCardNumber(1, Color.BLUE));
+    }
+
+    @Test
+    public void getWarehouseResourceTest(){
+
     }
 
     @Test

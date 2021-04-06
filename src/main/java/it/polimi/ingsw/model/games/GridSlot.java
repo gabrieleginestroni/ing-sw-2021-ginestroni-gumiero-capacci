@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.games;
 
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +12,10 @@ import java.util.List;
 public class GridSlot {
 
     private List<DevelopmentCard> cards;
+
+    public GridSlot(){
+        cards = new ArrayList<>();
+    }
 
     /**
      * Method that adds the specified card to the slot.
