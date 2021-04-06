@@ -21,8 +21,8 @@ public class CardSlot {
         }
 
         if(devCards.size()==0){
-            if(card.getLevel()==1) devCards.add(0,card);
-            else throw new invalidDevelopmentCardLevelPlacementException();
+            if(card.getLevel()!=1) throw new invalidDevelopmentCardLevelPlacementException();
+
         }
         else if((devCards.get(0).getLevel() + 1) != card.getLevel()) {
             throw new invalidDevelopmentCardLevelPlacementException();
