@@ -115,7 +115,7 @@ public class BoardTest {
     }
 
     @Test
-    public void Test() throws invalidDepotTypeChangeException, duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
+    public void Test2LeaderCardActivation() throws invalidDepotTypeChangeException, duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
         Board b = new Board();
         ControllerPlayer controllerPlayer1 = new ControllerPlayer("localhost", 8080, "giagum");
         ControllerPlayer controllerPlayer2 = new ControllerPlayer("localhost", 8080, "gabry");
@@ -164,5 +164,38 @@ public class BoardTest {
                 assertTrue(l.isActive());
 
         }
+    }
+
+    @Test
+    public void Test2DevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException {
+        Board b = new Board();
+        ControllerPlayer controllerPlayer1 = new ControllerPlayer("localhost", 8080, "giagum");
+        ControllerPlayer controllerPlayer2 = new ControllerPlayer("localhost", 8080, "gabry");
+        List<ControllerPlayer> controllerPlayer = new ArrayList<>();
+        controllerPlayer.add(controllerPlayer1);
+        controllerPlayer.add(controllerPlayer2);
+        MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+
+        DevelopmentCard c = multiplayerGame.getCardFromGrid(0,0);
+        b.addDevelopmentCard(c,b.getCardSlot()[0]);
+        assertEquals(1,b.getCardNumber(1, Color.GREEN));
+        c = multiplayerGame.getCardFromGrid(1,3);
+        b.addDevelopmentCard(c,b.getCardSlot()[0]);
+        assertEquals(1,b.getCardNumber(2,Color.PURPLE));
+
+        c = multiplayerGame.getCardFromGrid(2,0);
+        b.addDevelopmentCard(c,b.getCardSlot()[0]);
+        assertEquals(1,b.getCardNumber(3, Color.GREEN));
+        assertEquals(2,b.getCardNumber(1, Color.GREEN));
+
+        c = multiplayerGame.getCardFromGrid(0,2);
+        b.addDevelopmentCard(c,b.getCardSlot()[1]);
+        assertEquals(1,b.getCardNumber(3, Color.GREEN));
+        assertEquals(2,b.getCardNumber(1, Color.GREEN));
+        assertEquals(1,b.getCardNumber(1, Color.YELLOW));
+
+
+
+
     }
 }
