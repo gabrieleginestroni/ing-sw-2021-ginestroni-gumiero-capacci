@@ -100,7 +100,7 @@
 		"color" : "BLUE",
 		"level" : 0,
 		"quantity" : 1
-	}]
+	}],
 	"power" : "whiteMarble",
 	"resource" : "SERVANT",
 	"victoryPoints" : 5
@@ -114,7 +114,7 @@
 		"color" : "PURPLE",
 		"level" : 0,
 		"quantity" : 1
-	}]
+	}],
 	"power" : "whiteMarble",
 	"resource" : "SHIELD",
 	"victoryPoints" : 5
@@ -128,7 +128,7 @@
 		"color" : "YELLOW",
 		"level" : 0,
 		"quantity" : 1
-	}]
+	}],
 	"power" : "whiteMarble",
 	"resource" : "STONE",
 	"victoryPoints" : 5
@@ -142,7 +142,7 @@
 		"color" : "GREEN",
 		"level" : 0,
 		"quantity" : 1
-	}]
+	}],
 	"power" : "whiteMarble",
 	"resource" : "COIN",
 	"victoryPoints" : 5
