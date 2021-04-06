@@ -30,4 +30,13 @@ public class StrongBox {
         }
         resources.put(res,newQuantity);
     }
+
+    public int getGenericResourceNumber(){
+        int coinTot = getResource(Resource.COIN);
+        int shieldTot = getResource(Resource.SHIELD);
+        int servantTot = getResource(Resource.SERVANT);
+        int stoneTot = getResource(Resource.STONE);
+
+        return coinTot + servantTot + shieldTot + stoneTot;
+    }
 }

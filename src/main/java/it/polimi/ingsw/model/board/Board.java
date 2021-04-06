@@ -154,10 +154,14 @@ public class Board {
     }
 
     public int computeVictoryPoints() {
-        // TODO
-        //Faith track
-        //Risorse
-        //Leader Card
-        //Development Card
+
+        int faithTot = this.faithTrack.getVictoryPoints();
+        int resTot = (this.wareHouse.getGenericResourceNumber()+this.strongBox.getGenericResourceNumber())/5;
+        int leaderTot = this.hand.stream().mapToInt(LeaderCard::getVictoryPoints).sum();
+        int devTot1 = this.cardSlot[0].getVictoryPoints();
+        int devTot2 = this.cardSlot[1].getVictoryPoints();
+        int devTot3 = this.cardSlot[2].getVictoryPoints();
+
+        return faithTot + resTot + leaderTot + devTot1 + devTot2 + devTot3;
     }
 }

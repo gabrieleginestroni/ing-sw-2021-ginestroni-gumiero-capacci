@@ -109,7 +109,12 @@ public class Warehouse {
         }
     }
 
-    public int getVictoryPoints(){
-         // TODO
+    public int getGenericResourceNumber(){
+         int coinTot = getTotalWarehouseQuantity(Resource.COIN);
+         int shieldTot = getTotalWarehouseQuantity(Resource.SHIELD);
+         int servantTot = getTotalWarehouseQuantity(Resource.SERVANT);
+         int stoneTot = getTotalWarehouseQuantity(Resource.STONE);
+
+         return coinTot + servantTot + shieldTot + stoneTot;
     }
 }

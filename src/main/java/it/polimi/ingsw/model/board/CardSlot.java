@@ -40,7 +40,7 @@ public class CardSlot {
     }
 
     public int getVictoryPoints(){
-        // TODO
+        return this.devCards.stream().mapToInt(DevelopmentCard::getVictoryPoints).sum();
     }
 
 }
