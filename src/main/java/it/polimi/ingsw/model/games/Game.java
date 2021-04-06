@@ -28,7 +28,7 @@ public abstract class Game {
     public List<LeaderCard> get4LeaderCards(){
         List<LeaderCard> temp = new ArrayList<>();
         for (int i = 0; i<4; i++)
-            temp.add(leaderCards.remove(leaderCards.size() - 1));
+                temp.add(leaderCards.remove(leaderCards.size() - 1));
         return temp;
     }
 
