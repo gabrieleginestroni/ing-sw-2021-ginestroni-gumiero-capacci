@@ -28,7 +28,7 @@ public class MultiplayerGame extends Game{
 
         boards = new ArrayList<>();
         for(ControllerPlayer player : controllerPlayers){
-            player.buildBoard();
+            player.buildBoard(this);
             boards.add(player.getBoard());
         }
 

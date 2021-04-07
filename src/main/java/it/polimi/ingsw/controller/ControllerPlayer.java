@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.games.Game;
 
 public class ControllerPlayer {
     private String ipAddress;
@@ -18,8 +19,8 @@ public class ControllerPlayer {
         return nickname;
     }
 
-    public void buildBoard(){
-        board = new Board();
+    public void buildBoard(Game g){
+        board = new Board(g);
     }
 
     public Board getBoard(){

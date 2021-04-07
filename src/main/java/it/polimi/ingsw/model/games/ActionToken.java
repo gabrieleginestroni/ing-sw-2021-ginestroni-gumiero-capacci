@@ -6,6 +6,6 @@ package it.polimi.ingsw.model.games;
  */
 public interface ActionToken {
 
-    void activateEffect(SoloGame solo) throws vaticanReportActivated;
+    void activateEffect(SoloGame solo);// throws vaticanReportActivated;
 
 }

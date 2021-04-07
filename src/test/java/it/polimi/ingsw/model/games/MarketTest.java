@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model.games;
 
+import it.polimi.ingsw.model.Resource;
 import org.junit.Test;
+
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -11,9 +14,8 @@ public class MarketTest {
         Market m = new Market();
         Marble[] old = { m.getLayout()[row][1], m.getLayout()[row][2], m.getLayout()[row][3], m.getFreeMarble() };
         Marble oldMarble = m.getLayout()[row][0];
-        m.doHorizontalMove(row);
+        Map<Resource, Integer> gain = m.doHorizontalMove(row);
         assertArrayEquals(m.getLayout()[row], old);
-
         assertEquals(m.getFreeMarble(), oldMarble);
     }
     @Test
@@ -23,9 +25,8 @@ public class MarketTest {
         Marble[] old = { m.getLayout()[1][col], m.getLayout()[2][col], m.getFreeMarble() };
         Marble oldMarble = m.getLayout()[0][col];
         m.doVerticalMove(col);
-        assertEquals(m.getLayout()[0][col], old[0]);
-        assertEquals(m.getLayout()[1][col], old[1]);
-        assertEquals(m.getLayout()[2][col], old[2]);
+        Marble[] cur = { m.getLayout()[0][col], m.getLayout()[1][col], m.getLayout()[2][col] };
+        assertArrayEquals(cur, old);
         assertEquals(m.getFreeMarble(), oldMarble);
 
     }

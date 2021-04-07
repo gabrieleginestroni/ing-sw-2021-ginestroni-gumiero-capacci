@@ -6,7 +6,7 @@ package it.polimi.ingsw.model.games;
 public class ShuffleActionTokenPileStrategy implements ActionToken{
 
     @Override
-    public void activateEffect(SoloGame solo) throws vaticanReportActivated{
+    public void activateEffect(SoloGame solo) {//throws vaticanReportActivated{
         solo.shuffleTokenPile();
         solo.addFaithLorenzo(1);
     }

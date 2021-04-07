@@ -55,7 +55,7 @@ public class Market {
 
     /**
      *
-     * @param row the row to shift
+     * @param row the row to shift(from right to left)
      * @return Map<Resource, Integer> the Resource gained
      */
     public Map<Resource, Integer> doHorizontalMove(int row){
@@ -81,7 +81,7 @@ public class Market {
     }
     /**
      *
-     * @param col the column to shift
+     * @param col the column to shift (from down to up)
      * @return Map<Resource, Integer> the Resource gained
      */
     public Map<Resource, Integer> doVerticalMove(int col){
@@ -93,7 +93,7 @@ public class Market {
             if(gain.containsKey(layout[i][col].getResource()))
                 cur = 1 + gain.get(layout[i][col].getResource());
             else
-                cur = 0;
+                cur = 1;
             gain.put(layout[i][col].getResource(), cur);
         }
 

@@ -25,7 +25,7 @@ public class SoloGame extends Game{
 
         lorenzo = new Lorenzo(this);
 
-        controllerPlayer.buildBoard();
+        controllerPlayer.buildBoard(this);
         board = controllerPlayer.getBoard();
 
         actionTokensPile = new ActionTokensPile();

@@ -1,13 +1,19 @@
 package it.polimi.ingsw.model.board;
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.controller.ControllerPlayer;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.*;
+import it.polimi.ingsw.model.games.Game;
 import it.polimi.ingsw.model.games.MultiplayerGame;
 import it.polimi.ingsw.model.games.emptyDevCardGridSlotSelected;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +23,14 @@ public class BoardTest {
 
     @Test
     public void TestAddLeaderCard() {
-        Board b = new Board();
         ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
         ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
         List<ControllerPlayer> controllerPlayer = new ArrayList<>();
         controllerPlayer.add(controllerPlayer1);
         controllerPlayer.add(controllerPlayer2);
         MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+        Board b = controllerPlayer1.getBoard();
+
         LeaderCard l = multiplayerGame.get4LeaderCards().get(0);
         b.addLeaderCard(l);
         assertEquals(l, b.getHand().get(0));
@@ -31,13 +38,14 @@ public class BoardTest {
 
     @Test
     public void TestAddDevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, emptyDevCardGridSlotSelected {
-        Board b = new Board();
         ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
         ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
-        List<ControllerPlayer>  controllerPlayer = new ArrayList<>();
+        List<ControllerPlayer> controllerPlayer = new ArrayList<>();
         controllerPlayer.add(controllerPlayer1);
         controllerPlayer.add(controllerPlayer2);
         MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+        Board b = controllerPlayer1.getBoard();
+
         b.addDevelopmentCard(multiplayerGame.getCardFromGrid(0,1), b.getCardSlot()[0]);
         assertEquals(1, b.getCardNumber(1, Color.BLUE));
     }
@@ -76,19 +84,19 @@ public class BoardTest {
     @Test
     public void TestRemoveDepotResource() throws invalidDepotTypeChangeException,
             duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException, removeResourceLimitExceededException {
-        Board b = new Board();
-        ControllerPlayer controllerPlayer1 = new ControllerPlayer("localhost", 8080, "giagum");
-        ControllerPlayer controllerPlayer2 = new ControllerPlayer("localhost", 8080, "gabry");
+        ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
+        ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
         List<ControllerPlayer> controllerPlayer = new ArrayList<>();
         controllerPlayer.add(controllerPlayer1);
         controllerPlayer.add(controllerPlayer2);
         MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+        Board b = controllerPlayer1.getBoard();
 
         List<LeaderCard> list = multiplayerGame.get4LeaderCards();
         LeaderCard l = list.get(0);
         b.addLeaderCard(l);
         l.activateCard();
-        System.out.println(l.getPower() + " " + l.getResource());
+        //System.out.println(l.getPower() + " " + l.getResource());
         switch (l.getPower()) {
             case "depots":
                 b.addDepotResource(b.getWareHouse().getLeaderStorages().get(0), l.getResource(), 2);
@@ -111,8 +119,15 @@ public class BoardTest {
 
     @Test
     public void TestAddStrongboxResource() {
-        Board b = new Board();
-       b.addStrongboxResource( Resource.SERVANT, 2);
+        ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
+        ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
+        List<ControllerPlayer> controllerPlayer = new ArrayList<>();
+        controllerPlayer.add(controllerPlayer1);
+        controllerPlayer.add(controllerPlayer2);
+        MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+        Board b = controllerPlayer1.getBoard();
+
+        b.addStrongboxResource( Resource.SERVANT, 2);
         assertEquals(2, b.getStrongBoxResource(Resource.SERVANT));
         b.addStrongboxResource( Resource.SERVANT, 2);
         assertEquals(4, b.getStrongBoxResource(Resource.SERVANT));
@@ -120,7 +135,14 @@ public class BoardTest {
 
     @Test
     public void TestRemoveStrongboxResource() throws invalidStrongBoxRemoveException {
-        Board b = new Board();
+        ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
+        ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
+        List<ControllerPlayer> controllerPlayer = new ArrayList<>();
+        controllerPlayer.add(controllerPlayer1);
+        controllerPlayer.add(controllerPlayer2);
+        MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+        Board b = controllerPlayer1.getBoard();
+
         b.addStrongboxResource( Resource.SERVANT, 2);
         b.removeStrongboxResource( Resource.SERVANT, 2);
         assertEquals(0, b.getStrongBoxResource(Resource.SERVANT));
@@ -149,19 +171,19 @@ public class BoardTest {
 
     @Test
     public void Test2LeaderCardActivation() throws invalidDepotTypeChangeException, duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
-        Board b = new Board();
-        ControllerPlayer controllerPlayer1 = new ControllerPlayer("localhost", 8080, "giagum");
-        ControllerPlayer controllerPlayer2 = new ControllerPlayer("localhost", 8080, "gabry");
+        ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
+        ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
         List<ControllerPlayer> controllerPlayer = new ArrayList<>();
         controllerPlayer.add(controllerPlayer1);
         controllerPlayer.add(controllerPlayer2);
         MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+        Board b = controllerPlayer1.getBoard();
 
         List<LeaderCard> list = multiplayerGame.get4LeaderCards();
         LeaderCard l = list.get(0);
         b.addLeaderCard(l);
         l.activateCard();
-        System.out.println(l.getPower() + " " + l.getResource());
+        //System.out.println(l.getPower() + " " + l.getResource());
         switch (l.getPower()) {
             case "depots":
                 b.addDepotResource(b.getWareHouse().getLeaderStorages().get(0), l.getResource(), 2);
@@ -180,7 +202,7 @@ public class BoardTest {
         l = list.get(1);
         b.addLeaderCard(l);
         l.activateCard();
-        System.out.println(l.getPower() + " " + l.getResource());
+        //System.out.println(l.getPower() + " " + l.getResource());
         switch (l.getPower()) {
             case "depots":
                 b.addDepotResource(b.getWareHouse().getLeaderStorages().get(b.getWareHouse().getLeaderStorages().size()-1), l.getResource(), 2);
@@ -202,13 +224,13 @@ public class BoardTest {
 
     @Test
     public void Test2DevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, emptyDevCardGridSlotSelected {
-        Board b = new Board();
-        ControllerPlayer controllerPlayer1 = new ControllerPlayer("localhost", 8080, "giagum");
-        ControllerPlayer controllerPlayer2 = new ControllerPlayer("localhost", 8080, "gabry");
+        ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
+        ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
         List<ControllerPlayer> controllerPlayer = new ArrayList<>();
         controllerPlayer.add(controllerPlayer1);
         controllerPlayer.add(controllerPlayer2);
         MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+        Board b = controllerPlayer1.getBoard();
 
         DevelopmentCard c = multiplayerGame.getCardFromGrid(0,0);
         b.addDevelopmentCard(c,b.getCardSlot()[0]);
@@ -228,11 +250,38 @@ public class BoardTest {
         assertEquals(1,b.getCardNumber(3, Color.GREEN));
         assertEquals(2,b.getCardNumber(1, Color.GREEN));
         assertEquals(1,b.getCardNumber(1, Color.YELLOW));
-
-
-
-
     }
 
-
+    @Test
+    public void TestMultipleResources() throws IOException, invalidDepotTypeChangeException,
+            duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
+        ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
+        ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
+        List<ControllerPlayer> controllerPlayer = new ArrayList<>();
+        controllerPlayer.add(controllerPlayer1);
+        MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+        Board b1 = controllerPlayer1.getBoard();
+        Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
+        Gson gson = new Gson();
+        LeaderCard[] tempArray = gson.fromJson(reader, LeaderCard[].class);
+        //0-3 discount
+        //4-7 depot
+        //8-11 marble
+        //12-15 production
+        b1.addLeaderCard(tempArray[4]);
+        b1.addLeaderCard(tempArray[5]);
+        tempArray[4].activateCard();
+        tempArray[5].activateCard();
+        b1.addDepotResource(b1.getWareHouse().getLeaderStorages().get(0), tempArray[4].getResource(), 1);
+        b1.addDepotResource(b1.getWareHouse().getLeaderStorages().get(1), tempArray[5].getResource(), 2);
+        assertEquals(1, b1.getResourceNumber(tempArray[4].getResource()));
+        assertEquals(2, b1.getResourceNumber(tempArray[5].getResource()));
+        assertEquals(0, b1.getResourceNumber(Resource.COIN));
+        assertEquals(0, b1.getResourceNumber(Resource.SHIELD));
+        WarehouseDepot w1 = b1.getWareHouse().getStorages()[0];
+        WarehouseDepot w2 = b1.getWareHouse().getStorages()[1];
+        WarehouseDepot w3 = b1.getWareHouse().getStorages()[2];
+        b1.addDepotResource(w1, Resource.STONE, 1);
+        assertEquals(2, b1.getResourceNumber(tempArray[4].getResource()));
+    }
 }
