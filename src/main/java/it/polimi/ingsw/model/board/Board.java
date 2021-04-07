@@ -141,11 +141,14 @@ public class Board {
 
     }
 
-    public void discardLeaderCard(LeaderCard card) {
+    public void discardLeaderCard(LeaderCard card) throws DiscardActiveCardException {
+        if(card.isActive())
+            throw new DiscardActiveCardException();
         hand.remove(card);
         card.discardCard();
         giveFaithPoints(1);
     }
+
 
     public CardSlot[] getCardSlot(){
         return this.cardSlot;
@@ -159,7 +162,7 @@ public class Board {
 
         int faithTot = this.faithTrack.getVictoryPoints();
         int resTot = (this.wareHouse.getGenericResourceNumber() + this.strongBox.getGenericResourceNumber() ) /5;
-        int leaderTot = this.hand.stream().mapToInt(LeaderCard::getVictoryPoints).sum();
+        int leaderTot = this.hand.stream().filter(LeaderCard::isActive).mapToInt(LeaderCard::getVictoryPoints).sum();
         int devTot = Arrays.stream(this.cardSlot).mapToInt(CardSlot::getVictoryPoints).sum();
 
         return faithTot + resTot + leaderTot + devTot;

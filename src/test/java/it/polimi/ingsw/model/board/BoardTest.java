@@ -254,7 +254,7 @@ public class BoardTest {
 
     @Test
     public void TestMultipleResources() throws IOException, invalidDepotTypeChangeException,
-            duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
+            duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException, DiscardActiveCardException {
         ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
         ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
         List<ControllerPlayer> controllerPlayer = new ArrayList<>();
@@ -270,18 +270,42 @@ public class BoardTest {
         //12-15 production
         b1.addLeaderCard(tempArray[4]);
         b1.addLeaderCard(tempArray[5]);
+        b1.addLeaderCard(tempArray[6]);
         tempArray[4].activateCard();
         tempArray[5].activateCard();
+        tempArray[6].discardCard();
+
+        //leaderDepots
         b1.addDepotResource(b1.getWareHouse().getLeaderStorages().get(0), tempArray[4].getResource(), 1);
         b1.addDepotResource(b1.getWareHouse().getLeaderStorages().get(1), tempArray[5].getResource(), 2);
         assertEquals(1, b1.getResourceNumber(tempArray[4].getResource()));
         assertEquals(2, b1.getResourceNumber(tempArray[5].getResource()));
         assertEquals(0, b1.getResourceNumber(Resource.COIN));
         assertEquals(0, b1.getResourceNumber(Resource.SHIELD));
+
+        //normal depots
         WarehouseDepot w1 = b1.getWareHouse().getStorages()[0];
         WarehouseDepot w2 = b1.getWareHouse().getStorages()[1];
         WarehouseDepot w3 = b1.getWareHouse().getStorages()[2];
         b1.addDepotResource(w1, Resource.STONE, 1);
+
         assertEquals(2, b1.getResourceNumber(tempArray[4].getResource()));
+        assertEquals(Resource.STONE, w1.getResourceType());
+        assertEquals(null, w2.getResourceType());
+        assertEquals(null, w3.getResourceType());
+
+        b1.swapDepot(w1, w3);
+
+        assertEquals(null, w1.getResourceType());
+        assertEquals(null, w2.getResourceType());
+        assertEquals(Resource.STONE, w3.getResourceType());
+
+        b1.addStrongboxResource(Resource.SERVANT, 2);
+        b1.addStrongboxResource(Resource.COIN, 2);
+        b1.addStrongboxResource(Resource.STONE, 2);
+        b1.addStrongboxResource(Resource.SHIELD, 2);
+
+        assertEquals(8, b1.computeVictoryPoints());
+        assertEquals(4, b1.getWareHouse().getGenericResourceNumber());
     }
 }
