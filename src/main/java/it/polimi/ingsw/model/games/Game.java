@@ -19,7 +19,9 @@ public abstract class Game {
     DevelopmentCard[] devCards;
     DevelopmentCardGrid devCardsGrid;
     boolean gameOver;
-
+    boolean section1Reported;
+    boolean section2Reported;
+    boolean section3Reported;
 
     /**
      * Method used in the initialization phase of the game to get 4 random Leader Cards.
@@ -94,5 +96,29 @@ public abstract class Game {
      */
     public boolean isGameOver(){
         return gameOver;
+    }
+
+    public void setSection1Reported() {
+        this.section1Reported = true;
+    }
+
+    public void setSection2Reported() {
+        this.section2Reported = true;
+    }
+
+    public void setSection3Reported() {
+        this.section3Reported = true;
+    }
+
+    public boolean isSection1Reported() {
+        return section1Reported;
+    }
+
+    public boolean isSection2Reported() {
+        return section2Reported;
+    }
+
+    public boolean isSection3Reported() {
+        return section3Reported;
     }
 }

@@ -28,8 +28,8 @@ public class MultiplayerGame extends Game{
 
         boards = new ArrayList<>();
         for(ControllerPlayer player : controllerPlayers){
-            player.buildPlayer();
-            boards.add(player.getPlayer());
+            player.buildBoard();
+            boards.add(player.getBoard());
         }
 
         gameId = "multiplayer id";
@@ -77,5 +77,10 @@ public class MultiplayerGame extends Game{
         devCardsGrid = new DevelopmentCardGrid(devCards);
 
         gameOver = false;
+
+        section1Reported = false;
+        section2Reported = false;
+        section3Reported = false;
+
     }
 }

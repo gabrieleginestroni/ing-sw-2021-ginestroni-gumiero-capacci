@@ -21,10 +21,10 @@ public class SoloGame extends Game{
 
     public SoloGame(ControllerPlayer controllerPlayer){
 
-        lorenzo = new Lorenzo();
+        lorenzo = new Lorenzo(this);
 
-        controllerPlayer.buildPlayer();
-        board = controllerPlayer.getPlayer();
+        controllerPlayer.buildBoard();
+        board = controllerPlayer.getBoard();
 
         actionTokensPile = new ActionTokensPile();
 
@@ -74,14 +74,17 @@ public class SoloGame extends Game{
 
         gameOver = false;
 
+        section1Reported = false;
+        section2Reported = false;
+        section3Reported = false;
+
     }
 
     /**
      * Method that adds Faith Points to the Black Cross indicator.
      * @param points The amount of points that must be added to the Black Cross indicator.
-     * @throws vaticanReportActivated Thrown when the addition of this amount of points leads to the activation of a Vatican Report.
      */
-    public void addFaithLorenzo(int points) throws vaticanReportActivated{
+    public void addFaithLorenzo(int points){
 
         lorenzo.addFaithPoints(points);
 
@@ -89,9 +92,8 @@ public class SoloGame extends Game{
 
     /**
      * Method that draws and applies the effect of the next Action Token from the pile used in the specific Game.
-     * @throws vaticanReportActivated Thrown when the effects of the drawn Action Token leads to the activation of a Vatican Report.
      */
-    public void drawFromTokenPile() throws vaticanReportActivated{
+    public void drawFromTokenPile(){
         actionTokensPile.drawPile(this);
     }
 

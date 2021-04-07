@@ -18,11 +18,11 @@ public class ControllerPlayer {
         return nickname;
     }
 
-    public void buildPlayer(){
+    public void buildBoard(){
         board = new Board();
     }
 
-    public Board getPlayer(){
+    public Board getBoard(){
         return board;
     }
 }
