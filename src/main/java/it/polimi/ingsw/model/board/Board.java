@@ -112,11 +112,8 @@ public class Board {
         this.faithTrack.addFaith(steps); }
 
     public int getCardNumber(int level, Color color){
-        int tot1 = this.cardSlot[0].getCardNumber(level,color);
-        int tot2 = this.cardSlot[1].getCardNumber(level,color);
-        int tot3 = this.cardSlot[2].getCardNumber(level,color);
+        return Arrays.stream(this.cardSlot).mapToInt(s->s.getCardNumber(level,color)).sum();
 
-        return tot1+tot2+tot3;
 
     }
 
