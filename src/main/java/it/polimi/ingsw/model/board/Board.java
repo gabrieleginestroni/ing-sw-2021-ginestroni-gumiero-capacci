@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.games.Game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Board {
@@ -81,6 +82,8 @@ public class Board {
             invalidDevelopmentCardLevelPlacementException {
 
         cardSlot.addCard(card);
+        int totalDevCardNumber = Arrays.stream(this.cardSlot).mapToInt(CardSlot::getGenericCardNumber).sum();
+        if(totalDevCardNumber == 7) this.game.gameIsOver();
 
     }
 
@@ -158,13 +161,11 @@ public class Board {
     public int computeVictoryPoints() {
 
         int faithTot = this.faithTrack.getVictoryPoints();
-        int resTot = (this.wareHouse.getGenericResourceNumber()+this.strongBox.getGenericResourceNumber())/5;
+        int resTot = (this.wareHouse.getGenericResourceNumber() + this.strongBox.getGenericResourceNumber() ) /5;
         int leaderTot = this.hand.stream().mapToInt(LeaderCard::getVictoryPoints).sum();
-        int devTot1 = this.cardSlot[0].getVictoryPoints();
-        int devTot2 = this.cardSlot[1].getVictoryPoints();
-        int devTot3 = this.cardSlot[2].getVictoryPoints();
+        int devTot = Arrays.stream(this.cardSlot).mapToInt(CardSlot::getVictoryPoints).sum();
 
-        return faithTot + resTot + leaderTot + devTot1 + devTot2 + devTot3;
+        return faithTot + resTot + leaderTot + devTot;
     }
 
     public void computeActivationPopeTile(int index){

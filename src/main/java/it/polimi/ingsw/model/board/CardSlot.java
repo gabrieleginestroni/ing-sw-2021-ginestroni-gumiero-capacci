@@ -43,4 +43,8 @@ public class CardSlot {
         return this.devCards.stream().mapToInt(DevelopmentCard::getVictoryPoints).sum();
     }
 
+    public int getGenericCardNumber(){
+        return devCards.size();
+    }
+
 }
