@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.games.Game;
 
 import java.util.ArrayList;
 
@@ -20,8 +21,9 @@ public class Board {
     private final ArrayList<LeaderCard> hand;
     private boolean inkwell;
     private final FaithTrack faithTrack;
+    private final  Game game;
 
-    public Board() {
+    public Board(Game game) {
 
 
         this.discount = new ArrayList<>();
@@ -35,7 +37,9 @@ public class Board {
         this.strongBox = new StrongBox();
         this.inkwell = false;
         this.hand = new ArrayList<>();
-        this.faithTrack = new FaithTrack();
+        this.faithTrack = new FaithTrack(game);
+        this.game = game;
+
 
 
     }
@@ -101,8 +105,7 @@ public class Board {
         return this.faithTrack.getFaithMarker();
     }
 
-    public void giveFaithPoints(int steps) throws vaticanReportSection3Exception,
-            vaticanReportSection2Exception, vaticanReportSection1Exception {
+    public void giveFaithPoints(int steps)  {
         this.faithTrack.addFaith(steps); }
 
     public int getCardNumber(int level, Color color){
@@ -138,8 +141,7 @@ public class Board {
 
     }
 
-    public void discardLeaderCard(LeaderCard card) throws vaticanReportSection1Exception,
-            vaticanReportSection3Exception, vaticanReportSection2Exception {
+    public void discardLeaderCard(LeaderCard card) {
         hand.remove(card);
         card.discardCard();
         giveFaithPoints(1);
@@ -163,5 +165,9 @@ public class Board {
         int devTot3 = this.cardSlot[2].getVictoryPoints();
 
         return faithTot + resTot + leaderTot + devTot1 + devTot2 + devTot3;
+    }
+
+    public void computeActivationPopeTile(int index){
+        this.faithTrack.computeActivationPopeTile(index);
     }
 }
