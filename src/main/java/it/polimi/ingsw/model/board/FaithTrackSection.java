@@ -10,16 +10,15 @@ public class FaithTrackSection {
         this.popeTile = new PopeTile(victoryPoints);
         this.firstTileNumber = firstTileNumber;
         this.lastTileNumber = lastTileNumber;
-
-
     }
-
 
     public void activatePopeTile(){
         this.popeTile.setActive();
     }
 
-
+    public boolean isPopeTileActive(){
+        return popeTile.isActive();
+    }
 
     public int getFirstTileNumber() {
         return firstTileNumber;

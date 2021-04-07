@@ -208,7 +208,6 @@ public class BoardTest {
                 b.addDepotResource(b.getWareHouse().getLeaderStorages().get(b.getWareHouse().getLeaderStorages().size()-1), l.getResource(), 2);
                 assertEquals(2, b.getWarehouseResource(l.getResource()));
                 assertEquals(2, b.getResourceNumber(l.getResource()));
-
                 break;
             case "discount":
                 assertEquals(l.getResource(), b.getDiscount().get(b.getDiscount().size()-1));
@@ -270,10 +269,8 @@ public class BoardTest {
         //12-15 production
         b1.addLeaderCard(tempArray[4]);
         b1.addLeaderCard(tempArray[5]);
-        b1.addLeaderCard(tempArray[6]);
         tempArray[4].activateCard();
         tempArray[5].activateCard();
-        tempArray[6].discardCard();
 
         //leaderDepots
         b1.addDepotResource(b1.getWareHouse().getLeaderStorages().get(0), tempArray[4].getResource(), 1);
@@ -307,5 +304,62 @@ public class BoardTest {
 
         assertEquals(8, b1.computeVictoryPoints());
         assertEquals(4, b1.getWareHouse().getGenericResourceNumber());
+    }
+
+    @Test
+    public void TestDiscard() throws IOException, invalidDepotTypeChangeException,
+            duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException, DiscardActiveCardException {
+        ControllerPlayer controllerPlayer1 = new ControllerPlayer( "localhost", 8080, "giagum");
+        ControllerPlayer controllerPlayer2 = new ControllerPlayer( "localhost", 8080, "gabry");
+        List<ControllerPlayer> controllerPlayer = new ArrayList<>();
+        controllerPlayer.add(controllerPlayer1);
+        MultiplayerGame multiplayerGame = new MultiplayerGame(controllerPlayer);
+        Board b1 = controllerPlayer1.getBoard();
+        Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
+        Gson gson = new Gson();
+        LeaderCard[] tempArray = gson.fromJson(reader, LeaderCard[].class);
+        //0-3 discount
+        //4-7 depot
+        //8-11 marble
+        //12-15 production
+        b1.addLeaderCard(tempArray[4]);
+        b1.addLeaderCard(tempArray[5]);
+        tempArray[4].activateCard();
+        //tempArray[5].discardCard();
+
+        //leaderDepots
+        b1.addDepotResource(b1.getWareHouse().getLeaderStorages().get(0), tempArray[4].getResource(), 1);
+        assertEquals(1, b1.getResourceNumber(tempArray[4].getResource()));
+        assertEquals(0, b1.getResourceNumber(Resource.COIN));
+
+        //normal depots
+        WarehouseDepot w1 = b1.getWareHouse().getStorages()[0];
+        WarehouseDepot w2 = b1.getWareHouse().getStorages()[1];
+        WarehouseDepot w3 = b1.getWareHouse().getStorages()[2];
+        b1.addDepotResource(w1, Resource.STONE, 1);
+
+        assertEquals(2, b1.getResourceNumber(tempArray[4].getResource()));
+        assertEquals(Resource.STONE, w1.getResourceType());
+        assertEquals(null, w2.getResourceType());
+        assertEquals(null, w3.getResourceType());
+
+        b1.swapDepot(w1, w3);
+
+        assertEquals(null, w1.getResourceType());
+        assertEquals(null, w2.getResourceType());
+        assertEquals(Resource.STONE, w3.getResourceType());
+
+        b1.addStrongboxResource(Resource.SERVANT, 2);
+        b1.addStrongboxResource(Resource.COIN, 2);
+        b1.addStrongboxResource(Resource.STONE, 2);
+        b1.addStrongboxResource(Resource.SHIELD, 2);
+
+        assertEquals(5, b1.computeVictoryPoints());
+        assertEquals(2, b1.getWareHouse().getGenericResourceNumber());
+
+        b1.discardLeaderCard(tempArray[5]);
+        assertEquals(5, b1.computeVictoryPoints());
+        b1.giveFaithPoints(3);
+        assertEquals(6, b1.computeVictoryPoints());
     }
 }

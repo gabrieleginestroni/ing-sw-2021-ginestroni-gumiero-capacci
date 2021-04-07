@@ -55,7 +55,7 @@ public class FaithTrack {
     public int getVictoryPoints(){
         int faithMarkerTot=0;
 
-        int popeTileTot = Arrays.stream(sections).mapToInt(FaithTrackSection::getVictoryPoints).sum();
+        int popeTileTot = Arrays.stream(sections).filter(FaithTrackSection::isPopeTileActive).mapToInt(FaithTrackSection::getVictoryPoints).sum();
 
         if (this.faithMarker >= 3 && this.faithMarker <=5 ) {
             faithMarkerTot=1;

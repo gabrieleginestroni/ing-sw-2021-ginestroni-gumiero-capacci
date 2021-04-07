@@ -19,8 +19,7 @@ public class PopeTile {
      * @return Victory Points
      */
     public int getVictoryPoints() {
-        if(this.active) return victoryPoints;
-        return 0;
+        return victoryPoints;
     }
 
     /**

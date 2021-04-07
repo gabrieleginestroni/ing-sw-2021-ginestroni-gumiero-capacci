@@ -54,6 +54,7 @@ public class Board {
         discount.add(res);
 
     }
+
     public ArrayList<Resource> getWhiteMarbles() { return whiteMarbles;}
 
 
