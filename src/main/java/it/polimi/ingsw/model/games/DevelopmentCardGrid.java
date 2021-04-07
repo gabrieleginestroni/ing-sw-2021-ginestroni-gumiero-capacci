@@ -108,6 +108,15 @@ public class DevelopmentCardGrid {
     }
 
     /**
+     * Method only used in the solo version of the game to check if there are any available cards of the specified color.
+     * @param color The color of cards that has to be checked.
+     * @return "TRUE" only if there are not available cards of that color.
+     */
+    public boolean thereAreNotRemainingCards(Color color){
+        return remainingCards.get(color) == 0;
+    }
+
+    /**
      * If the slot placed at the specified coordinates is not empty this method returns the last card inside of it.
      * @param row The row of the slot.
      * @param col The column of the slot.

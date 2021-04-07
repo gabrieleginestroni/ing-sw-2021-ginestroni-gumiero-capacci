@@ -11,7 +11,9 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SoloGame extends Game{
@@ -110,5 +112,17 @@ public class SoloGame extends Game{
      */
     public void discard2Cards(Color color){
         this.devCardsGrid.discard2Cards(color);
+        if(devCardsGrid.thereAreNotRemainingCards(color))
+            gameIsOver();
+    }
+
+    @Override
+    public void removeCardFromGrid(int row, int col) throws emptyDevCardGridSlotSelected {
+        super.removeCardFromGrid(row, col);
+
+        Optional<Color> c = Arrays.stream(Color.values()).filter(s -> s.getColumn()==col).findFirst();
+
+        if(devCardsGrid.thereAreNotRemainingCards(c.get()))
+            gameIsOver();
     }
 }
