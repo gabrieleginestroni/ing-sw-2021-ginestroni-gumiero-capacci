@@ -54,6 +54,29 @@ public class FaithTrack {
 
 
     public int getVictoryPoints(){
-        // TODO
+        int faithMarkerTot=0;
+
+        int popeTileTot = Arrays.stream(sections).mapToInt(FaithTrackSection::getVictoryPoints).sum();
+
+        if (this.faithMarker >= 3 && this.faithMarker <=5 ) {
+            faithMarkerTot=1;
+        } else if (this.faithMarker >= 6 && this.faithMarker <=8 ){
+            faithMarkerTot=2;
+        } else if (this.faithMarker >= 9 && this.faithMarker <=11 ){
+            faithMarkerTot=4;
+        } else if (this.faithMarker >= 12 && this.faithMarker <=14 ){
+            faithMarkerTot=6;
+        } else if(this.faithMarker >= 15 && this.faithMarker <=17 ){
+            faithMarkerTot=9;
+        } else if(this.faithMarker >= 18 && this.faithMarker <=20 ){
+            faithMarkerTot=12;
+        } else if(this.faithMarker >= 21 && this.faithMarker <=23 ){
+            faithMarkerTot=16;
+        } else if (this.faithMarker == 24) {
+            faithMarkerTot=20;
+        }
+
+        return popeTileTot + faithMarkerTot;
+
     }
 }

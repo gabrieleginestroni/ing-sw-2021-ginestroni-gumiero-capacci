@@ -29,5 +29,9 @@ public class FaithTrackSection {
         return lastTileNumber;
     }
 
+    public int getVictoryPoints(){
+        return this.popeTile.getVictoryPoints();
+    }
+
 
 }
