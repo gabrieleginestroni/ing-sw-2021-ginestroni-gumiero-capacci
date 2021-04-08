@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.games.Game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 
 public class Board {
@@ -142,9 +143,11 @@ public class Board {
 
     }
 
-    public void discardLeaderCard(LeaderCard card) throws DiscardActiveCardException {
-        if(card.isActive())
-            throw new DiscardActiveCardException();
+    public void discardLeaderCard(LeaderCard card) throws invalidLeaderCardDiscardException {
+
+        Optional<LeaderCard> cardToDiscard = this.hand.stream().filter(c->c.equals(card) && !c.isActive()).findFirst();
+        if(cardToDiscard.isEmpty()) throw new invalidLeaderCardDiscardException();
+
         hand.remove(card);
         card.discardCard();
         giveFaithPoints(1);
@@ -172,4 +175,13 @@ public class Board {
     public void computeActivationPopeTile(int index){
         this.faithTrack.computeActivationPopeTile(index);
     }
+
+    public void activateLeaderCard(LeaderCard card) throws invalidLeaderCardActivationException {
+        Optional<LeaderCard> cardToActivate = this.hand.stream().filter(c->c.equals(card) && !c.isActive()).findFirst();
+        if(cardToActivate.isEmpty()) throw new invalidLeaderCardActivationException();
+        cardToActivate.ifPresent(LeaderCard::activateCard);
+
+    }
 }
+
+
