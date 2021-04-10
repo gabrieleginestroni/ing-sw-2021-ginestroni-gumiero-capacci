@@ -21,6 +21,7 @@ public class Board {
     private final Warehouse wareHouse;
     private final StrongBox strongBox;
     private final ArrayList<LeaderCard> hand;
+    private final ArrayList<LeaderCard> activeLeaders;
     private boolean inkwell;
     private final FaithTrack faithTrack;
     private final  Game game;
@@ -39,22 +40,20 @@ public class Board {
         this.strongBox = new StrongBox();
         this.inkwell = false;
         this.hand = new ArrayList<>();
+        this.activeLeaders = new ArrayList<>();
         this.faithTrack = new FaithTrack(game);
         this.game = game;
 
 
 
     }
-
-    public void addWhiteMarble(Resource res){
-        whiteMarbles.add(res);
-
-
+    public void addLeaderDepot(Resource res){
+        this.wareHouse.createLeaderDepot(res);
     }
-    public void addDiscount(Resource res){
-        discount.add(res);
 
-    }
+    public void addWhiteMarble(Resource res){ whiteMarbles.add(res); }
+
+    public void addDiscount(Resource res){ discount.add(res); }
 
     public ArrayList<Resource> getWhiteMarbles() { return whiteMarbles;}
 
@@ -63,10 +62,22 @@ public class Board {
         return discount;
     }
 
-
-
     public int getResourceNumber(Resource res){
         return  getStrongBoxResource(res) + getWarehouseResource(res);
+    }
+
+    public int getStrongBoxResource( Resource res){
+        return strongBox.getResource(res);
+    }
+
+    public int getWarehouseResource(Resource res){ return wareHouse.getTotalWarehouseQuantity(res); }
+
+    public int getCardNumber(int level, Color color){
+        return Arrays.stream(this.cardSlot).mapToInt(s->s.getCardNumber(level,color)).sum();
+    }
+
+    public int getFaithPoints(){
+        return this.faithTrack.getFaithMarker();
     }
 
     //TODO
@@ -75,62 +86,57 @@ public class Board {
         return hand;
     }
 
-    public void addLeaderCard(LeaderCard card){
-        this.hand.add(card);
-        card.setOwner(this);
+
+
+    public DevelopmentCard getTopCard(int cardSlotIndex) throws IndexOutOfBoundsException {
+        return this.cardSlot[cardSlotIndex].getTopCard();
     }
 
-    public void addDevelopmentCard(DevelopmentCard card, CardSlot cardSlot) throws developmentCardSlotLimitExceededException,
-            invalidDevelopmentCardLevelPlacementException {
+    public void addDevelopmentCard(DevelopmentCard card, int cardSlotIndex) throws developmentCardSlotLimitExceededException,
+            invalidDevelopmentCardLevelPlacementException{
 
-        cardSlot.addCard(card);
+
+        this.cardSlot[cardSlotIndex].addCard(card);
         int totalDevCardNumber = Arrays.stream(this.cardSlot).mapToInt(CardSlot::getGenericCardNumber).sum();
         if(totalDevCardNumber == 7) this.game.gameIsOver();
 
     }
 
-    public int getWarehouseResource(Resource res){
 
-        return wareHouse.getTotalWarehouseQuantity(res);
-    }
-
-    public int getStrongBoxResource( Resource res){
-        return strongBox.getResource(res);
-    }
-
-    public void addLeaderDepot(Resource res){
-        this.wareHouse.createLeaderDepot(res);
-    }
 
     public void setInkwell(){
         this.inkwell = true;
     }
 
-    public int getFaithPoints(){
-        return this.faithTrack.getFaithMarker();
-    }
+
 
     public void giveFaithPoints(int steps)  {
         this.faithTrack.addFaith(steps); }
 
-    public int getCardNumber(int level, Color color){
-        return Arrays.stream(this.cardSlot).mapToInt(s->s.getCardNumber(level,color)).sum();
 
 
+    public void addWarehouseDepotResource(int warehouseDepotIndex,Resource res, int quantity) throws addResourceLimitExceededException, invalidResourceTypeException {
+        this.wareHouse.addLeaderDepotResource(warehouseDepotIndex,res,quantity);
     }
 
-    public void addDepotResource(Depot depot,Resource res, int quantity) throws invalidDepotTypeChangeException,
-            duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
-        this.wareHouse.addResource(depot,res,quantity);
-    }
-
-    public void removeDepotResource(Depot depot, Resource res, int quantity) throws invalidResourceTypeException,
+    public void removeWarehouseDepotResource(int warehouseDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
             removeResourceLimitExceededException {
-        this.wareHouse.removeResource(depot,res,quantity);
+        this.wareHouse.removeLeaderDepotResource(warehouseDepotIndex,res,quantity);
     }
 
-    public void swapDepot(WarehouseDepot depot1,WarehouseDepot depot2) throws invalidSwapException {
-        this.wareHouse.swapDepot(depot1,depot2);
+
+    public void addLeaderDepotResource(int leaderDepotIndex,Resource res, int quantity) throws addResourceLimitExceededException,
+            invalidResourceTypeException, IndexOutOfBoundsException {
+        this.wareHouse.addLeaderDepotResource(leaderDepotIndex,res,quantity);
+    }
+
+    public void removeLeaderDepotResource(int leaderDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
+            removeResourceLimitExceededException, IndexOutOfBoundsException {
+        this.wareHouse.removeLeaderDepotResource(leaderDepotIndex,res,quantity);
+    }
+
+    public void swapDepot(int warehouseDepot1Index,int warehouseDepot2Index) throws invalidSwapException {
+        this.wareHouse.swapDepot(warehouseDepot1Index,warehouseDepot2Index);
     }
 
     public void addStrongboxResource(Resource res,int quantity){
@@ -143,21 +149,15 @@ public class Board {
 
     }
 
-    public void discardLeaderCard(LeaderCard card) throws invalidLeaderCardDiscardException {
 
-        Optional<LeaderCard> cardToDiscard = this.hand.stream().filter(c->c.equals(card) && !c.isActive()).findFirst();
-        if(cardToDiscard.isEmpty()) throw new invalidLeaderCardDiscardException();
-
-        hand.remove(card);
-        card.discardCard();
-        giveFaithPoints(1);
-    }
-
-
+    //TODO
+    //REMOVE
     public CardSlot[] getCardSlot(){
         return this.cardSlot;
     }
 
+    //TODO
+    //REMOVE
     public Warehouse getWareHouse() {
         return wareHouse;
     }
@@ -176,11 +176,28 @@ public class Board {
         this.faithTrack.computeActivationPopeTile(index);
     }
 
-    public void activateLeaderCard(LeaderCard card) throws invalidLeaderCardActivationException {
-        Optional<LeaderCard> cardToActivate = this.hand.stream().filter(c->c.equals(card) && !c.isActive()).findFirst();
-        if(cardToActivate.isEmpty()) throw new invalidLeaderCardActivationException();
-        cardToActivate.ifPresent(LeaderCard::activateCard);
+    public void addLeaderCard(LeaderCard card){
+        this.hand.add(card);
+        card.setOwner(this);
+    }
 
+    public void activateLeaderCard(int cardIndex) throws IndexOutOfBoundsException {
+
+        LeaderCard leaderToActivate = this.hand.get(cardIndex);
+        this.hand.remove(leaderToActivate);
+        activeLeaders.add(leaderToActivate);
+        leaderToActivate.activateCard();
+
+    }
+
+
+
+    public void discardLeaderCard(int cardIndex) throws IndexOutOfBoundsException {
+
+        LeaderCard leaderToDiscard =  this.hand.get(cardIndex);
+        this.hand.remove(leaderToDiscard);
+        leaderToDiscard.discardCard();
+        giveFaithPoints(1);
     }
 }
 

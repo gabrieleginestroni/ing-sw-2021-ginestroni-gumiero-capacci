@@ -30,31 +30,52 @@ public class Warehouse {
         return storages;
     }
 
-    public void addResource(Depot depot, Resource res, int quantity) throws invalidDepotTypeChangeException,
+    public void addWarehouseDepotResource(int warehouseDepotIndex, Resource res, int quantity) throws invalidDepotTypeChangeException,
             invalidResourceTypeException,addResourceLimitExceededException,duplicatedWarehouseTypeException{
 
         invalidResourceCheck(res);
 
-        if(depot.getResourceType() == null){
+        if(storages[warehouseDepotIndex].getResourceType() == null){
             if(Arrays.stream(storages).anyMatch(s->s.getResourceType() == res)) {
                 throw new duplicatedWarehouseTypeException();
             }
-            depot.setResourceType(res);
+            storages[warehouseDepotIndex].setResourceType(res);
 
         }
-        depot.addResource(res,quantity);
+        storages[warehouseDepotIndex].addResource(res,quantity);
 
     }
 
-    public void removeResource(Depot depot, Resource res, int quantity) throws invalidResourceTypeException,
+    public void removeWarehouseDepotResource(int warehouseDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
             removeResourceLimitExceededException{
 
         invalidResourceCheck(res);
 
-        depot.removeResource(res,quantity);
+        storages[warehouseDepotIndex].removeResource(res,quantity);
     }
 
-    public void swapDepot(WarehouseDepot depot1,WarehouseDepot depot2) throws invalidSwapException{
+    public void addLeaderDepotResource(int leaderDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
+            addResourceLimitExceededException, IndexOutOfBoundsException{
+
+        invalidResourceCheck(res);
+
+        leaderStorages.get(leaderDepotIndex).addResource(res,quantity);
+
+    }
+
+    public void removeLeaderDepotResource(int leaderDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
+            removeResourceLimitExceededException, IndexOutOfBoundsException{
+
+        invalidResourceCheck(res);
+
+        leaderStorages.get(leaderDepotIndex).removeResource(res,quantity);
+    }
+
+
+
+    public void swapDepot(int warehouseDepot1Index,int warehouseDepot2Index) throws invalidSwapException{
+        WarehouseDepot depot1 = storages[warehouseDepot1Index];
+        WarehouseDepot depot2 = storages[warehouseDepot2Index];
         if(depot1.storageQuantity <= depot2.storageLimit
                 && depot2.storageQuantity <= depot1.storageQuantity){
             Resource res1 = depot1.resourceType;
