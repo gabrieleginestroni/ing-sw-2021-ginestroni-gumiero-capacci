@@ -7,8 +7,8 @@ import it.polimi.ingsw.model.*;
  * Class that represents the marble
  */
 public class Marble {
-    private String color;
-    private Resource resource;
+    private final String color;
+    private final Resource resource;
 
     public Marble(String color, Resource resource) {
         this.color = color;

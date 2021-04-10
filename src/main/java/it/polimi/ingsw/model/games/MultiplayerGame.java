@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.games;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.controller.ControllerPlayer;
-import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.*;
 
 import java.io.Reader;
@@ -19,18 +18,13 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class MultiplayerGame extends Game{
 
-    private final int numPlayer;
-    private final List<Board> boards;
+    private final List<ControllerPlayer> controllerPlayers;
 
     public MultiplayerGame(List<ControllerPlayer> controllerPlayers){
 
-        numPlayer = controllerPlayers.size();
-
-        boards = new ArrayList<>();
-        for(ControllerPlayer player : controllerPlayers){
+        this.controllerPlayers = controllerPlayers;
+        for(ControllerPlayer player : controllerPlayers)
             player.buildBoard(this);
-            boards.add(player.getBoard());
-        }
 
         gameId = "multiplayer id";
         gameDate = new Date();
@@ -56,7 +50,7 @@ public class MultiplayerGame extends Game{
         }
 
         int[] shuffleLeader = new int[tempArray.length];
-        for (int i = 0; i<shuffleLeader.length; i++)
+        for (int i = 0; i < shuffleLeader.length; i++)
             shuffleLeader[i] = i;
         for(int max = shuffleLeader.length - 1; max > 0 ; max--){
             int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);

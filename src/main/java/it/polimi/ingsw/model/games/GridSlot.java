@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class GridSlot {
 
-    private List<DevelopmentCard> cards;
+    private final List<DevelopmentCard> cards;
 
     public GridSlot(){
         cards = new ArrayList<>();

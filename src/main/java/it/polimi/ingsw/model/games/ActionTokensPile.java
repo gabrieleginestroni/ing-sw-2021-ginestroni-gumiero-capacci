@@ -10,8 +10,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class ActionTokensPile {
 
-    private int[] tokenPileStatus;
-    private List<ActionToken> actionTokens;
+    private final int[] tokenPileStatus;
+    private final List<ActionToken> actionTokens;
     private int nextToDraw;
 
     public ActionTokensPile(){
@@ -27,9 +27,6 @@ public class ActionTokensPile {
 
         tokenPileStatus = new int[actionTokens.size()];
 
-        int randomNumber;
-        int temp;
-
         for(int i = 0; i < tokenPileStatus.length; i++)
             tokenPileStatus[i] = i;
 
@@ -41,7 +38,7 @@ public class ActionTokensPile {
      * Method that emulates the draw of the next Action Token of the pile and applies its effect.
      * @param solo The Solo Game which the effect of the drawn Action Token has to be applied on.
      */
-    public void drawPile(SoloGame solo) { //throws vaticanReportActivated{
+    public void drawPile(SoloGame solo) {
         actionTokens.get(tokenPileStatus[nextToDraw]).activateEffect(solo);
         nextToDraw++;
     }

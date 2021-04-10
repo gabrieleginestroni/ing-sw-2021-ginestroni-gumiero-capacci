@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.games;
 import com.google.gson.Gson;
 import it.polimi.ingsw.controller.ControllerPlayer;
 import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 
@@ -18,15 +17,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SoloGame extends Game{
     private final Lorenzo lorenzo;
-    private final Board board;
+    private final ControllerPlayer controllerPlayer;
     private final ActionTokensPile actionTokensPile;
 
     public SoloGame(ControllerPlayer controllerPlayer){
 
         lorenzo = new Lorenzo(this);
 
-        controllerPlayer.buildBoard(this);
-        board = controllerPlayer.getBoard();
+        this.controllerPlayer = controllerPlayer;
+        this.controllerPlayer.buildBoard(this);
 
         actionTokensPile = new ActionTokensPile();
 
@@ -122,7 +121,7 @@ public class SoloGame extends Game{
 
         Optional<Color> c = Arrays.stream(Color.values()).filter(s -> s.getColumn()==col).findFirst();
 
-        if(devCardsGrid.thereAreNotRemainingCards(c.get()))
+        if(c.isPresent() && devCardsGrid.thereAreNotRemainingCards(c.get()))
             gameIsOver();
     }
 }

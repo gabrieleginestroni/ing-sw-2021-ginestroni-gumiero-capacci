@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * Class that defines the Marble Grid
  */
 public class Market {
-    private Marble[][] layout;
+    private final Marble[][] layout;
     private Marble freeMarble;
 
     /**
@@ -73,9 +73,8 @@ public class Market {
         //shift marbles
         tmp = this.freeMarble;
         this.freeMarble = layout[row][0];
-        for(int i = 0; i < layout[row].length-1; i++) {
+        for(int i = 0; i < layout[row].length-1; i++)
             layout[row][i] = layout[row][i+1];
-        }
         layout[row][layout[row].length-1] = tmp;
         return gain;
     }
