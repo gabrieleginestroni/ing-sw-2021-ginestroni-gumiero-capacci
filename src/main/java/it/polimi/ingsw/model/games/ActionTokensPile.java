@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.games;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Tommaso Capacci
@@ -30,8 +30,9 @@ public class ActionTokensPile {
         for(int i = 0; i < tokenPileStatus.length; i++)
             tokenPileStatus[i] = i;
 
-        shufflePile();
-        shufflePile();
+        Collections.shuffle(actionTokens);
+
+        nextToDraw = 0;
     }
 
     /**
@@ -47,14 +48,7 @@ public class ActionTokensPile {
      * Method that shuffles the status of the Action Token pile.
      */
     public void shufflePile(){
-
-        for(int max = tokenPileStatus.length - 1 ; max > 0 ; max--){
-            int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
-            int temp = tokenPileStatus[randomNumber];
-            tokenPileStatus[randomNumber] = tokenPileStatus[max];
-            tokenPileStatus[max] = temp;
-        }
-
+        Collections.shuffle(actionTokens);
         nextToDraw = 0;
     }
 }

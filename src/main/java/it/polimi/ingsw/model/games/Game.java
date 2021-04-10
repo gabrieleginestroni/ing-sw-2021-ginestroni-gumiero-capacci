@@ -8,11 +8,7 @@ import it.polimi.ingsw.model.cards.LeaderCard;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.*;
 
 
 /**
@@ -39,17 +35,18 @@ public abstract class Game {
 
         market = new Market();
 
-        LeaderCard[] tempArray = null;
+        LeaderCard[] tempArray;
         Gson gson = new Gson();
         try{
 
             //Reading LeaderCards
             Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
             tempArray = gson.fromJson(reader, LeaderCard[].class);
+            leaderCards = Arrays.asList(tempArray);
 
             //Reading DevelopmentCards
             reader = Files.newBufferedReader(Paths.get("src/main/resources/DevelopmentCards.json"));
-            this.devCards = gson.fromJson(reader, DevelopmentCard[].class);
+            devCards = gson.fromJson(reader, DevelopmentCard[].class);
 
             reader.close();
 
@@ -57,28 +54,7 @@ public abstract class Game {
             e.printStackTrace();
         }
 
-        int[] shuffleLeader = null;
-        if(tempArray!=null)
-            shuffleLeader = new int[tempArray.length];
-        if(shuffleLeader!=null) {
-            for (int i = 0; i < shuffleLeader.length; i++)
-                shuffleLeader[i] = i;
-            for (int max = shuffleLeader.length - 1; max > 0; max--) {
-                int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
-                int temp = shuffleLeader[randomNumber];
-                shuffleLeader[randomNumber] = shuffleLeader[max];
-                shuffleLeader[max] = temp;
-            }
-            for (int max = shuffleLeader.length - 1; max > 0; max--) {
-                int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
-                int temp = shuffleLeader[randomNumber];
-                shuffleLeader[randomNumber] = shuffleLeader[max];
-                shuffleLeader[max] = temp;
-            }
-            leaderCards = new ArrayList<>();
-            for (int num : shuffleLeader)
-                leaderCards.add(tempArray[shuffleLeader[num]]);
-        }
+        Collections.shuffle(leaderCards);
 
         devCardsGrid = new DevelopmentCardGrid(devCards);
 
