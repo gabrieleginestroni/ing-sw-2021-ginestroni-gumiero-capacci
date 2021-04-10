@@ -35,13 +35,12 @@ public abstract class Game {
 
         market = new Market();
 
-        LeaderCard[] tempArray;
         Gson gson = new Gson();
         try{
 
             //Reading LeaderCards
             Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
-            tempArray = gson.fromJson(reader, LeaderCard[].class);
+            LeaderCard[] tempArray = gson.fromJson(reader, LeaderCard[].class);
             leaderCards = Arrays.asList(tempArray);
 
             //Reading DevelopmentCards
