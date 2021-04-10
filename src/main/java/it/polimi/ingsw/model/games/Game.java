@@ -1,13 +1,18 @@
 package it.polimi.ingsw.model.games;
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 /**
@@ -26,6 +31,64 @@ public abstract class Game {
     boolean section1Reported;
     boolean section2Reported;
     boolean section3Reported;
+
+    public Game(){
+
+        gameId = "test id";
+        gameDate = new Date();
+
+        market = new Market();
+
+        LeaderCard[] tempArray = null;
+        Gson gson = new Gson();
+        try{
+
+            //Reading LeaderCards
+            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
+            tempArray = gson.fromJson(reader, LeaderCard[].class);
+
+            //Reading DevelopmentCards
+            reader = Files.newBufferedReader(Paths.get("src/main/resources/DevelopmentCards.json"));
+            this.devCards = gson.fromJson(reader, DevelopmentCard[].class);
+
+            reader.close();
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        int[] shuffleLeader = null;
+        if(tempArray!=null)
+            shuffleLeader = new int[tempArray.length];
+        if(shuffleLeader!=null) {
+            for (int i = 0; i < shuffleLeader.length; i++)
+                shuffleLeader[i] = i;
+            for (int max = shuffleLeader.length - 1; max > 0; max--) {
+                int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
+                int temp = shuffleLeader[randomNumber];
+                shuffleLeader[randomNumber] = shuffleLeader[max];
+                shuffleLeader[max] = temp;
+            }
+            for (int max = shuffleLeader.length - 1; max > 0; max--) {
+                int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
+                int temp = shuffleLeader[randomNumber];
+                shuffleLeader[randomNumber] = shuffleLeader[max];
+                shuffleLeader[max] = temp;
+            }
+            leaderCards = new ArrayList<>();
+            for (int num : shuffleLeader)
+                leaderCards.add(tempArray[shuffleLeader[num]]);
+        }
+
+        devCardsGrid = new DevelopmentCardGrid(devCards);
+
+        gameOver = false;
+
+        section1Reported = false;
+        section2Reported = false;
+        section3Reported = false;
+
+    }
 
     /**
      * Method used in the initialization phase of the game to get 4 random Leader Cards.
@@ -103,26 +166,47 @@ public abstract class Game {
         return gameOver;
     }
 
+    /**
+     * Sets the first Pope Space of the Faith Track as reported.
+     */
     public void setSection1Reported() {
         this.section1Reported = true;
     }
 
+    /**
+     * Sets the intermediate Pope Space of the Faith Track as reported.
+     */
     public void setSection2Reported() {
         this.section2Reported = true;
     }
 
+    /**
+     * Sets the last Pope Space of the Faith Track as reported.
+     */
     public void setSection3Reported() {
         this.section3Reported = true;
     }
 
+    /**
+     * Gets the report status of the first Pope Space of the Faith Track.
+     * @return "TRUE" only if the first Pope Space has been reported.
+     */
     public boolean isSection1Reported() {
         return section1Reported;
     }
 
+    /**
+     * Gets the report status of the intermediate Pope Space of the Faith Track.
+     * @return "TRUE" only if the intermediate Pope Space has been reported.
+     */
     public boolean isSection2Reported() {
         return section2Reported;
     }
 
+    /**
+     * Gets the report status of the last Pope Space of the Faith Track.
+     * @return "TRUE" only if the last Pope Space has been reported.
+     */
     public boolean isSection3Reported() {
         return section3Reported;
     }
