@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.games;
 import com.google.gson.Gson;
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Resource;
 
 import java.io.Reader;
 import java.nio.file.Files;

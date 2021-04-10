@@ -52,24 +52,28 @@ public class SoloGame extends Game{
             e.printStackTrace();
         }
 
-        int[] shuffleLeader = new int[tempArray.length];
-        for (int i = 0; i<shuffleLeader.length; i++)
-            shuffleLeader[i] = i;
-        for(int max = shuffleLeader.length - 1; max > 0 ; max--){
-            int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
-            int temp = shuffleLeader[randomNumber];
-            shuffleLeader[randomNumber] = shuffleLeader[max];
-            shuffleLeader[max] = temp;
+        int[] shuffleLeader = null;
+        if(tempArray!=null)
+            shuffleLeader = new int[tempArray.length];
+        if(shuffleLeader!=null) {
+            for (int i = 0; i < shuffleLeader.length; i++)
+                shuffleLeader[i] = i;
+            for (int max = shuffleLeader.length - 1; max > 0; max--) {
+                int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
+                int temp = shuffleLeader[randomNumber];
+                shuffleLeader[randomNumber] = shuffleLeader[max];
+                shuffleLeader[max] = temp;
+            }
+            for (int max = shuffleLeader.length - 1; max > 0; max--) {
+                int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
+                int temp = shuffleLeader[randomNumber];
+                shuffleLeader[randomNumber] = shuffleLeader[max];
+                shuffleLeader[max] = temp;
+            }
+            leaderCards = new ArrayList<>();
+            for (int num : shuffleLeader)
+                leaderCards.add(tempArray[shuffleLeader[num]]);
         }
-        for(int max = shuffleLeader.length - 1; max > 0 ; max--){
-            int randomNumber = ThreadLocalRandom.current().nextInt(0, max + 1);
-            int temp = shuffleLeader[randomNumber];
-            shuffleLeader[randomNumber] = shuffleLeader[max];
-            shuffleLeader[max] = temp;
-        }
-        leaderCards = new ArrayList<>();
-        for(int num : shuffleLeader)
-            leaderCards.add(tempArray[shuffleLeader[num]]);
 
         devCardsGrid = new DevelopmentCardGrid(devCards);
 

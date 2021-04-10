@@ -18,10 +18,9 @@ public class Lorenzo{
      * @param points The number of Faith Points that are going to be added to the BlackCross indicator.
      */
     public void addFaithPoints(int points){
-        if ((blackCross += points) < 24)
-            blackCross += points;
-        else
-            blackCross = 24;
+        int tempBC = blackCross + points;
+
+        blackCross = Math.min(tempBC, 24);
 
         if(blackCross >= 8 && !solo.isSection1Reported())
             solo.setSection1Reported();

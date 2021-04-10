@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.games;
 
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Resource;
 
 /**
  * @author Giacomo Gumiero
