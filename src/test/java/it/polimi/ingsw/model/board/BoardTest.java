@@ -306,7 +306,7 @@ public class BoardTest {
     }
 
     @Test
-    public void TestDiscard() throws IOException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException {
+    public void TestDiscard() throws IOException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException, duplicatedWarehouseTypeException {
         Player player1 = new Player( "localhost", 8080, "giagum");
         Player player2 = new Player( "localhost", 8080, "gabry");
         List<Player> player = new ArrayList<>();
@@ -322,7 +322,7 @@ public class BoardTest {
         //12-15 production
         b1.addLeaderCard(tempArray[4]);
         b1.addLeaderCard(tempArray[5]);
-        tempArray[4].activateCard();
+        b1.activateLeaderCard(0);
         //tempArray[5].discardCard();
 
         //leaderDepots
