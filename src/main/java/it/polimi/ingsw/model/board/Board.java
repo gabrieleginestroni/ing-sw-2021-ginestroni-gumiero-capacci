@@ -47,6 +47,28 @@ public class Board {
 
 
     }
+
+    public int getWarehouseDepotResourceNumber(int index){
+        return wareHouse.getWarehouseDepotResourceNumber(index) ;
+    }
+
+    public int getLeaderDepotResourceNumber(int index){
+        return wareHouse.getLeaderDepotResourceNumber(index) ;
+    }
+
+    public Resource getWarehouseDepotResourceType(int index){
+        return wareHouse.getWarehouseDepotResourceType(index) ;
+    }
+
+    public Resource getLeaderDepotResourceType(int index){
+        return wareHouse.getLeaderDepotResourceType(index) ;
+    }
+
+
+
+
+
+
     public void addLeaderDepot(Resource res){
         this.wareHouse.createLeaderDepot(res);
     }

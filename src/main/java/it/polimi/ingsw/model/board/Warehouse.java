@@ -188,4 +188,42 @@ public class Warehouse {
 
          return coinTot + servantTot + shieldTot + stoneTot;
     }
+
+    /**
+     * Getter of a warehouse depot's stored quantity
+     * @param index Index of the warehouse depot between 0 and 2
+     * @return Resource quantity
+     */
+    public int getWarehouseDepotResourceNumber(int index){
+        return storages[index].getResourceQuantity() ;
+    }
+
+    /**
+     * Getter of a leader depot's stored quantity
+     * @param index Index of the leader depot
+     * @return Resource quantity
+     */
+    public int getLeaderDepotResourceNumber(int index){
+         return leaderStorages.get(index).getResourceQuantity();
+
+    }
+
+    /**
+     * Getter of a warehouse depot's resource type
+     * @param index Index of the warehouse depot between 0 and 2
+     * @return Resource type
+     */
+    public Resource getWarehouseDepotResourceType(int index){
+        return storages[index].getResourceType() ;
+    }
+
+    /**
+     * Getter of a leader depot's resource type
+     * @param index Index of the leader depot
+     * @return Resource type
+     */
+    public Resource getLeaderDepotResourceType(int index){
+        return leaderStorages.get(index).getResourceType() ;
+    }
+
 }
