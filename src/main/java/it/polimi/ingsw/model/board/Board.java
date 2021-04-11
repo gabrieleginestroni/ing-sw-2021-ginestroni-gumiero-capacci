@@ -115,14 +115,13 @@ public class Board {
 
 
 
-    public void addWarehouseDepotResource(int warehouseDepotIndex,Resource res, int quantity) throws addResourceLimitExceededException, invalidResourceTypeException {
-        //TODO, perchè aggiunge a Leader?
-        this.wareHouse.addLeaderDepotResource(warehouseDepotIndex,res,quantity);
+    public void addWarehouseDepotResource(int warehouseDepotIndex,Resource res, int quantity) throws addResourceLimitExceededException, invalidResourceTypeException, duplicatedWarehouseTypeException {
+        this.wareHouse.addWarehouseDepotResource(warehouseDepotIndex,res,quantity);
     }
 
     public void removeWarehouseDepotResource(int warehouseDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
             removeResourceLimitExceededException {
-        this.wareHouse.removeLeaderDepotResource(warehouseDepotIndex,res,quantity);
+        this.wareHouse.removeWarehouseDepotResource(warehouseDepotIndex,res,quantity);
     }
 
 

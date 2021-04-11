@@ -35,7 +35,7 @@ public class Warehouse {
 
 
     /**
-     * Adds an amount of the specified type resources to the warehouse depot that corresponds to the index.
+     * Adds an amount of the specified type resource to the warehouse depot that corresponds to the index.
      * @param warehouseDepotIndex Index of the warehouse depot between 0 and 2
      * @param res Resource type to add
      * @param quantity Quantity of resource to add
@@ -61,7 +61,7 @@ public class Warehouse {
     }
 
     /**
-     * Removes an amount of the specified type resources to the warehouse depot that corresponds to the index.
+     * Removes an amount of the specified type resource to the warehouse depot that corresponds to the index.
      * Sets the resource type to null if the new quantity is zero.
      * @param warehouseDepotIndex Index of the warehouse depot between 0 and 2
      * @param res Resource type to remove
@@ -79,7 +79,7 @@ public class Warehouse {
     }
 
     /**
-     * Adds an amount of the specified type resources to the leader depot that corresponds to the index.
+     * Adds an amount of the specified type resource to the leader depot that corresponds to the index.
      * @param leaderDepotIndex Index of the leader depot between 0 and 1
      * @param res Resource type to add
      * @param quantity Quantity of resource to add
@@ -97,7 +97,7 @@ public class Warehouse {
     }
 
     /**
-     *Removes an amount of the specified type resources to the leader depot that corresponds to the index.
+     *Removes an amount of the specified type resource to the leader depot that corresponds to the index.
      * @param leaderDepotIndex Index of the leader depot between 0 and 1
      * @param res Resource type to remove
      * @param quantity Quantity of resource to remove
