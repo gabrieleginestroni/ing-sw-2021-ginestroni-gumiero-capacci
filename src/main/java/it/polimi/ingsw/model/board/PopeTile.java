@@ -1,14 +1,19 @@
 package it.polimi.ingsw.model.board;
 
 /**
- * @author Tommaso Capacci
- * Class that represents a Pope Tile, with its activation state and Victory Points
+ * @author Gabriele Ginestroni
+ * Class that represents a Pope Favor tile, its activation state and Victory Points
  */
 public class PopeTile {
 
     private final int victoryPoints;
     private boolean active;
 
+    /**Constructor of Pope Tile
+     *
+     * @param victoryPoints Number of victory points of the pope tile, involved in the count of player's total victory
+     *                     points at the end of the game if the pope tile has been activated.
+     */
     public PopeTile(int victoryPoints) {
         this.victoryPoints = victoryPoints;
         this.active = false;

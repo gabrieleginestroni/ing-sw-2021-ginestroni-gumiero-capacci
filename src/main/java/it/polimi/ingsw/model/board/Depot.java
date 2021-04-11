@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.Resource;
 
 /**
  * @author Gabriele Ginestroni
- * Class that represents a single storage unit without any distinction between Warehouse and Leader Cards' depots
+ * Class that represents a single storage unit without making any distinction between Warehouse and Leader Cards' depots
  */
 public abstract class Depot {
     int storageQuantity;
@@ -17,8 +17,8 @@ public abstract class Depot {
      *
      * @param resource type of the resource to add
      * @param quantity amount of resource to add
-     * @throws addResourceLimitExceededException thrown if the new quantity would exceed the storage limit
-     * @throws invalidResourceTypeException thrown if the resource type is illegal
+     * @throws addResourceLimitExceededException thrown if the new quantity exceeds the storage limit
+     * @throws invalidResourceTypeException thrown if the resource type doesn't match the one of the depot
      */
     public void addResource(Resource resource, int quantity) throws addResourceLimitExceededException,invalidResourceTypeException {
         int newQuantity;
@@ -35,12 +35,12 @@ public abstract class Depot {
     }
 
     /**
-     *Adds an amount of resources to the depot, if the resource type matches to the one of the depot and if
+     *Removes an amount of resources from the depot, if the resource type matches to the one of the depot and if
      * the quantity to remove is smaller than the actual quantity stored
      * @param resource type of the resource to remove
      * @param quantity amount of resource to remove
      * @throws removeResourceLimitExceededException thrown if the quantity to remove is greater than the actual quantity stored
-     * @throws invalidResourceTypeException thrown if the resource type is illegal
+     * @throws invalidResourceTypeException thrown if the resource type doesn't match the one of the depot
      */
     public void removeResource(Resource resource,int quantity) throws removeResourceLimitExceededException,invalidResourceTypeException{
         int newQuantity;
@@ -60,7 +60,7 @@ public abstract class Depot {
     /**
      * Checks if the resource type matches the one of the depot
      * @param resource resource type to check
-     * @throws invalidResourceTypeException thrown if the resource type is illegal
+     * @throws invalidResourceTypeException thrown if the resource type doesn't match the one of the depot
      */
      void wrongResourceCheck(Resource resource) throws invalidResourceTypeException {
         if(resource != this.resourceType){
@@ -68,7 +68,7 @@ public abstract class Depot {
         }
     }
     /**
-     * Sets the depot's storage resource type if it's empty
+     * Depot resource type setter
      * @param resourceType resource type to set
      *
      *

@@ -9,8 +9,7 @@ import it.polimi.ingsw.model.Resource;
 public class LeaderDepot extends Depot {
 
     /**
-     *Constructor that creates a Leader Depot if the resource type is allowed and initializes the instance
-     * with the default value for an empty Leader Depot with its storage limit
+     *Constructor of a leader depot card power storage initialized with the default value for an empty Leader Depot
      * @param resource resource type of Leader depot to create
      *
      */

@@ -5,6 +5,9 @@ import it.polimi.ingsw.model.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**@author Gabriele Ginestroni
+ * Class that represents the board's resource warehouse. Contains warehouse depots and storage leader cards' depots.
+ */
 public class Warehouse {
     private final WarehouseDepot[] storages;
     private final ArrayList<LeaderDepot> leaderStorages;
@@ -30,10 +33,21 @@ public class Warehouse {
         return storages;
     }
 
-    public void addWarehouseDepotResource(int warehouseDepotIndex, Resource res, int quantity) throws invalidDepotTypeChangeException,
+
+    /**
+     * Adds an amount of the specified type resources to the warehouse depot that corresponds to the index.
+     * @param warehouseDepotIndex Index of the warehouse depot between 0 and 2
+     * @param res Resource type to add
+     * @param quantity Quantity of resource to add
+     *
+     * @throws invalidResourceTypeException In case the resource type doesn't match the one of the depot
+     * @throws addResourceLimitExceededException In case new quantity exceeds the storage limit
+     * @throws duplicatedWarehouseTypeException  In case the add resource action tries to set a duplicated warehouse
+     * depot type
+     */
+    public void addWarehouseDepotResource(int warehouseDepotIndex, Resource res, int quantity) throws
             invalidResourceTypeException,addResourceLimitExceededException,duplicatedWarehouseTypeException{
 
-        invalidResourceCheck(res);
 
         if(storages[warehouseDepotIndex].getResourceType() == null){
             if(Arrays.stream(storages).anyMatch(s->s.getResourceType() == res)) {
@@ -46,32 +60,65 @@ public class Warehouse {
 
     }
 
+    /**
+     * Removes an amount of the specified type resources to the warehouse depot that corresponds to the index.
+     * Sets the resource type to null if the new quantity is zero.
+     * @param warehouseDepotIndex Index of the warehouse depot between 0 and 2
+     * @param res Resource type to remove
+     * @param quantity Quantity of resource to remove
+     * @throws invalidResourceTypeException In case the resource type doesn't match the one of the depot
+     * @throws removeResourceLimitExceededException In case the quantity to remove is greater than the actual
+     * stored quantity
+     */
     public void removeWarehouseDepotResource(int warehouseDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
             removeResourceLimitExceededException{
 
-        invalidResourceCheck(res);
+
 
         storages[warehouseDepotIndex].removeResource(res,quantity);
     }
 
+    /**
+     * Adds an amount of the specified type resources to the leader depot that corresponds to the index.
+     * @param leaderDepotIndex Index of the leader depot between 0 and 1
+     * @param res Resource type to add
+     * @param quantity Quantity of resource to add
+     * @throws invalidResourceTypeException In case the resource type doesn't match the one of the depot
+     * @throws addResourceLimitExceededException  In case new quantity exceeds the storage limit
+     * @throws IndexOutOfBoundsException In case a leader depot with the specified index doesn't exist
+     */
     public void addLeaderDepotResource(int leaderDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
             addResourceLimitExceededException, IndexOutOfBoundsException{
 
-        invalidResourceCheck(res);
+
 
         leaderStorages.get(leaderDepotIndex).addResource(res,quantity);
 
     }
 
+    /**
+     *Removes an amount of the specified type resources to the leader depot that corresponds to the index.
+     * @param leaderDepotIndex Index of the leader depot between 0 and 1
+     * @param res Resource type to remove
+     * @param quantity Quantity of resource to remove
+     * @throws invalidResourceTypeException In case the resource type doesn't match the one of the depot
+     * @throws removeResourceLimitExceededException In case the quantity to remove is greater than the actual
+     * @throws IndexOutOfBoundsException In case a leader depot with the specified index doesn't exist
+     */
     public void removeLeaderDepotResource(int leaderDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
             removeResourceLimitExceededException, IndexOutOfBoundsException{
 
-        invalidResourceCheck(res);
 
         leaderStorages.get(leaderDepotIndex).removeResource(res,quantity);
     }
 
-
+    /**
+     *Swaps two warehouse depot's resources if the storages limits permit the action and changes the resource
+     * types accordingly.
+     * @param warehouseDepot1Index Index of the first warehouse depot
+     * @param warehouseDepot2Index Index of the seconds warehouse depot
+     * @throws invalidSwapException In case the swap isn't allow by the game rules
+     */
 
     public void swapDepot(int warehouseDepot1Index,int warehouseDepot2Index) throws invalidSwapException{
         WarehouseDepot depot1 = storages[warehouseDepot1Index];
@@ -99,6 +146,11 @@ public class Warehouse {
 
     }
 
+    /**
+     *Returns the total quantity of the resource contained in all warehouse and leader depots
+     * @param res Resource type
+     * @return Total amount of the resource contained in all warehouse and leader depots
+     */
 
     public int getTotalWarehouseQuantity(Resource res){
         int totalWarehouse;
@@ -114,22 +166,20 @@ public class Warehouse {
         return totalLeader + totalWarehouse;
     }
 
+    /**
+     * Creates an empty leader depot
+     * @param res Resource type of the leader depot
+     */
     public void createLeaderDepot(Resource res){
         leaderStorages.add(new LeaderDepot(res));
     }
 
 
-    /**
-     * Checks if the resource type is allowed to be stored in a depot
-     * @param resource resource type to check
-     * @throws invalidResourceTypeException thrown if the resource type is illegal
-     */
-     private void invalidResourceCheck(Resource resource) throws invalidResourceTypeException {
-        if( resource == Resource.FAITH || resource == Resource.WHITE){
-            throw new invalidResourceTypeException();
-        }
-    }
 
+    /**
+     *Returns the total quantity of resources contained in all warehouse and leader depots
+     * @return Total amount of resources contained in all warehouse and leader depots
+     */
     public int getGenericResourceNumber(){
          int coinTot = getTotalWarehouseQuantity(Resource.COIN);
          int shieldTot = getTotalWarehouseQuantity(Resource.SHIELD);
