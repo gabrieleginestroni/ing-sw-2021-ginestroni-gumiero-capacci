@@ -45,7 +45,7 @@ public class BoardTest {
         MultiplayerGame multiplayerGame = new MultiplayerGame(player);
         Board b = player1.getBoard();
 
-        b.addDevelopmentCard(multiplayerGame.getCardFromGrid(0,1), b.getCardSlot()[0]);
+        b.addDevelopmentCard(multiplayerGame.getCardFromGrid(0,1), 0);
         assertEquals(1, b.getCardNumber(1, Color.BLUE));
     }
 
@@ -98,10 +98,10 @@ public class BoardTest {
         //System.out.println(l.getPower() + " " + l.getResource());
         switch (l.getPower()) {
             case "depots":
-                b.addDepotResource(b.getWareHouse().getLeaderStorages().get(0), l.getResource(), 2);
+                b.addWarehouseDepotResource(0, l.getResource(), 2);
                 assertEquals(2, b.getWarehouseResource(l.getResource()));
                 assertEquals(2, b.getResourceNumber(l.getResource()));
-                b.removeDepotResource(b.getWareHouse().getLeaderStorages().get(0),l.getResource(),1);
+                b.removeWarehouseDepotResource(0,l.getResource(),1);
                 assertEquals(1,b.getResourceNumber(l.getResource()));
                 break;
             case "discount":
@@ -185,7 +185,7 @@ public class BoardTest {
         //System.out.println(l.getPower() + " " + l.getResource());
         switch (l.getPower()) {
             case "depots":
-                b.addDepotResource(b.getWareHouse().getLeaderStorages().get(0), l.getResource(), 2);
+                b.addWarehouseDepotResource(0, l.getResource(), 2);
                 assertEquals(2, b.getWarehouseResource(l.getResource()));
                 assertEquals(2, b.getResourceNumber(l.getResource()));
                 break;
@@ -204,7 +204,7 @@ public class BoardTest {
         //System.out.println(l.getPower() + " " + l.getResource());
         switch (l.getPower()) {
             case "depots":
-                b.addDepotResource(b.getWareHouse().getLeaderStorages().get(b.getWareHouse().getLeaderStorages().size()-1), l.getResource(), 2);
+                b.addLeaderDepotResource(b.getWareHouse().getLeaderStorages().size()-1, l.getResource(), 2);
                 assertEquals(2, b.getWarehouseResource(l.getResource()));
                 assertEquals(2, b.getResourceNumber(l.getResource()));
                 break;
@@ -231,20 +231,20 @@ public class BoardTest {
         Board b = player1.getBoard();
 
         DevelopmentCard c = multiplayerGame.getCardFromGrid(0,0);
-        b.addDevelopmentCard(c,b.getCardSlot()[0]);
+        b.addDevelopmentCard(c,0);
         assertEquals(1,b.getCardNumber(1, Color.GREEN));
         c = multiplayerGame.getCardFromGrid(1,3);
-        b.addDevelopmentCard(c,b.getCardSlot()[0]);
+        b.addDevelopmentCard(c,0);
         assertEquals(1,b.getCardNumber(2,Color.PURPLE));
 
         c = multiplayerGame.getCardFromGrid(2,0);
-        b.addDevelopmentCard(c,b.getCardSlot()[0]);
+        b.addDevelopmentCard(c,0);
         assertEquals(c,b.getCardSlot()[0].getTopCard());
         assertEquals(1,b.getCardNumber(3, Color.GREEN));
         assertEquals(2,b.getCardNumber(1, Color.GREEN));
 
         c = multiplayerGame.getCardFromGrid(0,2);
-        b.addDevelopmentCard(c,b.getCardSlot()[1]);
+        b.addDevelopmentCard(c,1);
         assertEquals(1,b.getCardNumber(3, Color.GREEN));
         assertEquals(2,b.getCardNumber(1, Color.GREEN));
         assertEquals(1,b.getCardNumber(1, Color.YELLOW));
@@ -252,7 +252,7 @@ public class BoardTest {
 
     @Test
     public void TestMultipleResources() throws IOException, invalidDepotTypeChangeException,
-            duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException, DiscardActiveCardException {
+            duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException {
         Player player1 = new Player( "localhost", 8080, "giagum");
         Player player2 = new Player( "localhost", 8080, "gabry");
         List<Player> player = new ArrayList<>();
@@ -272,8 +272,8 @@ public class BoardTest {
         tempArray[5].activateCard();
 
         //leaderDepots
-        b1.addDepotResource(b1.getWareHouse().getLeaderStorages().get(0), tempArray[4].getResource(), 1);
-        b1.addDepotResource(b1.getWareHouse().getLeaderStorages().get(1), tempArray[5].getResource(), 2);
+        b1.addLeaderDepotResource(0, tempArray[4].getResource(), 1);
+        b1.addLeaderDepotResource(1, tempArray[5].getResource(), 2);
         assertEquals(1, b1.getResourceNumber(tempArray[4].getResource()));
         assertEquals(2, b1.getResourceNumber(tempArray[5].getResource()));
         assertEquals(0, b1.getResourceNumber(Resource.COIN));
@@ -283,14 +283,14 @@ public class BoardTest {
         WarehouseDepot w1 = b1.getWareHouse().getStorages()[0];
         WarehouseDepot w2 = b1.getWareHouse().getStorages()[1];
         WarehouseDepot w3 = b1.getWareHouse().getStorages()[2];
-        b1.addDepotResource(w1, Resource.STONE, 1);
+        b1.addWarehouseDepotResource(0, Resource.STONE, 1);
 
         assertEquals(2, b1.getResourceNumber(tempArray[4].getResource()));
         assertEquals(Resource.STONE, w1.getResourceType());
         assertEquals(null, w2.getResourceType());
         assertEquals(null, w3.getResourceType());
 
-        b1.swapDepot(w1, w3);
+        b1.swapDepot(0, 2);
 
         assertEquals(null, w1.getResourceType());
         assertEquals(null, w2.getResourceType());
@@ -306,8 +306,7 @@ public class BoardTest {
     }
 
     @Test
-    public void TestDiscard() throws IOException, invalidDepotTypeChangeException,
-            duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException, DiscardActiveCardException {
+    public void TestDiscard() throws IOException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException {
         Player player1 = new Player( "localhost", 8080, "giagum");
         Player player2 = new Player( "localhost", 8080, "gabry");
         List<Player> player = new ArrayList<>();
@@ -327,7 +326,7 @@ public class BoardTest {
         //tempArray[5].discardCard();
 
         //leaderDepots
-        b1.addDepotResource(b1.getWareHouse().getLeaderStorages().get(0), tempArray[4].getResource(), 1);
+        b1.addLeaderDepotResource(0, tempArray[4].getResource(), 1);
         assertEquals(1, b1.getResourceNumber(tempArray[4].getResource()));
         assertEquals(0, b1.getResourceNumber(Resource.COIN));
 
@@ -335,14 +334,14 @@ public class BoardTest {
         WarehouseDepot w1 = b1.getWareHouse().getStorages()[0];
         WarehouseDepot w2 = b1.getWareHouse().getStorages()[1];
         WarehouseDepot w3 = b1.getWareHouse().getStorages()[2];
-        b1.addDepotResource(w1, Resource.STONE, 1);
+        b1.addWarehouseDepotResource(0, Resource.STONE, 1);
 
         assertEquals(2, b1.getResourceNumber(tempArray[4].getResource()));
         assertEquals(Resource.STONE, w1.getResourceType());
         assertEquals(null, w2.getResourceType());
         assertEquals(null, w3.getResourceType());
 
-        b1.swapDepot(w1, w3);
+        b1.swapDepot(0, 2);
 
         assertEquals(null, w1.getResourceType());
         assertEquals(null, w2.getResourceType());
@@ -356,9 +355,10 @@ public class BoardTest {
         assertEquals(5, b1.computeVictoryPoints());
         assertEquals(2, b1.getWareHouse().getGenericResourceNumber());
 
-        b1.discardLeaderCard(tempArray[5]);
+        b1.discardLeaderCard(6);
         assertEquals(5, b1.computeVictoryPoints());
         b1.giveFaithPoints(3);
         assertEquals(6, b1.computeVictoryPoints());
     }
+
 }

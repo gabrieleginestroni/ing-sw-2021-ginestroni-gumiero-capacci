@@ -116,6 +116,7 @@ public class Board {
 
 
     public void addWarehouseDepotResource(int warehouseDepotIndex,Resource res, int quantity) throws addResourceLimitExceededException, invalidResourceTypeException {
+        //TODO, perchè aggiunge a Leader?
         this.wareHouse.addLeaderDepotResource(warehouseDepotIndex,res,quantity);
     }
 
