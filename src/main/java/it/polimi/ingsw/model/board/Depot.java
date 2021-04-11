@@ -62,7 +62,7 @@ public abstract class Depot {
      * @param resource resource type to check
      * @throws invalidResourceTypeException thrown if the resource type is illegal
      */
-    private void wrongResourceCheck(Resource resource) throws invalidResourceTypeException {
+     void wrongResourceCheck(Resource resource) throws invalidResourceTypeException {
         if(resource != this.resourceType){
             throw new invalidResourceTypeException();
         }
@@ -70,16 +70,11 @@ public abstract class Depot {
     /**
      * Sets the depot's storage resource type if it's empty
      * @param resourceType resource type to set
-     * @throws invalidDepotTypeChangeException thrown if the depot isn't empty
+     *
      *
      */
-    public void setResourceType(Resource resourceType) throws invalidDepotTypeChangeException {
+    public void setResourceType(Resource resourceType){
 
-
-
-        if(this.storageQuantity != 0){
-            throw new invalidDepotTypeChangeException();
-        }
         this.resourceType = resourceType;
 
     }

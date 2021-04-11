@@ -22,8 +22,5 @@ public class LeaderDepot extends Depot {
         this.storageQuantity = 0;
     }
 
-    @Override
-    public void setResourceType(Resource resourceType) throws invalidDepotTypeChangeException{
-        throw new invalidDepotTypeChangeException();
-    }
+
 }

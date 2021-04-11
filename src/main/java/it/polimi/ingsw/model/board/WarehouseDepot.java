@@ -21,5 +21,22 @@ public class WarehouseDepot extends Depot {
         this.storageQuantity = 0;
     }
 
+    @Override
+    public void removeResource(Resource resource,int quantity) throws removeResourceLimitExceededException,invalidResourceTypeException{
+        int newQuantity;
+
+
+        wrongResourceCheck(resource);
+
+        newQuantity= this.storageQuantity - quantity;
+        if(newQuantity<0){
+            throw new removeResourceLimitExceededException();
+        }
+
+        this.storageQuantity = newQuantity;
+        if(newQuantity == 0) setResourceType(null);
+
+
+    }
 
 }

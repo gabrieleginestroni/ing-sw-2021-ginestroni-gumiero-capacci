@@ -77,7 +77,7 @@ public class Warehouse {
         WarehouseDepot depot1 = storages[warehouseDepot1Index];
         WarehouseDepot depot2 = storages[warehouseDepot2Index];
         if(depot1.storageQuantity <= depot2.storageLimit
-                && depot2.storageQuantity <= depot1.storageQuantity){
+                && depot2.storageQuantity <= depot1.storageLimit){
             Resource res1 = depot1.resourceType;
             int quantity1 = depot1.storageQuantity;
 
@@ -92,7 +92,7 @@ public class Warehouse {
                 depot2.setResourceType(res1);
                 depot2.addResource(res1, quantity1);
             } catch (removeResourceLimitExceededException | invalidResourceTypeException |
-                     invalidDepotTypeChangeException | addResourceLimitExceededException e)
+                      addResourceLimitExceededException e)
             { throw new invalidSwapException();}
 
         } else throw new invalidSwapException();
