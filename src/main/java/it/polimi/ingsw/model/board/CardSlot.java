@@ -24,7 +24,7 @@ public class CardSlot {
      * pile.
      * @param card Development card to add
      * @throws developmentCardSlotLimitExceededException In case of placement of the fourth card
-     * @throws invalidDevelopmentCardLevelPlacementException In case of placements that does not meet the level requirement
+     * @throws invalidDevelopmentCardLevelPlacementException In case of placement that does not meet the level requirement
      *
      *
      */
@@ -79,6 +79,14 @@ public class CardSlot {
      */
     public int getGenericCardNumber(){
         return devCards.size();
+    }
+
+    /**
+     * Returns a copy of the list of development cards placed in the card slot
+     * @return Copy of the list of development cards placed in the card slot
+     */
+    public ArrayList<DevelopmentCard> getCardSlotDevelopmentCards(){
+        return new ArrayList<>(devCards);
     }
 
 }

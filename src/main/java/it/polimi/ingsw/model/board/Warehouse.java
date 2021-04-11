@@ -73,8 +73,6 @@ public class Warehouse {
     public void removeWarehouseDepotResource(int warehouseDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
             removeResourceLimitExceededException{
 
-
-
         storages[warehouseDepotIndex].removeResource(res,quantity);
     }
 
@@ -102,7 +100,8 @@ public class Warehouse {
      * @param res Resource type to remove
      * @param quantity Quantity of resource to remove
      * @throws invalidResourceTypeException In case the resource type doesn't match the one of the depot
-     * @throws removeResourceLimitExceededException In case the quantity to remove is greater than the actual
+     * @throws removeResourceLimitExceededException In case the quantity to remove is greater than the actual quantity
+     * stored
      * @throws IndexOutOfBoundsException In case a leader depot with the specified index doesn't exist
      */
     public void removeLeaderDepotResource(int leaderDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,

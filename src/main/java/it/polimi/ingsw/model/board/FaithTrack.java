@@ -69,8 +69,9 @@ public class FaithTrack {
     }
 
     /**
-     * Triggers the activation of the Pope Tiles that belongs to the track section which corresponds to the index
-     * @param index Index of the track section
+     * Triggers the potential activation of the Pope Tiles that belongs to the track section which corresponds to the
+     * index
+     * @param index Index of the track section reported by any player
      */
     public void computeActivationPopeTile(int index){
         if(this.faithMarker>=this.sections[index].getFirstTileNumber()){

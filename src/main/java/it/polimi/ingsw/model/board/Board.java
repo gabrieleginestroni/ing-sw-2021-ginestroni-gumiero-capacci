@@ -173,7 +173,7 @@ public class Board {
 
     /**
      * Returns the development card located on top of the specified card slot
-     * @param cardSlotIndex Index of the card slot
+     * @param cardSlotIndex Index of the card slot (between 0 and 2)
      * @return Development card located on top of the specified card slot
      * @throws IndexOutOfBoundsException In case index not between 0 and 2
      */
@@ -181,6 +181,13 @@ public class Board {
         return this.cardSlot[cardSlotIndex].getTopCard();
     }
 
+    /**
+     * Adds a Development card to the specified card slot
+     * @param card Development card to insert
+     * @param cardSlotIndex Index of the slot where to insert the card (between 0 and 2)
+     * @throws developmentCardSlotLimitExceededException In case of placement of the fourth card in the same card slot
+     * @throws invalidDevelopmentCardLevelPlacementException In case of placement that does not meet the level requirement
+     */
     public void addDevelopmentCard(DevelopmentCard card, int cardSlotIndex) throws developmentCardSlotLimitExceededException,
             invalidDevelopmentCardLevelPlacementException{
 
@@ -191,48 +198,107 @@ public class Board {
 
     }
 
-
+    /**
+     * Sets the inkwell to "TRUE"
+     */
 
     public void setInkwell(){
         this.inkwell = true;
     }
 
 
-
+    /**
+     * Increments the player's faith marker. The method can eventually trigger the report of a faith track section.
+     * @param steps Amount of faith points to add
+     */
     public void giveFaithPoints(int steps)  {
         this.faithTrack.addFaith(steps); }
 
 
-
+    /**
+     * Adds an amount of the specified type resource to the warehouse depot that corresponds to the index.
+     * @param warehouseDepotIndex Index of the warehouse depot between 0 and 2
+     * @param res Resource type to add
+     * @param quantity Quantity of resource to add
+     * @throws addResourceLimitExceededException In case new quantity exceeds the storage limit
+     * @throws invalidResourceTypeException In case the resource type doesn't match the one of the depot
+     * @throws duplicatedWarehouseTypeException In case the add resource action tries to set a duplicated warehouse
+     */
     public void addWarehouseDepotResource(int warehouseDepotIndex,Resource res, int quantity) throws addResourceLimitExceededException, invalidResourceTypeException, duplicatedWarehouseTypeException {
         this.wareHouse.addWarehouseDepotResource(warehouseDepotIndex,res,quantity);
     }
 
+    /**
+     * Removes an amount of the specified type resource to the warehouse depot that corresponds to the index.
+     * Sets the resource type to null if the new quantity is zero.
+     * @param warehouseDepotIndex Index of the warehouse depot between 0 and 2
+     * @param res Resource type to remove
+     * @param quantity Quantity of resource to remove
+     * @throws invalidResourceTypeException In case the resource type doesn't match the one of the depot
+     * @throws removeResourceLimitExceededException In case the quantity to remove is greater than the actual
+     * stored quantity
+     */
     public void removeWarehouseDepotResource(int warehouseDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
             removeResourceLimitExceededException {
         this.wareHouse.removeWarehouseDepotResource(warehouseDepotIndex,res,quantity);
     }
 
-
+    /**
+     * Adds an amount of the specified type resource to the leader depot that corresponds to the index.
+     * @param leaderDepotIndex Index of the leader depot (between 0 and 1)
+     * @param res Resource type to add
+     * @param quantity Quantity of resource to add
+     * @throws addResourceLimitExceededException In case new quantity exceeds the storage limit
+     * @throws invalidResourceTypeException In case the resource type doesn't match the one of the depot
+     * @throws IndexOutOfBoundsException In case a leader depot with the specified index doesn't exist
+     */
     public void addLeaderDepotResource(int leaderDepotIndex,Resource res, int quantity) throws addResourceLimitExceededException,
             invalidResourceTypeException, IndexOutOfBoundsException {
         this.wareHouse.addLeaderDepotResource(leaderDepotIndex,res,quantity);
     }
 
+    /**
+     * Removes an amount of the specified type resource to the leader depot that corresponds to the index.
+     * @param leaderDepotIndex Index of the leader depot between 0 and 1
+     * @param res Resource type to remove
+     * @param quantity Quantity of resource to remove
+     * @throws invalidResourceTypeException In case the resource type doesn't match the one of the depot
+     * @throws removeResourceLimitExceededException In case the quantity to remove is greater than the actual quantity
+     * stored
+     * @throws IndexOutOfBoundsException In case a leader depot with the specified index doesn't exist
+     */
     public void removeLeaderDepotResource(int leaderDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
             removeResourceLimitExceededException, IndexOutOfBoundsException {
         this.wareHouse.removeLeaderDepotResource(leaderDepotIndex,res,quantity);
     }
 
+    /**
+     * Swaps two warehouse depot's resources if the storages limits permit the action and changes the resource
+     * types accordingly.
+     * @param warehouseDepot1Index Index of the first warehouse depot
+     * @param warehouseDepot2Index Index of the seconds warehouse depot
+     * @throws invalidSwapException In case the swap isn't allow by the game rules
+     */
     public void swapDepot(int warehouseDepot1Index,int warehouseDepot2Index) throws invalidSwapException {
         this.wareHouse.swapDepot(warehouseDepot1Index,warehouseDepot2Index);
     }
 
+    /**
+     * Adds an amount of resource to the strongbox
+     * @param res Type of resource
+     * @param quantity Resource amount to add
+     */
     public void addStrongboxResource(Resource res,int quantity){
         this.strongBox.addResource(res,quantity);
 
     }
 
+    /**
+     * Removes an amount of resource from the strongbox
+     * @param res Type of resource
+     * @param quantity Resource amount to remove
+     * @throws invalidStrongBoxRemoveException In case the quantity to remove is greater than the resource amount stored
+     */
     public void removeStrongboxResource(Resource res,int quantity) throws invalidStrongBoxRemoveException {
         this.strongBox.removeResource(res,quantity);
 
@@ -251,6 +317,11 @@ public class Board {
         return wareHouse;
     }
 
+    /**
+     * Computes the player's total amount of victory points obtained from leader cards, development cards, faith track
+     * and resources.
+     * @return Total amount of victory points
+     */
     public int computeVictoryPoints() {
 
         int faithTot = this.faithTrack.getVictoryPoints();
@@ -261,15 +332,29 @@ public class Board {
         return faithTot + resTot + leaderTot + devTot;
     }
 
+    /**
+     * Triggers the potential activation of the Pope Tiles that belongs to the track section which corresponds to the
+     * index
+     * @param index Index of the track section reported by any player
+     */
     public void computeActivationPopeTile(int index){
         this.faithTrack.computeActivationPopeTile(index);
     }
 
+    /**
+     * Adds an inactive leader card to the player's hand.
+     * @param card Leader card to add to the player
+     */
     public void addLeaderCard(LeaderCard card){
         this.hand.add(card);
         card.setOwner(this);
     }
 
+    /**
+     * Activates a leader card and moves the card to the list of active leader cards.
+     * @param cardIndex Index of the leader card to activate (referred to the hand)
+     * @throws IndexOutOfBoundsException In case no leader card has that index in the hand
+     */
     public void activateLeaderCard(int cardIndex) throws IndexOutOfBoundsException {
 
         LeaderCard leaderToActivate = this.hand.get(cardIndex);
@@ -280,13 +365,44 @@ public class Board {
     }
 
 
-
+    /**
+     * Discards a leader card from the hand and gives one faith point to the player. The methods discards the card from
+     * the hand, therefore the card should be inactive.
+     * @param cardIndex Index of the card to discard (referred to the hand)
+     * @throws IndexOutOfBoundsException In case no leader card has that index in the hand
+     */
     public void discardLeaderCard(int cardIndex) throws IndexOutOfBoundsException {
 
         LeaderCard leaderToDiscard =  this.hand.get(cardIndex);
         this.hand.remove(leaderToDiscard);
         leaderToDiscard.discardCard();
         giveFaithPoints(1);
+    }
+
+    /**
+     * Returns a copy of the list of active leader cards
+     * @return Copy of the list of active leader cards
+     */
+    public ArrayList<LeaderCard> getActiveLeaderCard(){
+        return new ArrayList<>(this.activeLeaders);
+    }
+
+    /**
+     * Returns a copy of the list of inactive leader cards
+     * @return Copy of the list of inactive leader cards
+     */
+    public ArrayList<LeaderCard> getInactiveLeaderCard(){
+        return new ArrayList<>(this.hand);
+
+    }
+
+    /**
+     * Returns a copy of the list of development cards placed in the card slot
+     * @param cardSlotIndex Index of the card slot
+     * @return Copy of the list of development cards placed in the card slot
+     */
+    public ArrayList<DevelopmentCard> getCardSlotDevelopmentCards(int cardSlotIndex){
+        return cardSlot[cardSlotIndex].getCardSlotDevelopmentCards();
     }
 }
 
