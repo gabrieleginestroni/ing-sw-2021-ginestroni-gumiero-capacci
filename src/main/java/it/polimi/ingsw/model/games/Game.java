@@ -42,12 +42,7 @@ public abstract class Game {
             //Reading LeaderCards
             Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
             LeaderCard[] tempArray = gson.fromJson(reader, LeaderCard[].class);
-
-            List <LeaderCard> leaderCardsTemp;
-            leaderCardsTemp = Arrays.asList(tempArray);
-            Collections.shuffle(leaderCardsTemp);
-
-            this.leaderCards = new ArrayList<>(leaderCardsTemp);
+            leaderCards = Arrays.asList(tempArray);
 
             //Reading DevelopmentCards
             reader = Files.newBufferedReader(Paths.get("src/main/resources/DevelopmentCards.json"));
@@ -59,7 +54,8 @@ public abstract class Game {
             e.printStackTrace();
         }
 
-
+        Collections.shuffle(leaderCards);
+        leaderCards = new ArrayList<>(leaderCards);
 
         devCardsGrid = new DevelopmentCardGrid(devCards);
 
