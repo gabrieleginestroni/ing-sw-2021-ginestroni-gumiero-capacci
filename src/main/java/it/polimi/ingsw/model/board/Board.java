@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
-
+/**
+ * Class that represents the player's personal board. It contains one faith track, a warehouse and a strongbox,
+ * three development card slots and the player's leader cards
+ */
 public class Board {
 
 
@@ -26,6 +29,10 @@ public class Board {
     private final FaithTrack faithTrack;
     private final  Game game;
 
+    /**
+     * Constructor of an empty Board.
+     * @param game Game which the board belongs to
+     */
     public Board(Game game) {
 
 
@@ -48,56 +55,111 @@ public class Board {
 
     }
 
+    /**
+     * Getter of a warehouse depot's stored quantity
+     * @param index Index of the warehouse depot between 0 and 2
+     * @return Resource quantity
+     */
     public int getWarehouseDepotResourceNumber(int index){
         return wareHouse.getWarehouseDepotResourceNumber(index) ;
     }
 
+    /**
+     * Getter of a leader depot's stored quantity
+     * @param index Index of the leader depot
+     * @return Resource quantity
+     */
     public int getLeaderDepotResourceNumber(int index){
         return wareHouse.getLeaderDepotResourceNumber(index) ;
     }
 
+    /**
+     * Getter of a warehouse depot's resource type
+     * @param index Index of the warehouse depot between 0 and 2
+     * @return Resource type
+     */
     public Resource getWarehouseDepotResourceType(int index){
         return wareHouse.getWarehouseDepotResourceType(index) ;
     }
 
+    /**
+     * Getter of a leader depot's resource type
+     * @param index Index of the leader depot
+     * @return Resource type
+     */
     public Resource getLeaderDepotResourceType(int index){
         return wareHouse.getLeaderDepotResourceType(index) ;
     }
 
+    /**
+     * Creates an empty leader depot
+     * @param res Resource type of the leader depot
+     */
+    public void addLeaderDepot(Resource res){ this.wareHouse.createLeaderDepot(res); }
 
-
-
-
-
-    public void addLeaderDepot(Resource res){
-        this.wareHouse.createLeaderDepot(res);
-    }
-
+    /**
+     * Adds a white marble power to the player
+     * @param res Resource type of the white marble power
+     */
     public void addWhiteMarble(Resource res){ whiteMarbles.add(res); }
 
+    /**
+     * Adds a discount power to the player
+     * @param res Resource type of the discount power
+     */
     public void addDiscount(Resource res){ discount.add(res); }
 
-    public ArrayList<Resource> getWhiteMarbles() { return whiteMarbles;}
+    /**
+     * Returns a copy of the list of white marbles resources powers
+     * @return Copy of the list of white marbles resources powers
+     */
+    public ArrayList<Resource> getWhiteMarbles() { return new ArrayList<>(this.whiteMarbles); }
 
+    /**
+     * Returns a copy of the list of discounted resources
+     * @return Copy of the list of discounted resources
+     */
+    public ArrayList<Resource> getDiscount() { return new ArrayList<>(this.discount); }
 
-    public ArrayList<Resource> getDiscount() {
-        return discount;
-    }
-
+    /**
+     * Computes player's total amount of a specific resource (warehouse and strongbox)
+     * @param res Resource type
+     * @return Total amount of the resource
+     */
     public int getResourceNumber(Resource res){
         return  getStrongBoxResource(res) + getWarehouseResource(res);
     }
 
+    /**
+     * Returns player's amount of a specific resource stored in the strongbox
+     * @param res Resource type
+     * @return Resource amount stored in the strongbox
+     */
     public int getStrongBoxResource( Resource res){
         return strongBox.getResource(res);
     }
 
+    /**
+     * Returns player's amount of a specific resource stored in the warehouse
+     * @param res Resource type
+     * @return Resource amount stored in the warehouse
+     */
     public int getWarehouseResource(Resource res){ return wareHouse.getTotalWarehouseQuantity(res); }
 
+    /**
+     * Computes the total number of development cards, owned by the player, that match the level and color
+     * @param level Level number
+     * @param color Color of the card
+     * @return Number of development cards that match level and color
+     */
     public int getCardNumber(int level, Color color){
         return Arrays.stream(this.cardSlot).mapToInt(s->s.getCardNumber(level,color)).sum();
     }
 
+    /**
+     * Returns the faith marker of the player
+     * @return Faith marker of the player
+     */
     public int getFaithPoints(){
         return this.faithTrack.getFaithMarker();
     }
@@ -109,7 +171,12 @@ public class Board {
     }
 
 
-
+    /**
+     * Returns the development card located on top of the specified card slot
+     * @param cardSlotIndex Index of the card slot
+     * @return Development card located on top of the specified card slot
+     * @throws IndexOutOfBoundsException In case index not between 0 and 2
+     */
     public DevelopmentCard getTopCard(int cardSlotIndex) throws IndexOutOfBoundsException {
         return this.cardSlot[cardSlotIndex].getTopCard();
     }
