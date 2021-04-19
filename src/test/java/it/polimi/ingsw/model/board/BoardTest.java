@@ -308,7 +308,6 @@ public class BoardTest {
     @Test
     public void TestDiscard() throws IOException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException, duplicatedWarehouseTypeException {
         Player player1 = new Player( "localhost", 8080, "giagum");
-        Player player2 = new Player( "localhost", 8080, "gabry");
         List<Player> player = new ArrayList<>();
         player.add(player1);
         MultiplayerGame multiplayerGame = new MultiplayerGame(player);
@@ -327,25 +326,23 @@ public class BoardTest {
 
         //leaderDepots
         b1.addLeaderDepotResource(0, tempArray[4].getResource(), 1);
+        assertEquals(1, b1.getLeaderDepotResourceNumber(0));
         assertEquals(1, b1.getResourceNumber(tempArray[4].getResource()));
         assertEquals(0, b1.getResourceNumber(Resource.COIN));
 
         //normal depots
-        WarehouseDepot w1 = b1.getWareHouse().getStorages()[0];
-        WarehouseDepot w2 = b1.getWareHouse().getStorages()[1];
-        WarehouseDepot w3 = b1.getWareHouse().getStorages()[2];
         b1.addWarehouseDepotResource(0, Resource.STONE, 1);
 
         assertEquals(2, b1.getResourceNumber(tempArray[4].getResource()));
-        assertEquals(Resource.STONE, w1.getResourceType());
-        assertEquals(null, w2.getResourceType());
-        assertEquals(null, w3.getResourceType());
+        assertEquals(Resource.STONE, b1.getWarehouseDepotResourceType(0));
+        assertEquals(null, b1.getWarehouseDepotResourceType(1));
+        assertEquals(null, b1.getWarehouseDepotResourceType(2));
 
         b1.swapDepot(0, 2);
 
-        assertEquals(null, w1.getResourceType());
-        assertEquals(null, w2.getResourceType());
-        assertEquals(Resource.STONE, w3.getResourceType());
+        assertEquals(null, b1.getWarehouseDepotResourceType(0));
+        assertEquals(null, b1.getWarehouseDepotResourceType(1));
+        assertEquals(Resource.STONE, b1.getWarehouseDepotResourceType(2));
 
         b1.addStrongboxResource(Resource.SERVANT, 2);
         b1.addStrongboxResource(Resource.COIN, 2);
