@@ -326,7 +326,7 @@ public class Board {
 
         int faithTot = this.faithTrack.getVictoryPoints();
         int resTot = (this.wareHouse.getGenericResourceNumber() + this.strongBox.getGenericResourceNumber() ) /5;
-        int leaderTot = this.hand.stream().filter(LeaderCard::isActive).mapToInt(LeaderCard::getVictoryPoints).sum();
+        int leaderTot = this.activeLeaders.stream().mapToInt(LeaderCard::getVictoryPoints).sum();
         int devTot = Arrays.stream(this.cardSlot).mapToInt(CardSlot::getVictoryPoints).sum();
 
         return faithTot + resTot + leaderTot + devTot;
