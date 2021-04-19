@@ -224,7 +224,7 @@ public class Board {
      * @throws invalidResourceTypeException In case the resource type doesn't match the one of the depot
      * @throws duplicatedWarehouseTypeException In case the add resource action tries to set a duplicated warehouse
      */
-    public void addWarehouseDepotResource(int warehouseDepotIndex,Resource res, int quantity) throws addResourceLimitExceededException, invalidResourceTypeException, duplicatedWarehouseTypeException {
+    public void addWarehouseDepotResource(Resource res, int quantity, int warehouseDepotIndex) throws addResourceLimitExceededException, invalidResourceTypeException, duplicatedWarehouseTypeException {
         this.wareHouse.addWarehouseDepotResource(warehouseDepotIndex,res,quantity);
     }
 
@@ -238,7 +238,7 @@ public class Board {
      * @throws removeResourceLimitExceededException In case the quantity to remove is greater than the actual
      * stored quantity
      */
-    public void removeWarehouseDepotResource(int warehouseDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
+    public void removeWarehouseDepotResource(Resource res, int quantity, int warehouseDepotIndex) throws invalidResourceTypeException,
             removeResourceLimitExceededException {
         this.wareHouse.removeWarehouseDepotResource(warehouseDepotIndex,res,quantity);
     }
@@ -252,7 +252,7 @@ public class Board {
      * @throws invalidResourceTypeException In case the resource type doesn't match the one of the depot
      * @throws IndexOutOfBoundsException In case a leader depot with the specified index doesn't exist
      */
-    public void addLeaderDepotResource(int leaderDepotIndex,Resource res, int quantity) throws addResourceLimitExceededException,
+    public void addLeaderDepotResource(Resource res, int quantity, int leaderDepotIndex) throws addResourceLimitExceededException,
             invalidResourceTypeException, IndexOutOfBoundsException {
         this.wareHouse.addLeaderDepotResource(leaderDepotIndex,res,quantity);
     }
@@ -267,7 +267,7 @@ public class Board {
      * stored
      * @throws IndexOutOfBoundsException In case a leader depot with the specified index doesn't exist
      */
-    public void removeLeaderDepotResource(int leaderDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
+    public void removeLeaderDepotResource(Resource res, int quantity, int leaderDepotIndex) throws invalidResourceTypeException,
             removeResourceLimitExceededException, IndexOutOfBoundsException {
         this.wareHouse.removeLeaderDepotResource(leaderDepotIndex,res,quantity);
     }
@@ -379,6 +379,8 @@ public class Board {
         giveFaithPoints(1);
     }
 
+    //TODO
+    //REMOVE
     /**
      * Returns a copy of the list of active leader cards
      * @return Copy of the list of active leader cards
@@ -387,15 +389,18 @@ public class Board {
         return new ArrayList<>(this.activeLeaders);
     }
 
+    //TODO
+    //REMOVE
     /**
      * Returns a copy of the list of inactive leader cards
      * @return Copy of the list of inactive leader cards
      */
     public ArrayList<LeaderCard> getInactiveLeaderCard(){
         return new ArrayList<>(this.hand);
-
     }
 
+    //TODO
+    //REMOVE
     /**
      * Returns a copy of the list of development cards placed in the card slot
      * @param cardSlotIndex Index of the card slot

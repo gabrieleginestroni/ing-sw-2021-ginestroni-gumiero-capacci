@@ -81,6 +81,8 @@ public class CardSlot {
         return devCards.size();
     }
 
+    //TODO
+    //REMOVE
     /**
      * Returns a copy of the list of development cards placed in the card slot
      * @return Copy of the list of development cards placed in the card slot

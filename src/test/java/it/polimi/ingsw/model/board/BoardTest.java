@@ -51,8 +51,7 @@ public class BoardTest {
     }
 
     @Test
-    public void TestRemoveDepotResource() throws invalidDepotTypeChangeException,
-            duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException, removeResourceLimitExceededException {
+    public void TestRemoveLeaderDepotResource() throws addResourceLimitExceededException, invalidResourceTypeException, removeResourceLimitExceededException {
         Player player1 = new Player( "localhost", 8080, "giagum");
         Player player2 = new Player( "localhost", 8080, "gabry");
         List<Player> player = new ArrayList<>();
@@ -68,10 +67,10 @@ public class BoardTest {
         //System.out.println(l.getPower() + " " + l.getResource());
         switch (l.getPower()) {
             case "depots":
-                b.addWarehouseDepotResource(0, l.getResource(), 2);
+                b.addLeaderDepotResource(l.getResource(), 2, 0);
                 assertEquals(2, b.getWarehouseResource(l.getResource()));
                 assertEquals(2, b.getResourceNumber(l.getResource()));
-                b.removeWarehouseDepotResource(0,l.getResource(),1);
+                b.removeLeaderDepotResource(l.getResource(),1, 0);
                 assertEquals(1,b.getResourceNumber(l.getResource()));
                 break;
             case "discount":
@@ -118,7 +117,7 @@ public class BoardTest {
     }
 
     @Test
-    public void Test2LeaderCardsActivation() throws invalidDepotTypeChangeException, duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
+    public void Test2LeaderCardsActivation() throws addResourceLimitExceededException, invalidResourceTypeException {
         Player player1 = new Player( "localhost", 8080, "giagum");
         Player player2 = new Player( "localhost", 8080, "gabry");
         List<Player> player = new ArrayList<>();
@@ -134,8 +133,9 @@ public class BoardTest {
         //System.out.println(l.getPower() + " " + l.getResource());
         switch (l.getPower()) {
             case "depots":
-                b.addLeaderDepotResource(0, l.getResource(), 2);
+                b.addLeaderDepotResource( l.getResource(), 2, 0);
                 assertEquals(2, b.getWarehouseResource(l.getResource()));
+                assertEquals(l.getResource(), b.getLeaderDepotResourceType(0));
                 assertEquals(2, b.getResourceNumber(l.getResource()));
                 break;
             case "discount":
@@ -153,7 +153,7 @@ public class BoardTest {
         //System.out.println(l.getPower() + " " + l.getResource());
         switch (l.getPower()) {
             case "depots":
-                b.addLeaderDepotResource(b.getWareHouse().getLeaderStorages().size()-1, l.getResource(), 2);
+                b.addLeaderDepotResource(l.getResource(), 2, b.getWareHouse().getLeaderStorages().size()-1);
                 assertEquals(2, b.getWarehouseResource(l.getResource()));
                 assertEquals(2, b.getResourceNumber(l.getResource()));
                 break;
@@ -200,7 +200,7 @@ public class BoardTest {
     }
 
     @Test
-    public void GenericTestWith2LeaderActivation() throws IOException, invalidDepotTypeChangeException,
+    public void GenericTestWith2LeaderActivation() throws IOException,
             duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException {
         Player player1 = new Player( "localhost", 8080, "giagum");
         Player player2 = new Player( "localhost", 8080, "gabry");
@@ -223,8 +223,8 @@ public class BoardTest {
         //tempArray[5].activateCard();
 
         //leaderDepots
-        b1.addLeaderDepotResource(0, tempArray[4].getResource(), 1);
-        b1.addLeaderDepotResource(1, tempArray[5].getResource(), 2);
+        b1.addLeaderDepotResource(tempArray[4].getResource(), 1, 0);
+        b1.addLeaderDepotResource(tempArray[5].getResource(), 2, 1);
         assertEquals(1, b1.getResourceNumber(tempArray[4].getResource()));
         assertEquals(2, b1.getResourceNumber(tempArray[5].getResource()));
         assertEquals(0, b1.getResourceNumber(Resource.COIN));
@@ -234,7 +234,7 @@ public class BoardTest {
         WarehouseDepot w1 = b1.getWareHouse().getStorages()[0];
         WarehouseDepot w2 = b1.getWareHouse().getStorages()[1];
         WarehouseDepot w3 = b1.getWareHouse().getStorages()[2];
-        b1.addWarehouseDepotResource(0, Resource.STONE, 1);
+        b1.addWarehouseDepotResource( Resource.STONE, 1, 0);
 
         assertEquals(2, b1.getResourceNumber(tempArray[4].getResource()));
         assertEquals(Resource.STONE, w1.getResourceType());
@@ -276,13 +276,13 @@ public class BoardTest {
         //tempArray[5].discardCard();
 
         //leaderDepots
-        b1.addLeaderDepotResource(0, tempArray[4].getResource(), 1);
+        b1.addLeaderDepotResource(tempArray[4].getResource(), 1, 0);
         assertEquals(1, b1.getLeaderDepotResourceNumber(0));
         assertEquals(1, b1.getResourceNumber(tempArray[4].getResource()));
         assertEquals(0, b1.getResourceNumber(Resource.COIN));
 
         //normal depots
-        b1.addWarehouseDepotResource(0, Resource.STONE, 1);
+        b1.addWarehouseDepotResource( Resource.STONE, 1, 0);
 
         assertEquals(2, b1.getResourceNumber(tempArray[4].getResource()));
         assertEquals(Resource.STONE, b1.getWarehouseDepotResourceType(0));
@@ -305,16 +305,66 @@ public class BoardTest {
 
         b1.discardLeaderCard(0);
         assertEquals(5, b1.computeVictoryPoints());
+        assertFalse(multiplayerGame.isSection1Reported());
+        assertFalse(multiplayerGame.isSection2Reported());
+        assertFalse(multiplayerGame.isSection3Reported());
         b1.giveFaithPoints(2);
+
         assertEquals(6, b1.computeVictoryPoints());
+        assertFalse(multiplayerGame.isSection1Reported());
+        assertFalse(multiplayerGame.isSection2Reported());
+        assertFalse(multiplayerGame.isSection3Reported());
         b1.giveFaithPoints(5);
-        assertEquals(7, b1.computeVictoryPoints());
+        b1.computeActivationPopeTile(0);
+
+        // --> 1 report
+        assertEquals(9, b1.computeVictoryPoints());
         assertTrue(multiplayerGame.isSection1Reported());
-        b1.giveFaithPoints(8);
-        assertEquals(14, b1.computeVictoryPoints());
+        assertFalse(multiplayerGame.isSection2Reported());
+        assertFalse(multiplayerGame.isSection3Reported());
+        b1.giveFaithPoints(3);
+
+        //11
+        assertEquals(11, b1.computeVictoryPoints());
+        assertTrue(multiplayerGame.isSection1Reported());
+        assertFalse(multiplayerGame.isSection2Reported());
+        assertFalse(multiplayerGame.isSection3Reported());
+        b1.giveFaithPoints(3);
+
+        //14
+        assertEquals(13, b1.computeVictoryPoints());
+        assertTrue(multiplayerGame.isSection1Reported());
+        assertFalse(multiplayerGame.isSection2Reported());
+        assertFalse(multiplayerGame.isSection3Reported());
+        b1.giveFaithPoints(3);
+        b1.computeActivationPopeTile(1);
+
+        //17 --> 2 report
+        assertEquals(19, b1.computeVictoryPoints());
+        assertTrue(multiplayerGame.isSection1Reported());
         assertTrue(multiplayerGame.isSection2Reported());
-        b1.giveFaithPoints(8);
-        assertEquals(25, b1.computeVictoryPoints());
+        assertFalse(multiplayerGame.isSection3Reported());
+        b1.giveFaithPoints(3);
+
+        //20
+        assertEquals(22, b1.computeVictoryPoints());
+        assertTrue(multiplayerGame.isSection1Reported());
+        assertTrue(multiplayerGame.isSection2Reported());
+        assertFalse(multiplayerGame.isSection3Reported());
+        b1.giveFaithPoints(3);
+
+        //23
+        assertEquals(26, b1.computeVictoryPoints());
+        assertTrue(multiplayerGame.isSection1Reported());
+        assertTrue(multiplayerGame.isSection2Reported());
+        assertFalse(multiplayerGame.isSection3Reported());
+        b1.giveFaithPoints(2);
+        b1.computeActivationPopeTile(2);
+
+        //25
+        assertEquals(34, b1.computeVictoryPoints());
+        assertTrue(multiplayerGame.isSection1Reported());
+        assertTrue(multiplayerGame.isSection2Reported());
         assertTrue(multiplayerGame.isSection3Reported());
         assertTrue(multiplayerGame.isGameOver());
     }
@@ -326,7 +376,33 @@ public class BoardTest {
         Board b1 = player1.getBoard();
 
         b1.addDevelopmentCard(solo.getCardFromGrid(0, 0), 0);
-        assertFalse();
+        assertFalse(solo.isGameOver());
+        b1.addDevelopmentCard(solo.getCardFromGrid(1, 0), 0);
+        assertFalse(solo.isGameOver());
+        b1.addDevelopmentCard(solo.getCardFromGrid(2, 0), 0);
+        assertFalse(solo.isGameOver());
+        b1.addDevelopmentCard(solo.getCardFromGrid(0, 0), 1);
+        assertFalse(solo.isGameOver());
+        b1.addDevelopmentCard(solo.getCardFromGrid(1, 0), 1);
+        assertFalse(solo.isGameOver());
+        b1.addDevelopmentCard(solo.getCardFromGrid(2, 0), 1);
+        assertFalse(solo.isGameOver());
+        b1.addDevelopmentCard(solo.getCardFromGrid(0, 0), 2);
+        assertTrue(solo.isGameOver());
+    }
 
+    @Test
+    public void removeWarehouseDepotResource() throws addResourceLimitExceededException, invalidResourceTypeException, duplicatedWarehouseTypeException, removeResourceLimitExceededException {
+        Player player1 = new Player( "localhost", 8080, "giagum");
+        SoloGame solo = new SoloGame(player1);
+        Board b1 = player1.getBoard();
+        b1.addWarehouseDepotResource(Resource.COIN,1, 0);
+        assertEquals(1, b1.getWarehouseResource(Resource.COIN));
+        assertEquals(1, b1.getWarehouseDepotResourceNumber(0));
+        assertEquals(Resource.COIN, b1.getWarehouseDepotResourceType(0));
+        b1.removeWarehouseDepotResource(Resource.COIN, 1,0);
+        assertEquals(0, b1.getWarehouseResource(Resource.COIN));
+        assertEquals(0, b1.getWarehouseDepotResourceNumber(0));
+        assertNull(b1.getWarehouseDepotResourceType(0));
     }
 }

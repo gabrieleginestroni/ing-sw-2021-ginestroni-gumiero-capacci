@@ -87,11 +87,7 @@ public class Warehouse {
      */
     public void addLeaderDepotResource(int leaderDepotIndex, Resource res, int quantity) throws invalidResourceTypeException,
             addResourceLimitExceededException, IndexOutOfBoundsException{
-
-
-
         leaderStorages.get(leaderDepotIndex).addResource(res,quantity);
-
     }
 
     /**

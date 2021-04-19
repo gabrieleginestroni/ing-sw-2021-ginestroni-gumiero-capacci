@@ -37,7 +37,7 @@ public class FaithTrack {
      */
     public void addFaith(int steps)  {
 
-        this.faithMarker += steps;
+        this.faithMarker = Math.min(this.faithMarker + steps, 24);
         checkVaticanReport();
     }
 
