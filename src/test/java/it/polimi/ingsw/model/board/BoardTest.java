@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.games.MultiplayerGame;
 import it.polimi.ingsw.model.games.SoloGame;
-import it.polimi.ingsw.model.games.emptyDevCardGridSlotSelected;
+import it.polimi.ingsw.model.games.emptyDevCardGridSlotSelectedException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class BoardTest {
     }
 
     @Test
-    public void TestAddDevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, emptyDevCardGridSlotSelected {
+    public void TestAddDevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, emptyDevCardGridSlotSelectedException {
         Player player1 = new Player( "localhost", 8080, "giagum");
         Player player2 = new Player( "localhost", 8080, "gabry");
         List<Player> player = new ArrayList<>();
@@ -170,7 +170,7 @@ public class BoardTest {
     }
 
     @Test
-    public void Test2DevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, emptyDevCardGridSlotSelected {
+    public void Test2DevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, emptyDevCardGridSlotSelectedException {
         Player player1 = new Player( "localhost", 8080, "giagum");
         Player player2 = new Player( "localhost", 8080, "gabry");
         List<Player> player = new ArrayList<>();
@@ -370,7 +370,7 @@ public class BoardTest {
     }
 
     @Test
-    public void DevCardGameOverTest() throws emptyDevCardGridSlotSelected, developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException {
+    public void DevCardGameOverTest() throws emptyDevCardGridSlotSelectedException, developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException {
         Player player1 = new Player( "localhost", 8080, "giagum");
         SoloGame solo = new SoloGame(player1);
         Board b1 = player1.getBoard();

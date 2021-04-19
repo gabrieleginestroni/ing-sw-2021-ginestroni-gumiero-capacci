@@ -15,6 +15,7 @@ public class ActionTokensPile {
     private int nextToDraw;
 
     public ActionTokensPile(){
+
         actionTokens = new ArrayList<>();
 
         actionTokens.add(new Add2BlackCrossStrategy());
@@ -30,18 +31,18 @@ public class ActionTokensPile {
         for(int i = 0; i < tokenPileStatus.length; i++)
             tokenPileStatus[i] = i;
 
-        Collections.shuffle(actionTokens);
-
-        nextToDraw = 0;
+        shufflePile();
     }
 
     /**
      * Method that emulates the draw of the next Action Token of the pile and applies its effect.
      * @param solo The Solo Game which the effect of the drawn Action Token has to be applied on.
      */
-    public void drawPile(SoloGame solo) {
+    //TODO
+    public ActionToken drawPile(SoloGame solo) {
         actionTokens.get(tokenPileStatus[nextToDraw]).activateEffect(solo);
         nextToDraw++;
+        return actionTokens.get(tokenPileStatus[nextToDraw - 1]);
     }
 
     /**

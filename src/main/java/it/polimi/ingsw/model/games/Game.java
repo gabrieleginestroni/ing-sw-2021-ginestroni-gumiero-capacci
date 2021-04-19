@@ -84,24 +84,20 @@ public abstract class Game {
      * @param row The row of the grid which the slot belongs to.
      * @param col The column of the grid which the slot belongs to.
      * @return The last card of the selected slot.
-     * @throws emptyDevCardGridSlotSelected Thrown when the selected slot is already empty.
+     * @throws emptyDevCardGridSlotSelectedException Thrown when the selected slot is already empty.
      */
-    public DevelopmentCard getCardFromGrid(int row, int col) throws emptyDevCardGridSlotSelected {
-
+    public DevelopmentCard getCardFromGrid(int row, int col) throws emptyDevCardGridSlotSelectedException {
         return devCardsGrid.getCard(row, col);
-
     }
 
     /**
      * Method that propagates the request to delete the last card from a certain slot of the Development Card grid.
      * @param row The row of the grid which the slot belongs to.
      * @param col The column of the grid which the slot belongs to.
-     * @throws emptyDevCardGridSlotSelected Thrown when the selected slot is already empty.
+     * @throws emptyDevCardGridSlotSelectedException Thrown when the selected slot is already empty.
      */
-    public void removeCardFromGrid(int row, int col) throws emptyDevCardGridSlotSelected {
-
+    public void removeCardFromGrid(int row, int col) throws emptyDevCardGridSlotSelectedException {
         devCardsGrid.removeCard(row, col);
-
     }
 
     /**
@@ -110,9 +106,7 @@ public abstract class Game {
      * @return A Map containing the quantity of resources (and also "FAITH" for Faith Points and "WHITE" for the White Marbles) gained from the move in the Market.
      */
     public Map<Resource, Integer> doHorizontalMoveMarket(int row){
-
         return market.doHorizontalMove(row);
-
     }
 
     /**
@@ -121,18 +115,14 @@ public abstract class Game {
      * @return A Map containing the quantity of resources (and also "WHITE" for the White Marbles) gained from the move in the Market.
      */
     public Map<Resource, Integer> doVerticalMoveMarket(int col){
-
         return market.doVerticalMove(col);
-
     }
 
     /**
      * Sets game status to "TRUE".
      */
     public void gameIsOver(){
-
         this.gameOver = true;
-
     }
 
     /**

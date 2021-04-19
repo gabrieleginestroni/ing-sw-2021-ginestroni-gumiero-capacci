@@ -29,9 +29,7 @@ public class SoloGame extends Game{
      * @param points The amount of points that must be added to the Black Cross indicator.
      */
     public void addFaithLorenzo(int points){
-
         lorenzo.addFaithPoints(points);
-
     }
 
     /**
@@ -59,7 +57,7 @@ public class SoloGame extends Game{
     }
 
     @Override
-    public void removeCardFromGrid(int row, int col) throws emptyDevCardGridSlotSelected {
+    public void removeCardFromGrid(int row, int col) throws emptyDevCardGridSlotSelectedException {
         super.removeCardFromGrid(row, col);
 
         Optional<Color> c = Arrays.stream(Color.values()).filter(s -> s.getColumn()==col).findFirst();
