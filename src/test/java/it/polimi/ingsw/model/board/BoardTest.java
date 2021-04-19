@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.games.MultiplayerGame;
+import it.polimi.ingsw.model.games.SoloGame;
 import it.polimi.ingsw.model.games.emptyDevCardGridSlotSelected;
 import org.junit.Test;
 
@@ -47,37 +48,6 @@ public class BoardTest {
 
         b.addDevelopmentCard(multiplayerGame.getCardFromGrid(0,1), 0);
         assertEquals(1, b.getCardNumber(1, Color.BLUE));
-    }
-
-    @Test
-    public void TestGetWarehouseResource(){
-
-    }
-
-    @Test
-    public void TestGetStrongBoxResource() {
-    }
-
-    @Test
-    public void TestAddLeaderDepot() {
-    }
-
-
-
-    @Test
-    public void TestGetFaithPoints() {
-    }
-
-    @Test
-    public void TestGiveFaithPoints() {
-    }
-
-    @Test
-    public void TestGetCardNumber() {
-    }
-
-    @Test
-    public void TestAddDepotResource() {
     }
 
     @Test
@@ -148,28 +118,7 @@ public class BoardTest {
     }
 
     @Test
-    public void TestDiscardLeaderCard() {
-    }
-
-
-    @Test
-    public void TestGetWhiteMarbles() {
-    }
-
-    @Test
-    public void TestGetResourceNumber() {
-    }
-
-    @Test
-    public void TestGetWhiteMarble() {
-    }
-
-    @Test
-    public void TestGetDiscount() {
-    }
-
-    @Test
-    public void Test2LeaderCardActivation() throws invalidDepotTypeChangeException, duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
+    public void Test2LeaderCardsActivation() throws invalidDepotTypeChangeException, duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException {
         Player player1 = new Player( "localhost", 8080, "giagum");
         Player player2 = new Player( "localhost", 8080, "gabry");
         List<Player> player = new ArrayList<>();
@@ -185,7 +134,7 @@ public class BoardTest {
         //System.out.println(l.getPower() + " " + l.getResource());
         switch (l.getPower()) {
             case "depots":
-                b.addWarehouseDepotResource(0, l.getResource(), 2);
+                b.addLeaderDepotResource(0, l.getResource(), 2);
                 assertEquals(2, b.getWarehouseResource(l.getResource()));
                 assertEquals(2, b.getResourceNumber(l.getResource()));
                 break;
@@ -251,7 +200,7 @@ public class BoardTest {
     }
 
     @Test
-    public void TestMultipleResources() throws IOException, invalidDepotTypeChangeException,
+    public void GenericTestWith2LeaderActivation() throws IOException, invalidDepotTypeChangeException,
             duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException {
         Player player1 = new Player( "localhost", 8080, "giagum");
         Player player2 = new Player( "localhost", 8080, "gabry");
@@ -268,8 +217,10 @@ public class BoardTest {
         //12-15 production
         b1.addLeaderCard(tempArray[4]);
         b1.addLeaderCard(tempArray[5]);
-        tempArray[4].activateCard();
-        tempArray[5].activateCard();
+        b1.activateLeaderCard(0);
+        b1.activateLeaderCard(0);
+        //tempArray[4].activateCard();
+        //tempArray[5].activateCard();
 
         //leaderDepots
         b1.addLeaderDepotResource(0, tempArray[4].getResource(), 1);
@@ -287,13 +238,13 @@ public class BoardTest {
 
         assertEquals(2, b1.getResourceNumber(tempArray[4].getResource()));
         assertEquals(Resource.STONE, w1.getResourceType());
-        assertEquals(null, w2.getResourceType());
-        assertEquals(null, w3.getResourceType());
+        assertNull(w2.getResourceType());
+        assertNull(w3.getResourceType());
 
         b1.swapDepot(0, 2);
 
-        assertEquals(null, w1.getResourceType());
-        assertEquals(null, w2.getResourceType());
+        assertNull(w1.getResourceType());
+        assertNull(w2.getResourceType());
         assertEquals(Resource.STONE, w3.getResourceType());
 
         b1.addStrongboxResource(Resource.SERVANT, 2);
@@ -306,7 +257,7 @@ public class BoardTest {
     }
 
     @Test
-    public void TestDiscard() throws IOException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException, duplicatedWarehouseTypeException {
+    public void GenericTestWithLeaderDiscard() throws IOException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException, duplicatedWarehouseTypeException {
         Player player1 = new Player( "localhost", 8080, "giagum");
         List<Player> player = new ArrayList<>();
         player.add(player1);
@@ -335,13 +286,13 @@ public class BoardTest {
 
         assertEquals(2, b1.getResourceNumber(tempArray[4].getResource()));
         assertEquals(Resource.STONE, b1.getWarehouseDepotResourceType(0));
-        assertEquals(null, b1.getWarehouseDepotResourceType(1));
-        assertEquals(null, b1.getWarehouseDepotResourceType(2));
+        assertNull(b1.getWarehouseDepotResourceType(1));
+        assertNull(b1.getWarehouseDepotResourceType(2));
 
         b1.swapDepot(0, 2);
 
-        assertEquals(null, b1.getWarehouseDepotResourceType(0));
-        assertEquals(null, b1.getWarehouseDepotResourceType(1));
+        assertNull(b1.getWarehouseDepotResourceType(0));
+        assertNull(b1.getWarehouseDepotResourceType(1));
         assertEquals(Resource.STONE, b1.getWarehouseDepotResourceType(2));
 
         b1.addStrongboxResource(Resource.SERVANT, 2);
@@ -352,10 +303,30 @@ public class BoardTest {
         assertEquals(5, b1.computeVictoryPoints());
         assertEquals(2, b1.getWareHouse().getGenericResourceNumber());
 
-        b1.discardLeaderCard(6);
+        b1.discardLeaderCard(0);
         assertEquals(5, b1.computeVictoryPoints());
-        b1.giveFaithPoints(3);
+        b1.giveFaithPoints(2);
         assertEquals(6, b1.computeVictoryPoints());
+        b1.giveFaithPoints(5);
+        assertEquals(7, b1.computeVictoryPoints());
+        assertTrue(multiplayerGame.isSection1Reported());
+        b1.giveFaithPoints(8);
+        assertEquals(14, b1.computeVictoryPoints());
+        assertTrue(multiplayerGame.isSection2Reported());
+        b1.giveFaithPoints(8);
+        assertEquals(25, b1.computeVictoryPoints());
+        assertTrue(multiplayerGame.isSection3Reported());
+        assertTrue(multiplayerGame.isGameOver());
     }
 
+    @Test
+    public void DevCardGameOverTest() throws emptyDevCardGridSlotSelected, developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException {
+        Player player1 = new Player( "localhost", 8080, "giagum");
+        SoloGame solo = new SoloGame(player1);
+        Board b1 = player1.getBoard();
+
+        b1.addDevelopmentCard(solo.getCardFromGrid(0, 0), 0);
+        assertFalse();
+
+    }
 }
