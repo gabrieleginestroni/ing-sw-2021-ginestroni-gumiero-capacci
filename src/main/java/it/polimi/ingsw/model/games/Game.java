@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.virtualview.GridObserver;
+import it.polimi.ingsw.virtualview.LorenzoObserver;
+import it.polimi.ingsw.virtualview.MarketObserver;
 
 import java.io.Reader;
 import java.nio.file.Files;
@@ -28,12 +31,15 @@ public abstract class Game {
     boolean section2Reported;
     boolean section3Reported;
 
-    public Game(){
+    private final MarketObserver marketObserver;
+    private final GridObserver gridObserver;
+
+    protected Game(){
 
         gameId = "test id";
         gameDate = new Date();
-
-        market = new Market();
+        this.marketObserver = new MarketObserver();
+        market = new Market(marketObserver);
 
         Gson gson = new Gson();
 
@@ -57,7 +63,8 @@ public abstract class Game {
         Collections.shuffle(leaderCards);
         leaderCards = new ArrayList<>(leaderCards);
 
-        devCardsGrid = new DevelopmentCardGrid(devCards);
+        this.gridObserver = new GridObserver();
+        devCardsGrid = new DevelopmentCardGrid(devCards,gridObserver);
 
         gameOver = false;
 

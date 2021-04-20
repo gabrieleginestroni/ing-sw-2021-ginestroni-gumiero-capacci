@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.games;
 
 import it.polimi.ingsw.controller.Player;
 import it.polimi.ingsw.model.Color;
+import it.polimi.ingsw.virtualview.LorenzoObserver;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -10,12 +11,14 @@ public class SoloGame extends Game{
     private final Lorenzo lorenzo;
     private final Player player;
     private final ActionTokensPile actionTokensPile;
+    private final LorenzoObserver lorenzoObserver;
 
     public SoloGame(Player player){
 
         super();
 
-        lorenzo = new Lorenzo(this);
+        this.lorenzoObserver = new LorenzoObserver();
+        lorenzo = new Lorenzo(this,lorenzoObserver);
 
         this.player = player;
         this.player.buildBoard(this);

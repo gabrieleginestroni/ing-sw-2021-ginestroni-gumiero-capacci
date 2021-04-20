@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.games.Game;
+import it.polimi.ingsw.virtualview.BoardObserver;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,14 +29,15 @@ public class Board {
     private boolean inkwell;
     private final FaithTrack faithTrack;
     private final  Game game;
+    private final BoardObserver boardObserver;
 
     /**
      * Constructor of an empty Board.
      * @param game Game which the board belongs to
      */
-    public Board(Game game) {
+    public Board(Game game, BoardObserver boardObserver) {
 
-
+        this.boardObserver = boardObserver;
         this.discount = new ArrayList<>();
         this.whiteMarbles = new ArrayList<>();
 

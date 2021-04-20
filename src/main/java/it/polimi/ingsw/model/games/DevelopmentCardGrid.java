@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.games;
 
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
+import it.polimi.ingsw.virtualview.GridObserver;
 
 import java.util.*;
 
@@ -12,13 +13,31 @@ import java.util.*;
 public class DevelopmentCardGrid {
 
     private final GridSlot[][] grid;
+    private final GridObserver gridObserver;
 
     /**
      * This constructor requires an array of all Development Cards because it initializes randomly the grid with all of them.
      * @param devCards array that contains all the Development Card of the game.
      */
-    public DevelopmentCardGrid(DevelopmentCard[] devCards){
+    public DevelopmentCardGrid(DevelopmentCard[] devCards, GridObserver gridObserver){
+        this.gridObserver = gridObserver;
+        grid = new GridSlot[3][4];
+        for(int i = 0; i < 3; i++)
+            for(int j = 0; j < 4; j++)
+                grid[i][j] = new GridSlot();
 
+        List<DevelopmentCard> devCardsList = Arrays.asList(devCards);
+        Collections.shuffle(devCardsList);
+
+        for(DevelopmentCard card : devCardsList)
+            grid[card.getLevel() - 1][card.getType().getColumn()].add(card);
+    }
+    /**
+     * This constructor requires an array of all Development Cards because it initializes randomly the grid with all of them.
+     * @param devCards array that contains all the Development Card of the game.
+     */
+    public DevelopmentCardGrid(DevelopmentCard[] devCards){
+        this.gridObserver = null;
         grid = new GridSlot[3][4];
         for(int i = 0; i < 3; i++)
             for(int j = 0; j < 4; j++)

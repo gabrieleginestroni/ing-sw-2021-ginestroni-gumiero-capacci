@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.games;
 import com.google.gson.Gson;
 import it.polimi.ingsw.model.Resource;
+import it.polimi.ingsw.virtualview.MarketObserver;
 
 import java.io.Reader;
 import java.nio.file.Files;
@@ -15,11 +16,35 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Market {
     private final Marble[][] layout;
     private Marble freeMarble;
+    private final MarketObserver marketObserver;
 
     /**
      * Pseudo-Random initialize the grid
      */
+    public Market(MarketObserver marketObserver) {
+        this.marketObserver = marketObserver;
+        this.layout = new Marble[3][4];
+        Gson gson = new Gson();
+        try {
+            //Reading Marbles from JSON
+            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/Marbles.json"));
+            Marble[] marbles = gson.fromJson(reader, Marble[].class);
+            List<Marble> tmpArr = Arrays.asList(marbles);
+            Collections.shuffle(tmpArr);
+            for (int i = 0; i < marbles.length-1; i++)
+                this.layout[i/4][i%4] = tmpArr.get(i);
+            this.freeMarble = tmpArr.get(marbles.length-1);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    //TODO
+    //REMOVE_ONLY_FOR_TEST
+    /**
+     * Pseudo-Random initialize the grid
+     */
     public Market() {
+        this.marketObserver = null;
         this.layout = new Marble[3][4];
         Gson gson = new Gson();
         try {

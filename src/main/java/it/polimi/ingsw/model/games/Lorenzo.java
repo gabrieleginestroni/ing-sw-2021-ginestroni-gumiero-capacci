@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.games;
 
+import it.polimi.ingsw.virtualview.LorenzoObserver;
+
 /**
  * Class that represents the entity of Lorenzo il Magnifico for the solo version of the game.
  * @author Tommaso Capacci
@@ -7,11 +9,14 @@ package it.polimi.ingsw.model.games;
 public class Lorenzo{
     private final SoloGame solo;
     private int blackCross;
+    private final LorenzoObserver lorenzoObserver;
 
-    public Lorenzo(SoloGame solo){
+    public Lorenzo(SoloGame solo, LorenzoObserver lorenzoObserver){
+        this.lorenzoObserver = lorenzoObserver;
         this.solo = solo;
         blackCross = 0;
     }
+
 
     /**
      * Method that consents to add a quantity of Faith Points to the BlackCross indicator of Lorenzo.
