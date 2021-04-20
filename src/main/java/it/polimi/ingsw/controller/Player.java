@@ -9,13 +9,13 @@ public class Player {
     private final int portNumber;
     private final String nickname;
     private Board board;
-    private BoardObserver virtualBoard;
+    private final BoardObserver boardObserver;
 
     public Player(String ipAddress, int portNumber, String nickname) {
         this.ipAddress = ipAddress;
         this.portNumber = portNumber;
         this.nickname = nickname;
-        this.virtualBoard = new BoardObserver();
+        this.boardObserver = new BoardObserver();
     }
 
     public String getNickname() {
@@ -23,7 +23,7 @@ public class Player {
     }
 
     public void buildBoard(Game game){
-        board = new Board(game,virtualBoard);
+        board = new Board(game,boardObserver);
     }
 
     public Board getBoard(){
