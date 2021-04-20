@@ -35,8 +35,8 @@ public class SoloGame extends Game{
     /**
      * Method that draws and applies the effect of the next Action Token from the pile used in the specific Game.
      */
-    public void drawFromTokenPile(){
-        actionTokensPile.drawPile(this);
+    public String drawFromTokenPile(){
+        return actionTokensPile.drawPile(this);
     }
 
     /**

@@ -5,9 +5,20 @@ package it.polimi.ingsw.model.games;
  */
 public class ShuffleActionTokenPileStrategy implements ActionToken{
 
+    private final String id;
+
+    public ShuffleActionTokenPileStrategy(String id) {
+        this.id = id;
+    }
+
     @Override
     public void activateEffect(SoloGame solo) {
         solo.shuffleTokenPile();
         solo.addFaithLorenzo(1);
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 }

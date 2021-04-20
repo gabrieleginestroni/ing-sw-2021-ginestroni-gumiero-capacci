@@ -8,13 +8,22 @@ import static org.junit.Assert.*;
 public class SoloGameTest {
 
     @Test
-    public void TestLorenzo() {
+    public void TestLorenzo() throws emptyDevCardGridSlotSelectedException {
         Player pl = new Player("lel", 12, "lul");
         SoloGame solo = new SoloGame(pl);
 
-        ActionTokensPile atp = new ActionTokensPile();
-        ActionToken at = atp.drawPile(solo);
-        //TODO
+        solo.removeCardFromGrid(0,0);
+        solo.removeCardFromGrid(0,1);
+        solo.removeCardFromGrid(0,2);
+        solo.removeCardFromGrid(0,3);
+
+
+        String str = solo.drawFromTokenPile();
+        System.out.println(str);
+        while(!solo.isGameOver()){
+            str = solo.drawFromTokenPile();
+            System.out.println(str);
+        }
     }
 
     @Test

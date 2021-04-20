@@ -57,11 +57,4 @@ public class GridSlot {
         return cards.remove(cards.size() - 1);
     }
 
-    /**
-     * Method that deletes all of the cards actually contained in the slot.
-     */
-    public void clear(){
-        cards.clear();
-    }
-
 }

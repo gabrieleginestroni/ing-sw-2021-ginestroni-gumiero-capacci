@@ -8,8 +8,19 @@ import it.polimi.ingsw.model.Color;
  */
 public class Discard2GreenStrategy implements ActionToken{
 
+    private final String id;
+
+    public Discard2GreenStrategy(String id) {
+        this.id = id;
+    }
+
     @Override
     public void activateEffect(SoloGame solo) {
         solo.discard2Cards(Color.GREEN);
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 }

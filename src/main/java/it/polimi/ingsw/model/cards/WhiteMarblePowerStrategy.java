@@ -13,11 +13,6 @@ public class WhiteMarblePowerStrategy implements Power {
     }
 
     @Override
-    public String toString() {
-        return "POWER WhiteMarblePowerStrategy";
-    }
-
-    @Override
     /**
      * activates the whiteMarble bonus of the given resource for the player
      */

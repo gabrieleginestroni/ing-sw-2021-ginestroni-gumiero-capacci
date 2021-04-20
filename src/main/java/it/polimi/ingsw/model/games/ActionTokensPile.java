@@ -18,13 +18,13 @@ public class ActionTokensPile {
 
         actionTokens = new ArrayList<>();
 
-        actionTokens.add(new Add2BlackCrossStrategy());
-        actionTokens.add(new Add2BlackCrossStrategy());
-        actionTokens.add(new ShuffleActionTokenPileStrategy());
-        actionTokens.add(new Discard2GreenStrategy());
-        actionTokens.add(new Discard2BlueStrategy());
-        actionTokens.add(new Discard2PurpleStrategy());
-        actionTokens.add(new Discard2YellowStrategy());
+        actionTokens.add(new Add2BlackCrossStrategy("Add 2 Black Cross"));
+        actionTokens.add(new Add2BlackCrossStrategy("Add 2 Black Cross"));
+        actionTokens.add(new ShuffleActionTokenPileStrategy("Shuffle Action Tokens Pile"));
+        actionTokens.add(new Discard2GreenStrategy("Discard 2 Green"));
+        actionTokens.add(new Discard2BlueStrategy("Discard 2 Blue"));
+        actionTokens.add(new Discard2PurpleStrategy("Discard 2 Purple"));
+        actionTokens.add(new Discard2YellowStrategy("Discard 2 Yellow"));
 
         tokenPileStatus = new int[actionTokens.size()];
 
@@ -39,10 +39,13 @@ public class ActionTokensPile {
      * @param solo The Solo Game which the effect of the drawn Action Token has to be applied on.
      */
     //TODO
-    public ActionToken drawPile(SoloGame solo) {
-        actionTokens.get(tokenPileStatus[nextToDraw]).activateEffect(solo);
+    public String drawPile(SoloGame solo) {
+        String str = actionTokens.get(tokenPileStatus[nextToDraw]).getId();
+
         nextToDraw++;
-        return actionTokens.get(tokenPileStatus[nextToDraw - 1]);
+        actionTokens.get(tokenPileStatus[nextToDraw - 1]).activateEffect(solo);
+
+        return str;
     }
 
     /**

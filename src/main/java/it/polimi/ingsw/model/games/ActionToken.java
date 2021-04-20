@@ -8,4 +8,6 @@ public interface ActionToken {
 
     void activateEffect(SoloGame solo);
 
+    String getId();
+
 }
