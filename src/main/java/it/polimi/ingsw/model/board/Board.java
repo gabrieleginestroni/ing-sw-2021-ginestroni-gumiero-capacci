@@ -97,7 +97,11 @@ public class Board {
      * Creates an empty leader depot
      * @param res Resource type of the leader depot
      */
-    public void addLeaderDepot(Resource res){ this.wareHouse.createLeaderDepot(res); }
+    public void addLeaderDepot(Resource res){
+        this.wareHouse.createLeaderDepot(res);
+        boardObserver.notifyLeaderDepotCreation(res.toString());
+
+    }
 
     /**
      * Adds a white marble power to the player
@@ -232,6 +236,7 @@ public class Board {
      */
     public void addWarehouseDepotResource(Resource res, int quantity, int warehouseDepotIndex) throws addResourceLimitExceededException, invalidResourceTypeException, duplicatedWarehouseTypeException {
         this.wareHouse.addWarehouseDepotResource(warehouseDepotIndex,res,quantity);
+        boardObserver.notifyWarehouseDepotUpdate(res.toString(), wareHouse.getWarehouseDepotResourceNumber(warehouseDepotIndex),warehouseDepotIndex);
     }
 
     /**
@@ -247,6 +252,7 @@ public class Board {
     public void removeWarehouseDepotResource(Resource res, int quantity, int warehouseDepotIndex) throws invalidResourceTypeException,
             removeResourceLimitExceededException {
         this.wareHouse.removeWarehouseDepotResource(warehouseDepotIndex,res,quantity);
+        boardObserver.notifyWarehouseDepotUpdate(wareHouse.getWarehouseDepotResourceType(warehouseDepotIndex).toString(), wareHouse.getWarehouseDepotResourceNumber(warehouseDepotIndex),warehouseDepotIndex);
     }
 
     /**
@@ -261,6 +267,7 @@ public class Board {
     public void addLeaderDepotResource(Resource res, int quantity, int leaderDepotIndex) throws addResourceLimitExceededException,
             invalidResourceTypeException, IndexOutOfBoundsException {
         this.wareHouse.addLeaderDepotResource(leaderDepotIndex,res,quantity);
+        boardObserver.notifyLeaderDepotUpdate(wareHouse.getLeaderDepotResourceNumber(leaderDepotIndex),leaderDepotIndex);
     }
 
     /**
@@ -276,6 +283,7 @@ public class Board {
     public void removeLeaderDepotResource(Resource res, int quantity, int leaderDepotIndex) throws invalidResourceTypeException,
             removeResourceLimitExceededException, IndexOutOfBoundsException {
         this.wareHouse.removeLeaderDepotResource(leaderDepotIndex,res,quantity);
+        boardObserver.notifyLeaderDepotUpdate(wareHouse.getLeaderDepotResourceNumber(leaderDepotIndex),leaderDepotIndex);
     }
 
     /**
@@ -287,6 +295,8 @@ public class Board {
      */
     public void swapDepot(int warehouseDepot1Index,int warehouseDepot2Index) throws invalidSwapException {
         this.wareHouse.swapDepot(warehouseDepot1Index,warehouseDepot2Index);
+        boardObserver.notifyWarehouseDepotUpdate(wareHouse.getWarehouseDepotResourceType(warehouseDepot1Index).toString(), wareHouse.getWarehouseDepotResourceNumber(warehouseDepot1Index),warehouseDepot1Index);
+        boardObserver.notifyWarehouseDepotUpdate(wareHouse.getWarehouseDepotResourceType(warehouseDepot2Index).toString(), wareHouse.getWarehouseDepotResourceNumber(warehouseDepot2Index),warehouseDepot2Index);
     }
 
     /**

@@ -24,5 +24,7 @@ public class Card {
         return victoryPoints;
     }
 
-
+    public int getId() {
+        return id;
+    }
 }
