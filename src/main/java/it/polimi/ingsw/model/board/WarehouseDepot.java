@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.exceptions.invalidResourceTypeException;
+import it.polimi.ingsw.exceptions.removeResourceLimitExceededException;
 import it.polimi.ingsw.model.Resource;
 
 /**
@@ -31,7 +33,7 @@ public class WarehouseDepot extends Depot {
      * @throws invalidResourceTypeException thrown if the resource type doesn't match the one of the depot
      */
     @Override
-    public void removeResource(Resource resource,int quantity) throws removeResourceLimitExceededException,invalidResourceTypeException{
+    public void removeResource(Resource resource,int quantity) throws removeResourceLimitExceededException, invalidResourceTypeException {
         int newQuantity;
 
 

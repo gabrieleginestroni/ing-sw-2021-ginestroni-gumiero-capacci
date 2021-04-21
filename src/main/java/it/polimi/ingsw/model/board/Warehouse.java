@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.model.Resource;
 
 import java.util.ArrayList;
@@ -115,7 +116,7 @@ public class Warehouse {
      * @throws invalidSwapException In case the swap isn't allow by the game rules
      */
 
-    public void swapDepot(int warehouseDepot1Index,int warehouseDepot2Index) throws invalidSwapException{
+    public void swapDepot(int warehouseDepot1Index,int warehouseDepot2Index) throws invalidSwapException {
         WarehouseDepot depot1 = storages[warehouseDepot1Index];
         WarehouseDepot depot2 = storages[warehouseDepot2Index];
         if(depot1.storageQuantity <= depot2.storageLimit
@@ -134,7 +135,7 @@ public class Warehouse {
                 depot2.setResourceType(res1);
                 depot2.addResource(res1, quantity1);
             } catch (removeResourceLimitExceededException | invalidResourceTypeException |
-                      addResourceLimitExceededException e)
+                    addResourceLimitExceededException e)
             { throw new invalidSwapException();}
 
         } else throw new invalidSwapException();

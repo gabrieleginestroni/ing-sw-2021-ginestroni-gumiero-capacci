@@ -1,4 +1,5 @@
 package it.polimi.ingsw.model.board;
+import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.model.Resource;
 import org.junit.Test;
 
@@ -28,8 +29,8 @@ public class WarehouseTest {
         w.addWarehouseDepotResource(0, Resource.COIN, 1);
         assertEquals(Resource.COIN, w.getStorages()[0].getResourceType());
         w.removeWarehouseDepotResource(0, Resource.COIN, 1);
-        //TODO, è giusto che quando il depot è vuoto non abbia una risorsa vincolata?
-        //assertEquals(Resource.COIN, w.getStorages()[0].getResourceType());
+
+
         assertEquals(0, w.getStorages()[0].getResourceQuantity());
     }
 

@@ -26,6 +26,8 @@ public class Player {
         board = new Board(game,boardObserver);
     }
 
+    public BoardObserver getBoardObserver () {return boardObserver;}
+
     public Board getBoard(){
         return board;
     }

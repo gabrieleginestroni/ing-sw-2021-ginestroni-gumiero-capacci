@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
@@ -195,7 +196,7 @@ public class Board {
      * @throws invalidDevelopmentCardLevelPlacementException In case of placement that does not meet the level requirement
      */
     public void addDevelopmentCard(DevelopmentCard card, int cardSlotIndex) throws developmentCardSlotLimitExceededException,
-            invalidDevelopmentCardLevelPlacementException{
+            invalidDevelopmentCardLevelPlacementException {
 
 
         this.cardSlot[cardSlotIndex].addCard(card);
@@ -252,7 +253,11 @@ public class Board {
     public void removeWarehouseDepotResource(Resource res, int quantity, int warehouseDepotIndex) throws invalidResourceTypeException,
             removeResourceLimitExceededException {
         this.wareHouse.removeWarehouseDepotResource(warehouseDepotIndex,res,quantity);
-        boardObserver.notifyWarehouseDepotUpdate(wareHouse.getWarehouseDepotResourceType(warehouseDepotIndex).toString(), wareHouse.getWarehouseDepotResourceNumber(warehouseDepotIndex),warehouseDepotIndex);
+
+        Optional<Resource> resourceTypeTemp = Optional.ofNullable(wareHouse.getWarehouseDepotResourceType(warehouseDepotIndex));
+        Optional<String> resourceType = resourceTypeTemp.map(Resource::toString);
+
+        boardObserver.notifyWarehouseDepotUpdate(resourceType.orElse("NULL"), wareHouse.getWarehouseDepotResourceNumber(warehouseDepotIndex),warehouseDepotIndex);
     }
 
     /**
@@ -294,9 +299,18 @@ public class Board {
      * @throws invalidSwapException In case the swap isn't allow by the game rules
      */
     public void swapDepot(int warehouseDepot1Index,int warehouseDepot2Index) throws invalidSwapException {
+
         this.wareHouse.swapDepot(warehouseDepot1Index,warehouseDepot2Index);
-        boardObserver.notifyWarehouseDepotUpdate(wareHouse.getWarehouseDepotResourceType(warehouseDepot1Index).toString(), wareHouse.getWarehouseDepotResourceNumber(warehouseDepot1Index),warehouseDepot1Index);
-        boardObserver.notifyWarehouseDepotUpdate(wareHouse.getWarehouseDepotResourceType(warehouseDepot2Index).toString(), wareHouse.getWarehouseDepotResourceNumber(warehouseDepot2Index),warehouseDepot2Index);
+
+        Optional<Resource> resourceTypeTemp = Optional.ofNullable(wareHouse.getWarehouseDepotResourceType(warehouseDepot1Index));
+        Optional<String> resourceType = resourceTypeTemp.map(Resource::toString);
+
+        boardObserver.notifyWarehouseDepotUpdate(resourceType.orElse("NULL"), wareHouse.getWarehouseDepotResourceNumber(warehouseDepot1Index),warehouseDepot1Index);
+
+        resourceTypeTemp = Optional.ofNullable(wareHouse.getWarehouseDepotResourceType(warehouseDepot2Index));
+        resourceType = resourceTypeTemp.map(Resource::toString);
+
+        boardObserver.notifyWarehouseDepotUpdate(resourceType.orElse("NULL"), wareHouse.getWarehouseDepotResourceNumber(warehouseDepot2Index),warehouseDepot2Index);
     }
 
     /**
@@ -366,6 +380,7 @@ public class Board {
     public void addLeaderCard(LeaderCard card){
         this.hand.add(card);
         card.setOwner(this);
+        boardObserver.notifyAddLeader(card.getId());
     }
 
     /**

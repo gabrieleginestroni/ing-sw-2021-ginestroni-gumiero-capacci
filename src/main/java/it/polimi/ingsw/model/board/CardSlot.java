@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.exceptions.developmentCardSlotLimitExceededException;
+import it.polimi.ingsw.exceptions.invalidDevelopmentCardLevelPlacementException;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 

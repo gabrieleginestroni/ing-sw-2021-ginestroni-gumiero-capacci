@@ -1,11 +1,11 @@
 package it.polimi.ingsw.virtualview;
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.model.Resource;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+
 
 public class BoardObserver {
     private final List<Integer> hiddenHand;
@@ -71,15 +71,19 @@ public class BoardObserver {
     //TODO
     public void notifyLeaderDiscard(int leaderCardHandIndex){
         int leaderToDiscard = hiddenHand.get(leaderCardHandIndex);
-        hiddenHand.remove(leaderToDiscard);
+        hiddenHand.remove((Integer)leaderToDiscard);
 
     }
 
     public void notifyLeaderActivation(int leaderCardHandIndex){
         int leaderToActivate = hiddenHand.get(leaderCardHandIndex);
-        hiddenHand.remove(leaderToActivate);
+        hiddenHand.remove((Integer)leaderToActivate);
         activeLeaders.add(leaderToActivate);
 
+    }
+
+    public void notifyAddLeader(int cardId){
+        hiddenHand.add(cardId);
     }
 
     public void notifyDevelopmentCardPlacement(int cardId, int cardSlotIndex){
@@ -119,6 +123,21 @@ public class BoardObserver {
         inkwell = true;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "BoardObserver{" +
+                "hiddenHand=" + hiddenHand  +
+                ", activeLeaders=" + activeLeaders +
+                ", strongBox=" + strongBox +
+                ", cardSlot=" + Arrays.toString(cardSlot) +
+                ", faithTrackMarker=" + faithTrackMarker +
+                ", popeTiles=" + Arrays.toString(popeTiles) +
+                ", warehouseDepotResource=" + warehouseDepotResource +
+                ", warehouseDepotQuantity=" + warehouseDepotQuantity +
+                ", leaderDepotResource=" + leaderDepotResource +
+                ", leaderDepotQuantity=" + leaderDepotQuantity +
+                ", inkwell=" + inkwell +
+                ", nickname='" + nickname + '\'' +
+                '}';
+    }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.exceptions.invalidStrongBoxRemoveException;
 import it.polimi.ingsw.model.Resource;
 
 import java.util.HashMap;

@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model.board;
 
+import it.polimi.ingsw.exceptions.addResourceLimitExceededException;
+import it.polimi.ingsw.exceptions.invalidResourceTypeException;
+import it.polimi.ingsw.exceptions.removeResourceLimitExceededException;
 import it.polimi.ingsw.model.Resource;
 
 /**
@@ -20,7 +23,7 @@ public abstract class Depot {
      * @throws addResourceLimitExceededException thrown if the new quantity exceeds the storage limit
      * @throws invalidResourceTypeException thrown if the resource type doesn't match the one of the depot
      */
-    public void addResource(Resource resource, int quantity) throws addResourceLimitExceededException,invalidResourceTypeException {
+    public void addResource(Resource resource, int quantity) throws addResourceLimitExceededException, invalidResourceTypeException {
         int newQuantity;
 
 
