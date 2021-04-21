@@ -1,7 +1,6 @@
 package it.polimi.ingsw.virtualview;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import it.polimi.ingsw.controller.Player;
@@ -47,20 +46,12 @@ public class MarketObserverTest {
         SoloGame solo = new SoloGame(p1);
         System.out.println(solo.getMarketObserver().toString());
 
-        JsonParser parser = new JsonParser();
-        JsonElement observerJSON;
-        JsonElement marketJSON;
-        JsonElement freeMarbleJSON;
-
-        observerJSON = parser.parse(solo.getMarketObserver().toJSONString());
-        marketJSON = observerJSON.getAsJsonObject().get("market");
-        freeMarbleJSON = observerJSON.getAsJsonObject().get("freeMarble");
-
+        JsonObject observerJSON = JsonParser.parseString(solo.getMarketObserver().toJSONString()).getAsJsonObject();
         String[][] marketOld;
         String freeMarbleOld;
 
-        String[][] marketNew = new Gson().fromJson(marketJSON, String[][].class);
-        String freeMarbleNew = new Gson().fromJson(freeMarbleJSON, String.class);
+        String[][] marketNew = new Gson().fromJson(observerJSON.get("market"), String[][].class);
+        String freeMarbleNew = new Gson().fromJson(observerJSON.get("freeMarble"), String.class);
 
         int rand;
         int randMove;
@@ -79,12 +70,9 @@ public class MarketObserverTest {
                 System.out.println("Vertical: "+rand);
             }
 
-            observerJSON = parser.parse(solo.getMarketObserver().toJSONString());
-            marketJSON = observerJSON.getAsJsonObject().get("market");
-            freeMarbleJSON = observerJSON.getAsJsonObject().get("freeMarble");
-
-            marketNew = new Gson().fromJson(marketJSON, String[][].class);
-            freeMarbleNew = new Gson().fromJson(freeMarbleJSON, String.class);
+            observerJSON = JsonParser.parseString(solo.getMarketObserver().toJSONString()).getAsJsonObject();
+            marketNew = new Gson().fromJson(observerJSON.get("market"), String[][].class);
+            freeMarbleNew = new Gson().fromJson(observerJSON.getAsJsonObject().get("freeMarble"), String.class);
 
             if(randMove == 0)
                 testAssertHorizontal(marketOld, marketNew, freeMarbleOld, freeMarbleNew, rand);
@@ -93,5 +81,4 @@ public class MarketObserverTest {
         }
         System.out.println(solo.getMarketObserver().toString());
     }
-
 }
