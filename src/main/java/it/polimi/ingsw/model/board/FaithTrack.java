@@ -38,11 +38,12 @@ public class FaithTrack {
      * In case of a vatican report, the method sets the Section, in the Game's specific attribute, as reported.
      * A vatican report is triggered if no other player has activated the same section, yet.
      * @param steps Number of steps to add to the faith marker
+     * @return Index of the eventually activated section. Returns -1 if no section has been activated.
      */
-    public void addFaith(int steps)  {
+    public int addFaith(int steps)  {
 
         this.faithMarker = Math.min(this.faithMarker + steps, 24);
-        checkVaticanReport();
+        return checkVaticanReport();
     }
 
     /**
@@ -53,25 +54,30 @@ public class FaithTrack {
         return faithMarker;
     }
 
-    //TODO
-    //convert to int
+
     /**
      * Checks for a potential Vatican Report.
      * In case of a vatican report, the method sets the Section, in the Game's specific attribute, as reported.
      * A vatican report is triggered if no other player has activated the same section, yet.
-     *
+     * @return Index of the eventually activated section. Returns -1 if no section has been activated.
      */
-    private void checkVaticanReport() {
+    private int checkVaticanReport() {
 
-        if (this.faithMarker >= sections[0].getLastTileNumber() && !game.isSection1Reported())
+        if (this.faithMarker >= sections[0].getLastTileNumber() && !game.isSection1Reported()){
             game.setSection1Reported();
-            else if(this.faithMarker >= sections[1].getLastTileNumber() && !game.isSection2Reported())
-                game.setSection2Reported();
-                else if(this.faithMarker >= sections[2].getLastTileNumber() && !game.isSection3Reported()) {
-                    game.setSection3Reported();
-                    game.gameIsOver();
+            return 0;
+            }
+            else if (this.faithMarker >= sections[1].getLastTileNumber() && !game.isSection2Reported()) {
+                    game.setSection2Reported();
+                    return 1;
                     }
+                    else if(this.faithMarker >= sections[2].getLastTileNumber() && !game.isSection3Reported()) {
+                            game.setSection3Reported();
+                            game.gameIsOver();
+                            return 2;
+                            }
 
+        return -1;
     }
 
     /**

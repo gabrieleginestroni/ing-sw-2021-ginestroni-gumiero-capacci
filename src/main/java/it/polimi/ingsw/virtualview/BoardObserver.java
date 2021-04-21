@@ -1,6 +1,4 @@
 package it.polimi.ingsw.virtualview;
-
-import com.google.gson.Gson;
 import it.polimi.ingsw.model.Resource;
 
 import java.util.*;
@@ -68,7 +66,7 @@ public class BoardObserver {
         this.inkwell = false;
     }
 
-    //TODO
+
     public void notifyLeaderDiscard(int leaderCardHandIndex){
         int leaderToDiscard = hiddenHand.get(leaderCardHandIndex);
         hiddenHand.remove((Integer)leaderToDiscard);

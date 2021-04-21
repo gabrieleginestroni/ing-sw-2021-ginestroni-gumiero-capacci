@@ -219,10 +219,12 @@ public class Board {
     /**
      * Increments the player's faith marker. The method can eventually trigger the report of a faith track section.
      * @param steps Amount of faith points to add
+     * @return Index of the eventually activated section. Returns -1 if no section has been activated.
      */
-    public void giveFaithPoints(int steps)  {
-        this.faithTrack.addFaith(steps);
+    public int giveFaithPoints(int steps)  {
+        int sectionReportedCode = this.faithTrack.addFaith(steps);
         this.boardObserver.notifyFaithMarkerUpdate(getFaithPoints());
+        return sectionReportedCode;
     }
 
 
@@ -400,18 +402,18 @@ public class Board {
 
 
     /**
-     * Discards a leader card from the hand and gives one faith point to the player. The methods discards the card from
-     * the hand, therefore the card should be inactive.
+     * Discards a leader card from the hand and gives one faith point to the player.
      * @param cardIndex Index of the card to discard (referred to the hand)
      * @throws IndexOutOfBoundsException In case no leader card has that index in the hand
+     * @return Index of the eventually activated section. Returns -1 if no section has been activated.
      */
-    public void discardLeaderCard(int cardIndex) throws IndexOutOfBoundsException {
+    public int discardLeaderCard(int cardIndex) throws IndexOutOfBoundsException {
 
         LeaderCard leaderToDiscard =  this.hand.get(cardIndex);
         this.hand.remove(leaderToDiscard);
         leaderToDiscard.discardCard();
         boardObserver.notifyLeaderDiscard(cardIndex);
-        giveFaithPoints(1);
+        return giveFaithPoints(1);
     }
 
 /*
