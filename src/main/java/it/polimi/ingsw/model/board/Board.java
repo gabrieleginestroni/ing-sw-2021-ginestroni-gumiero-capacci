@@ -255,9 +255,9 @@ public class Board {
         this.wareHouse.removeWarehouseDepotResource(warehouseDepotIndex,res,quantity);
 
         Optional<Resource> resourceTypeTemp = Optional.ofNullable(wareHouse.getWarehouseDepotResourceType(warehouseDepotIndex));
-        Optional<String> resourceType = resourceTypeTemp.map(Resource::toString);
+        String resourceType = resourceTypeTemp.map(Resource::toString).orElse("NULL");
 
-        boardObserver.notifyWarehouseDepotUpdate(resourceType.orElse("NULL"), wareHouse.getWarehouseDepotResourceNumber(warehouseDepotIndex),warehouseDepotIndex);
+        boardObserver.notifyWarehouseDepotUpdate(resourceType, wareHouse.getWarehouseDepotResourceNumber(warehouseDepotIndex),warehouseDepotIndex);
     }
 
     /**
@@ -303,14 +303,14 @@ public class Board {
         this.wareHouse.swapDepot(warehouseDepot1Index,warehouseDepot2Index);
 
         Optional<Resource> resourceTypeTemp = Optional.ofNullable(wareHouse.getWarehouseDepotResourceType(warehouseDepot1Index));
-        Optional<String> resourceType = resourceTypeTemp.map(Resource::toString);
+        String resourceType = resourceTypeTemp.map(Resource::toString).orElse("NULL");
 
-        boardObserver.notifyWarehouseDepotUpdate(resourceType.orElse("NULL"), wareHouse.getWarehouseDepotResourceNumber(warehouseDepot1Index),warehouseDepot1Index);
+        boardObserver.notifyWarehouseDepotUpdate(resourceType, wareHouse.getWarehouseDepotResourceNumber(warehouseDepot1Index),warehouseDepot1Index);
 
         resourceTypeTemp = Optional.ofNullable(wareHouse.getWarehouseDepotResourceType(warehouseDepot2Index));
-        resourceType = resourceTypeTemp.map(Resource::toString);
+        resourceType = resourceTypeTemp.map(Resource::toString).orElse("NULL");
 
-        boardObserver.notifyWarehouseDepotUpdate(resourceType.orElse("NULL"), wareHouse.getWarehouseDepotResourceNumber(warehouseDepot2Index),warehouseDepot2Index);
+        boardObserver.notifyWarehouseDepotUpdate(resourceType, wareHouse.getWarehouseDepotResourceNumber(warehouseDepot2Index),warehouseDepot2Index);
     }
 
     /**
