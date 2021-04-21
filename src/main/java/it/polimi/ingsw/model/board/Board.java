@@ -50,7 +50,7 @@ public class Board {
         this.inkwell = false;
         this.hand = new ArrayList<>();
         this.activeLeaders = new ArrayList<>();
-        this.faithTrack = new FaithTrack(game);
+        this.faithTrack = new FaithTrack(game,boardObserver);
         this.game = game;
 
 
@@ -195,6 +195,7 @@ public class Board {
 
 
         this.cardSlot[cardSlotIndex].addCard(card);
+        boardObserver.notifyDevelopmentCardPlacement(card.getId(),cardSlotIndex);
         int totalDevCardNumber = Arrays.stream(this.cardSlot).mapToInt(CardSlot::getGenericCardNumber).sum();
         if(totalDevCardNumber == 7) this.game.gameIsOver();
 
@@ -206,6 +207,7 @@ public class Board {
 
     public void setInkwell(){
         this.inkwell = true;
+        boardObserver.notifyInkwellSet();
     }
 
 
@@ -214,7 +216,9 @@ public class Board {
      * @param steps Amount of faith points to add
      */
     public void giveFaithPoints(int steps)  {
-        this.faithTrack.addFaith(steps); }
+        this.faithTrack.addFaith(steps);
+        this.boardObserver.notifyFaithMarkerUpdate(getFaithPoints());
+    }
 
 
     /**
@@ -292,6 +296,7 @@ public class Board {
      */
     public void addStrongboxResource(Resource res,int quantity){
         this.strongBox.addResource(res,quantity);
+        boardObserver.notifyStrongboxUpdate(res.toString(),strongBox.getResource(res));
 
     }
 
@@ -303,6 +308,7 @@ public class Board {
      */
     public void removeStrongboxResource(Resource res,int quantity) throws invalidStrongBoxRemoveException {
         this.strongBox.removeResource(res,quantity);
+        boardObserver.notifyStrongboxUpdate(res.toString(),strongBox.getResource(res));
 
     }
 
@@ -362,6 +368,7 @@ public class Board {
         LeaderCard leaderToActivate = this.hand.get(cardIndex);
         this.hand.remove(leaderToActivate);
         activeLeaders.add(leaderToActivate);
+        boardObserver.notifyLeaderActivation(cardIndex);
         leaderToActivate.activateCard();
 
     }
@@ -378,6 +385,7 @@ public class Board {
         LeaderCard leaderToDiscard =  this.hand.get(cardIndex);
         this.hand.remove(leaderToDiscard);
         leaderToDiscard.discardCard();
+        boardObserver.notifyLeaderDiscard(cardIndex);
         giveFaithPoints(1);
     }
 

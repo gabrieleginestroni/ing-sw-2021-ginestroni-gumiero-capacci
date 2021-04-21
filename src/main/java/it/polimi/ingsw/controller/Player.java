@@ -15,7 +15,7 @@ public class Player {
         this.ipAddress = ipAddress;
         this.portNumber = portNumber;
         this.nickname = nickname;
-        this.boardObserver = new BoardObserver();
+        this.boardObserver = new BoardObserver(this.nickname);
     }
 
     public String getNickname() {

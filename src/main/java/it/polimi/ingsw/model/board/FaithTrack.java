@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.model.games.Game;
+import it.polimi.ingsw.virtualview.BoardObserver;
 
 import java.util.Arrays;
 
@@ -12,13 +13,16 @@ public class FaithTrack {
     private int faithMarker;
     private final FaithTrackSection[] sections;
     private final Game game;
+    private final BoardObserver boardObserver;
 
     /**
      * Constructor of the faith track. It initializes the faith track sections position in the track accordingly as specified
      * by the game's base rules
      * @param game The game which the faith track belongs to
      */
-    public FaithTrack(Game game) {
+    public FaithTrack(Game game, BoardObserver boardObserver) {
+
+        this.boardObserver = boardObserver;
         this.faithMarker = 0;
         this.sections = new FaithTrackSection[3];
         this.sections[0]= new FaithTrackSection(2,5,8);
@@ -76,6 +80,8 @@ public class FaithTrack {
     public void computeActivationPopeTile(int index){
         if(this.faithMarker>=this.sections[index].getFirstTileNumber()){
             this.sections[index].activatePopeTile();
+            boardObserver.notifyPopeTileActivation(index);
+
         }
     }
 
