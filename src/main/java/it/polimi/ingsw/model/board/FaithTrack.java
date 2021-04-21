@@ -53,6 +53,8 @@ public class FaithTrack {
         return faithMarker;
     }
 
+    //TODO
+    //convert to int
     /**
      * Checks for a potential Vatican Report.
      * In case of a vatican report, the method sets the Section, in the Game's specific attribute, as reported.

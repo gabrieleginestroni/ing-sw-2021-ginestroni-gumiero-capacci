@@ -74,6 +74,14 @@ public abstract class Game {
 
     }
 
+    public MarketObserver getMarketObserver() {
+        return marketObserver;
+    }
+
+    public GridObserver getGridObserver() {
+        return gridObserver;
+    }
+
     /**
      * Method used in the initialization phase of the game to get 4 random Leader Cards.
      * @return The list that contains 4 Leader Cards

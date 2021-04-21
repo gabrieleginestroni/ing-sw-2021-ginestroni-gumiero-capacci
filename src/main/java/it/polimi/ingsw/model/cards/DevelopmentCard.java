@@ -13,16 +13,19 @@ public class DevelopmentCard extends Card{
     private Map<Resource, Integer> cost;
     private Map<Resource, Integer> productionInput;
     private Map<Resource, Integer> productionOutput;
-    private int cardslot;
 
     /**
      * @return Map<Resource, Integer> Map of resources that can be produced by the card
      */
-    public Map<Resource, Integer> produce() {
+    public Map<Resource, Integer> getProductionOutput() {
         return productionOutput;
     }
 
     public Map<Resource, Integer> getProductionInput() { return productionInput; }
+
+    public Map<Resource, Integer> getCost() {
+        return cost;
+    }
 
     public int getLevel() {
         return level;

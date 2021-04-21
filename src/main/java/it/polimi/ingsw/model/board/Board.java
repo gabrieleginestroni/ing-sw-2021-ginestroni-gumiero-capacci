@@ -414,6 +414,8 @@ public class Board {
         giveFaithPoints(1);
     }
 
+/*
+
     //TODO
     //REMOVE
     /**

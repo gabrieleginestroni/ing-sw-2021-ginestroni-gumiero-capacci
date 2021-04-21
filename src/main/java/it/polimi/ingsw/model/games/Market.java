@@ -37,28 +37,15 @@ public class Market {
         }catch(Exception e) {
             e.printStackTrace();
         }
+        marketObserver.notifyMarketChange(getColorLayout(), freeMarble.getColor());
     }
-    //TODO
-    //REMOVE_ONLY_FOR_TEST
-    /**
-     * Pseudo-Random initialize the grid
-     */
-    public Market() {
-        this.marketObserver = null;
-        this.layout = new Marble[3][4];
-        Gson gson = new Gson();
-        try {
-            //Reading Marbles from JSON
-            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/Marbles.json"));
-            Marble[] marbles = gson.fromJson(reader, Marble[].class);
-            List<Marble> tmpArr = Arrays.asList(marbles);
-            Collections.shuffle(tmpArr);
-            for (int i = 0; i < marbles.length-1; i++)
-                this.layout[i/4][i%4] = tmpArr.get(i);
-            this.freeMarble = tmpArr.get(marbles.length-1);
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
+
+    public String[][] getColorLayout(){
+        String[][] marbleColor = new String[layout.length][layout[0].length];
+        for(int i = 0; i < layout.length; i++)
+            for(int j = 0; j < layout[0].length; j++)
+                marbleColor[i][j] = layout[i][j].getColor();
+        return marbleColor;
     }
 
     /**
@@ -100,6 +87,8 @@ public class Market {
         for(int i = 0; i < layout[row].length-1; i++)
             layout[row][i] = layout[row][i+1];
         layout[row][layout[row].length-1] = tmp;
+
+        marketObserver.notifyMarketChange(getColorLayout(), freeMarble.getColor());
         return gain;
     }
     /**
@@ -127,6 +116,8 @@ public class Market {
             layout[i][col] = layout[i+1][col];
         }
         layout[layout.length-1][col] = tmp;
+
+        marketObserver.notifyMarketChange(getColorLayout(), freeMarble.getColor());
         return gain;
     }
 }
