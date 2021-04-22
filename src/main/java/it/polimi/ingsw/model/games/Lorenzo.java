@@ -11,12 +11,16 @@ public class Lorenzo{
     private int blackCross;
     private final LorenzoObserver lorenzoObserver;
 
+    /**
+     * This constructor needs the Solo Game which this instance of Lorenzo will be linked to and the observer that will observe its status during the game.
+     * @param solo The Solo Game which this instance of Lorenzo is referring to.
+     * @param lorenzoObserver The LorenzoObserver that is going to be attached to this instance of Lorenzo.
+     */
     public Lorenzo(SoloGame solo, LorenzoObserver lorenzoObserver){
         this.lorenzoObserver = lorenzoObserver;
         this.solo = solo;
         blackCross = 0;
     }
-
 
     /**
      * Method that consents to add a quantity of Faith Points to the BlackCross indicator of Lorenzo.

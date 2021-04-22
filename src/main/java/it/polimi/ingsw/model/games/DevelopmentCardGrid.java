@@ -17,8 +17,9 @@ public class DevelopmentCardGrid {
     private final GridObserver gridObserver;
 
     /**
-     * This constructor requires an array of all Development Cards because it initializes randomly the grid with all of them.
-     * @param devCards array that contains all the Development Card of the game.
+     * This constructor requires an array of all Development Cards (because it initializes randomly the grid with all of them) and the observer which the grid has to be attached to.
+     * @param devCards The array that contains all the Development Card of the game.
+     * @param gridObserver The GridObserver that will observe the status of the grid that is going to be built.
      */
     public DevelopmentCardGrid(DevelopmentCard[] devCards, GridObserver gridObserver){
         this.gridObserver = gridObserver;

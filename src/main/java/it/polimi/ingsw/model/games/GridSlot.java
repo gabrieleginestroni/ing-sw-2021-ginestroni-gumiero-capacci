@@ -13,6 +13,9 @@ public class GridSlot {
 
     private final List<DevelopmentCard> cards;
 
+    /**
+     * Creates an empty CardSlot.
+     */
     public GridSlot(){
         cards = new ArrayList<>();
     }

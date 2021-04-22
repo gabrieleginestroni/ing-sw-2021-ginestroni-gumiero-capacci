@@ -14,6 +14,9 @@ public class ActionTokensPile {
     private final List<ActionToken> actionTokens;
     private int nextToDraw;
 
+    /**
+     * Pseudo-random initialization of the pile.
+     */
     public ActionTokensPile(){
         actionTokens = new ArrayList<>();
 

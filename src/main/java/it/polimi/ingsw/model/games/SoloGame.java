@@ -14,6 +14,10 @@ public class SoloGame extends Game{
     private final ActionTokensPile actionTokensPile;
     private final LorenzoObserver lorenzoObserver;
 
+    /**
+     * This constructor requires the player which is playing this Solo Game.
+     * @param player The player that created the game.
+     */
     public SoloGame(Player player){
         super();
 

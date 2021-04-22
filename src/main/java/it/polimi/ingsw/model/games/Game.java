@@ -34,6 +34,9 @@ public abstract class Game {
     private final MarketObserver marketObserver;
     private final GridObserver gridObserver;
 
+    /**
+     * Pseudo-random initialization only of the Leader Card list.
+     */
     protected Game(){
 
         gameId = "test id";
