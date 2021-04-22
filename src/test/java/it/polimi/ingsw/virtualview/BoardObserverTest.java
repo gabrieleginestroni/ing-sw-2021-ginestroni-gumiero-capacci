@@ -1,9 +1,13 @@
 package it.polimi.ingsw.virtualview;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import it.polimi.ingsw.controller.Player;
 import it.polimi.ingsw.exceptions.*;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.StrongBox;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.games.SoloGame;
@@ -26,6 +30,14 @@ public class BoardObserverTest {
         BoardObserver ob1 = p1.getBoardObserver();
         System.out.println(ob1.toString());
 
+        JsonObject observerJSON = JsonParser.parseString(ob1.toJSONString()).getAsJsonObject();
+        String[][] marketOld;
+        String freeMarbleOld;
+
+        StrongBox strongbox = new Gson().fromJson(observerJSON.get("strongBox"), StrongBox.class);
+        List<Integer> hiddenHand = new Gson().fromJson(observerJSON.get("hiddenHand"), List.class);
+        boolean[] popeTiles = new Gson().fromJson(observerJSON.get("popeTiles"), boolean[].class);
+
         //Adding required resources(cost) to Strongbox
         DevelopmentCard d1 = solo.getCardFromGrid(0, 0);
         Map<Resource, Integer> cost = d1.getCost();
@@ -34,8 +46,13 @@ public class BoardObserverTest {
             if(b1.getResourceNumber(resCost.getKey()) < resCost.getValue())
                 assertFalse(true);
         }
-        assertFalse(false);
-        System.out.println(ob1.toString());
+        observerJSON = JsonParser.parseString(ob1.toJSONString()).getAsJsonObject();
+        strongbox = new Gson().fromJson(observerJSON.get("strongBox"), StrongBox.class);
+        for(Map.Entry<Resource, Integer> resCost : cost.entrySet()){
+            int actual = strongbox.getResource(resCost.getKey());
+            int expected = resCost.getValue();
+            //assertEquals(expected, actual);
+        }
 
         //Removing required resources(cost) from Strongbox
         for(Map.Entry<Resource, Integer> resCost : cost.entrySet()){

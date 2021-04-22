@@ -1,4 +1,5 @@
 package it.polimi.ingsw.virtualview;
+import com.google.gson.Gson;
 import it.polimi.ingsw.model.Resource;
 
 import java.util.*;
@@ -137,5 +138,9 @@ public class BoardObserver {
                 ", inkwell=" + inkwell +
                 ", nickname='" + nickname + '\'' +
                 '}';
+    }
+
+    public String toJSONString(){
+        return new Gson().toJson(this);
     }
 }

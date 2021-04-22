@@ -7,15 +7,14 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Giacomo Gumiero
  * Class that defines the Marble Grid
  */
 public class Market {
-    private final Marble[][] layout;
-    private Marble freeMarble;
+    private final Resource[][] layout;
+    private Resource freeMarble;
     private final MarketObserver marketObserver;
 
     /**
@@ -23,13 +22,16 @@ public class Market {
      */
     public Market(MarketObserver marketObserver) {
         this.marketObserver = marketObserver;
-        this.layout = new Marble[3][4];
-        Gson gson = new Gson();
+        this.layout = new Resource[3][4];
+        //Gson gson = new Gson();
         try {
             //Reading Marbles from JSON
-            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/Marbles.json"));
-            Marble[] marbles = gson.fromJson(reader, Marble[].class);
-            List<Marble> tmpArr = Arrays.asList(marbles);
+            //Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/Marbles.json"));
+            //Resource[] marbles = gson.fromJson(reader, Resource[].class);
+
+            Resource[] marbles = {Resource.COIN, Resource.COIN, Resource.WHITE, Resource.WHITE, Resource.WHITE, Resource.WHITE, Resource.FAITH, Resource.SERVANT, Resource.SERVANT, Resource.STONE, Resource.STONE, Resource.SHIELD, Resource.SHIELD};
+            List<Resource> tmpArr = Arrays.asList(marbles);
+
             Collections.shuffle(tmpArr);
             for (int i = 0; i < marbles.length-1; i++)
                 this.layout[i/4][i%4] = tmpArr.get(i);
@@ -52,7 +54,7 @@ public class Market {
      *
      * @return Marble the marble outside the grid
      */
-    public Marble getFreeMarble() {
+    public Resource getFreeMarble() {
         return freeMarble;
     }
 
@@ -60,7 +62,7 @@ public class Market {
      *
      * @return Marble[][] layout
      */
-    public Marble[][] getLayout() {
+    public Resource[][] getLayout() {
         return layout;
     }
 
@@ -72,13 +74,13 @@ public class Market {
     public Map<Resource, Integer> doHorizontalMove(int row){
         Map<Resource, Integer> gain = new HashMap<>();
         int cur;
-        Marble tmp;
+        Resource tmp;
         for(int i = 0; i < layout[row].length; i++){
-            if(gain.containsKey(layout[row][i].getResource()))
-                cur = 1 + gain.get(layout[row][i].getResource());
+            if(gain.containsKey(layout[row][i]))
+                cur = 1 + gain.get(layout[row][i]);
             else
                 cur = 1;
-           gain.put(layout[row][i].getResource(), cur);
+           gain.put(layout[row][i], cur);
         }
 
         //shift marbles
@@ -91,6 +93,7 @@ public class Market {
         marketObserver.notifyMarketChange(getColorLayout(), freeMarble.getColor());
         return gain;
     }
+
     /**
      *
      * @param col the column to shift (from down to up)
@@ -99,14 +102,14 @@ public class Market {
     public Map<Resource, Integer> doVerticalMove(int col){
         Map<Resource, Integer> gain = new HashMap<>();
         int cur;
-        Marble tmp;
+        Resource tmp;
 
         for(int i = 0; i < layout.length; i++){
-            if(gain.containsKey(layout[i][col].getResource()))
-                cur = 1 + gain.get(layout[i][col].getResource());
+            if(gain.containsKey(layout[i][col]))
+                cur = 1 + gain.get(layout[i][col]);
             else
                 cur = 1;
-            gain.put(layout[i][col].getResource(), cur);
+            gain.put(layout[i][col], cur);
         }
 
         //shift marbles

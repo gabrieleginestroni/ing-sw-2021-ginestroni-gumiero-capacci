@@ -4,10 +4,20 @@ package it.polimi.ingsw.model;
  * Enum to define resource type
  */
 public enum Resource {
-    COIN,
-    SERVANT,
-    STONE,
-    SHIELD,
-    FAITH,
-    WHITE
+    COIN("Yellow"),
+    SERVANT("Purple"),
+    STONE("Grey"),
+    SHIELD("Blue"),
+    FAITH("Red"),
+    WHITE("White");
+
+    private String color;
+
+    Resource(String color){
+        this.color = color;
+    }
+
+    public String getColor() {
+        return color;
+    }
 }
