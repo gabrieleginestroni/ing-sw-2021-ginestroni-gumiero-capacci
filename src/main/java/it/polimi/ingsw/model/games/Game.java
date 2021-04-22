@@ -1,11 +1,11 @@
 package it.polimi.ingsw.model.games;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.exceptions.emptyDevCardGridSlotSelectedException;
 import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.virtualview.GridObserver;
-import it.polimi.ingsw.virtualview.LorenzoObserver;
 import it.polimi.ingsw.virtualview.MarketObserver;
 
 import java.io.Reader;
@@ -38,7 +38,8 @@ public abstract class Game {
 
         gameId = "test id";
         gameDate = new Date();
-        this.marketObserver = new MarketObserver();
+
+        marketObserver = new MarketObserver();
         market = new Market(marketObserver);
 
         Gson gson = new Gson();
@@ -63,7 +64,7 @@ public abstract class Game {
         Collections.shuffle(leaderCards);
         leaderCards = new ArrayList<>(leaderCards);
 
-        this.gridObserver = new GridObserver();
+        gridObserver = new GridObserver();
         devCardsGrid = new DevelopmentCardGrid(devCards,gridObserver);
 
         gameOver = false;
@@ -72,14 +73,6 @@ public abstract class Game {
         section2Reported = false;
         section3Reported = false;
 
-    }
-
-    public MarketObserver getMarketObserver() {
-        return marketObserver;
-    }
-
-    public GridObserver getGridObserver() {
-        return gridObserver;
     }
 
     /**
@@ -191,5 +184,13 @@ public abstract class Game {
      */
     public boolean isSection3Reported() {
         return section3Reported;
+    }
+
+    public MarketObserver getMarketObserver() {
+        return marketObserver;
+    }
+
+    public GridObserver getGridObserver() {
+        return gridObserver;
     }
 }

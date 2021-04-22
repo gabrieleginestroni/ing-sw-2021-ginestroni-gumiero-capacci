@@ -13,12 +13,10 @@ public class MultiplayerGame extends Game{
     private final List<Player> players;
 
     public MultiplayerGame(List<Player> players){
-
         super();
 
         this.players = players;
         for(Player player : players)
             player.buildBoard(this);
-
     }
 }

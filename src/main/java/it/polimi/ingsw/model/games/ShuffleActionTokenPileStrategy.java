@@ -12,9 +12,9 @@ public class ShuffleActionTokenPileStrategy implements ActionToken{
     }
 
     @Override
-    public void activateEffect(SoloGame solo) {
+    public int activateEffect(SoloGame solo) {
         solo.shuffleTokenPile();
-        solo.addFaithLorenzo(1);
+        return solo.addFaithLorenzo(1);
     }
 
     @Override

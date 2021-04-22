@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.games;
 
 import it.polimi.ingsw.controller.Player;
+import it.polimi.ingsw.exceptions.emptyDevCardGridSlotSelectedException;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.virtualview.LorenzoObserver;
 
@@ -14,25 +15,23 @@ public class SoloGame extends Game{
     private final LorenzoObserver lorenzoObserver;
 
     public SoloGame(Player player){
-
         super();
 
-        this.lorenzoObserver = new LorenzoObserver();
+        lorenzoObserver = new LorenzoObserver();
         lorenzo = new Lorenzo(this,lorenzoObserver);
 
         this.player = player;
         this.player.buildBoard(this);
 
         actionTokensPile = new ActionTokensPile();
-
     }
 
     /**
      * Method that adds Faith Points to the Black Cross indicator.
      * @param points The amount of points that must be added to the Black Cross indicator.
      */
-    public void addFaithLorenzo(int points){
-        lorenzo.addFaithPoints(points);
+    public int addFaithLorenzo(int points){
+        return lorenzo.addFaithPoints(points);
     }
 
     /**
@@ -68,4 +67,6 @@ public class SoloGame extends Game{
         if(c.isPresent() && devCardsGrid.thereAreNotRemainingCards(c.get()))
             gameIsOver();
     }
+
+    public LorenzoObserver getLorenzoObserver(){return lorenzoObserver;}
 }

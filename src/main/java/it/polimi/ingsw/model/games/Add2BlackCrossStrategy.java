@@ -13,8 +13,8 @@ public class Add2BlackCrossStrategy implements ActionToken{
     }
 
     @Override
-    public void activateEffect(SoloGame solo) {
-        solo.addFaithLorenzo(2);
+    public int activateEffect(SoloGame solo) {
+        return solo.addFaithLorenzo(2);
     }
 
     @Override

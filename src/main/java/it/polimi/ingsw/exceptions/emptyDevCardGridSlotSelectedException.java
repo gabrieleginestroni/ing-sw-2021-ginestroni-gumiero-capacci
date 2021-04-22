@@ -1,3 +1,3 @@
-package it.polimi.ingsw.model.games;
+package it.polimi.ingsw.exceptions;
 
 public class emptyDevCardGridSlotSelectedException extends Exception{}

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.games;
 
+import it.polimi.ingsw.exceptions.emptyDevCardGridSlotSelectedException;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.virtualview.GridObserver;
@@ -21,6 +22,7 @@ public class DevelopmentCardGrid {
      */
     public DevelopmentCardGrid(DevelopmentCard[] devCards, GridObserver gridObserver){
         this.gridObserver = gridObserver;
+
         grid = new GridSlot[3][4];
         for(int i = 0; i < 3; i++)
             for(int j = 0; j < 4; j++)
@@ -31,23 +33,8 @@ public class DevelopmentCardGrid {
 
         for(DevelopmentCard card : devCardsList)
             grid[card.getLevel() - 1][card.getType().getColumn()].add(card);
-    }
-    /**
-     * This constructor requires an array of all Development Cards because it initializes randomly the grid with all of them.
-     * @param devCards array that contains all the Development Card of the game.
-     */
-    public DevelopmentCardGrid(DevelopmentCard[] devCards){
-        this.gridObserver = null;
-        grid = new GridSlot[3][4];
-        for(int i = 0; i < 3; i++)
-            for(int j = 0; j < 4; j++)
-                grid[i][j] = new GridSlot();
 
-        List<DevelopmentCard> devCardsList = Arrays.asList(devCards);
-        Collections.shuffle(devCardsList);
-
-        for(DevelopmentCard card : devCardsList)
-            grid[card.getLevel() - 1][card.getType().getColumn()].add(card);
+        this.gridObserver.notifyDevelopmentGridChange(getGridStatus());
     }
 
     /**
@@ -61,6 +48,8 @@ public class DevelopmentCardGrid {
             throw new emptyDevCardGridSlotSelectedException();
         else
             grid[row][col].removeLast();
+
+        gridObserver.notifyDevelopmentGridChange(getGridStatus());
     }
 
     /**
@@ -84,6 +73,8 @@ public class DevelopmentCardGrid {
                 }
             }
         }
+
+        gridObserver.notifyDevelopmentGridChange(getGridStatus());
     }
 
     /**
@@ -113,5 +104,21 @@ public class DevelopmentCardGrid {
             throw new emptyDevCardGridSlotSelectedException();
         else
             return grid[row][col].getLast();
+    }
+
+    /**
+     * This method returns a matrix which contains the CardID of the top Development Card for each GridSlot.
+     * @return A matrix of integers that represent the ID of the top card for that slot, 0 if is empty.
+     */
+    public int[][] getGridStatus(){
+        int[][] tempStatus = new int[3][4];
+        for(int i = 0; i < 2; i++)
+            for(int j = 0; j < 3; j++){
+                if(grid[i][j].isEmpty())
+                    tempStatus[i][j] = 0;
+                else
+                    tempStatus[i][j] = grid[i][j].getLast().getId();
+            }
+        return tempStatus;
     }
 }

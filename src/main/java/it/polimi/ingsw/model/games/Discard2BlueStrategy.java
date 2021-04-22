@@ -15,8 +15,9 @@ public class Discard2BlueStrategy implements ActionToken{
     }
 
     @Override
-    public void activateEffect(SoloGame solo) {
+    public int activateEffect(SoloGame solo) {
         solo.discard2Cards(Color.BLUE);
+        return -1;
     }
 
     @Override

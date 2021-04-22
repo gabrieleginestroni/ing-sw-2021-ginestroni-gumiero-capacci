@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model.games;
 
 import it.polimi.ingsw.controller.Player;
+import it.polimi.ingsw.exceptions.emptyDevCardGridSlotSelectedException;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class SoloGameTest {
 

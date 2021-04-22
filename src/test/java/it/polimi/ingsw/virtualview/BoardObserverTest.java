@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.games.SoloGame;
-import it.polimi.ingsw.model.games.emptyDevCardGridSlotSelectedException;
+import it.polimi.ingsw.exceptions.emptyDevCardGridSlotSelectedException;
 import org.junit.Test;
 
 import java.util.List;

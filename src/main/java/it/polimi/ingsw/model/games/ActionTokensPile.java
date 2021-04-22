@@ -15,16 +15,15 @@ public class ActionTokensPile {
     private int nextToDraw;
 
     public ActionTokensPile(){
-
         actionTokens = new ArrayList<>();
 
-        actionTokens.add(new Add2BlackCrossStrategy("Add 2 Black Cross"));
-        actionTokens.add(new Add2BlackCrossStrategy("Add 2 Black Cross"));
-        actionTokens.add(new ShuffleActionTokenPileStrategy("Shuffle Action Tokens Pile"));
-        actionTokens.add(new Discard2GreenStrategy("Discard 2 Green"));
-        actionTokens.add(new Discard2BlueStrategy("Discard 2 Blue"));
-        actionTokens.add(new Discard2PurpleStrategy("Discard 2 Purple"));
-        actionTokens.add(new Discard2YellowStrategy("Discard 2 Yellow"));
+        actionTokens.add(new Add2BlackCrossStrategy("Added 2 Black Cross"));
+        actionTokens.add(new Add2BlackCrossStrategy("Added 2 Black Cross"));
+        actionTokens.add(new ShuffleActionTokenPileStrategy("Gave Lorenzo 1 Faith Point and shuffled Action Tokens pile"));
+        actionTokens.add(new Discard2GreenStrategy("Discarded 2 Green"));
+        actionTokens.add(new Discard2BlueStrategy("Discarded 2 Blue"));
+        actionTokens.add(new Discard2PurpleStrategy("Discarded 2 Purple"));
+        actionTokens.add(new Discard2YellowStrategy("Discarded 2 Yellow"));
 
         tokenPileStatus = new int[actionTokens.size()];
 

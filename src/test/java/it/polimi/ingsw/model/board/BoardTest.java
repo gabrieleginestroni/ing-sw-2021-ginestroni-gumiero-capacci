@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.Resource;
 import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.games.MultiplayerGame;
 import it.polimi.ingsw.model.games.SoloGame;
-import it.polimi.ingsw.model.games.emptyDevCardGridSlotSelectedException;
+import it.polimi.ingsw.exceptions.emptyDevCardGridSlotSelectedException;
 import org.junit.Test;
 
 import java.io.IOException;

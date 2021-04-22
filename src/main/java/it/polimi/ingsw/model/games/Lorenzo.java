@@ -22,18 +22,27 @@ public class Lorenzo{
      * Method that consents to add a quantity of Faith Points to the BlackCross indicator of Lorenzo.
      * @param points The number of Faith Points that are going to be added to the BlackCross indicator.
      */
-    public void addFaithPoints(int points){
+    public int addFaithPoints(int points){
         int tempBC = blackCross + points;
 
         blackCross = Math.min(tempBC, 24);
 
-        if(blackCross >= 8 && !solo.isSection1Reported())
+        lorenzoObserver.notifyLorenzoStatus(blackCross);
+
+        if(blackCross >= 8 && !solo.isSection1Reported()) {
             solo.setSection1Reported();
-        else if(blackCross >= 16 && !solo.isSection2Reported())
+            return 0;
+        }
+        else if(blackCross >= 16 && !solo.isSection2Reported()) {
                 solo.setSection2Reported();
+                return 1;
+            }
             else if(blackCross == 24 && !solo.isSection3Reported()) {
                     solo.setSection3Reported();
                     solo.gameIsOver();
+                    return 2;
                  }
+                 else
+                     return -1;
     }
 }
