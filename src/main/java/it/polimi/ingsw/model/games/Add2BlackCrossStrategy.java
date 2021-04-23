@@ -8,8 +8,8 @@ public class Add2BlackCrossStrategy implements ActionToken{
 
     private final String id;
 
-    public Add2BlackCrossStrategy(String id) {
-        this.id = id;
+    public Add2BlackCrossStrategy() {
+        id = "Added 2 Black Cross";
     }
 
     @Override

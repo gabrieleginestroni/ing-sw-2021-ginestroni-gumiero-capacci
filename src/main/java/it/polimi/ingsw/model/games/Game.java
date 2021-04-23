@@ -13,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-
 /**
  * @author Tommaso Capacci
  * Class that represents the concept of th Game and the basic data structures that the Mupltiplayer version and the Solo version of the Game have in common.

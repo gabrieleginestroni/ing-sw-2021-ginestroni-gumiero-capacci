@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class LorenzoObserverTest {
 
     @Test
-    public void TestLorenzoObserver(){
+    public void TestAddFaithLorenzo(){
         Player pl = new Player("lel", 80, "lul");
         SoloGame solo = new SoloGame(pl);
         LorenzoObserver lo = solo.getLorenzoObserver();
@@ -68,5 +68,24 @@ public class LorenzoObserverTest {
         LorenzoObserverJSON = JsonParser.parseString(lo.toJSONString()).getAsJsonObject();
         blackCrossMarker = new Gson().fromJson(LorenzoObserverJSON.get("blackCrossMarker"), int.class);
         assertEquals(24, blackCrossMarker);
+    }
+
+    @Test
+    public void TestDrawPile(){
+        Player pl = new Player("lel", 80, "lul");
+        SoloGame solo = new SoloGame(pl);
+        LorenzoObserver lo = solo.getLorenzoObserver();
+        JsonObject LorenzoObserverJSON;
+        int blackCrossMarker;
+
+        int temp = solo.drawFromTokenPile();
+        while(temp != 0)
+            temp = solo.drawFromTokenPile();
+
+        LorenzoObserverJSON = JsonParser.parseString(lo.toJSONString()).getAsJsonObject();
+        blackCrossMarker = new Gson().fromJson(LorenzoObserverJSON.get("blackCrossMarker"), int.class);
+        assertTrue(blackCrossMarker >= 8);
+        assertTrue(solo.isSection1Reported());
+
     }
 }

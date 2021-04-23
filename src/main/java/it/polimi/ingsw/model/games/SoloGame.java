@@ -33,6 +33,7 @@ public class SoloGame extends Game{
     /**
      * Method that adds Faith Points to the Black Cross indicator.
      * @param points The amount of points that must be added to the Black Cross indicator.
+     * @return -1 if the addition of the specified amount of Faith Points to Lorenzo does not activate any Vatican Report, 0 if it activates the first Vatican Report, 1 for the second and 2 for the last one.
      */
     public int addFaithLorenzo(int points){
         return lorenzo.addFaithPoints(points);
@@ -40,8 +41,9 @@ public class SoloGame extends Game{
 
     /**
      * Method that draws and applies the effect of the next Action Token from the pile used in the specific Game.
+     * @return -1 if the drawn Action Token does not activate any Vatican Report, 0 if it activates the first Vatican Report, 1 for the second and 2 for the last one.
      */
-    public String drawFromTokenPile(){
+    public int drawFromTokenPile(){
         return actionTokensPile.drawPile(this);
     }
 
@@ -70,6 +72,14 @@ public class SoloGame extends Game{
 
         if(c.isPresent() && devCardsGrid.thereAreNotRemainingCards(c.get()))
             gameIsOver();
+    }
+
+    /**
+     * This method propagates the notification of the last drawn Action Token from the pile to the instance of LorenzoObserver valid for this Solo Game.
+     * @param actionTokenId The ID of the last drawn Action Token.
+     */
+    public void notifyDrawnActionToken(String actionTokenId){
+        lorenzoObserver.notifyLastDrawActionToken(actionTokenId);
     }
 
     public LorenzoObserver getLorenzoObserver(){return lorenzoObserver;}

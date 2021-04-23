@@ -10,8 +10,8 @@ public class Discard2YellowStrategy implements ActionToken{
 
     private final String id;
 
-    public Discard2YellowStrategy(String id) {
-        this.id = id;
+    public Discard2YellowStrategy() {
+        id = "Discarded 2 Yellow";
     }
 
     @Override

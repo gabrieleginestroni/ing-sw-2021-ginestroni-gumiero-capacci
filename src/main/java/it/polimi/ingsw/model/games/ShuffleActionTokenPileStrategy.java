@@ -7,8 +7,8 @@ public class ShuffleActionTokenPileStrategy implements ActionToken{
 
     private final String id;
 
-    public ShuffleActionTokenPileStrategy(String id) {
-        this.id = id;
+    public ShuffleActionTokenPileStrategy() {
+        id = "Gave Lorenzo 1 Faith Point and shuffled Action Tokens pile";
     }
 
     @Override
