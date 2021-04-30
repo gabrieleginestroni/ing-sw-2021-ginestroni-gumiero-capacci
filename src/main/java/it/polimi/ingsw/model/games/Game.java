@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.virtualview.GridObserver;
 import it.polimi.ingsw.virtualview.MarketObserver;
+import it.polimi.ingsw.virtualview.VirtualView;
 
 import java.io.Reader;
 import java.nio.file.Files;
@@ -32,12 +33,13 @@ public abstract class Game {
 
     private final MarketObserver marketObserver;
     private final GridObserver gridObserver;
+    final VirtualView virtualView;
 
     /**
      * Pseudo-random initialization only of the Leader Card list.
      */
     protected Game(){
-
+        this.virtualView = new VirtualView();
         gameId = "test id";
         gameDate = new Date();
 
@@ -74,6 +76,9 @@ public abstract class Game {
         section1Reported = false;
         section2Reported = false;
         section3Reported = false;
+
+        this.virtualView.setMarketObserver(this.marketObserver);
+        this.virtualView.setGridObserver(this.gridObserver);
 
     }
 

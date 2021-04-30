@@ -5,7 +5,9 @@ import it.polimi.ingsw.exceptions.emptyDevCardGridSlotSelectedException;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.virtualview.LorenzoObserver;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class SoloGame extends Game{
@@ -13,6 +15,7 @@ public class SoloGame extends Game{
     private final Player player;
     private final ActionTokensPile actionTokensPile;
     private final LorenzoObserver lorenzoObserver;
+
 
     /**
      * This constructor requires the player which is playing this Solo Game.
@@ -27,7 +30,12 @@ public class SoloGame extends Game{
         this.player = player;
         this.player.buildBoard(this);
 
+
         actionTokensPile = new ActionTokensPile();
+        super.virtualView.setLorenzoObserver(lorenzoObserver);
+        List<Player> players = new ArrayList<>();
+        players.add(player);
+        super.virtualView.setPlayers(players);
     }
 
     /**

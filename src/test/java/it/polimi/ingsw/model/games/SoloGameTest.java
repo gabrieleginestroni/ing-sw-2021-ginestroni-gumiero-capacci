@@ -14,7 +14,7 @@ public class SoloGameTest {
 
     @Test
     public void TestLorenzo() throws emptyDevCardGridSlotSelectedException {
-        Player pl = new Player("lel", 12, "lul");
+        Player pl = new Player("giagum",null);
         SoloGame solo = new SoloGame(pl);
         LorenzoObserver lo = solo.getLorenzoObserver();
         JsonObject LorenzoObserverJSON;
@@ -33,6 +33,8 @@ public class SoloGameTest {
         assertTrue(lastActionToken.equals("Discarded 2 Blue") ||
                 lastActionToken.equals("Discarded 2 Green") ||
                 lastActionToken.equals("Discarded 2 Yellow") ||
-                lastActionToken.equals("Discarded 2 Purple"));
+                lastActionToken.equals("Discarded 2 Purple") ||
+                lastActionToken.equals("Added 2 Faith Points") ||
+                lastActionToken.equals("Gave Lorenzo 1 Faith Point and shuffled Action Tokens pile"));
     }
 }

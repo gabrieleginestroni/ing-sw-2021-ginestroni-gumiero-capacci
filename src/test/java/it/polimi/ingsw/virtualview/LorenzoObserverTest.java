@@ -13,7 +13,7 @@ public class LorenzoObserverTest {
 
     @Test
     public void TestAddFaithLorenzo(){
-        Player pl = new Player("lel", 80, "lul");
+        Player pl = new Player("giagum",null);
         SoloGame solo = new SoloGame(pl);
         LorenzoObserver lo = solo.getLorenzoObserver();
         JsonObject LorenzoObserverJSON;
@@ -72,7 +72,7 @@ public class LorenzoObserverTest {
 
     @Test
     public void TestDrawPile(){
-        Player pl = new Player("lel", 80, "lul");
+        Player pl = new Player("giagum",null);
         SoloGame solo = new SoloGame(pl);
         LorenzoObserver lo = solo.getLorenzoObserver();
         JsonObject LorenzoObserverJSON;

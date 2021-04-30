@@ -12,6 +12,7 @@ public class MultiplayerGame extends Game{
 
     private final List<Player> players;
 
+
     /**
      * This constructor requires the list of the players that are going to play in this Multiplayer Game.
      * @param players The list of the players that will participate in this game.
@@ -22,5 +23,7 @@ public class MultiplayerGame extends Game{
         this.players = players;
         for(Player player : players)
             player.buildBoard(this);
+        super.virtualView.setPlayers(players);
     }
+
 }

@@ -42,7 +42,7 @@ public class MarketObserverTest {
     }
     @Test
     public void testMarketObserver(){
-        Player p1 = new Player("localhost", 8080, "giagum");
+        Player p1 = new Player("giagum",null);
         SoloGame solo = new SoloGame(p1);
         System.out.println(solo.getMarketObserver().toString());
 

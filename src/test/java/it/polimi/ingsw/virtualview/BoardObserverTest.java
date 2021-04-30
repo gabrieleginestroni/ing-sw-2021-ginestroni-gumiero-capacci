@@ -25,7 +25,7 @@ public class BoardObserverTest {
 
     @Test
     public void testProductions() throws emptyDevCardGridSlotSelectedException, developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, invalidStrongBoxRemoveException, addResourceLimitExceededException, invalidResourceTypeException, duplicatedWarehouseTypeException, removeResourceLimitExceededException {
-        Player p1 = new Player("localhost",80,"giagum");
+        Player p1 = new Player("giagum",null);
         SoloGame solo = new SoloGame(p1);
         Board b1 = p1.getBoard();
         BoardObserver ob1 = p1.getBoardObserver();
@@ -134,7 +134,7 @@ public class BoardObserverTest {
 
     @Test
     public void testToString() throws addResourceLimitExceededException, invalidResourceTypeException, duplicatedWarehouseTypeException, invalidSwapException, emptyDevCardGridSlotSelectedException, developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, removeResourceLimitExceededException {
-        Player p1 = new Player("localhost",80,"tommy");
+        Player p1 = new Player("giagum",null);
         SoloGame solo = new SoloGame(p1);
         Board b1 = p1.getBoard();
         BoardObserver ob1 = p1.getBoardObserver();

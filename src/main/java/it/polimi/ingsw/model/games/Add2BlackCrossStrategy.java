@@ -9,7 +9,7 @@ public class Add2BlackCrossStrategy implements ActionToken{
     private final String id;
 
     public Add2BlackCrossStrategy() {
-        id = "Added 2 Black Cross";
+        id = "Added 2 Faith Points";
     }
 
     @Override

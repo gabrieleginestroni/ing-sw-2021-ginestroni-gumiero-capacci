@@ -1,5 +1,6 @@
 package it.polimi.ingsw.virtualview;
 import com.google.gson.Gson;
+import it.polimi.ingsw.controller.Player;
 import it.polimi.ingsw.model.Resource;
 
 import java.util.*;
@@ -19,12 +20,16 @@ public class BoardObserver {
     private final List<Integer> leaderDepotQuantity;
     private boolean inkwell;
     private final String nickname;
+    private final transient Player player;
+    private transient VirtualView virtualView;
 
 
-    public BoardObserver(String nickname) {
-        this.nickname = nickname;
-        
+
+    public BoardObserver(Player player) {
+        this.nickname = player.getNickname();
+        this.player = player;
         this.hiddenHand = new ArrayList<>();
+        this.virtualView = null;
         
         this.activeLeaders = new ArrayList<>();
 
@@ -39,7 +44,7 @@ public class BoardObserver {
         cardSlot[0] = new ArrayList<>();
         cardSlot[1] = new ArrayList<>();
         cardSlot[2] = new ArrayList<>();
-        
+
 
         
         this.faithTrackMarker = 0;
@@ -143,4 +148,8 @@ public class BoardObserver {
     public String toJSONString(){
         return new Gson().toJson(this);
     }
+
+    public Player getPlayer() { return this.player;}
+
+    public void setVirtualView(VirtualView virtualView) { this.virtualView = virtualView;}
 }

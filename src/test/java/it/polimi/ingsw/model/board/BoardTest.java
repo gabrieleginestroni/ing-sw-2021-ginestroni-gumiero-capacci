@@ -24,8 +24,8 @@ public class BoardTest {
 
     @Test
     public void TestAddLeaderCard() {
-        Player player1 = new Player( "localhost", 8080, "giagum");
-        Player player2 = new Player( "localhost", 8080, "gabry");
+        Player player1 = new Player( "giagum",null);
+        Player player2 = new Player( "giagum",null);
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
@@ -39,8 +39,8 @@ public class BoardTest {
 
     @Test
     public void TestAddDevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, emptyDevCardGridSlotSelectedException {
-        Player player1 = new Player( "localhost", 8080, "giagum");
-        Player player2 = new Player( "localhost", 8080, "gabry");
+        Player player1 = new Player( "giagum",null);
+        Player player2 = new Player( "giagum",null);
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
@@ -53,8 +53,8 @@ public class BoardTest {
 
     @Test
     public void TestRemoveLeaderDepotResource() throws addResourceLimitExceededException, invalidResourceTypeException, removeResourceLimitExceededException {
-        Player player1 = new Player( "localhost", 8080, "giagum");
-        Player player2 = new Player( "localhost", 8080, "gabry");
+        Player player1 = new Player( "giagum",null);
+        Player player2 = new Player( "giagum",null);
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
@@ -88,8 +88,8 @@ public class BoardTest {
 
     @Test
     public void TestAddStrongboxResource() {
-        Player player1 = new Player( "localhost", 8080, "giagum");
-        Player player2 = new Player( "localhost", 8080, "gabry");
+        Player player1 = new Player( "giagum",null);
+        Player player2 = new Player( "giagum",null);
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
@@ -104,8 +104,8 @@ public class BoardTest {
 
     @Test
     public void TestRemoveStrongboxResource() throws invalidStrongBoxRemoveException {
-        Player player1 = new Player( "localhost", 8080, "giagum");
-        Player player2 = new Player( "localhost", 8080, "gabry");
+        Player player1 = new Player( "giagum",null);
+        Player player2 = new Player( "giagum",null);
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
@@ -119,8 +119,8 @@ public class BoardTest {
 
     @Test
     public void Test2LeaderCardsActivation() throws addResourceLimitExceededException, invalidResourceTypeException {
-        Player player1 = new Player( "localhost", 8080, "giagum");
-        Player player2 = new Player( "localhost", 8080, "gabry");
+        Player player1 = new Player( "giagum",null);
+        Player player2 = new Player( "giagum",null);
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
@@ -172,8 +172,8 @@ public class BoardTest {
 
     @Test
     public void Test2DevelopmentCard() throws developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, emptyDevCardGridSlotSelectedException {
-        Player player1 = new Player( "localhost", 8080, "giagum");
-        Player player2 = new Player( "localhost", 8080, "gabry");
+        Player player1 = new Player( "giagum",null);
+        Player player2 = new Player( "giagum",null);
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
@@ -203,8 +203,8 @@ public class BoardTest {
     @Test
     public void GenericTestWith2LeaderActivation() throws IOException,
             duplicatedWarehouseTypeException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException {
-        Player player1 = new Player( "localhost", 8080, "giagum");
-        Player player2 = new Player( "localhost", 8080, "gabry");
+        Player player1 = new Player( "giagum",null);
+        Player player2 = new Player( "giagum",null);
         List<Player> player = new ArrayList<>();
         player.add(player1);
         MultiplayerGame multiplayerGame = new MultiplayerGame(player);
@@ -259,7 +259,7 @@ public class BoardTest {
 
     @Test
     public void GenericTestWithLeaderDiscard() throws IOException, addResourceLimitExceededException, invalidResourceTypeException, invalidSwapException, duplicatedWarehouseTypeException {
-        Player player1 = new Player( "localhost", 8080, "giagum");
+        Player player1 = new Player( "giagum",null);
         List<Player> player = new ArrayList<>();
         player.add(player1);
         MultiplayerGame multiplayerGame = new MultiplayerGame(player);
@@ -372,7 +372,7 @@ public class BoardTest {
 
     @Test
     public void DevCardGameOverTest() throws emptyDevCardGridSlotSelectedException, developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException {
-        Player player1 = new Player( "localhost", 8080, "giagum");
+        Player player1 = new Player( "giagum",null);
         SoloGame solo = new SoloGame(player1);
         Board b1 = player1.getBoard();
 
@@ -394,7 +394,7 @@ public class BoardTest {
 
     @Test
     public void removeWarehouseDepotResource() throws addResourceLimitExceededException, invalidResourceTypeException, duplicatedWarehouseTypeException, removeResourceLimitExceededException {
-        Player player1 = new Player( "localhost", 8080, "giagum");
+        Player player1 = new Player( "giagum",null);
         SoloGame solo = new SoloGame(player1);
         Board b1 = player1.getBoard();
         b1.addWarehouseDepotResource(Resource.COIN,1, 0);
