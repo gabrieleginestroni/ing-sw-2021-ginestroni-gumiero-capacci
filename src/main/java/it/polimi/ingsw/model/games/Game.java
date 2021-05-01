@@ -43,7 +43,7 @@ public abstract class Game {
         gameId = "test id";
         gameDate = new Date();
 
-        marketObserver = new MarketObserver();
+        marketObserver = new MarketObserver(this.virtualView);
         market = new Market(marketObserver);
 
         Gson gson = new Gson();
@@ -68,7 +68,7 @@ public abstract class Game {
         Collections.shuffle(leaderCards);
         leaderCards = new ArrayList<>(leaderCards);
 
-        gridObserver = new GridObserver();
+        gridObserver = new GridObserver(this.virtualView);
         devCardsGrid = new DevelopmentCardGrid(devCards,gridObserver);
 
         gameOver = false;

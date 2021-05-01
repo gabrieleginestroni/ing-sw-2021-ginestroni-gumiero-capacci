@@ -9,20 +9,21 @@ public class Player {
 
     private final String nickname;
     private Board board;
-    private final BoardObserver boardObserver;
+    private  BoardObserver boardObserver;
     private final ClientHandler clientHandler;
 
     public Player(String nickname, ClientHandler clientHandler) {
         this.clientHandler = clientHandler;
         this.nickname = nickname;
-        this.boardObserver = new BoardObserver(this);
+        this.boardObserver = null;
     }
 
     public String getNickname() {
         return nickname;
     }
 
-    public void buildBoard(Game game){
+    public void buildBoard(Game game,VirtualView virtualView){
+        this.boardObserver = new BoardObserver(this,virtualView);
         board = new Board(game,boardObserver);
     }
 
@@ -32,10 +33,7 @@ public class Player {
         return board;
     }
 
-    public void setVirtualView(VirtualView virtualView){
-        this.boardObserver.setVirtualView(virtualView);
 
-    }
     public ClientHandler getClientHandler(){return this.clientHandler;}
 
 

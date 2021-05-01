@@ -8,15 +8,20 @@ import java.util.Arrays;
 public class MarketObserver {
     private String[][] market;
     private String freeMarble;
+    private transient final VirtualView virtualView;
 
-    public MarketObserver() {
+    public MarketObserver(VirtualView virtualView) {
         this.market = new String[3][4];
         this.freeMarble = null;
+        this.virtualView = virtualView;
     }
 
     public void notifyMarketChange(String[][] newMarketGrid, String newFreeMarble){
         this.market = newMarketGrid;
         this.freeMarble = newFreeMarble;
+        //virtual view is null in some low level observer tests that don't
+        //instantiate a game
+        if(virtualView != null) virtualView.updateMarketVirtualView();
     }
 
     @Override

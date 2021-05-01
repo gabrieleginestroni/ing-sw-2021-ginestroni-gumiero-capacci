@@ -30,7 +30,7 @@ public class DevelopmentCardGridTest {
             e.printStackTrace();
         }
 
-        DevelopmentCardGrid grid = new DevelopmentCardGrid(devCards, new GridObserver());
+        DevelopmentCardGrid grid = new DevelopmentCardGrid(devCards, new GridObserver(null));
 
         for(int i = 0; i <= 2; i++)
             for(int j = 0; j <= 3; j++)

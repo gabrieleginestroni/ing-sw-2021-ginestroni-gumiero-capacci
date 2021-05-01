@@ -25,11 +25,11 @@ public class BoardObserver {
 
 
 
-    public BoardObserver(Player player) {
+    public BoardObserver(Player player,VirtualView virtualView) {
         this.nickname = player.getNickname();
         this.player = player;
         this.hiddenHand = new ArrayList<>();
-        this.virtualView = null;
+        this.virtualView = virtualView;
         
         this.activeLeaders = new ArrayList<>();
 
@@ -151,5 +151,4 @@ public class BoardObserver {
 
     public Player getPlayer() { return this.player;}
 
-    public void setVirtualView(VirtualView virtualView) { this.virtualView = virtualView;}
 }
