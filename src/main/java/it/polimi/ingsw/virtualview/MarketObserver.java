@@ -19,7 +19,7 @@ public class MarketObserver {
     public void notifyMarketChange(String[][] newMarketGrid, String newFreeMarble){
         this.market = newMarketGrid;
         this.freeMarble = newFreeMarble;
-        //virtual view is null in some low level observer tests that don't
+        //virtual view could be null in some low level observer tests that don't
         //instantiate a game
         if(virtualView != null) virtualView.updateMarketVirtualView();
     }

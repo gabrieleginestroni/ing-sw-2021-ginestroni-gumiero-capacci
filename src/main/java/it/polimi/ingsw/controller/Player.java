@@ -23,7 +23,7 @@ public class Player {
     }
 
     public void buildBoard(Game game,VirtualView virtualView){
-        this.boardObserver = new BoardObserver(this,virtualView);
+        this.boardObserver = new BoardObserver(this.nickname,virtualView);
         board = new Board(game,boardObserver);
     }
 
