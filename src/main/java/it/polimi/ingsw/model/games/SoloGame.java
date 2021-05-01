@@ -25,11 +25,11 @@ public class SoloGame extends Game{
     public SoloGame(Player player){
         super();
 
-        lorenzoObserver = new LorenzoObserver(virtualView);
+        lorenzoObserver = new LorenzoObserver(super.virtualView);
         lorenzo = new Lorenzo(this,lorenzoObserver);
 
         this.player = player;
-        this.player.buildBoard(this,virtualView);
+        this.player.buildBoard(this,super.virtualView);
 
 
         actionTokensPile = new ActionTokensPile();

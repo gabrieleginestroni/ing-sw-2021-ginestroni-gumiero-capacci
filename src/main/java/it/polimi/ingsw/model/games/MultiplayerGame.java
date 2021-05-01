@@ -22,7 +22,7 @@ public class MultiplayerGame extends Game{
 
         this.players = players;
         for(Player player : players)
-            player.buildBoard(this,virtualView);
+            player.buildBoard(this,super.virtualView);
         super.virtualView.setPlayers(players);
     }
 
