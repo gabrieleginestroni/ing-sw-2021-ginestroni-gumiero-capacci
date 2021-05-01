@@ -5,17 +5,30 @@ import com.google.gson.GsonBuilder;
 
 import java.util.Arrays;
 
+/**
+ * @author Gabriele Ginestroni
+ * Class that represents an observer of the market
+ */
 public class MarketObserver {
     private String[][] market;
     private String freeMarble;
     private transient final VirtualView virtualView;
 
+    /**
+     * Creates an empty market observer
+     * @param virtualView Virtual view of the game which the market is part of
+     */
     public MarketObserver(VirtualView virtualView) {
         this.market = new String[3][4];
         this.freeMarble = null;
         this.virtualView = virtualView;
     }
 
+    /**
+     * Changes the market status and notifies to the virtual view a change of the market status
+     * @param newMarketGrid New market grid
+     * @param newFreeMarble New free marble
+     */
     public void notifyMarketChange(String[][] newMarketGrid, String newFreeMarble){
         this.market = newMarketGrid;
         this.freeMarble = newFreeMarble;
