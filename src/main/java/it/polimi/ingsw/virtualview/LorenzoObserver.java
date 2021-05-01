@@ -37,7 +37,7 @@ public class LorenzoObserver {
      * Changes Lorenzo's last drawn token action notifies to the virtual view a change of the Lorenzo status
      * @param lastDrawnActionToken New last drawn token action
      */
-    public void notifyLastDrawActionToken(String lastDrawnActionToken){this.lastDrawnActionToken = lastDrawnActionToken;}
+    public void notifyLastDrawnActionToken(String lastDrawnActionToken){this.lastDrawnActionToken = lastDrawnActionToken;}
 
     public String toJSONString(){
         return new Gson().toJson(this);

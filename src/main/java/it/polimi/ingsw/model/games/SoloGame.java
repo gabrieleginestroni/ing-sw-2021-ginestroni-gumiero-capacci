@@ -88,7 +88,7 @@ public class SoloGame extends Game{
      * @param actionTokenId The ID of the last drawn Action Token.
      */
     public void notifyDrawnActionToken(String actionTokenId){
-        lorenzoObserver.notifyLastDrawActionToken(actionTokenId);
+        lorenzoObserver.notifyLastDrawnActionToken(actionTokenId);
     }
 
     public LorenzoObserver getLorenzoObserver(){return lorenzoObserver;}
