@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lobby {
-    List<Player> players;
-    int size;
-    Controller controller;
-    String gameID;
+    private final List<Player> players;
+    private int size;
+    private final Controller controller;
+    private final String gameID;
 
     public Lobby(String gameID) {
         this.players = new ArrayList<>();

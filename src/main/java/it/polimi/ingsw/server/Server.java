@@ -3,8 +3,6 @@ package it.polimi.ingsw.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,7 +17,7 @@ public class Server {
         ServerSocket serverSocket;
         try {
             serverSocket = new ServerSocket(port);
-            System.out.println(serverSocket.toString());
+            System.out.println(serverSocket);
 
         } catch (IOException e) {
             System.out.println("Server socket fail");
