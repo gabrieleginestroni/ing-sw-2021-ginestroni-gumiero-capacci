@@ -30,8 +30,7 @@ public class Server {
         while (true) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                ClientHandler clientHandler = new ClientHandler(clientSocket,lobbies);
-                new Thread(clientHandler).start();
+                new Thread(new ClientHandler(clientSocket,lobbies)).start();
             } catch (IOException e) {
                 System.out.println("connection dropped");
             }
