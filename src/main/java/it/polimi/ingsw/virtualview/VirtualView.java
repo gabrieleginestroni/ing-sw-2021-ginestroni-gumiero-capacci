@@ -1,10 +1,8 @@
 package it.polimi.ingsw.virtualview;
 
 
-import it.polimi.ingsw.controller.ClientHandler;
 import it.polimi.ingsw.controller.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class VirtualView {

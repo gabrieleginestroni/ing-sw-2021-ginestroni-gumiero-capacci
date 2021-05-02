@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.games.Game;
+import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.virtualview.BoardObserver;
 import it.polimi.ingsw.virtualview.VirtualView;
 

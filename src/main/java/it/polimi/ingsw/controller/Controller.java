@@ -1,5 +1,4 @@
 package it.polimi.ingsw.controller;
 
-public class ClientHandler {
-
+public interface Controller {
 }
