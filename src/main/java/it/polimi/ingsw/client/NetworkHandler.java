@@ -49,9 +49,6 @@ public class NetworkHandler implements Runnable {
                 }
 
                 if(message instanceof LobbyFullMessage || message instanceof LobbyNotReadyMessage) {
-                    System.out.println("Type nickname:");
-                    nickname = scanner.nextLine();
-                    System.out.println("Type game ID:");
                     gameID = scanner.nextLine();
 
                     output.writeObject(new LoginRequestMessage(gameID,nickname));
