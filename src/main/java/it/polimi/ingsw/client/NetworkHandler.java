@@ -48,17 +48,20 @@ public class NetworkHandler implements Runnable {
                     output.writeObject(new LoginSizeMessage(scanner.nextInt()));
                 }
 
-                if(message instanceof LobbyFullMessage) {
-                    loginStatus = false;
-                    socket.close();
+                if(message instanceof LobbyFullMessage || message instanceof LobbyNotReadyMessage) {
+                    System.out.println("Type nickname:");
+                    nickname = scanner.nextLine();
+                    System.out.println("Type game ID:");
+                    gameID = scanner.nextLine();
+
+                    output.writeObject(new LoginRequestMessage(gameID,nickname));
                 }
 
                 if(message instanceof LoginSuccessMessage) loginStatus = false;
-
-                if(message instanceof LobbyNotReadyMessage) loginStatus = false;
             }
 
             socket.close();
+
         //boolean stop = false;
         //while (!stop) {}
         } catch(IOException e) { System.out.println("Server unreachable");}

@@ -38,39 +38,45 @@ public class ClientHandler implements Runnable {
 
 
         try {
-            Object message = input.readObject();
-            if(message instanceof LoginRequestMessage) {
-                LoginRequestMessage loginMessage = (LoginRequestMessage)message;
+            boolean loginStatus = true;
+            while(loginStatus) {
+                Object message = input.readObject();
+                if (message instanceof LoginRequestMessage) {
+                    LoginRequestMessage loginMessage = (LoginRequestMessage) message;
 
-                String nickname = loginMessage.getNickname();
-                String gameID = loginMessage.getRequestedGameID().toUpperCase();
+                    String nickname = loginMessage.getNickname();
+                    String gameID = loginMessage.getRequestedGameID().toUpperCase();
 
-                Lobby lobby = lobbies.get(gameID);
-                if(lobby != null) {
-                    if (lobby.isFull()){
-                        if(lobby.getSize() != 0) sendAnswerMessage(new LobbyFullMessage());
-                        else sendAnswerMessage(new LobbyNotReadyMessage());
-                    }else {
-                        lobby.addPlayer(nickname,this);
+                    Lobby lobby = lobbies.get(gameID);
+                    if (lobby != null) {
+                        if (lobby.isFull()) {
+                            if (lobby.getSize() != 0) sendAnswerMessage(new LobbyFullMessage());
+                            else sendAnswerMessage(new LobbyNotReadyMessage());
+                        } else {
+                            lobby.addPlayer(nickname, this);
+                            this.gameLobby = lobby;
+                            sendAnswerMessage(new LoginSuccessMessage());
+                            loginStatus = false;
+                        }
+                    } else {
+                        lobby = new Lobby(gameID);
+                        this.lobbies.put(gameID, lobby);
+
+                        sendAnswerMessage(new RequestLobbySizeMessage());
+                        message = input.readObject();
+                        LoginSizeMessage sizeMessage = (LoginSizeMessage) message;
+
+                        lobby.setSize(sizeMessage.getSize());
+                        lobby.addPlayer(nickname, this);
                         this.gameLobby = lobby;
                         sendAnswerMessage(new LoginSuccessMessage());
+                        loginStatus = false;
                     }
+
                 } else {
-                    lobby = new Lobby(gameID);
-                    this.lobbies.put(gameID,lobby);
-
-                    sendAnswerMessage(new RequestLobbySizeMessage());
-                    message = input.readObject();
-                    LoginSizeMessage sizeMessage = (LoginSizeMessage)message;
-
-                    lobby.setSize(sizeMessage.getSize());
-                    lobby.addPlayer(nickname,this);
-                    this.gameLobby = lobby;
-                    sendAnswerMessage(new LoginSuccessMessage());
-
+                    System.out.println("Invalid message flow from client" + clientSocket.getInetAddress());
                 }
-
-            }else{ System.out.println("Invalid message flow from client" + clientSocket.getInetAddress());}
+            }
 
         } catch (ClassNotFoundException e){ System.out.println("Invalid stream from client"); }
         catch(IOException e) {
