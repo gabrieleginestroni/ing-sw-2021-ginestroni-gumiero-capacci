@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.SocketHandler;
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
@@ -55,7 +53,7 @@ public class ClientHandler implements Runnable {
                         } else {
                             lobby.addPlayer(nickname, this);
                             this.gameLobby = lobby;
-                            sendAnswerMessage(new LoginSuccessMessage());
+                            sendAnswerMessage(new LoginSuccessMessage(gameLobby.getPlayers()));
                             loginStatus = false;
                         }
                     } else {
@@ -69,7 +67,7 @@ public class ClientHandler implements Runnable {
                         lobby.setSize(sizeMessage.getSize());
                         lobby.addPlayer(nickname, this);
                         this.gameLobby = lobby;
-                        sendAnswerMessage(new LoginSuccessMessage());
+                        sendAnswerMessage(new LoginSuccessMessage(gameLobby.getPlayers()));
                         loginStatus = false;
                     }
 
