@@ -48,20 +48,23 @@ public class ClientHandler implements Runnable {
                 Lobby lobby = lobbies.get(gameID);
                 if(lobby != null) {
                     if (lobby.isFull()){
-                        sendAnswerMessage(new LobbyFullMessage());
+                        if(lobby.getSize() != 0) sendAnswerMessage(new LobbyFullMessage());
+                        else sendAnswerMessage(new LobbyNotReadyMessage());
                     }else {
                         lobby.addPlayer(nickname,this);
                         this.gameLobby = lobby;
                         sendAnswerMessage(new LoginSuccessMessage());
                     }
                 } else {
+                    lobby = new Lobby(gameID);
+                    this.lobbies.put(gameID,lobby);
+
                     sendAnswerMessage(new RequestLobbySizeMessage());
                     message = input.readObject();
                     LoginSizeMessage sizeMessage = (LoginSizeMessage)message;
 
-                    lobby = new Lobby(sizeMessage.getSize(), gameID);
+                    lobby.setSize(sizeMessage.getSize());
                     lobby.addPlayer(nickname,this);
-                    this.lobbies.put(gameID,lobby);
                     this.gameLobby = lobby;
                     sendAnswerMessage(new LoginSuccessMessage());
 

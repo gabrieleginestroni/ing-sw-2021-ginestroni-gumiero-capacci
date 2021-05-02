@@ -8,13 +8,13 @@ import java.util.List;
 
 public class Lobby {
     List<Player> players;
-    Integer size;
+    int size;
     Controller controller;
     String gameID;
 
-    public Lobby(Integer size, String gameID) {
+    public Lobby(String gameID) {
         this.players = new ArrayList<>();
-        this.size = size;
+        this.size = 0;
         this.gameID = gameID;
         this.controller = null;
     }
@@ -42,5 +42,9 @@ public class Lobby {
     public void addPlayer(String nickname, ClientHandler clientHandler){
         this.players.add(new Player(nickname,clientHandler));
 
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 }

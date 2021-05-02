@@ -43,17 +43,19 @@ public class NetworkHandler implements Runnable {
                 message = (AnswerMessage) input.readObject();
                 message.selectView();
 
-                if (message instanceof RequestLobbySizeMessage) {
+                if(message instanceof RequestLobbySizeMessage) {
 
                     output.writeObject(new LoginSizeMessage(scanner.nextInt()));
                 }
 
-                if (message instanceof LobbyFullMessage) {
+                if(message instanceof LobbyFullMessage) {
                     loginStatus = false;
                     socket.close();
                 }
 
-                if (message instanceof LoginSuccessMessage) loginStatus = false;
+                if(message instanceof LoginSuccessMessage) loginStatus = false;
+
+                if(message instanceof LobbyNotReadyMessage) loginStatus = false;
             }
 
             socket.close();
