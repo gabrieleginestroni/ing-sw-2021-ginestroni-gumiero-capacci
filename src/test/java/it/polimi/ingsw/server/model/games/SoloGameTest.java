@@ -7,6 +7,7 @@ import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.exceptions.emptyDevCardGridSlotSelectedException;
 import it.polimi.ingsw.server.model.games.SoloGame;
 import it.polimi.ingsw.server.virtualview.LorenzoObserver;
+import it.polimi.ingsw.server.virtualview.VirtualView;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -16,7 +17,8 @@ public class SoloGameTest {
     @Test
     public void TestLorenzo() throws emptyDevCardGridSlotSelectedException {
         Player pl = new Player("giagum",null);
-        SoloGame solo = new SoloGame(pl);
+        VirtualView vv = new VirtualView();
+        SoloGame solo = new SoloGame(pl,vv);
         LorenzoObserver lo = solo.getLorenzoObserver();
         JsonObject LorenzoObserverJSON;
         String lastActionToken;

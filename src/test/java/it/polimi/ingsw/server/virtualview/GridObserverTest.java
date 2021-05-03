@@ -16,7 +16,8 @@ public class GridObserverTest {
     @Test
     public void TestGridEmpty() throws emptyDevCardGridSlotSelectedException {
         Player pl = new Player("giagum",null);
-        SoloGame solo = new SoloGame(pl);
+        VirtualView vv = new VirtualView();
+        SoloGame solo = new SoloGame(pl,vv);
         GridObserver go = solo.getGridObserver();
         JsonObject GridObserverJSON;
         int[][] grid;

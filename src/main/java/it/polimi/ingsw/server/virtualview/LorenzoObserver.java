@@ -19,7 +19,7 @@ public class LorenzoObserver {
         this.blackCrossMarker = 0 ;
         lastDrawnActionToken = null;
         this.virtualView = virtualView;
-
+        this.virtualView.updateLorenzoVirtualView();
     }
 
     /**
@@ -28,9 +28,8 @@ public class LorenzoObserver {
      */
     public void notifyLorenzoStatus(int newBlackCross){
         this.blackCrossMarker = newBlackCross;
-        //virtual view could be null in some low level observer tests that don't
-        //instantiate a game
-        if(virtualView != null) virtualView.updateLorenzoVirtualView();
+
+         virtualView.updateLorenzoVirtualView();
     }
 
     /**

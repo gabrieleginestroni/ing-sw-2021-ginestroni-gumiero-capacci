@@ -15,7 +15,8 @@ public class LorenzoObserverTest {
     @Test
     public void TestAddFaithLorenzo(){
         Player pl = new Player("giagum",null);
-        SoloGame solo = new SoloGame(pl);
+        VirtualView vv = new VirtualView();
+        SoloGame solo = new SoloGame(pl,vv);
         LorenzoObserver lo = solo.getLorenzoObserver();
         JsonObject LorenzoObserverJSON;
         int blackCrossMarker;
@@ -74,7 +75,8 @@ public class LorenzoObserverTest {
     @Test
     public void TestDrawPile(){
         Player pl = new Player("giagum",null);
-        SoloGame solo = new SoloGame(pl);
+        VirtualView vv = new VirtualView();
+        SoloGame solo = new SoloGame(pl,vv);
         LorenzoObserver lo = solo.getLorenzoObserver();
         JsonObject LorenzoObserverJSON;
         int blackCrossMarker;

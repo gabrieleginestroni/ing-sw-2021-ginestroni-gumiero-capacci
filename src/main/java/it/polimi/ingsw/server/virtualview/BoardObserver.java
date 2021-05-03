@@ -76,6 +76,7 @@ public class BoardObserver {
         this.leaderDepotQuantity.add(0);
 
         this.inkwell = false;
+        this.virtualView.updateBoardVirtualView();
     }
 
     /**

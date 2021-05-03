@@ -6,6 +6,7 @@ import it.polimi.ingsw.server.model.Color;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.games.DevelopmentCardGrid;
 import it.polimi.ingsw.server.virtualview.GridObserver;
+import it.polimi.ingsw.server.virtualview.VirtualView;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -30,8 +31,8 @@ public class DevelopmentCardGridTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        DevelopmentCardGrid grid = new DevelopmentCardGrid(devCards, new GridObserver(null));
+        VirtualView vv = new VirtualView();
+        DevelopmentCardGrid grid = new DevelopmentCardGrid(devCards, new GridObserver(vv));
 
         for(int i = 0; i <= 2; i++)
             for(int j = 0; j <= 3; j++)

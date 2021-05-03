@@ -38,13 +38,14 @@ public abstract class Game {
     /**
      * Pseudo-random initialization only of the Leader Card list.
      */
-    protected Game(){
-        virtualView = new VirtualView();
+    protected Game(VirtualView virtualView){
+        this.virtualView = virtualView;
         gameId = "test id";
         gameDate = new Date();
 
         marketObserver = new MarketObserver(this.virtualView);
         market = new Market(marketObserver);
+        this.virtualView.setMarketObserver(this.marketObserver);
 
         Gson gson = new Gson();
 
@@ -70,6 +71,7 @@ public abstract class Game {
 
         gridObserver = new GridObserver(this.virtualView);
         devCardsGrid = new DevelopmentCardGrid(devCards,gridObserver);
+        this.virtualView.setGridObserver(this.gridObserver);
 
         gameOver = false;
 
@@ -77,8 +79,8 @@ public abstract class Game {
         section2Reported = false;
         section3Reported = false;
 
-        this.virtualView.setMarketObserver(this.marketObserver);
-        this.virtualView.setGridObserver(this.gridObserver);
+
+
 
     }
 

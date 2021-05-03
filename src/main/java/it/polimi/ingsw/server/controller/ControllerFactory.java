@@ -7,6 +7,6 @@ public class ControllerFactory {
         if(players.size() == 1)
             return new SoloController(players.get(0));
         else
-            return new MultiplayerController();
+            return new MultiplayerController(players);
     }
 }

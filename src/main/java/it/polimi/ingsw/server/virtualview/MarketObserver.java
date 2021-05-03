@@ -19,6 +19,7 @@ public class MarketObserver {
         this.market = new String[3][4];
         this.freeMarble = null;
         this.virtualView = virtualView;
+        this.virtualView.updateMarketVirtualView();
     }
 
     /**
@@ -29,9 +30,8 @@ public class MarketObserver {
     public void notifyMarketChange(String[][] newMarketGrid, String newFreeMarble){
         this.market = newMarketGrid;
         this.freeMarble = newFreeMarble;
-        //virtual view could be null in some low level observer tests that don't
-        //instantiate a game
-        if(virtualView != null) virtualView.updateMarketVirtualView();
+
+        virtualView.updateMarketVirtualView();
     }
 
     @Override

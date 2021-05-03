@@ -11,6 +11,7 @@ import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.games.MultiplayerGame;
 import it.polimi.ingsw.server.model.games.SoloGame;
+import it.polimi.ingsw.server.virtualview.VirtualView;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -31,7 +32,8 @@ public class BoardTest {
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
-        MultiplayerGame multiplayerGame = new MultiplayerGame(player);
+        VirtualView vv = new VirtualView();
+        MultiplayerGame multiplayerGame = new MultiplayerGame(player,vv);
         Board b = player1.getBoard();
 
         LeaderCard l = multiplayerGame.get4LeaderCards().get(0);
@@ -46,7 +48,8 @@ public class BoardTest {
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
-        MultiplayerGame multiplayerGame = new MultiplayerGame(player);
+        VirtualView vv = new VirtualView();
+        MultiplayerGame multiplayerGame = new MultiplayerGame(player,vv);
         Board b = player1.getBoard();
 
         b.addDevelopmentCard(multiplayerGame.getCardFromGrid(0,1), 0);
@@ -60,7 +63,8 @@ public class BoardTest {
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
-        MultiplayerGame multiplayerGame = new MultiplayerGame(player);
+        VirtualView vv = new VirtualView();
+        MultiplayerGame multiplayerGame = new MultiplayerGame(player,vv);
         Board b = player1.getBoard();
 
         List<LeaderCard> list = multiplayerGame.get4LeaderCards();
@@ -95,7 +99,8 @@ public class BoardTest {
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
-        MultiplayerGame multiplayerGame = new MultiplayerGame(player);
+        VirtualView vv = new VirtualView();
+        MultiplayerGame multiplayerGame = new MultiplayerGame(player,vv);
         Board b = player1.getBoard();
 
         b.addStrongboxResource( Resource.SERVANT, 2);
@@ -111,7 +116,8 @@ public class BoardTest {
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
-        MultiplayerGame multiplayerGame = new MultiplayerGame(player);
+        VirtualView vv = new VirtualView();
+        MultiplayerGame multiplayerGame = new MultiplayerGame(player,vv);
         Board b = player1.getBoard();
 
         b.addStrongboxResource( Resource.SERVANT, 2);
@@ -126,7 +132,8 @@ public class BoardTest {
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
-        MultiplayerGame multiplayerGame = new MultiplayerGame(player);
+        VirtualView vv = new VirtualView();
+        MultiplayerGame multiplayerGame = new MultiplayerGame(player,vv);
         Board b = player1.getBoard();
 
         List<LeaderCard> list = multiplayerGame.get4LeaderCards();
@@ -179,7 +186,8 @@ public class BoardTest {
         List<Player> player = new ArrayList<>();
         player.add(player1);
         player.add(player2);
-        MultiplayerGame multiplayerGame = new MultiplayerGame(player);
+        VirtualView vv = new VirtualView();
+        MultiplayerGame multiplayerGame = new MultiplayerGame(player,vv);
         Board b = player1.getBoard();
 
         DevelopmentCard c = multiplayerGame.getCardFromGrid(0,0);
@@ -209,7 +217,8 @@ public class BoardTest {
         Player player2 = new Player( "giagum",null);
         List<Player> player = new ArrayList<>();
         player.add(player1);
-        MultiplayerGame multiplayerGame = new MultiplayerGame(player);
+        VirtualView vv = new VirtualView();
+        MultiplayerGame multiplayerGame = new MultiplayerGame(player,vv);
         Board b1 = player1.getBoard();
         Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
         Gson gson = new Gson();
@@ -264,7 +273,8 @@ public class BoardTest {
         Player player1 = new Player( "giagum",null);
         List<Player> player = new ArrayList<>();
         player.add(player1);
-        MultiplayerGame multiplayerGame = new MultiplayerGame(player);
+        VirtualView vv = new VirtualView();
+        MultiplayerGame multiplayerGame = new MultiplayerGame(player,vv);
         Board b1 = player1.getBoard();
         Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
         Gson gson = new Gson();
@@ -375,7 +385,8 @@ public class BoardTest {
     @Test
     public void DevCardGameOverTest() throws emptyDevCardGridSlotSelectedException, developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException {
         Player player1 = new Player( "giagum",null);
-        SoloGame solo = new SoloGame(player1);
+        VirtualView vv = new VirtualView();
+        SoloGame solo = new SoloGame(player1,vv);
         Board b1 = player1.getBoard();
 
         b1.addDevelopmentCard(solo.getCardFromGrid(0, 0), 0);
@@ -397,7 +408,8 @@ public class BoardTest {
     @Test
     public void removeWarehouseDepotResource() throws addResourceLimitExceededException, invalidResourceTypeException, duplicatedWarehouseTypeException, removeResourceLimitExceededException {
         Player player1 = new Player( "giagum",null);
-        SoloGame solo = new SoloGame(player1);
+        VirtualView vv = new VirtualView();
+        SoloGame solo = new SoloGame(player1,vv);
         Board b1 = player1.getBoard();
         b1.addWarehouseDepotResource(Resource.COIN,1, 0);
         assertEquals(1, b1.getWarehouseResource(Resource.COIN));

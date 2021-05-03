@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.games;
 
 import it.polimi.ingsw.server.controller.Player;
+import it.polimi.ingsw.server.virtualview.VirtualView;
 
 import java.util.List;
 
@@ -16,8 +17,8 @@ public class MultiplayerGame extends Game{
      * This constructor requires the list of the players that are going to play in this Multiplayer Game.
      * @param players The list of the players that will participate in this game.
      */
-    public MultiplayerGame(List<Player> players){
-        super();
+    public MultiplayerGame(List<Player> players, VirtualView vv){
+        super(vv);
 
         this.players = players;
         for(Player player : players)

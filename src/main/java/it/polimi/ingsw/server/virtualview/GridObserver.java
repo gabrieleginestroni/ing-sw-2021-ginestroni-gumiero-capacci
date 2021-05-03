@@ -18,6 +18,7 @@ public class GridObserver {
     public GridObserver(VirtualView virtualView) {
         this.grid = new int[3][4];
         this.virtualView = virtualView;
+        this.virtualView.updateGridVirtualView();
     }
 
     /**
@@ -26,9 +27,8 @@ public class GridObserver {
      */
     public void notifyDevelopmentGridChange(int[][] newDevGrid){
         this.grid = newDevGrid;
-        //virtual view could be null in some low level observer tests that don't
-        //instantiate a game
-        if(virtualView != null ) virtualView.updateGridVirtualView();
+
+        virtualView.updateGridVirtualView();
 
     }
 

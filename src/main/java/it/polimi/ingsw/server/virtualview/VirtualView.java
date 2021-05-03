@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.virtualview;
 
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.server.controller.Player;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class VirtualView {
     private  MarketObserver marketObserver;
     private  LorenzoObserver lorenzoObserver;
     private  GridObserver gridObserver;
-    private  List<Player> players;
+    private transient List<Player> players;
 
 
     public VirtualView() {
@@ -30,5 +31,7 @@ public class VirtualView {
     public void updateLorenzoVirtualView(){}
     public void updateGridVirtualView(){}
 
-
+    public String toJSONString(){
+        return new Gson().toJson(this);
+    }
 }

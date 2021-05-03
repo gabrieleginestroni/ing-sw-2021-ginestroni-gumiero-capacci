@@ -1,18 +1,23 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.model.games.SoloGame;
+import it.polimi.ingsw.server.virtualview.VirtualView;
 
 public class SoloController implements Controller{
     private final SoloGame model;
     private SoloState currentState;
     private final Player player;
     private final CommunicationMediator mediator;
+    private final VirtualView virtualView;
 
     //TODO
     public SoloController(Player player) {
         this.player = player;
-        model = new SoloGame(this.player);
+        this.virtualView = new VirtualView();
+        model = new SoloGame(this.player,this.virtualView);
         mediator = new CommunicationMediator();
+
+        System.out.println(virtualView.toJSONString());
         //currentState = StartGameState;
     }
 }

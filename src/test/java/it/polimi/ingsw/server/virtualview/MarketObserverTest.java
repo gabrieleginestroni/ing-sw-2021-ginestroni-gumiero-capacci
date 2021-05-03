@@ -43,7 +43,8 @@ public class MarketObserverTest {
     @Test
     public void testMarketObserver(){
         Player p1 = new Player("giagum",null);
-        SoloGame solo = new SoloGame(p1);
+        VirtualView vv = new VirtualView();
+        SoloGame solo = new SoloGame(p1,vv);
         System.out.println(solo.getMarketObserver().toString());
 
         JsonObject observerJSON = JsonParser.parseString(solo.getMarketObserver().toJSONString()).getAsJsonObject();
