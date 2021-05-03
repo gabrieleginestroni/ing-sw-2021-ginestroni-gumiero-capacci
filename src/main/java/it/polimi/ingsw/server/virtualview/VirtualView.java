@@ -10,7 +10,7 @@ public class VirtualView {
     private  MarketObserver marketObserver;
     private  LorenzoObserver lorenzoObserver;
     private  GridObserver gridObserver;
-    private  List<Player> players;
+    private transient List<Player> players;
 
 
     public VirtualView() {

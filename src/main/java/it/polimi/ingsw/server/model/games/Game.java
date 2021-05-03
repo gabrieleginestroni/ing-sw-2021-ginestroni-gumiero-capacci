@@ -33,8 +33,7 @@ public abstract class Game {
 
     private final MarketObserver marketObserver;
     private final GridObserver gridObserver;
-    //TODO without transient doesn't pass tests
-    final transient VirtualView virtualView;
+    final VirtualView virtualView;
 
     /**
      * Pseudo-random initialization only of the Leader Card list.
