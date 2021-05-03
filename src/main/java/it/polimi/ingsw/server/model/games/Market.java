@@ -35,7 +35,7 @@ public class Market {
         }catch(Exception e) {
             e.printStackTrace();
         }
-        marketObserver.notifyMarketChange(getColorLayout(), freeMarble.getColor());
+        //marketObserver.notifyMarketChange(getColorLayout(), freeMarble.getColor());
     }
 
     public String[][] getColorLayout(){
@@ -76,7 +76,7 @@ public class Market {
                 cur = 1 + gain.get(layout[row][i]);
             else
                 cur = 1;
-           gain.put(layout[row][i], cur);
+            gain.put(layout[row][i], cur);
         }
 
         //shift marbles

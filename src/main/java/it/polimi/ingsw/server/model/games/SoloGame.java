@@ -37,6 +37,12 @@ public class SoloGame extends Game{
         List<Player> players = new ArrayList<>();
         players.add(player);
         super.virtualView.setPlayers(players);
+
+        super.marketObserver.notifyMarketChange(market.getColorLayout(), market.getFreeMarble().getColor());
+
+        //TODO
+        //UPDATE ALL OBSERVERS
+        super.virtualView.updateMarketVirtualView();
     }
 
     /**

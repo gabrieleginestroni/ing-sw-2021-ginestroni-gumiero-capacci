@@ -24,6 +24,12 @@ public class MultiplayerGame extends Game{
         for(Player player : players)
             player.buildBoard(this,super.virtualView);
         super.virtualView.setPlayers(players);
+
+        super.marketObserver.notifyMarketChange(market.getColorLayout(), market.getFreeMarble().getColor());
+
+        //TODO
+        //UPDATE ALL OBSERVERS
+        super.virtualView.updateMarketVirtualView();
     }
 
 }

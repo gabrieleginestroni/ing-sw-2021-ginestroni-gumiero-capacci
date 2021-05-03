@@ -1,5 +1,7 @@
 package it.polimi.ingsw.server.virtualview;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import it.polimi.ingsw.server.model.Resource;
 
 import java.util.*;
@@ -36,7 +38,7 @@ public class BoardObserver {
 
         this.hiddenHand = new ArrayList<>();
         this.virtualView = virtualView;
-        
+
         this.activeLeaders = new ArrayList<>();
 
         this.strongBox = new HashMap<>();
@@ -44,17 +46,17 @@ public class BoardObserver {
         strongBox.put(Resource.SHIELD.toString(),0);
         strongBox.put(Resource.SERVANT.toString(),0);
         strongBox.put(Resource.STONE.toString(),0);
-                
-                
+
+
         this.cardSlot = new ArrayList[3];
         cardSlot[0] = new ArrayList<>();
         cardSlot[1] = new ArrayList<>();
         cardSlot[2] = new ArrayList<>();
 
 
-        
+
         this.faithTrackMarker = 0;
-        
+
         this.popeTiles = new boolean[3];
 
         this.warehouseDepotResource = new ArrayList<>();
@@ -76,7 +78,6 @@ public class BoardObserver {
         this.leaderDepotQuantity.add(0);
 
         this.inkwell = false;
-        this.virtualView.updateBoardVirtualView();
     }
 
     /**
@@ -220,5 +221,9 @@ public class BoardObserver {
         return new Gson().toJson(this);
     }
 
-
+    public String toJSONHandFreeString(){
+        JsonObject BoardObserverJSON = JsonParser.parseString(this.toJSONString()).getAsJsonObject();
+        BoardObserverJSON.remove("hiddenHand");
+        return BoardObserverJSON.toString();
+    }
 }

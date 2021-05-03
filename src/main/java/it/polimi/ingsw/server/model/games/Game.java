@@ -31,8 +31,8 @@ public abstract class Game {
     boolean section2Reported;
     boolean section3Reported;
 
-    private final MarketObserver marketObserver;
-    private final GridObserver gridObserver;
+    final MarketObserver marketObserver;
+    final GridObserver gridObserver;
     final VirtualView virtualView;
 
     /**
@@ -44,8 +44,8 @@ public abstract class Game {
         gameDate = new Date();
 
         marketObserver = new MarketObserver(this.virtualView);
-        market = new Market(marketObserver);
         this.virtualView.setMarketObserver(this.marketObserver);
+        market = new Market(marketObserver);
 
         Gson gson = new Gson();
 
@@ -78,9 +78,6 @@ public abstract class Game {
         section1Reported = false;
         section2Reported = false;
         section3Reported = false;
-
-
-
 
     }
 

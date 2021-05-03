@@ -3,7 +3,12 @@ package it.polimi.ingsw.server.virtualview;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.server.controller.Player;
+import it.polimi.ingsw.server.messages.server_client.BoardsUpdateMessage;
+import it.polimi.ingsw.server.messages.server_client.MarketUpdateMessage;
+
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class VirtualView {
 
@@ -21,13 +26,45 @@ public class VirtualView {
         this.players = null;
     }
 
-    public void setMarketObserver(MarketObserver marketObserver){ this.marketObserver = marketObserver ; }
+    public void setMarketObserver(MarketObserver marketObserver){
+        this.marketObserver = marketObserver;
+    }
+
     public void setLorenzoObserver(LorenzoObserver lorenzoObserver){ this.lorenzoObserver = lorenzoObserver; }
     public void setGridObserver(GridObserver gridObserver){ this.gridObserver = gridObserver;}
     public void setPlayers(List<Player> players){ this.players = players;}
 
-    public void updateBoardVirtualView(){}
-    public void updateMarketVirtualView(){}
+    public void updateBoardVirtualView() {
+        players.stream().forEach(p -> {
+            BoardsUpdateMessage message = new BoardsUpdateMessage();
+            message.addPersonalBoard(p.getBoardObserver().toJSONString());
+            players.stream().filter(q -> p != q).forEach(q -> {
+                message.addOtherBoard(q.getBoardObserver().toJSONHandFreeString());
+            });
+            try {
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+    }
+
+    public void updateMarketVirtualView(){
+        String marketJSON = this.marketObserver.toJSONString();
+        MarketUpdateMessage message = new MarketUpdateMessage(marketJSON);
+        //TODO
+        //TESTING
+        players.stream().forEach(p -> {
+            try {
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+                return;
+            }
+        });
+    }
     public void updateLorenzoVirtualView(){}
     public void updateGridVirtualView(){}
 

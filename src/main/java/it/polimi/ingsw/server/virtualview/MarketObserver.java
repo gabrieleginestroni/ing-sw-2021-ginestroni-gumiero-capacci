@@ -19,7 +19,6 @@ public class MarketObserver {
         this.market = new String[3][4];
         this.freeMarble = null;
         this.virtualView = virtualView;
-        this.virtualView.updateMarketVirtualView();
     }
 
     /**
