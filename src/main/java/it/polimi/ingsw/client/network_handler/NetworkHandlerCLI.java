@@ -1,37 +1,29 @@
-package it.polimi.ingsw.client;
+package it.polimi.ingsw.client.network_handler;
 
-import it.polimi.ingsw.server.messages.*;
+import it.polimi.ingsw.client.view.CLI;
+import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
+import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
+import it.polimi.ingsw.server.messages.server_client.*;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class NetworkHandler implements Runnable {
-    private final Socket socket;
-    private ObjectOutputStream output;
-    private ObjectInputStream input;
+public class NetworkHandlerCLI extends NetworkHandler {
+    private final CLI view;
 
-    public NetworkHandler(Socket socket) {
-        this.socket = socket;
-        try {
-            output = new ObjectOutputStream(socket.getOutputStream());
-            input = new ObjectInputStream(socket.getInputStream());
-
-        } catch (IOException e) {
-            System.out.println("Could not open connection to " + socket.getInetAddress());
-
-        }
+    public NetworkHandlerCLI(Socket socket, CLI view) {
+        super(socket);
+        this.view = view;
     }
 
     @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Type nickname:");
+        view.showMessage("Type nickname:");
         String nickname = scanner.nextLine();
-        System.out.println("Type game ID:");
+        view.showMessage("Type game ID:");
         String gameID = scanner.nextLine();
 
         try {
@@ -41,7 +33,7 @@ public class NetworkHandler implements Runnable {
             boolean loginStatus = true;
             while(loginStatus) {
                 message = (AnswerMessage) input.readObject();
-                message.selectView();
+                message.selectView(view);
 
                 if(message instanceof RequestLobbySizeMessage) {
 
@@ -61,8 +53,8 @@ public class NetworkHandler implements Runnable {
 
         //boolean stop = false;
         //while (!stop) {}
-        } catch(IOException e) { System.out.println("Server unreachable");}
-         catch (ClassNotFoundException e) { System.out.println("Invalid stream");}
+        } catch(IOException e) { view.showMessage("Server unreachable");}
+         catch (ClassNotFoundException e) { view.showMessage("Invalid stream");}
 
 
 

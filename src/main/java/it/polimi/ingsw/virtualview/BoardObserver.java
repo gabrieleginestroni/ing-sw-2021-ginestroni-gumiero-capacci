@@ -1,6 +1,5 @@
 package it.polimi.ingsw.virtualview;
 import com.google.gson.Gson;
-import it.polimi.ingsw.controller.Player;
 import it.polimi.ingsw.model.Resource;
 
 import java.util.*;

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.server.messages.*;
+import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
+import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
+import it.polimi.ingsw.server.messages.server_client.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
