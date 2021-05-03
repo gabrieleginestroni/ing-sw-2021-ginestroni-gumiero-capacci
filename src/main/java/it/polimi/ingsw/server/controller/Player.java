@@ -11,7 +11,7 @@ public class Player {
     private final String nickname;
     private Board board;
     private BoardObserver boardObserver;
-    private final ClientHandler clientHandler;
+    private transient final ClientHandler clientHandler;
 
     public Player(String nickname, ClientHandler clientHandler) {
         this.clientHandler = clientHandler;

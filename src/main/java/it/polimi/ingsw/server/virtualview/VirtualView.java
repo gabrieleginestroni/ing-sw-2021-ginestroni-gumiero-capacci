@@ -2,7 +2,6 @@ package it.polimi.ingsw.server.virtualview;
 
 
 import it.polimi.ingsw.server.controller.Player;
-
 import java.util.List;
 
 public class VirtualView {
@@ -10,7 +9,7 @@ public class VirtualView {
     private  MarketObserver marketObserver;
     private  LorenzoObserver lorenzoObserver;
     private  GridObserver gridObserver;
-    private transient List<Player> players;
+    private  List<Player> players;
 
 
     public VirtualView() {
