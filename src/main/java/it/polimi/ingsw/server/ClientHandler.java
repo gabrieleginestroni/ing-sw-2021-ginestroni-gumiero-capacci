@@ -33,11 +33,11 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         System.out.println("Accepted client:" + " " + clientSocket.toString());
-
+        Object message;
         try {
             boolean loginStatus = true;
             while(loginStatus) {
-                Object message = input.readObject();
+                message = input.readObject();
                 if (message instanceof LoginRequestMessage) {
                     LoginRequestMessage loginMessage = (LoginRequestMessage) message;
 
@@ -79,10 +79,11 @@ public class ClientHandler implements Runnable {
         catch(IOException e) {
             System.out.println("Client unreachable");
         }
-        while(true){
 
-        }
+        //try {
+        //    message = input.readObject();
 
+        //} catch (IOException e){}
 
     }
 

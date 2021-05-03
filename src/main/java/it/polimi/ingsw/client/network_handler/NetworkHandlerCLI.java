@@ -49,6 +49,9 @@ public class NetworkHandlerCLI extends NetworkHandler {
                 if(message instanceof LoginSuccessMessage) loginStatus = false;
             }
 
+            //while(true) {
+
+        //}
             socket.close();
 
         //boolean stop = false;

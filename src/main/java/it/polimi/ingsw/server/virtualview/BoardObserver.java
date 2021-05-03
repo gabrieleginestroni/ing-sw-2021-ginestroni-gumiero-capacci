@@ -10,6 +10,7 @@ import java.util.*;
  * Class that represents an observer of the player's board. It always cointains a coincise snapshot of the board status
  */
 public class BoardObserver {
+    private final String nickname;
     private final List<Integer> hiddenHand;
     private final List<Integer> activeLeaders;
     private final Map<String,Integer> strongBox;
@@ -21,7 +22,6 @@ public class BoardObserver {
     private final List<String> leaderDepotResource;
     private final List<Integer> leaderDepotQuantity;
     private boolean inkwell;
-    private final String nickname;
     private final transient VirtualView virtualView;
 
 
