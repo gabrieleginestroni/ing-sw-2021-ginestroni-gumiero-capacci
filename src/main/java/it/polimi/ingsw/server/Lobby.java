@@ -1,16 +1,17 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.controller.Controller;
-import it.polimi.ingsw.controller.Player;
+import it.polimi.ingsw.server.controller.Controller;
+import it.polimi.ingsw.server.controller.ControllerFactory;
+import it.polimi.ingsw.server.controller.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lobby {
+    private final String gameID;
     private final List<Player> players;
     private int size;
-    private final Controller controller;
-    private final String gameID;
+    private Controller controller;
 
     public Lobby(String gameID) {
         this.players = new ArrayList<>();
@@ -42,6 +43,8 @@ public class Lobby {
     public void addPlayer(String nickname, ClientHandler clientHandler){
         this.players.add(new Player(nickname,clientHandler));
 
+        if(this.isFull())
+            controller = ControllerFactory.getController(players);
     }
 
     public void setSize(Integer size) {

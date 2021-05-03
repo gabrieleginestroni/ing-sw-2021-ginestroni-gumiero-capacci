@@ -27,15 +27,12 @@ public class ClientHandler implements Runnable {
 
         } catch (IOException e) {
             System.out.println("Could not open connection to " + clientSocket.getInetAddress());
-
         }
-
     }
 
     @Override
     public void run() {
         System.out.println("Accepted client:" + " " + clientSocket.toString());
-
 
         try {
             boolean loginStatus = true;
