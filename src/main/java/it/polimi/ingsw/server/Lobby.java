@@ -36,15 +36,15 @@ public class Lobby {
         return gameID;
     }
 
-    public boolean isFull(){
+    public synchronized boolean isFull(){
         return size == players.size();
     }
 
-    public void addPlayer(String nickname, ClientHandler clientHandler){
+    public synchronized void addPlayer(String nickname, ClientHandler clientHandler){
         this.players.add(new Player(nickname,clientHandler));
     }
 
-    public void startGame(){
+    public synchronized void startGame(){
        controller = ControllerFactory.getController(players);
     }
 

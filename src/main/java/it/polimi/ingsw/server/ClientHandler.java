@@ -47,13 +47,18 @@ public class ClientHandler implements Runnable {
                     Lobby lobby = lobbies.get(gameID);
                     if (lobby != null) {
                         if (lobby.isFull()) {
-                            if (lobby.getSize() != 0) sendAnswerMessage(new LobbyFullMessage());
-                            else sendAnswerMessage(new LobbyNotReadyMessage());
+                            if (lobby.getSize() != 0)
+                                sendAnswerMessage(new LobbyFullMessage());
+                            else
+                                sendAnswerMessage(new LobbyNotReadyMessage());
                         } else {
                             lobby.addPlayer(nickname, this);
                             this.gameLobby = lobby;
                             sendAnswerMessage(new LoginSuccessMessage(gameLobby.getPlayers()));
                             loginStatus = false;
+
+                            if(lobby.isFull())
+                                lobby.startGame();
                         }
                     } else {
                         lobby = new Lobby(gameID);
@@ -68,9 +73,11 @@ public class ClientHandler implements Runnable {
                         this.gameLobby = lobby;
                         sendAnswerMessage(new LoginSuccessMessage(gameLobby.getPlayers()));
                         loginStatus = false;
+
+                        if(lobby.isFull())
+                            lobby.startGame();
                     }
-                    if(lobby.isFull())
-                        lobby.startGame();
+
                 } else {
                     System.out.println("Invalid message flow from client" + clientSocket.getInetAddress());
                 }
