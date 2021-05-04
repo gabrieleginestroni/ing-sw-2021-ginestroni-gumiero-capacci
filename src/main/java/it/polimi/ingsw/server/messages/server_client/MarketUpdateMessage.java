@@ -12,7 +12,7 @@ public class MarketUpdateMessage extends AnswerMessage {
 
     @Override
     public void selectView(CLI cli) {
-
+        cli.showMessage(updatedMarket);
     }
 
     @Override

@@ -24,7 +24,11 @@ public class BoardsUpdateMessage extends AnswerMessage {
 
     @Override
     public void selectView(CLI cli) {
-        cli.showMessage("La tua Board è: "+this.personalBoard);
+        cli.showMessage("Your Board: "+this.personalBoard);
+        cli.showMessage("OtherBoards: ");
+        this.otherBoards.stream().forEach(s ->{
+            cli.showMessage("otherBoard: "+s);
+        });
     }
 
     @Override

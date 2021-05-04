@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
 import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
 import it.polimi.ingsw.server.messages.server_client.*;
+import it.polimi.ingsw.server.model.board.Board;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -46,12 +47,33 @@ public class NetworkHandlerCLI extends NetworkHandler {
                     output.writeObject(new LoginRequestMessage(gameID,nickname));
                 }
 
-                if(message instanceof LoginSuccessMessage) loginStatus = false;
+                if(message instanceof LoginSuccessMessage)
+                    loginStatus = false;
             }
 
-            //while(true) {
+            boolean end = true;
+            while(end) {
+                message = (AnswerMessage) input.readObject();
 
-        //}
+                if(message instanceof MarketUpdateMessage) {
+                    System.out.println("market");
+                }
+
+                if(message instanceof BoardsUpdateMessage) {
+                    System.out.println("board");
+                    end = false;
+                }
+
+                if(message instanceof LorenzoUpdateMessage) {
+                    System.out.println("lorenzo");
+                }
+
+                if(message instanceof DevGridUpdateMessage) {
+                    System.out.println("grid");
+                }
+
+                message.selectView(view);
+            }
             socket.close();
 
         //boolean stop = false;

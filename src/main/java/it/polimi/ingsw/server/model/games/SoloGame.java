@@ -39,10 +39,10 @@ public class SoloGame extends Game{
         super.virtualView.setPlayers(players);
 
         super.marketObserver.notifyMarketChange(market.getColorLayout(), market.getFreeMarble().getColor());
+        super.gridObserver.notifyDevelopmentGridChange(super.devCardsGrid.getGridStatus());
+        lorenzoObserver.notifyLorenzoStatus(0);
 
-        //TODO
-        //UPDATE ALL OBSERVERS
-        super.virtualView.updateMarketVirtualView();
+        super.virtualView.updateBoardVirtualView();
     }
 
     /**

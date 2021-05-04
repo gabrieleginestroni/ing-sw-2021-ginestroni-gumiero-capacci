@@ -42,9 +42,10 @@ public class Lobby {
 
     public void addPlayer(String nickname, ClientHandler clientHandler){
         this.players.add(new Player(nickname,clientHandler));
+    }
 
-        if(this.isFull())
-            controller = ControllerFactory.getController(players);
+    public void startGame(){
+       controller = ControllerFactory.getController(players);
     }
 
     public void setSize(Integer size) {

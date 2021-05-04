@@ -18,7 +18,6 @@ public class GridObserver {
     public GridObserver(VirtualView virtualView) {
         this.grid = new int[3][4];
         this.virtualView = virtualView;
-        this.virtualView.updateGridVirtualView();
     }
 
     /**

@@ -19,7 +19,6 @@ public class LorenzoObserver {
         this.blackCrossMarker = 0 ;
         lastDrawnActionToken = null;
         this.virtualView = virtualView;
-        this.virtualView.updateLorenzoVirtualView();
     }
 
     /**

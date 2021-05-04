@@ -35,7 +35,6 @@ public class DevelopmentCardGrid {
         for(DevelopmentCard card : devCardsList)
             grid[card.getLevel() - 1][card.getType().getColumn()].add(card);
 
-        this.gridObserver.notifyDevelopmentGridChange(getGridStatus());
     }
 
     /**

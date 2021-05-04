@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.games;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.exceptions.emptyDevCardGridSlotSelectedException;
 import it.polimi.ingsw.server.model.Color;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
@@ -30,8 +31,11 @@ public class DevelopmentCardGridTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Player p1 = new Player("giagum",null);
         VirtualView vv = new VirtualView();
-        DevelopmentCardGrid grid = new DevelopmentCardGrid(devCards, new GridObserver(vv));
+        SoloGame solo = new SoloGame(p1,vv);
+        DevelopmentCardGrid grid = new DevelopmentCardGrid(devCards, solo.getGridObserver());
 
         for(int i = 0; i <= 2; i++)
             for(int j = 0; j <= 3; j++)

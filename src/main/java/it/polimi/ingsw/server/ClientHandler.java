@@ -69,12 +69,12 @@ public class ClientHandler implements Runnable {
                         sendAnswerMessage(new LoginSuccessMessage(gameLobby.getPlayers()));
                         loginStatus = false;
                     }
-
+                    if(lobby.isFull())
+                        lobby.startGame();
                 } else {
                     System.out.println("Invalid message flow from client" + clientSocket.getInetAddress());
                 }
             }
-
         } catch (ClassNotFoundException e){ System.out.println("Invalid stream from client"); }
         catch(IOException e) {
             System.out.println("Client unreachable");

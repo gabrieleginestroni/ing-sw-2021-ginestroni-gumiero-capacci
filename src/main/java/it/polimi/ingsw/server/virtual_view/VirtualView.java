@@ -4,6 +4,8 @@ package it.polimi.ingsw.server.virtual_view;
 import com.google.gson.Gson;
 import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.messages.server_client.BoardsUpdateMessage;
+import it.polimi.ingsw.server.messages.server_client.DevGridUpdateMessage;
+import it.polimi.ingsw.server.messages.server_client.LorenzoUpdateMessage;
 import it.polimi.ingsw.server.messages.server_client.MarketUpdateMessage;
 
 import java.io.IOException;
@@ -64,8 +66,34 @@ public class VirtualView {
             }
         });
     }
-    public void updateLorenzoVirtualView(){}
-    public void updateGridVirtualView(){}
+
+    public void updateLorenzoVirtualView() {
+        String lorenzoJSON = this.lorenzoObserver.toJSONString();
+        LorenzoUpdateMessage message = new LorenzoUpdateMessage(lorenzoJSON);
+        try {
+            players.get(0).getClientHandler().sendAnswerMessage(message);
+        } catch (IOException | NullPointerException e) {
+            //TODO
+            //p.getClientHandler().sendErrorMessage();
+            return;
+        }
+    }
+
+    public void updateGridVirtualView(){
+        String gridJSON = this.gridObserver.toJSONString();
+        DevGridUpdateMessage message = new DevGridUpdateMessage(gridJSON);
+        //TODO
+        //TESTING
+        players.stream().forEach(p -> {
+            try {
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+                return;
+            }
+        });
+    }
 
     public String toJSONString(){
         return new Gson().toJson(this);

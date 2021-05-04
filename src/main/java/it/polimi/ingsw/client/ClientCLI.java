@@ -14,7 +14,8 @@ public class ClientCLI {
 
         //System.out.println("Insert server ip address:");
         //String ip = scanner.nextLine();
-        String ip = "94.176.46.205";
+        //String ip = "94.176.46.205";
+        String ip = "localhost";
         view.showMessage("Insert server port number:");
         int port = scanner.nextInt();
 
