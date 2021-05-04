@@ -1,11 +1,10 @@
-package it.polimi.ingsw.server.virtualview;
+package it.polimi.ingsw.server.virtual_view;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.model.games.SoloGame;
-import it.polimi.ingsw.server.virtualview.LorenzoObserver;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

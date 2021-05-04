@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.model.games;
 
 import it.polimi.ingsw.server.controller.Player;
-import it.polimi.ingsw.server.virtualview.VirtualView;
+import it.polimi.ingsw.server.virtual_view.VirtualView;
 
 import java.util.List;
 

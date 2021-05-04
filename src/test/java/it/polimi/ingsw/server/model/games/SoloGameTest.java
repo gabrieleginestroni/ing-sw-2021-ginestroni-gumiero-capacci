@@ -5,9 +5,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.exceptions.emptyDevCardGridSlotSelectedException;
-import it.polimi.ingsw.server.model.games.SoloGame;
-import it.polimi.ingsw.server.virtualview.LorenzoObserver;
-import it.polimi.ingsw.server.virtualview.VirtualView;
+import it.polimi.ingsw.server.virtual_view.LorenzoObserver;
+import it.polimi.ingsw.server.virtual_view.VirtualView;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

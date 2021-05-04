@@ -4,9 +4,8 @@ import com.google.gson.Gson;
 import it.polimi.ingsw.server.exceptions.emptyDevCardGridSlotSelectedException;
 import it.polimi.ingsw.server.model.Color;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
-import it.polimi.ingsw.server.model.games.DevelopmentCardGrid;
-import it.polimi.ingsw.server.virtualview.GridObserver;
-import it.polimi.ingsw.server.virtualview.VirtualView;
+import it.polimi.ingsw.server.virtual_view.GridObserver;
+import it.polimi.ingsw.server.virtual_view.VirtualView;
 import org.junit.Test;
 
 import java.io.IOException;

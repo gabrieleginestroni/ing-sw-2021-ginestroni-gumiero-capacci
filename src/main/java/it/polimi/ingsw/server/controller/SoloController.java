@@ -1,7 +1,7 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.model.games.SoloGame;
-import it.polimi.ingsw.server.virtualview.VirtualView;
+import it.polimi.ingsw.server.virtual_view.VirtualView;
 
 public class SoloController implements Controller{
     private final SoloGame model;

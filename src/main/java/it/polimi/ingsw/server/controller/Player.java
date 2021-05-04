@@ -3,8 +3,8 @@ package it.polimi.ingsw.server.controller;
 import it.polimi.ingsw.server.model.board.Board;
 import it.polimi.ingsw.server.model.games.Game;
 import it.polimi.ingsw.server.ClientHandler;
-import it.polimi.ingsw.server.virtualview.BoardObserver;
-import it.polimi.ingsw.server.virtualview.VirtualView;
+import it.polimi.ingsw.server.virtual_view.BoardObserver;
+import it.polimi.ingsw.server.virtual_view.VirtualView;
 
 public class Player {
 

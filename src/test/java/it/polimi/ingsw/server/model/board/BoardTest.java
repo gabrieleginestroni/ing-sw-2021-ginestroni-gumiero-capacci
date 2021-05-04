@@ -5,13 +5,11 @@ import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.exceptions.*;
 import it.polimi.ingsw.server.model.Color;
 import it.polimi.ingsw.server.model.Resource;
-import it.polimi.ingsw.server.model.board.Board;
-import it.polimi.ingsw.server.model.board.WarehouseDepot;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.games.MultiplayerGame;
 import it.polimi.ingsw.server.model.games.SoloGame;
-import it.polimi.ingsw.server.virtualview.VirtualView;
+import it.polimi.ingsw.server.virtual_view.VirtualView;
 import org.junit.Test;
 
 import java.io.IOException;

@@ -2,9 +2,7 @@ package it.polimi.ingsw.server.model.games;
 
 import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.model.Resource;
-import it.polimi.ingsw.server.model.games.Market;
-import it.polimi.ingsw.server.virtualview.MarketObserver;
-import it.polimi.ingsw.server.virtualview.VirtualView;
+import it.polimi.ingsw.server.virtual_view.VirtualView;
 import org.junit.Test;
 
 import java.util.Map;

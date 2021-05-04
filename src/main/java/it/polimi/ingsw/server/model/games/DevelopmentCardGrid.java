@@ -3,7 +3,7 @@ package it.polimi.ingsw.server.model.games;
 import it.polimi.ingsw.server.exceptions.emptyDevCardGridSlotSelectedException;
 import it.polimi.ingsw.server.model.Color;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
-import it.polimi.ingsw.server.virtualview.GridObserver;
+import it.polimi.ingsw.server.virtual_view.GridObserver;
 
 import java.util.*;
 

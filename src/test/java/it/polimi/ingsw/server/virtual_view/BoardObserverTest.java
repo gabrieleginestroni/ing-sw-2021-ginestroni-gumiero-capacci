@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server.virtualview;
+package it.polimi.ingsw.server.virtual_view;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -10,7 +10,6 @@ import it.polimi.ingsw.server.model.board.Board;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.games.SoloGame;
-import it.polimi.ingsw.server.virtualview.BoardObserver;
 import org.junit.Test;
 
 import java.util.List;

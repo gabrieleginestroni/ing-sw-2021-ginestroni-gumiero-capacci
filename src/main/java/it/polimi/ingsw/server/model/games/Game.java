@@ -5,9 +5,9 @@ import it.polimi.ingsw.server.exceptions.emptyDevCardGridSlotSelectedException;
 import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
-import it.polimi.ingsw.server.virtualview.GridObserver;
-import it.polimi.ingsw.server.virtualview.MarketObserver;
-import it.polimi.ingsw.server.virtualview.VirtualView;
+import it.polimi.ingsw.server.virtual_view.GridObserver;
+import it.polimi.ingsw.server.virtual_view.MarketObserver;
+import it.polimi.ingsw.server.virtual_view.VirtualView;
 
 import java.io.Reader;
 import java.nio.file.Files;

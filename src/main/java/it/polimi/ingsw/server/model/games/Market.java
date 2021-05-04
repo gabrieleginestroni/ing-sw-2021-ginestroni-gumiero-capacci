@@ -1,6 +1,6 @@
 package it.polimi.ingsw.server.model.games;
 import it.polimi.ingsw.server.model.Resource;
-import it.polimi.ingsw.server.virtualview.MarketObserver;
+import it.polimi.ingsw.server.virtual_view.MarketObserver;
 
 import java.util.*;
 

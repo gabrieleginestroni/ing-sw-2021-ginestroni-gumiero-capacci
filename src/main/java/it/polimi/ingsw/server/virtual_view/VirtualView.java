@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server.virtualview;
+package it.polimi.ingsw.server.virtual_view;
 
 
 import com.google.gson.Gson;
@@ -8,7 +8,6 @@ import it.polimi.ingsw.server.messages.server_client.MarketUpdateMessage;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class VirtualView {
 

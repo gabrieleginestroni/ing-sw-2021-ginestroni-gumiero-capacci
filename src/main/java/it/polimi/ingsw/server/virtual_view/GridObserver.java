@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server.virtualview;
+package it.polimi.ingsw.server.virtual_view;
 
 import com.google.gson.Gson;
 
