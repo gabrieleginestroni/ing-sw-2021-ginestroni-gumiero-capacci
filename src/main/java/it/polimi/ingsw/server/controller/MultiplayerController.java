@@ -31,23 +31,30 @@ public class MultiplayerController implements Controller{
         virtualView = new VirtualView();
 
         model = new MultiplayerGame(this.players,this.virtualView);
-        //shuffledPlayers.get(0).getBoard().setInkwell();
 
         mediator = new CommunicationMediator();
 
+        ArrayList<Thread> threads = new ArrayList<>();
         for(Player player : players) {
-           Thread t = new Thread(()-> {
+           threads.add(new Thread(()-> {
                List<LeaderCard> chosenLeaders = virtualView.propose4Leader(model.get4LeaderCards(), player);
 
                for(LeaderCard leaderCard : chosenLeaders)
                    player.getBoard().addLeaderCard(leaderCard);
 
-               if(player == players.get(players.size() - 1) )
-                   shuffledPlayers.get(0).getBoard().setInkwell();
-           });
-           t.start();
-           
+           }));
+           threads.get(threads.size() - 1).start();
         }
+
+        for(Thread thread : threads) {
+            try {
+                thread.join();
+            }catch(InterruptedException e){
+                //TODO
+            }
+        }
+
+        shuffledPlayers.get(0).getBoard().setInkwell();
 
         System.out.println(virtualView.toJSONString());
         //currentState = StartGameState;
