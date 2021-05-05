@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.model.games.MultiplayerGame;
 import it.polimi.ingsw.server.virtual_view.VirtualView;
 
@@ -21,5 +22,15 @@ public class MultiplayerController implements Controller{
 
         System.out.println(virtualView.toJSONString());
         //currentState = StartGameState;
+    }
+
+    @Override
+    public void handleMessage(Message message) {
+
+    }
+
+    @Override
+    public boolean isGameOver() {
+        return false;
     }
 }

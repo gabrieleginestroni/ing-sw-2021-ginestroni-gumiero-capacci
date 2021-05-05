@@ -20,69 +20,82 @@ public class NetworkHandlerCLI extends NetworkHandler {
 
     @Override
     public void run() {
-        Scanner scanner = new Scanner(System.in);
 
+        try {
+            loginPhase();
+
+            gamePhase();
+
+
+            socket.close();
+
+
+        } catch(IOException e) { view.showMessage("Server unreachable");}
+         catch (ClassNotFoundException e) { view.showMessage("Invalid stream");}
+    }
+
+
+
+
+    private void loginPhase() throws IOException, ClassNotFoundException {
+
+        Scanner scanner = new Scanner(System.in);
         view.showMessage("Type nickname:");
         String nickname = scanner.nextLine();
         view.showMessage("Type game ID:");
         String gameID = scanner.nextLine();
 
-        try {
-            output.writeObject(new LoginRequestMessage(gameID,nickname));
-            AnswerMessage message;
+        output.writeObject(new LoginRequestMessage(gameID,nickname));
+        AnswerMessage message;
 
-            boolean loginStatus = true;
-            while(loginStatus) {
-                message = (AnswerMessage) input.readObject();
-                message.selectView(view);
+        boolean loginStatus = true;
+        while(loginStatus) {
+            message = (AnswerMessage) input.readObject();
+            message.selectView(view);
 
-                if(message instanceof RequestLobbySizeMessage) {
+            if(message instanceof RequestLobbySizeMessage) {
 
-                    output.writeObject(new LoginSizeMessage(scanner.nextInt()));
-                }
-
-                if(message instanceof LobbyFullMessage || message instanceof LobbyNotReadyMessage) {
-                    gameID = scanner.nextLine();
-
-                    output.writeObject(new LoginRequestMessage(gameID,nickname));
-                }
-
-                if(message instanceof LoginSuccessMessage)
-                    loginStatus = false;
+                output.writeObject(new LoginSizeMessage(scanner.nextInt()));
             }
 
-            boolean end = true;
-            while(end) {
-                message = (AnswerMessage) input.readObject();
+            if(message instanceof LobbyFullMessage || message instanceof LobbyNotReadyMessage) {
+                gameID = scanner.nextLine();
 
-                if(message instanceof MarketUpdateMessage) {
-                    System.out.println("market");
-                }
-
-                if(message instanceof BoardsUpdateMessage) {
-                    System.out.println("board");
-                    end = false;
-                }
-
-                if(message instanceof LorenzoUpdateMessage) {
-                    System.out.println("lorenzo");
-                }
-
-                if(message instanceof DevGridUpdateMessage) {
-                    System.out.println("grid");
-                }
-
-                message.selectView(view);
+                output.writeObject(new LoginRequestMessage(gameID,nickname));
             }
-            socket.close();
 
-        //boolean stop = false;
-        //while (!stop) {}
-        } catch(IOException e) { view.showMessage("Server unreachable");}
-         catch (ClassNotFoundException e) { view.showMessage("Invalid stream");}
+            if(message instanceof LoginSuccessMessage)
+                loginStatus = false;
+        }
 
+        boolean end = true;
+        while(end) {
+            message = (AnswerMessage) input.readObject();
 
+            if(message instanceof MarketUpdateMessage) {
+                System.out.println("market");
+            }
 
+            if(message instanceof BoardsUpdateMessage) {
+                System.out.println("board");
+                end = false;
+            }
+
+            if(message instanceof LorenzoUpdateMessage) {
+                System.out.println("lorenzo");
+            }
+
+            if(message instanceof DevGridUpdateMessage) {
+                System.out.println("grid");
+            }
+
+            message.selectView(view);
+        }
+    }
+
+    private void gamePhase(){
 
     }
+
+
 }

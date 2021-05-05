@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.model.games.SoloGame;
 import it.polimi.ingsw.server.virtual_view.VirtualView;
 
@@ -19,5 +20,15 @@ public class SoloController implements Controller{
 
         System.out.println(virtualView.toJSONString());
         //currentState = StartGameState;
+    }
+
+    @Override
+    public void handleMessage(Message message) {
+
+    }
+
+    @Override
+    public boolean isGameOver() {
+        return false;
     }
 }
