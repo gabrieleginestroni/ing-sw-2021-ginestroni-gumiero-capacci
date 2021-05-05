@@ -94,7 +94,8 @@ public class NetworkHandlerCLI extends NetworkHandler {
     }
 
     private void leaderProposalPhase() throws IOException, ClassNotFoundException {
-        while(true){
+         boolean phaseCompleted = false;
+        while(!phaseCompleted){
             Object message = input.readObject();
             int[] chosenLeaderCards = new int[2];
             Scanner sc = new Scanner(System.in);
@@ -117,6 +118,11 @@ public class NetworkHandlerCLI extends NetworkHandler {
             if(message instanceof BoardsUpdateMessage) {
                 System.out.println("board");
                 ((BoardsUpdateMessage) message).selectView(view);
+            }
+
+            if(message instanceof InkwellMessage) {
+                ((InkwellMessage)message).selectView(view);
+                phaseCompleted = true;
             }
         }
     }

@@ -112,7 +112,7 @@ public class BoardObserver {
      */
     public void notifyAddLeader(int cardId){
         hiddenHand.add(cardId);
-        virtualView.updateBoardVirtualView();
+        virtualView.updatePersonalBoardVirtualView(this.nickname);
     }
 
     /**
@@ -196,7 +196,7 @@ public class BoardObserver {
      */
     public void notifyInkwellSet(){
         inkwell = true;
-        virtualView.updateBoardVirtualView();
+        virtualView.updateInkwellView(this.nickname);
     }
 
     @Override

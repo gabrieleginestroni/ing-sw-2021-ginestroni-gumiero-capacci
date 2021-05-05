@@ -85,7 +85,7 @@ public abstract class Game {
      * Method used in the initialization phase of the game to get 4 random Leader Cards.
      * @return The list that contains 4 Leader Cards
      */
-    public List<LeaderCard> get4LeaderCards(){
+    public synchronized List<LeaderCard> get4LeaderCards(){
         List<LeaderCard> temp = new ArrayList<>();
         for (int i = 0; i<4; i++)
             if(!leaderCards.isEmpty())

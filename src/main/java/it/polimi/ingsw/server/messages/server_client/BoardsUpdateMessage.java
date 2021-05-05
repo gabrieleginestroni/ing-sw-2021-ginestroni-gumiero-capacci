@@ -8,7 +8,7 @@ import java.util.List;
 
 public class BoardsUpdateMessage extends AnswerMessage {
     private String personalBoard;
-    private List<String> otherBoards;
+    private final List<String> otherBoards;
 
     public BoardsUpdateMessage() {
         this.otherBoards = new ArrayList<String>();
@@ -24,11 +24,13 @@ public class BoardsUpdateMessage extends AnswerMessage {
 
     @Override
     public void selectView(CLI cli) {
-        cli.showMessage("Your Board: "+this.personalBoard);
-        cli.showMessage("OtherBoards: ");
-        this.otherBoards.stream().forEach(s ->{
-            cli.showMessage("otherBoard: "+s);
-        });
+        cli.showMessage("Your Board: " + this.personalBoard);
+        if (otherBoards.size() != 0) {
+            cli.showMessage("OtherBoards: ");
+            this.otherBoards.stream().forEach(s -> {
+                cli.showMessage("otherBoard: " + s);
+            });
+        }
     }
 
     @Override

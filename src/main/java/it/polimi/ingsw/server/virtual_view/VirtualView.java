@@ -124,6 +124,34 @@ public class VirtualView {
         }
     }
 
+    public void updatePersonalBoardVirtualView(String nickname) {
+        players.stream().filter(p -> p.getNickname().equals(nickname)).forEach(p -> {
+
+            BoardsUpdateMessage message = new BoardsUpdateMessage();
+            message.addPersonalBoard(p.getBoardObserver().toJSONString());
+
+            try {
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+    }
+
+    public void updateInkwellView(String nickname){
+        InkwellMessage message = new InkwellMessage(nickname);
+
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+            //TODO
+            //p.getClientHandler().sendErrorMessage();
+            }
+        });
+    }
+
     public String toJSONString(){
         return new Gson().toJson(this);
     }

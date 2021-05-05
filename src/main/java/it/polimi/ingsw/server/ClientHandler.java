@@ -76,7 +76,7 @@ public class ClientHandler implements Runnable {
                         loginStatus = false;
 
                         if(lobby.isFull())
-                            lobby.startGame();
+                            (new Thread(()->gameLobby.startGame())).start();
                     }
                 } else {
                     lobby = new Lobby(gameID);
@@ -93,7 +93,7 @@ public class ClientHandler implements Runnable {
                     loginStatus = false;
 
                     if(lobby.isFull())
-                        lobby.startGame();
+                        (new Thread(()->gameLobby.startGame())).start();
                 }
 
             } else {
