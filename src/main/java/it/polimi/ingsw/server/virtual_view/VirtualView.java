@@ -2,13 +2,15 @@ package it.polimi.ingsw.server.virtual_view;
 
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.controller.Player;
-import it.polimi.ingsw.server.messages.server_client.BoardsUpdateMessage;
-import it.polimi.ingsw.server.messages.server_client.DevGridUpdateMessage;
-import it.polimi.ingsw.server.messages.server_client.LorenzoUpdateMessage;
-import it.polimi.ingsw.server.messages.server_client.MarketUpdateMessage;
+import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
+import it.polimi.ingsw.server.messages.client_server.Message;
+import it.polimi.ingsw.server.messages.server_client.*;
+import it.polimi.ingsw.server.model.cards.LeaderCard;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VirtualView {
@@ -62,7 +64,7 @@ public class VirtualView {
             } catch (IOException | NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
-                return;
+
             }
         });
     }
@@ -75,7 +77,7 @@ public class VirtualView {
         } catch (IOException | NullPointerException e) {
             //TODO
             //p.getClientHandler().sendErrorMessage();
-            return;
+
         }
     }
 
@@ -90,9 +92,36 @@ public class VirtualView {
             } catch (IOException | NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
-                return;
+
             }
         });
+    }
+
+    public List<LeaderCard> propose4Leader(List<LeaderCard> leaderCards, Player player) {
+        int[] proposedLeaderCards = new int[4];
+        ClientHandler playerHandler = player.getClientHandler();
+
+        int[] chosenLeadersArray = new int[2];
+        for (int i = 0; i < leaderCards.size(); i++)
+            proposedLeaderCards[i] = leaderCards.get(i).getId();
+        try {
+            playerHandler.sendAnswerMessage(new LeaderProposalMessage(proposedLeaderCards));
+
+            Message msg = playerHandler.waitMessage();
+
+            if (msg instanceof ChosenLeaderMessage)
+                chosenLeadersArray = ((ChosenLeaderMessage) msg).getChosenLeaderIndex();
+
+            List<LeaderCard> chosenLeaderList = new ArrayList<>();
+            for (int i : chosenLeadersArray)
+                chosenLeaderList.add(leaderCards.get(i));
+
+            return chosenLeaderList;
+        } catch (IOException | ClassNotFoundException e) {
+            //TODO
+            //p.getClientHandler().sendErrorMessage();
+            return null;
+        }
     }
 
     public String toJSONString(){

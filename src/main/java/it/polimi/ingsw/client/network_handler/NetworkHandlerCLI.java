@@ -1,10 +1,10 @@
 package it.polimi.ingsw.client.network_handler;
 
 import it.polimi.ingsw.client.view.CLI;
+import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
 import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
 import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
 import it.polimi.ingsw.server.messages.server_client.*;
-import it.polimi.ingsw.server.model.board.Board;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -23,7 +23,7 @@ public class NetworkHandlerCLI extends NetworkHandler {
 
         try {
             loginPhase();
-
+            leaderProposalPhase();
             gamePhase();
 
 
@@ -90,6 +90,34 @@ public class NetworkHandlerCLI extends NetworkHandler {
             }
 
             message.selectView(view);
+        }
+    }
+
+    private void leaderProposalPhase() throws IOException, ClassNotFoundException {
+        while(true){
+            Object message = input.readObject();
+            int[] chosenLeaderCards = new int[2];
+            Scanner sc = new Scanner(System.in);
+            boolean success = false;
+
+            if(message instanceof LeaderProposalMessage){
+                while(!success){
+                    ((LeaderProposalMessage) message).selectView(view);
+                    int ind1 = sc.nextInt();
+                    int ind2 = sc.nextInt();
+                    if(0 <= ind1 && ind1 <= 3 && 0 <= ind2 && ind2 <= 3 && ind1 != ind2) {
+                        chosenLeaderCards[0] = ind1;
+                        chosenLeaderCards[1] = ind2;
+                        success = true;
+                    }
+              }
+              output.writeObject(new ChosenLeaderMessage(chosenLeaderCards));
+            }
+
+            if(message instanceof BoardsUpdateMessage) {
+                System.out.println("board");
+                ((BoardsUpdateMessage) message).selectView(view);
+            }
         }
     }
 

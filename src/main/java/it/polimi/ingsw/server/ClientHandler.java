@@ -3,6 +3,7 @@ package it.polimi.ingsw.server;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
 import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
+import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.messages.server_client.*;
 
 import java.io.IOException;
@@ -109,9 +110,13 @@ public class ClientHandler implements Runnable {
 
     }
 
-
-
     public void sendAnswerMessage(AnswerMessage message) throws IOException {
         output.writeObject(message);
+    }
+
+    public Message waitMessage() throws IOException, ClassNotFoundException {
+        Message msg = (Message)input.readObject();
+
+        return msg;
     }
 }
