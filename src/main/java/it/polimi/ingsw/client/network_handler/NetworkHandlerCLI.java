@@ -24,6 +24,7 @@ public class NetworkHandlerCLI extends NetworkHandler {
         try {
             loginPhase();
             leaderProposalPhase();
+            initialResourceProposal();
             gamePhase();
 
 
@@ -94,7 +95,7 @@ public class NetworkHandlerCLI extends NetworkHandler {
     }
 
     private void leaderProposalPhase() throws IOException, ClassNotFoundException {
-         boolean phaseCompleted = false;
+        boolean phaseCompleted = false;
         while(!phaseCompleted){
             Object message = input.readObject();
             int[] chosenLeaderCards = new int[2];
@@ -126,6 +127,37 @@ public class NetworkHandlerCLI extends NetworkHandler {
             }
         }
     }
+
+    private void initialResourceProposal() throws IOException, ClassNotFoundException {
+
+        while(true){
+
+            Object message = input.readObject();
+
+            if(message instanceof InitialResourceChooseMessage) {
+                boolean success = false;
+                while(!success) {
+                    InitialResourceChooseMessage msg = (InitialResourceChooseMessage) message;
+                    msg.selectView(view);
+
+                    //TODO Filter input and answering the message
+
+                    if (((InitialResourceChooseMessage) message).getQuantity() == 1) {
+
+                    } else {
+
+
+                    }
+                }
+            }
+
+        }
+
+
+    }
+
+
+
 
     private void gamePhase(){
 

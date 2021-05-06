@@ -4,14 +4,18 @@ package it.polimi.ingsw.server.virtual_view;
 import com.google.gson.Gson;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.controller.Player;
+import it.polimi.ingsw.server.messages.client_server.ChosenInitialResources;
 import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
 import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.messages.server_client.*;
+import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VirtualView {
 
@@ -150,6 +154,32 @@ public class VirtualView {
             //p.getClientHandler().sendErrorMessage();
             }
         });
+    }
+
+
+    public Map<Resource,Integer> proposeInitialResources(int quantity, Player player) {
+
+        ClientHandler playerHandler = player.getClientHandler();
+        Map<Resource,Integer> resMap = new HashMap<>();
+
+        try {
+
+            playerHandler.sendAnswerMessage(new InitialResourceChooseMessage(quantity));
+
+            Message msg = playerHandler.waitMessage();
+
+            if(msg instanceof ChosenInitialResources) {
+                Map<Integer,Integer> intMap = ((ChosenInitialResources)msg).getChosenResources();
+                for(Map.Entry<Integer,Integer> res: intMap.entrySet()){
+                    resMap.put(Resource.values()[res.getKey()],res.getValue());
+                }
+            }
+
+        } catch (IOException | ClassNotFoundException e){
+            //TODO
+            //p.getClientHandler().sendErrorMessage();
+        }
+        return resMap;
     }
 
     public String toJSONString(){
