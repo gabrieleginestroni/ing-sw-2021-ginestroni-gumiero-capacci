@@ -16,9 +16,9 @@ public class InitialResourceChooseMessage extends AnswerMessage {
 
         StringBuilder str = new StringBuilder("(");
 
-        for(int i=0;i< Resource.values().length; i++) {
+        for(int i=0;i< Resource.values().length-2; i++) {
             str.append(i).append(" for ").append(Resource.values()[i]);
-            if(i != Resource.values().length - 1 )
+            if(i != Resource.values().length - 3 )
                 str.append(", ");
             else
                 str.append(")");
@@ -28,7 +28,7 @@ public class InitialResourceChooseMessage extends AnswerMessage {
             cli.showMessage("Choose a resource and a warehouse depot where to store it: " + str );
 
         if(quantity == 2)
-            cli.showMessage("Choose two resources and the warehouse depots where to store them: " + str );
+            cli.showMessage("(x2) Choose a resource and a warehouse depot where to store it: " + str );
 
     }
 

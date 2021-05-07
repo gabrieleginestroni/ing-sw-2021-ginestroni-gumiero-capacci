@@ -4,7 +4,7 @@ package it.polimi.ingsw.server.virtual_view;
 import com.google.gson.Gson;
 import it.polimi.ingsw.server.ClientHandler;
 import it.polimi.ingsw.server.controller.Player;
-import it.polimi.ingsw.server.messages.client_server.ChosenInitialResources;
+import it.polimi.ingsw.server.messages.client_server.ChosenInitialResourcesMessage;
 import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
 import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.messages.server_client.*;
@@ -12,10 +12,7 @@ import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class VirtualView {
 
@@ -144,8 +141,13 @@ public class VirtualView {
     }
 
     public void updateInkwellView(String nickname){
-        InkwellMessage message = new InkwellMessage(nickname);
 
+
+        Optional<Player> firstPlayer = players.stream().filter(q -> q.getNickname().equals(nickname)).findFirst();
+        String board = null;
+        if(firstPlayer.isPresent())
+            board = firstPlayer.get().getBoardObserver().toJSONHandFreeString();
+        InkwellMessage message = new InkwellMessage(nickname,board);
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
@@ -168,8 +170,8 @@ public class VirtualView {
 
             Message msg = playerHandler.waitMessage();
 
-            if(msg instanceof ChosenInitialResources) {
-                Map<Integer,Integer> intMap = ((ChosenInitialResources)msg).getChosenResources();
+            if(msg instanceof ChosenInitialResourcesMessage) {
+                Map<Integer,Integer> intMap = ((ChosenInitialResourcesMessage)msg).getChosenResources();
                 for(Map.Entry<Integer,Integer> res: intMap.entrySet()){
                     resMap.put(Resource.values()[res.getKey()],res.getValue());
                 }
@@ -180,6 +182,20 @@ public class VirtualView {
             //p.getClientHandler().sendErrorMessage();
         }
         return resMap;
+    }
+
+    public void gameStarted(){
+        GameStartedMessage message = new GameStartedMessage();
+
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+
     }
 
     public String toJSONString(){

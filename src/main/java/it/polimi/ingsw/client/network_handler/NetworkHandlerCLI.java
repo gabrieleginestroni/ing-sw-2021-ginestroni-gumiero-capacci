@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.network_handler;
 
 import it.polimi.ingsw.client.view.CLI;
+import it.polimi.ingsw.server.messages.client_server.ChosenInitialResourcesMessage;
 import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
 import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
 import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
@@ -8,6 +9,8 @@ import it.polimi.ingsw.server.messages.server_client.*;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class NetworkHandlerCLI extends NetworkHandler {
@@ -130,25 +133,79 @@ public class NetworkHandlerCLI extends NetworkHandler {
 
     private void initialResourceProposal() throws IOException, ClassNotFoundException {
 
-        while(true){
+        Scanner scanner = new Scanner(System.in);
+        boolean success = false;
+        while(!success){
 
             Object message = input.readObject();
 
+            if(message instanceof BoardsUpdateMessage) {
+                ((BoardsUpdateMessage) message).selectView(view);
+            }
+
             if(message instanceof InitialResourceChooseMessage) {
-                boolean success = false;
-                while(!success) {
-                    InitialResourceChooseMessage msg = (InitialResourceChooseMessage) message;
-                    msg.selectView(view);
-
-                    //TODO Filter input and answering the message
-
-                    if (((InitialResourceChooseMessage) message).getQuantity() == 1) {
-
-                    } else {
+                boolean inputCorrect = false;
 
 
+                InitialResourceChooseMessage msg = (InitialResourceChooseMessage) message;
+
+
+                if (((InitialResourceChooseMessage) message).getQuantity() == 1) {
+
+                    while(!inputCorrect) {
+                        msg.selectView(view);
+                        int res = scanner.nextInt();
+                        int depot = scanner.nextInt();
+                        if(res >= 0 && res <= 3) {
+                            if(depot >= 0 && depot <=2) {
+                                Map<Integer,Integer> resMap = new HashMap<>();
+                                resMap.put(res,depot);
+                                output.writeObject(new ChosenInitialResourcesMessage(resMap));
+                                inputCorrect = true;
+
+                            }
+                        }
                     }
+                } else {
+                    int resCounter = 0;
+                    Map<Integer, Integer> resMap = new HashMap<>();
+
+                    while(!inputCorrect) {
+                        msg.selectView(view);
+                        int res = scanner.nextInt();
+                        int depot = scanner.nextInt();
+                        if(res >= 0 && res <= 3) {
+                            if(depot >= 0 && depot <=2) {
+                                if(resCounter == 0) {
+                                    resMap.put(res, depot);
+                                    resCounter++;
+                                } else {
+                                    for(Map.Entry<Integer,Integer> entry:resMap.entrySet()){
+                                        if(entry.getKey() == res && entry.getValue() == depot && (depot == 1 || depot == 2)){
+                                            output.writeObject(new ChosenInitialResourcesMessage(resMap));
+                                            inputCorrect = true;
+                                        } else if(entry.getKey() != res && depot != entry.getValue()){
+                                            resMap.put(res,depot);
+                                            output.writeObject(new ChosenInitialResourcesMessage(resMap));
+                                            inputCorrect = true;
+                                        }
+
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+
+
                 }
+
+            }
+
+            if(message instanceof GameStartedMessage) {
+                ((GameStartedMessage) message).selectView(view);
+                success = true;
             }
 
         }

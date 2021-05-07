@@ -76,10 +76,7 @@ public class MultiplayerController implements Controller{
                             //TODO
                         }
                     }
-
-
                 }));
-
             }
 
             if(i == 2 || i == 3) {
@@ -105,10 +102,22 @@ public class MultiplayerController implements Controller{
 
 
                 }));
-
             }
         }
 
+        for(Thread thread : threads) {
+            thread.start();
+        }
+
+        for(Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                //TODO
+            }
+        }
+
+        virtualView.gameStarted();
 
 
         System.out.println(virtualView.toJSONString());
