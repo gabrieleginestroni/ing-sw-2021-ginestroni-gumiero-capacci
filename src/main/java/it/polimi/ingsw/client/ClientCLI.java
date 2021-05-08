@@ -25,7 +25,7 @@ public class ClientCLI {
              NetworkHandler networkHandler = new NetworkHandler(socket, view);
              view.addNetworkHandler(networkHandler);
 
-             Thread networkThread = new Thread();
+             Thread networkThread = new Thread(networkHandler);
              networkThread.start();
              networkThread.join();
 
