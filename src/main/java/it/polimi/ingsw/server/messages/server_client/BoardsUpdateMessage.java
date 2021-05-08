@@ -2,11 +2,12 @@ package it.polimi.ingsw.server.messages.server_client;
 
 import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.client.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardsUpdateMessage extends AnswerMessage {
+public class BoardsUpdateMessage implements AnswerMessage {
     private String personalBoard;
     private final List<String> otherBoards;
 
@@ -22,19 +23,14 @@ public class BoardsUpdateMessage extends AnswerMessage {
         this.otherBoards.add(otherBoard);
     }
 
-    @Override
-    public void selectView(CLI cli) {
-        cli.showMessage("Your Board: " + this.personalBoard);
-        if (otherBoards.size() != 0) {
-            cli.showMessage("OtherBoards: ");
-            this.otherBoards.stream().forEach(s -> {
-                cli.showMessage("otherBoard: " + s);
-            });
-        }
-    }
 
     @Override
-    public void selectView(GUI gui) {
-
+    public void selectView(View view) {
+        view.visitBoardsUpdate(personalBoard,otherBoards);
     }
+
+
+
+
+
 }

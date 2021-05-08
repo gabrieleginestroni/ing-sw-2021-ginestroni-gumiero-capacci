@@ -1,9 +1,8 @@
 package it.polimi.ingsw.server.messages.server_client;
 
-import it.polimi.ingsw.client.view.CLI;
-import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.client.view.View;
 
-public class InkwellMessage extends AnswerMessage {
+public class InkwellMessage implements AnswerMessage {
     private final String nickname;
     private final String updatedBoard;
 
@@ -13,15 +12,11 @@ public class InkwellMessage extends AnswerMessage {
     }
 
     @Override
-    public void selectView(CLI cli) {
-        cli.showMessage(nickname + " receives inkwell");
-        cli.showMessage(updatedBoard);
+    public void selectView(View view) {
+        view.visitInkwell(nickname,updatedBoard);
     }
 
-    @Override
-    public void selectView(GUI gui) {
 
-    }
 
     public String getNickname() {
         return nickname;

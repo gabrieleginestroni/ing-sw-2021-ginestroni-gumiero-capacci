@@ -2,10 +2,11 @@ package it.polimi.ingsw.server.messages.server_client;
 
 import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.client.view.View;
 
 import java.util.Arrays;
 
-public class LeaderProposalMessage extends AnswerMessage{
+public class LeaderProposalMessage implements AnswerMessage{
     private final int[] proposedLeaderCards;
 
     public LeaderProposalMessage(int[] proposedLeaderCards) {
@@ -13,13 +14,9 @@ public class LeaderProposalMessage extends AnswerMessage{
     }
 
     @Override
-    public void selectView(CLI cli) {
-        System.out.println("Choose 2 of these 4 Leader Cards: " + Arrays.toString(proposedLeaderCards));
-        System.out.println("Select 0, 1, 2 or 3 : ");
+    public void selectView(View view) {
+       view.visitLeaderProposal(proposedLeaderCards);
     }
 
-    @Override
-    public void selectView(GUI gui) {
 
-    }
 }

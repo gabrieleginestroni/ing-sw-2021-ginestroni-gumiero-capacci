@@ -2,15 +2,13 @@ package it.polimi.ingsw.server.messages.server_client;
 
 import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.client.view.View;
 
-public class LobbyNotReadyMessage extends AnswerMessage {
+public class LobbyNotReadyMessage implements AnswerMessage {
     @Override
-    public void selectView(CLI view) {
-        view.showMessage("Lobby it's being creating, but not ready yet. Please choose another game ID:");
+    public void selectView(View view) {
+        view.visitLobbyNotReady("Lobby it's being creating, but not ready yet. Please choose another game ID:");
     }
 
-    @Override
-    public void selectView(GUI view) {
 
-    }
 }

@@ -2,11 +2,12 @@ package it.polimi.ingsw.server.messages.server_client;
 
 import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.client.view.View;
 
 import java.io.Serializable;
 
-public abstract class AnswerMessage implements Serializable {
-    public abstract void selectView(CLI cli);
-    public abstract void selectView(GUI gui);
+public interface AnswerMessage extends Serializable {
+    public abstract void selectView(View view);
+
 
 }

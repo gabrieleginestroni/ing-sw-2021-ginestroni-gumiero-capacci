@@ -2,11 +2,12 @@ package it.polimi.ingsw.server.messages.server_client;
 
 import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.server.controller.Player;
 
 import java.util.List;
 
-public class LoginSuccessMessage extends AnswerMessage {
+public class LoginSuccessMessage implements AnswerMessage {
     private final String currentPlayers;
 
     public LoginSuccessMessage(List<Player> currentPlayers) {
@@ -19,12 +20,9 @@ public class LoginSuccessMessage extends AnswerMessage {
     }
 
     @Override
-    public void selectView(CLI view) {
-        view.showMessage("Login success. Current players: \n" + currentPlayers);
+    public void selectView(View view) {
+        view.visitLoginSuccess(currentPlayers);
     }
 
-    @Override
-    public void selectView(GUI gui) {
 
-    }
 }

@@ -2,8 +2,9 @@ package it.polimi.ingsw.server.messages.server_client;
 
 import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.client.view.View;
 
-public class MarketUpdateMessage extends AnswerMessage {
+public class MarketUpdateMessage implements AnswerMessage {
     private String updatedMarket;
 
     public MarketUpdateMessage(String updatedMarket) {
@@ -11,12 +12,9 @@ public class MarketUpdateMessage extends AnswerMessage {
     }
 
     @Override
-    public void selectView(CLI cli) {
-        cli.showMessage(updatedMarket);
+    public void selectView(View view) {
+        view.visitMarketUpdate(updatedMarket);
     }
 
-    @Override
-    public void selectView(GUI gui) {
 
-    }
 }

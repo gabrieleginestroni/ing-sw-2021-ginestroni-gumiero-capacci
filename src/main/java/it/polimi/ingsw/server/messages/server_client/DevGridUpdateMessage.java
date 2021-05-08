@@ -2,21 +2,19 @@ package it.polimi.ingsw.server.messages.server_client;
 
 import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.client.view.View;
 
-public class DevGridUpdateMessage extends AnswerMessage {
-    private String updateGrid;
+public class DevGridUpdateMessage implements AnswerMessage {
+    private final String updatedGrid;
 
-    public DevGridUpdateMessage(String updateGrid) {
-        this.updateGrid = updateGrid;
+    public DevGridUpdateMessage(String updatedGrid) {
+        this.updatedGrid = updatedGrid;
     }
 
     @Override
-    public void selectView(CLI cli) {
-        cli.showMessage(updateGrid);
+    public void selectView(View view) {
+        view.visitDevGridUpdate(updatedGrid);
     }
 
-    @Override
-    public void selectView(GUI gui) {
 
-    }
 }

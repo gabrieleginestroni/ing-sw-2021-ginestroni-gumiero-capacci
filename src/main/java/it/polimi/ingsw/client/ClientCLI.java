@@ -1,7 +1,8 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.client.network_handler.NetworkHandlerCLI;
+import it.polimi.ingsw.client.network_handler.NetworkHandler;
 import it.polimi.ingsw.client.view.CLI;
+import it.polimi.ingsw.client.view.View;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -10,8 +11,7 @@ import java.util.Scanner;
 public class ClientCLI {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        CLI view = new CLI();
-
+        View view = new CLI();
         //System.out.println("Insert server ip address:");
         //String ip = scanner.nextLine();
         //String ip = "94.176.46.205";
@@ -22,8 +22,10 @@ public class ClientCLI {
         try {
             Socket socket = new Socket(ip, port);
             System.out.println(socket);
+             NetworkHandler networkHandler = new NetworkHandler(socket, view);
+             view.addNetworkHandler(networkHandler);
 
-             Thread networkThread = new Thread(new NetworkHandlerCLI(socket, view));
+             Thread networkThread = new Thread();
              networkThread.start();
              networkThread.join();
 
