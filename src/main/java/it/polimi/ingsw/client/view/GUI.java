@@ -29,7 +29,7 @@ public class GUI extends View{
     }
 
     @Override
-    public void visitInkwell(String nickname, String updatedBoard) {
+    public void visitInkwell(String nickname) {
 
     }
 

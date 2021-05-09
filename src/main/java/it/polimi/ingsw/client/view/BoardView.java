@@ -1,10 +1,12 @@
 package it.polimi.ingsw.client.view;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class BoardView {
+    private final String nickname;
     private List<Integer> hiddenHand;
     private List<Integer> activeLeaders;
     private Map<String,Integer> strongBox;
@@ -16,7 +18,6 @@ public class BoardView {
     private List<String> leaderDepotResource;
     private List<Integer> leaderDepotQuantity;
     private boolean inkwell;
-    private final String nickname;
 
     public BoardView(String nickname) {
         this.nickname = nickname;
@@ -31,5 +32,31 @@ public class BoardView {
         leaderDepotResource = null;
         leaderDepotQuantity = null;
         inkwell = false;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setInkwell() {
+        this.inkwell = true;
+    }
+
+    @Override
+    public String toString() {
+        return "BoardView{" +
+                "nickname='" + nickname + '\'' +
+                ", hiddenHand=" + hiddenHand  +
+                ", activeLeaders=" + activeLeaders +
+                ", strongBox=" + strongBox +
+                ", cardSlot=" + Arrays.toString(cardSlot) +
+                ", faithTrackMarker=" + faithTrackMarker +
+                ", popeTiles=" + Arrays.toString(popeTiles) +
+                ", warehouseDepotResource=" + warehouseDepotResource +
+                ", warehouseDepotQuantity=" + warehouseDepotQuantity +
+                ", leaderDepotResource=" + leaderDepotResource +
+                ", leaderDepotQuantity=" + leaderDepotQuantity +
+                ", inkwell=" + inkwell +
+                '}';
     }
 }

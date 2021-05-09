@@ -4,19 +4,15 @@ import it.polimi.ingsw.client.view.View;
 
 public class InkwellMessage implements AnswerMessage {
     private final String nickname;
-    private final String updatedBoard;
 
-    public InkwellMessage(String nickname,String updatedBoard) {
+    public InkwellMessage(String nickname) {
         this.nickname = nickname;
-        this.updatedBoard = updatedBoard;
     }
 
     @Override
     public void selectView(View view) {
-        view.visitInkwell(nickname,updatedBoard);
+        view.visitInkwell(nickname);
     }
-
-
 
     public String getNickname() {
         return nickname;

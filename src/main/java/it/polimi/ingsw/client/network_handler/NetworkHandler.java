@@ -29,7 +29,6 @@ public class NetworkHandler implements Runnable {
 
     @Override
     public void run() {
-
         try {
             AnswerMessage message;
             boolean gameOver = false;

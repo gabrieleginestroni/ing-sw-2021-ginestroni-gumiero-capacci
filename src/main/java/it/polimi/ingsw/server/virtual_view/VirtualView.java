@@ -141,13 +141,7 @@ public class VirtualView {
     }
 
     public void updateInkwellView(String nickname){
-
-
-        Optional<Player> firstPlayer = players.stream().filter(q -> q.getNickname().equals(nickname)).findFirst();
-        String board = null;
-        if(firstPlayer.isPresent())
-            board = firstPlayer.get().getBoardObserver().toJSONHandFreeString();
-        InkwellMessage message = new InkwellMessage(nickname,board);
+        InkwellMessage message = new InkwellMessage(nickname);
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);

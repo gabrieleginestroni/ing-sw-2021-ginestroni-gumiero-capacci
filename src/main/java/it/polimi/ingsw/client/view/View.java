@@ -28,7 +28,7 @@ public abstract class View {
     public abstract void visitDevGridUpdate(String updatedGrid);
     public abstract void visitGameStarted(String str);
     public abstract void visitInitialResource(int quantity);
-    public abstract void visitInkwell(String nickname, String updatedBoard);
+    public abstract void visitInkwell(String nickname);
     public abstract void visitLeaderProposal(int[] proposedLeaderCards);
     public abstract void visitLobbyFull(String str);
     public abstract void visitLobbyNotReady(String str);
