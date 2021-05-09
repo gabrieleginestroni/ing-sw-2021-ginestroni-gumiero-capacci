@@ -1,11 +1,21 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.server.messages.client_server.ChosenInitialResourcesMessage;
+import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
+import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
+import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
+import it.polimi.ingsw.server.messages.server_client.LeaderProposalMessage;
 import it.polimi.ingsw.server.model.Resource;
 
 import java.util.*;
 
 public class CLI extends View{
+    private Scanner scanner;
+
+    public CLI(){
+        this.scanner = new Scanner(System.in);
+    }
+
     @Override
     public void showMessage(String str) {
         System.out.println(str);
@@ -46,14 +56,11 @@ public class CLI extends View{
                 str.append(", ");
             else
                 str.append(")");
-
         }
 
         boolean inputCorrect = false;
-        Scanner scanner = new Scanner(System.in);
 
         if (quantity == 1) {
-
             while(!inputCorrect) {
                 this.showMessage("Choose a resource and a warehouse depot where to store it: " + str );
                 int res = scanner.nextInt();
@@ -91,19 +98,12 @@ public class CLI extends View{
                                     networkHandler.sendMessage(new ChosenInitialResourcesMessage(resMap));
                                     inputCorrect = true;
                                 }
-
                             }
-
                         }
                     }
                 }
             }
-
-
-
         }
-
-
     }
 
     @Override
@@ -115,27 +115,41 @@ public class CLI extends View{
 
     @Override
     public void visitLeaderProposal(int[] proposedLeaderCards) {
-        this.showMessage("Choose 2 of these 4 Leader Cards: " + Arrays.toString(proposedLeaderCards));
-        this.showMessage("Select 0, 1, 2 or 3 : ");
-
+        int[] chosenLeaderCards = new int[2];
+        boolean success = false;
+        while(!success){
+            this.showMessage("Choose 2 of these 4 Leader Cards: " + Arrays.toString(proposedLeaderCards));
+            this.showMessage("Select 0, 1, 2 or 3 : ");
+            int ind1 = scanner.nextInt();
+            int ind2 = scanner.nextInt();
+            if(0 <= ind1 && ind1 <= 3 && 0 <= ind2 && ind2 <= 3 && ind1 != ind2) {
+                chosenLeaderCards[0] = ind1;
+                chosenLeaderCards[1] = ind2;
+                success = true;
+            }
+        }
+        this.networkHandler.sendMessage(new ChosenLeaderMessage(chosenLeaderCards));
     }
 
     @Override
     public void visitLobbyFull(String str) {
         this.showMessage(str);
+        String gameID = scanner.nextLine();
 
+        this.networkHandler.sendMessage(new LoginRequestMessage(gameID,nickname));
     }
 
     @Override
     public void visitLobbyNotReady(String str) {
         this.showMessage(str);
+        String gameID = scanner.nextLine();
 
+        this.networkHandler.sendMessage(new LoginRequestMessage(gameID,nickname));
     }
 
     @Override
     public void visitLoginSuccess(String currentPlayers) {
         this.showMessage("Login success. Current players: \n" + currentPlayers);
-
     }
 
     @Override
@@ -152,6 +166,6 @@ public class CLI extends View{
     @Override
     public void visitRequestLobbySize(String str) {
         this.showMessage(str);
-
+        this.networkHandler.sendMessage(new LoginSizeMessage(scanner.nextInt()));
     }
 }

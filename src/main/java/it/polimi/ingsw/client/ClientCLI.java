@@ -3,6 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.client.network_handler.NetworkHandler;
 import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -17,17 +18,26 @@ public class ClientCLI {
         //String ip = "94.176.46.205";
         String ip = "localhost";
         view.showMessage("Insert server port number:");
-        int port = scanner.nextInt();
+        int port = Integer.parseInt(scanner.nextLine());
 
         try {
             Socket socket = new Socket(ip, port);
             System.out.println(socket);
-             NetworkHandler networkHandler = new NetworkHandler(socket, view);
-             view.addNetworkHandler(networkHandler);
+            NetworkHandler networkHandler = new NetworkHandler(socket, view);
+            view.addNetworkHandler(networkHandler);
 
-             Thread networkThread = new Thread(networkHandler);
-             networkThread.start();
-             networkThread.join();
+            view.showMessage("Type nickname:");
+            String nickname = scanner.nextLine();
+            view.setNickname(nickname);
+
+            view.showMessage("Type game ID:");
+            String gameID = scanner.nextLine();
+
+            networkHandler.sendMessage(new LoginRequestMessage(gameID,nickname));
+
+            Thread networkThread = new Thread(networkHandler);
+            networkThread.start();
+            networkThread.join();
 
         } catch (IOException | InterruptedException e) {
             System.out.println("Server unreachable");

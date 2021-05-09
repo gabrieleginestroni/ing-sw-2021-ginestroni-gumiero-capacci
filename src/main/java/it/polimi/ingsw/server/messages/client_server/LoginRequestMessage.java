@@ -2,7 +2,7 @@ package it.polimi.ingsw.server.messages.client_server;
 
 import java.io.Serializable;
 
-public class LoginRequestMessage implements Serializable {
+public class LoginRequestMessage extends Message  {
     private final String requestedGameID;
     private final String nickname;
 

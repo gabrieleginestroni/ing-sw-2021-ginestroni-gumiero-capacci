@@ -12,6 +12,12 @@ public abstract class View {
     MarketView marketView;
     NetworkHandler networkHandler;
 
+    String nickname;
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public void showMessage(String str) {
         System.out.println(str);
     }
