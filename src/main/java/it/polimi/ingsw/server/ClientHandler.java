@@ -51,11 +51,11 @@ public class ClientHandler implements Runnable {
     private void loginPhase() throws IOException, ClassNotFoundException {
 
         System.out.println("Accepted client:" + " " + clientSocket.toString());
-        Object message;
+        Message message;
 
         boolean loginStatus = true;
         while(loginStatus) {
-            message = input.readObject();
+            message = waitMessage();
             if (message instanceof LoginRequestMessage) {
                 LoginRequestMessage loginMessage = (LoginRequestMessage) message;
 
@@ -70,20 +70,25 @@ public class ClientHandler implements Runnable {
                         else
                             sendAnswerMessage(new LobbyNotReadyMessage());
                     } else {
-                        lobby.addPlayer(nickname, this);
-                        this.gameLobby = lobby;
-                        sendAnswerMessage(new LoginSuccessMessage(gameLobby.getPlayers()));
-                        loginStatus = false;
 
-                        if(lobby.isFull())
-                            (new Thread(()->gameLobby.startGame())).start();
+                        if(lobby.isNicknameUsed(nickname)){
+                            sendAnswerMessage(new NicknameAlreadyUsedMessage(gameID));
+                        } else {
+                            lobby.addPlayer(nickname, this);
+                            this.gameLobby = lobby;
+                            sendAnswerMessage(new LoginSuccessMessage(gameLobby.getPlayers()));
+                            loginStatus = false;
+
+                            if(lobby.isFull())
+                                (new Thread(()->gameLobby.startGame())).start();
+                            }
                     }
                 } else {
                     lobby = new Lobby(gameID);
                     this.lobbies.put(gameID, lobby);
 
                     sendAnswerMessage(new RequestLobbySizeMessage());
-                    message = input.readObject();
+                    message = waitMessage();
                     LoginSizeMessage sizeMessage = (LoginSizeMessage) message;
 
                     lobby.setSize(sizeMessage.getSize());
@@ -102,10 +107,13 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    private void gamePhase(){
+    private void gamePhase() throws IOException, ClassNotFoundException {
         Controller controller= this.gameLobby.getController();
 
-        //while(controller.isGameOver)
+        while(!controller.isGameOver()){
+            Message msg = waitMessage();
+            controller.handleMessage(msg);
+        }
 
 
     }

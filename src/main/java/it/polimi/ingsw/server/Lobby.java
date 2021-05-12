@@ -6,6 +6,7 @@ import it.polimi.ingsw.server.controller.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Lobby {
     private final String gameID;
@@ -51,4 +52,10 @@ public class Lobby {
     public void setSize(Integer size) {
         this.size = size;
     }
+
+    public boolean isNicknameUsed(String nickname){
+        return players.stream().anyMatch(p -> p.getNickname().equalsIgnoreCase(nickname));
+    }
 }
+
+

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.view;
 
-import it.polimi.ingsw.client.network_handler.NetworkHandler;
+import it.polimi.ingsw.client.NetworkHandler;
 
 import java.util.List;
 
@@ -36,6 +36,7 @@ public abstract class View {
     public abstract void visitLorenzoUpdate(String updatedLorenzo);
     public abstract void visitMarketUpdate(String updatedMarket);
     public abstract void visitRequestLobbySize(String str);
+    public abstract void visitNicknameAlreadyUsed(String str,String gameID);
 
 
 

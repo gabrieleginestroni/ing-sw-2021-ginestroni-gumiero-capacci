@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.controller.states.MultiplayerState;
+import it.polimi.ingsw.server.controller.states.StartTurnState;
 import it.polimi.ingsw.server.exceptions.addResourceLimitExceededException;
 import it.polimi.ingsw.server.exceptions.duplicatedWarehouseTypeException;
 import it.polimi.ingsw.server.exceptions.invalidResourceTypeException;
@@ -16,16 +17,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.ToDoubleBiFunction;
 
-public class MultiplayerController implements Controller{
+public class MultiplayerController extends Controller{
     private final MultiplayerGame model;
     private MultiplayerState currentState;
     private final List<Player> players;
     private final CommunicationMediator mediator;
-    private final VirtualView virtualView;
     private final TurnHandler turnHandler;
 
     //TODO
     public MultiplayerController(List<Player> players) {
+
+        super(new VirtualView());
 
         this.players = players;
 
@@ -34,7 +36,6 @@ public class MultiplayerController implements Controller{
 
         turnHandler = new TurnHandler(shuffledPlayers);
 
-        virtualView = new VirtualView();
 
         model = new MultiplayerGame(this.players,this.virtualView);
 
@@ -119,9 +120,9 @@ public class MultiplayerController implements Controller{
 
         virtualView.gameStarted();
 
+        currentState = new StartTurnState(this.turnHandler.getCurrentPlayer().getNickname());
+        //virtualView.
 
-        System.out.println(virtualView.toJSONString());
-        //currentState = StartGameState;
 
     }
 

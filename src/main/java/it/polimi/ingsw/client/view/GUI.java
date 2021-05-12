@@ -67,4 +67,9 @@ public class GUI extends View{
     public void visitRequestLobbySize(String str) {
 
     }
+
+    @Override
+    public void visitNicknameAlreadyUsed(String str,String gameID) {
+
+    }
 }

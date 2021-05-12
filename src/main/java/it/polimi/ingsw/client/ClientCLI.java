@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.client.network_handler.NetworkHandler;
 import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
@@ -26,13 +25,11 @@ public class ClientCLI {
             NetworkHandler networkHandler = new NetworkHandler(socket, view);
             view.addNetworkHandler(networkHandler);
 
+            view.showMessage("Type game ID:");
+            String gameID = scanner.nextLine();
             view.showMessage("Type nickname:");
             String nickname = scanner.nextLine();
             view.setNickname(nickname);
-
-            view.showMessage("Type game ID:");
-            String gameID = scanner.nextLine();
-
             networkHandler.sendMessage(new LoginRequestMessage(gameID,nickname));
 
             Thread networkThread = new Thread(networkHandler);

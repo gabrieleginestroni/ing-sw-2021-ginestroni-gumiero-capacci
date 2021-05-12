@@ -192,6 +192,7 @@ public class VirtualView {
 
     }
 
+
     public String toJSONString(){
         return new Gson().toJson(this);
     }

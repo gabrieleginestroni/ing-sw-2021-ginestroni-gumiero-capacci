@@ -176,4 +176,14 @@ public class CLI extends View{
         this.showMessage(str);
         this.networkHandler.sendMessage(new LoginSizeMessage(scanner.nextInt()));
     }
+
+    @Override
+    public void visitNicknameAlreadyUsed(String str,String gameID) {
+        this.showMessage(str);
+
+        String nickname = scanner.nextLine();
+        this.setNickname(nickname);
+
+        this.networkHandler.sendMessage(new LoginRequestMessage(gameID,nickname));
+    }
 }

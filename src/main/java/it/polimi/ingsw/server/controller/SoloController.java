@@ -8,18 +8,18 @@ import it.polimi.ingsw.server.virtual_view.VirtualView;
 
 import java.util.List;
 
-public class SoloController implements Controller{
+public class SoloController extends Controller{
     private final SoloGame model;
     private SoloState currentState;
     private final Player player;
     private final CommunicationMediator mediator;
-    private final VirtualView virtualView;
 
 
     //TODO
     public SoloController(Player player) {
+        super(new VirtualView());
         this.player = player;
-        this.virtualView = new VirtualView();
+
         model = new SoloGame(this.player,this.virtualView);
         mediator = new CommunicationMediator();
 
