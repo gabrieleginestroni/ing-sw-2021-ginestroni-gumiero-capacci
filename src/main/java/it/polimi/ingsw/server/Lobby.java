@@ -13,12 +13,14 @@ public class Lobby {
     private final List<Player> players;
     private int size;
     private Controller controller;
+    private boolean gameStarted;
 
     public Lobby(String gameID) {
         this.players = new ArrayList<>();
         this.size = 0;
         this.gameID = gameID;
         this.controller = null;
+        this.gameStarted = false;
     }
 
     public List<Player> getPlayers() {
@@ -46,7 +48,10 @@ public class Lobby {
     }
 
     public synchronized void startGame(){
-       controller = ControllerFactory.getController(players);
+
+        controller = ControllerFactory.getController(players);
+        gameStarted = true;
+
     }
 
     public void setSize(Integer size) {
@@ -55,6 +60,10 @@ public class Lobby {
 
     public boolean isNicknameUsed(String nickname){
         return players.stream().anyMatch(p -> p.getNickname().equalsIgnoreCase(nickname));
+    }
+
+    public boolean isGameStarted() {
+        return gameStarted;
     }
 }
 

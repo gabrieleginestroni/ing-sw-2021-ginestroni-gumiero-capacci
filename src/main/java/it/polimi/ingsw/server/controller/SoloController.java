@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.controller.states.SoloState;
+import it.polimi.ingsw.server.controller.states.StartTurnState;
 import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.games.SoloGame;
@@ -31,7 +32,10 @@ public class SoloController extends Controller{
         this.player.getBoard().setInkwell();
         this.virtualView.gameStarted();
 
-        System.out.println(virtualView.toJSONString());
+        currentState = new StartTurnState();
+        virtualView.startTurn(this.player.getNickname());
+
+
         //currentState = StartGameState;
     }
 

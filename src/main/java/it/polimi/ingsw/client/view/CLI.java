@@ -187,7 +187,7 @@ public class CLI extends View{
             int move = -1;
             boolean success = false;
             while(!success){
-                this.showMessage("Choose next action (0 -> market, 1 -> buy a development, 2 -> activate production, 3 -> leader action ");
+                this.showMessage("Choose next action (0 -> market, 1 -> buy a development, 2 -> activate production, 3 -> leader action) ");
                 move = Integer.parseInt(scanner.nextLine());
                 if(move >= 0 && move <= 3)
                     success = true;

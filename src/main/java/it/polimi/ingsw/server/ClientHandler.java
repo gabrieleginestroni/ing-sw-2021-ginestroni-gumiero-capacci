@@ -36,6 +36,9 @@ public class ClientHandler implements Runnable {
     public void run() {
         try {
             loginPhase();
+            while(!this.gameLobby.isGameStarted()){
+                //sleep
+            }
             gamePhase();
 
         } catch (ClassNotFoundException e){ System.out.println("Invalid stream from client"); }
