@@ -1,14 +1,8 @@
 package it.polimi.ingsw.client.view;
 
 import com.google.gson.Gson;
-import it.polimi.ingsw.server.messages.client_server.ChosenInitialResourcesMessage;
-import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
-import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
-import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
-import it.polimi.ingsw.server.messages.server_client.LeaderProposalMessage;
+import it.polimi.ingsw.server.messages.client_server.*;
 import it.polimi.ingsw.server.model.Resource;
-import it.polimi.ingsw.server.model.board.Board;
-import it.polimi.ingsw.server.model.cards.LeaderCard;
 
 import java.util.*;
 
@@ -185,5 +179,24 @@ public class CLI extends View{
         this.setNickname(nickname);
 
         this.networkHandler.sendMessage(new LoginRequestMessage(gameID,nickname));
+    }
+
+    @Override
+    public void visitStartTurn(String currentPlayerNickname) {
+        if(this.nickname.equals(currentPlayerNickname)){
+            int move = -1;
+            boolean success = false;
+            while(!success){
+                this.showMessage("Choose next action (0 -> market, 1 -> buy a development, 2 -> activate production, 3 -> leader action ");
+                move = Integer.parseInt(scanner.nextLine());
+                if(move >= 0 && move <= 3)
+                    success = true;
+            }
+            this.networkHandler.sendMessage(new ChosenFirstMoveMessage(move));
+
+        } else
+            this.showMessage("The turn of " +currentPlayerNickname + " is starting");
+
+
     }
 }

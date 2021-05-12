@@ -72,4 +72,9 @@ public class GUI extends View{
     public void visitNicknameAlreadyUsed(String str,String gameID) {
 
     }
+
+    @Override
+    public void visitStartTurn(String currentPlayerNickname) {
+
+    }
 }

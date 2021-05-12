@@ -37,6 +37,7 @@ public abstract class View {
     public abstract void visitMarketUpdate(String updatedMarket);
     public abstract void visitRequestLobbySize(String str);
     public abstract void visitNicknameAlreadyUsed(String str,String gameID);
+    public abstract void visitStartTurn(String currentPlayerNickname);
 
 
 

@@ -10,6 +10,7 @@ import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.messages.server_client.*;
 import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
+import it.polimi.ingsw.server.model.cards.ProductionPowerStrategy;
 
 import java.io.IOException;
 import java.util.*;
@@ -191,6 +192,78 @@ public class VirtualView {
         });
 
     }
+
+    public void startTurn(String currentPlayerNickname){
+        StartTurnStateMessage message = new StartTurnStateMessage(currentPlayerNickname);
+
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+
+    }
+
+    public void marketAction(String currentPlayerNickname){
+        MarketStateMessage message = new MarketStateMessage(currentPlayerNickname);
+
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+
+    }
+
+    public void devCardSaleAction(String currentPlayerNickname){
+        DevCardSaleStateMessage message = new DevCardSaleStateMessage(currentPlayerNickname);
+
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+
+    }
+    public void productionAction(String currentPlayerNickname){
+        ActivateProductionStateMessage message = new ActivateProductionStateMessage(currentPlayerNickname);
+
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+
+    }
+
+    public void leaderAction(String currentPlayerNickname){
+        LeaderActionStateMessage message = new LeaderActionStateMessage(currentPlayerNickname);
+
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+
+    }
+
+
+
 
 
     public String toJSONString(){

@@ -120,14 +120,15 @@ public class MultiplayerController extends Controller{
 
         virtualView.gameStarted();
 
-        currentState = new StartTurnState(this.turnHandler.getCurrentPlayer().getNickname());
-        //virtualView.
+        currentState = new StartTurnState();
+        virtualView.startTurn(this.turnHandler.getCurrentPlayer().getNickname());
 
 
     }
 
     @Override
     public void handleMessage(Message message) {
+        this.currentState.handleInput(message,this);
 
     }
 
