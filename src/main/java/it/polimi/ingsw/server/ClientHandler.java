@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
@@ -37,6 +38,7 @@ public class ClientHandler implements Runnable {
         try {
             loginPhase();
             while(!this.gameLobby.isGameStarted()){
+                TimeUnit.SECONDS.sleep(1);
                 //sleep
             }
             gamePhase();
@@ -44,8 +46,9 @@ public class ClientHandler implements Runnable {
         } catch (ClassNotFoundException e){ System.out.println("Invalid stream from client"); }
         catch(IOException e) {
             System.out.println("Client unreachable");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
 
 
     }

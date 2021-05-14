@@ -1,5 +1,8 @@
 package it.polimi.ingsw.server.messages.client_server;
 
+import it.polimi.ingsw.server.controller.Controller;
+import it.polimi.ingsw.server.controller.states.State;
+
 import java.io.Serializable;
 
 public class LoginRequestMessage extends Message  {
@@ -17,5 +20,10 @@ public class LoginRequestMessage extends Message  {
 
     public String getNickname() {
         return nickname;
+    }
+
+    @Override
+    public void handleMessage(State state, Controller controller) {
+
     }
 }

@@ -84,7 +84,7 @@ public class CLI extends View{
             while(!inputCorrect) {
                 this.showMessage("Choose a resource and a warehouse depot where to store it: " + str );
                 int res = scanner.nextInt();
-                int depot = scanner.nextInt();
+                int depot = Integer.parseInt(scanner.nextLine().trim());
                 if(res >= 0 && res <= 3) {
                     if(depot >= 0 && depot <=2) {
                         Map<Integer,Integer> resMap = new HashMap<>();
@@ -102,7 +102,7 @@ public class CLI extends View{
             while(!inputCorrect) {
                 this.showMessage("(x2) Choose a resource and a warehouse depot where to store it: " + str );
                 int res = scanner.nextInt();
-                int depot = scanner.nextInt();
+                int depot = Integer.parseInt(scanner.nextLine().trim());
                 if(res >= 0 && res <= 3) {
                     if(depot >= 0 && depot <=2) {
                         if(resCounter == 0) {
@@ -134,7 +134,7 @@ public class CLI extends View{
             this.showMessage("Choose 2 of these 4 Leader Cards: " + Arrays.toString(proposedLeaderCards));
             this.showMessage("Select 0, 1, 2 or 3 : ");
             int ind1 = scanner.nextInt();
-            int ind2 = scanner.nextInt();
+            int ind2 = Integer.parseInt(scanner.nextLine().trim());
             if(0 <= ind1 && ind1 <= 3 && 0 <= ind2 && ind2 <= 3 && ind1 != ind2) {
                 chosenLeaderCards[0] = ind1;
                 chosenLeaderCards[1] = ind2;

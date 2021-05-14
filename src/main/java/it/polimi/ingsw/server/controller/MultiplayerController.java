@@ -1,13 +1,16 @@
 package it.polimi.ingsw.server.controller;
 
 import it.polimi.ingsw.server.controller.states.MultiplayerState;
+import it.polimi.ingsw.server.controller.states.SoloState;
 import it.polimi.ingsw.server.controller.states.StartTurnState;
+import it.polimi.ingsw.server.controller.states.State;
 import it.polimi.ingsw.server.exceptions.addResourceLimitExceededException;
 import it.polimi.ingsw.server.exceptions.duplicatedWarehouseTypeException;
 import it.polimi.ingsw.server.exceptions.invalidResourceTypeException;
 import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
+import it.polimi.ingsw.server.model.games.Lorenzo;
 import it.polimi.ingsw.server.model.games.MultiplayerGame;
 import it.polimi.ingsw.server.virtual_view.VirtualView;
 
@@ -128,7 +131,10 @@ public class MultiplayerController extends Controller{
 
     @Override
     public void handleMessage(Message message) {
-        this.currentState.handleInput(message,this);
+
+        message.handleMessage(this.currentState,this);
+
+        //this.currentState.handleInput(message,this);
 
     }
 
@@ -137,16 +143,41 @@ public class MultiplayerController extends Controller{
         return false;
     }
 
-    public TurnHandler getTurnHandler() {
-        return turnHandler;
+    @Override
+    public Player getCurrentPlayer() {
+        return this.turnHandler.getCurrentPlayer();
     }
+
 
     public CommunicationMediator getMediator() {
         return mediator;
     }
 
-    public void setCurrentState(MultiplayerState nextState) {
-        currentState = nextState;
+    @Override
+    public void nextPlayer() {
+        this.turnHandler.nextPlayer();
     }
+
+    @Override
+    public List<Player> othersPlayers() {
+        return this.turnHandler.getOtherPlayers();
+    }
+
+    @Override
+    public Lorenzo getLorenzo() {
+        return null;
+    }
+
+
+    @Override
+    public void setCurrentState(MultiplayerState multiplayerState) {
+
+    }
+
+    @Override
+    public void setCurrentState(SoloState state) {
+
+    }
+
 
 }

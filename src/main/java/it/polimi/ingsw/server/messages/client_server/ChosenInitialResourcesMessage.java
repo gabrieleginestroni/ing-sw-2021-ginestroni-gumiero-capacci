@@ -1,5 +1,8 @@
 package it.polimi.ingsw.server.messages.client_server;
 
+import it.polimi.ingsw.server.controller.Controller;
+import it.polimi.ingsw.server.controller.states.State;
+
 import java.util.Map;
 
 public class ChosenInitialResourcesMessage extends Message {
@@ -14,4 +17,8 @@ public class ChosenInitialResourcesMessage extends Message {
     }
 
 
+    @Override
+    public void handleMessage(State state, Controller controller) {
+
+    }
 }
