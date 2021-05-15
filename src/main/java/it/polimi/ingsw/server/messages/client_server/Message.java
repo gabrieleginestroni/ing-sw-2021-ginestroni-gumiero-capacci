@@ -5,7 +5,7 @@ import it.polimi.ingsw.server.controller.states.State;
 
 import java.io.Serializable;
 
-public abstract class Message implements Serializable {
+public interface Message extends Serializable {
 
     public abstract void handleMessage(State state,Controller controller);
 

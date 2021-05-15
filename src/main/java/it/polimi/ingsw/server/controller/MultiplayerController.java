@@ -1,15 +1,13 @@
 package it.polimi.ingsw.server.controller;
 
-import it.polimi.ingsw.server.controller.states.MultiplayerState;
-import it.polimi.ingsw.server.controller.states.SoloState;
-import it.polimi.ingsw.server.controller.states.StartTurnState;
-import it.polimi.ingsw.server.controller.states.State;
+import it.polimi.ingsw.server.controller.states.*;
 import it.polimi.ingsw.server.exceptions.addResourceLimitExceededException;
 import it.polimi.ingsw.server.exceptions.duplicatedWarehouseTypeException;
 import it.polimi.ingsw.server.exceptions.invalidResourceTypeException;
 import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
+import it.polimi.ingsw.server.model.games.Game;
 import it.polimi.ingsw.server.model.games.Lorenzo;
 import it.polimi.ingsw.server.model.games.MultiplayerGame;
 import it.polimi.ingsw.server.virtual_view.VirtualView;
@@ -27,10 +25,19 @@ public class MultiplayerController extends Controller{
     private final CommunicationMediator mediator;
     private final TurnHandler turnHandler;
 
+    public static final MultiplayerState startTurnState = new StartTurnState();
+    public static final MultiplayerState marketState = new MarketState();
+    public static final MultiplayerState devCardSaleState = new DevCardSaleState();
+    public static final MultiplayerState leaderActionState = new LeaderActionState();
+    public static final MultiplayerState activateProductionState = new ActivateProductionState();
+
+
+
     //TODO
     public MultiplayerController(List<Player> players) {
 
         super(new VirtualView());
+
 
         this.players = players;
 
@@ -123,7 +130,7 @@ public class MultiplayerController extends Controller{
 
         virtualView.gameStarted();
 
-        currentState = new StartTurnState();
+        currentState = startTurnState;
         virtualView.startTurn(this.turnHandler.getCurrentPlayer().getNickname());
 
 
@@ -163,20 +170,47 @@ public class MultiplayerController extends Controller{
         return this.turnHandler.getOtherPlayers();
     }
 
-    @Override
-    public Lorenzo getLorenzo() {
-        return null;
-    }
 
 
     @Override
     public void setCurrentState(MultiplayerState multiplayerState) {
-
+        this.currentState = multiplayerState;
     }
 
     @Override
     public void setCurrentState(SoloState state) {
 
+
+    }
+
+    @Override
+    public Game getModel() {
+        return model;
+    }
+
+    @Override
+    public State getMarketState() {
+        return marketState;
+    }
+
+    @Override
+    public State getActivateProductionState() {
+        return activateProductionState;
+    }
+
+    @Override
+    public State getLeaderActionState() {
+        return leaderActionState;
+    }
+
+    @Override
+    public State getDevCardSaleState() {
+        return devCardSaleState;
+    }
+
+    @Override
+    public State getStartTurnState() {
+        return startTurnState;
     }
 
 

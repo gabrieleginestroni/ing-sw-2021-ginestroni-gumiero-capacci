@@ -77,4 +77,9 @@ public class GUI extends View{
     public void visitStartTurn(String currentPlayerNickname) {
 
     }
+
+    @Override
+    public void visitDevCardSale(String currentPlayerNickname) {
+
+    }
 }

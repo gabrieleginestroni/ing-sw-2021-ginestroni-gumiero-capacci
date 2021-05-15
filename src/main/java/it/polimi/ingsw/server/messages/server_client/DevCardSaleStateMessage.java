@@ -16,6 +16,7 @@ public class DevCardSaleStateMessage implements AnswerMessage {
 
     @Override
     public void selectView(View view) {
+        view.visitDevCardSale(currentPlayerNickname);
 
     }
 }

@@ -3,7 +3,7 @@ package it.polimi.ingsw.server.messages.client_server;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.states.State;
 
-public class ChosenFirstMoveMessage extends Message {
+public class ChosenFirstMoveMessage implements Message {
     private final int move;
 
     public ChosenFirstMoveMessage(int move) {

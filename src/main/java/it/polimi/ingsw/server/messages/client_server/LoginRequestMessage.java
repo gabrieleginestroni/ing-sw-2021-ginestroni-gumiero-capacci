@@ -5,7 +5,7 @@ import it.polimi.ingsw.server.controller.states.State;
 
 import java.io.Serializable;
 
-public class LoginRequestMessage extends Message  {
+public class LoginRequestMessage implements Message  {
     private final String requestedGameID;
     private final String nickname;
 

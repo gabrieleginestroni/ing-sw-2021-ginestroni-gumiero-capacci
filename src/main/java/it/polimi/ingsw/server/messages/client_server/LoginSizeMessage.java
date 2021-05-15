@@ -5,7 +5,7 @@ import it.polimi.ingsw.server.controller.states.State;
 
 import java.io.Serializable;
 
-public class LoginSizeMessage extends Message {
+public class LoginSizeMessage implements Message {
     private final int size;
 
     public LoginSizeMessage(int size) {

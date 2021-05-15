@@ -1,7 +1,14 @@
 package it.polimi.ingsw.client.view;
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.client.NetworkHandler;
+import it.polimi.ingsw.server.model.cards.DevelopmentCard;
+import it.polimi.ingsw.server.model.cards.LeaderCard;
 
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class View {
@@ -12,7 +19,30 @@ public abstract class View {
     MarketView marketView;
     NetworkHandler networkHandler;
 
+    DevelopmentCard[] developmentCards;
+    LeaderCard[] leaderCards;
+
     String nickname;
+
+    View(){
+        Gson gson = new Gson();
+
+        try{
+
+            //Reading LeaderCards
+            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
+            leaderCards = gson.fromJson(reader, LeaderCard[].class);
+
+            //Reading DevelopmentCards
+            reader = Files.newBufferedReader(Paths.get("src/main/resources/DevelopmentCards.json"));
+            developmentCards = gson.fromJson(reader, DevelopmentCard[].class);
+
+            reader.close();
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
@@ -38,6 +68,18 @@ public abstract class View {
     public abstract void visitRequestLobbySize(String str);
     public abstract void visitNicknameAlreadyUsed(String str,String gameID);
     public abstract void visitStartTurn(String currentPlayerNickname);
+    public abstract void visitDevCardSale(String currentPlayerNickname);
+
+
+    public DevelopmentCard getDevelopmentCardByID(int cardID){
+        if(cardID > 0 && cardID <= developmentCards.length) return this.developmentCards[cardID-1];
+        return null;
+    }
+
+    public LeaderCard getLeaderCardByID(int cardID){
+        if(cardID > 0 && cardID <= leaderCards.length) return this.leaderCards[cardID-1];
+        return null;
+    }
 
 
 

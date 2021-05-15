@@ -234,6 +234,9 @@ public class VirtualView {
         });
 
     }
+
+
+
     public void productionAction(String currentPlayerNickname){
         ActivateProductionStateMessage message = new ActivateProductionStateMessage(currentPlayerNickname);
 

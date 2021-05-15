@@ -1,10 +1,9 @@
 package it.polimi.ingsw.server.controller;
 
-import it.polimi.ingsw.server.controller.states.MultiplayerState;
-import it.polimi.ingsw.server.controller.states.SoloState;
-import it.polimi.ingsw.server.controller.states.StartTurnState;
+import it.polimi.ingsw.server.controller.states.*;
 import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
+import it.polimi.ingsw.server.model.games.Game;
 import it.polimi.ingsw.server.model.games.Lorenzo;
 import it.polimi.ingsw.server.model.games.SoloGame;
 import it.polimi.ingsw.server.virtual_view.VirtualView;
@@ -16,6 +15,12 @@ public class SoloController extends Controller{
     private SoloState currentState;
     private final Player player;
     private final CommunicationMediator mediator;
+
+    public static final SoloState startTurnState = new StartTurnState();
+    public static final SoloState marketState = new MarketState();
+    public static final SoloState devCardSaleState = new DevCardSaleState();
+    public static final SoloState leaderActionState = new LeaderActionState();
+    public static final SoloState activateProductionState = new ActivateProductionState();
 
 
     //TODO
@@ -34,7 +39,7 @@ public class SoloController extends Controller{
         this.player.getBoard().setInkwell();
         this.virtualView.gameStarted();
 
-        currentState = new StartTurnState();
+        currentState = startTurnState;
         virtualView.startTurn(this.player.getNickname());
 
 
@@ -53,12 +58,12 @@ public class SoloController extends Controller{
 
     @Override
     public Player getCurrentPlayer() {
-        return null;
+        return this.player;
     }
 
     @Override
     public CommunicationMediator getMediator() {
-        return null;
+        return this.mediator;
     }
 
     @Override
@@ -71,10 +76,6 @@ public class SoloController extends Controller{
         return null;
     }
 
-    @Override
-    public Lorenzo getLorenzo() {
-        return null;
-    }
 
     @Override
     void setCurrentState(MultiplayerState multiplayerState) {
@@ -83,6 +84,37 @@ public class SoloController extends Controller{
 
     @Override
     void setCurrentState(SoloState state) {
+        this.currentState = state;
 
+    }
+
+    @Override
+    public Game getModel() {
+        return model;
+    }
+
+    @Override
+    public State getMarketState() {
+        return marketState;
+    }
+
+    @Override
+    public State getActivateProductionState() {
+        return activateProductionState;
+    }
+
+    @Override
+    public State getLeaderActionState() {
+        return leaderActionState;
+    }
+
+    @Override
+    public State getDevCardSaleState() {
+        return devCardSaleState;
+    }
+
+    @Override
+    public State getStartTurnState() {
+        return startTurnState;
     }
 }

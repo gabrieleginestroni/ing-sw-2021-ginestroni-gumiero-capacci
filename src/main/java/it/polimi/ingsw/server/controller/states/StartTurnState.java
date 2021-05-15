@@ -5,6 +5,9 @@ import it.polimi.ingsw.server.controller.MultiplayerController;
 import it.polimi.ingsw.server.controller.SoloController;
 import it.polimi.ingsw.server.messages.client_server.ChosenFirstMoveMessage;
 import it.polimi.ingsw.server.messages.client_server.Message;
+import it.polimi.ingsw.server.model.Resource;
+
+import java.util.Map;
 
 public class StartTurnState implements MultiplayerState,SoloState {
 
@@ -15,26 +18,30 @@ public class StartTurnState implements MultiplayerState,SoloState {
         String currentPlayer = controller.getCurrentPlayer().getNickname();
         switch (move){
             case 0:
-                controller.setCurrentState(new MarketState());
+                controller.setCurrentState(controller.getMarketState());
                 controller.getVirtualView().marketAction(currentPlayer);
-
                 break;
             case 1:
-                controller.setCurrentState(new DevCardSaleState());
+                controller.setCurrentState(controller.getDevCardSaleState());
                 controller.getVirtualView().devCardSaleAction(currentPlayer);
                 break;
             case 2:
-                controller.setCurrentState(new ActivateProductionState());
+                controller.setCurrentState(controller.getActivateProductionState());
                 controller.getVirtualView().productionAction(currentPlayer);
                 break;
             default:
-                controller.setCurrentState(new LeaderActionState());
+                controller.setCurrentState(controller.getLeaderActionState());
                 controller.getVirtualView().leaderAction(currentPlayer);
                 break;
 
         }
 
 
+
+    }
+
+    @Override
+    public void visitDevCardSaleState(int row, int col, Map<Resource, Map<Integer,Integer>> resToRemove, Controller controller) {
 
     }
 }

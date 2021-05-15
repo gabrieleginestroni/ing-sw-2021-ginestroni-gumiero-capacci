@@ -5,7 +5,7 @@ import it.polimi.ingsw.server.controller.states.State;
 
 import java.util.Map;
 
-public class ChosenInitialResourcesMessage extends Message {
+public class ChosenInitialResourcesMessage implements Message {
     Map<Integer,Integer> chosenResources;
 
     public ChosenInitialResourcesMessage(Map<Integer, Integer> chosenResources) {

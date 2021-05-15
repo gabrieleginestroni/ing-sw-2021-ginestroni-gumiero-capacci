@@ -38,7 +38,7 @@ public abstract class Game {
     /**
      * Pseudo-random initialization only of the Leader Card list.
      */
-    protected Game(VirtualView virtualView){
+    Game(VirtualView virtualView){
         this.virtualView = virtualView;
         gameId = "test id";
         gameDate = new Date();

@@ -199,4 +199,25 @@ public class CLI extends View{
 
 
     }
+
+    @Override
+    public void visitDevCardSale(String currentPlayerNickname) {
+        if(this.nickname.equals(currentPlayerNickname)){
+            boolean success = false;
+            int row = -1;
+            int col = -1;
+            while(!success){
+                this.showMessage("Type row and column of the card you want to buy ");
+                row = scanner.nextInt();
+                col = Integer.parseInt(scanner.nextLine().trim());
+                if(row >= 0 && row <= 2 && col >= 0 && col <= 3)
+                    success = true;
+            }
+            Map<Resource, Map<Integer, Integer>> resToRemove = null; //TODO build map
+            this.networkHandler.sendMessage(new ChosenDevCardToPurchase(row,col,resToRemove));
+
+        } else
+            this.showMessage(  currentPlayerNickname + " is purchasing a development card");
+
+    }
 }
