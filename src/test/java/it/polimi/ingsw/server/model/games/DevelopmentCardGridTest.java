@@ -41,7 +41,7 @@ public class DevelopmentCardGridTest {
             for(int j = 0; j <= 3; j++)
                 for(int k = 0; k <= 3; k++) {
                     DevelopmentCard devCard = grid.getCard(i, j);
-                    assertEquals(i, devCard.getLevel() - 1);
+                    assertEquals(i, 3 -devCard.getLevel());
                     assertEquals(j, devCard.getType().getColumn());
                     grid.removeCard(i, j);
                 }

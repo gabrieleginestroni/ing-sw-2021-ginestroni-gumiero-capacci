@@ -6,7 +6,6 @@ import it.polimi.ingsw.server.controller.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class Lobby {
     private final String gameID;

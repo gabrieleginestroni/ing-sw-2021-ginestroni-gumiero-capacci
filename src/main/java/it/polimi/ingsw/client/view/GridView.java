@@ -1,7 +1,5 @@
 package it.polimi.ingsw.client.view;
 
-import java.util.Arrays;
-
 public class GridView {
     private int[][] grid;
 
@@ -13,7 +11,7 @@ public class GridView {
             for (int j = 0; j < 4; j++) {
                 if(grid[i][j] < 10)
                     str.append(" ");
-                str = str.append(grid[i][j]).append("  ");
+                str.append(grid[i][j]).append("  ");
             }
             str.append("]\n");
         }

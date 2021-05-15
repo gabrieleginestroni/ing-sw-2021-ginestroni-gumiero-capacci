@@ -27,7 +27,6 @@ public class BoardObserverTest {
         SoloGame solo = new SoloGame(p1,vv);
         Board b1 = p1.getBoard();
         BoardObserver ob1 = p1.getBoardObserver();
-        System.out.println(ob1.toString());
 
 
         JsonObject BoardObserverJSON = JsonParser.parseString(ob1.toJSONString()).getAsJsonObject();
@@ -40,7 +39,7 @@ public class BoardObserverTest {
         int[][] gridNew = new Gson().fromJson(GridObserverJSON.get("grid"), int[][].class);
 
         //Adding required resources(cost) to Strongbox
-        DevelopmentCard d1 = solo.getCardFromGrid(0, 0);
+        DevelopmentCard d1 = solo.getCardFromGrid(2, 0);
         Map<Resource, Integer> cost = d1.getCost();
         for(Map.Entry<Resource, Integer> resCost : cost.entrySet()){
             b1.addStrongboxResource(resCost.getKey(), resCost.getValue());
@@ -60,7 +59,7 @@ public class BoardObserverTest {
 
         //Card purchase
         b1.addDevelopmentCard(d1, 2);
-        solo.removeCardFromGrid(0, 0);
+        solo.removeCardFromGrid(2, 0);
         BoardObserverJSON = JsonParser.parseString(ob1.toJSONString()).getAsJsonObject();
         strongbox = new Gson().fromJson(BoardObserverJSON.get("strongBox"), Map.class);
         for(Map.Entry<Resource, Integer> resCost : cost.entrySet()){
@@ -70,9 +69,9 @@ public class BoardObserverTest {
         gridOld = gridNew;
         gridNew = new Gson().fromJson(GridObserverJSON.get("grid"), int[][].class);
         int[][] cardSlotNew = new Gson().fromJson(BoardObserverJSON.get("cardSlot"), int[][].class);
-        for(int i = 0; i < 2; i++)
+        for(int i = 2; i >= 0; i--)
             for(int j = 0; j < 3; j++) {
-                if(i != 0 || j != 0)
+                if(i != 2 || j != 0)
                     assertEquals(gridOld[i][j], gridNew[i][j]);
                 else {
                     assertEquals(gridOld[i][j], d1.getId());
@@ -137,6 +136,8 @@ public class BoardObserverTest {
         SoloGame solo = new SoloGame(p1,vv);
         Board b1 = p1.getBoard();
         BoardObserver ob1 = p1.getBoardObserver();
+
+        //TODO remove println
         System.out.println(ob1.toString());
 
         b1.setInkwell();
@@ -148,7 +149,7 @@ public class BoardObserverTest {
         b1.swapDepot(0,1);
         System.out.println(ob1.toString());
 
-        b1.addDevelopmentCard(solo.getCardFromGrid(0, 0), 0);
+        b1.addDevelopmentCard(solo.getCardFromGrid(2, 0), 0);
         System.out.println(ob1.toString());
 
         b1.giveFaithPoints(3);

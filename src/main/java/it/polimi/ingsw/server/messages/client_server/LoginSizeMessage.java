@@ -3,8 +3,6 @@ package it.polimi.ingsw.server.messages.client_server;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.states.State;
 
-import java.io.Serializable;
-
 public class LoginSizeMessage implements Message {
     private final int size;
 

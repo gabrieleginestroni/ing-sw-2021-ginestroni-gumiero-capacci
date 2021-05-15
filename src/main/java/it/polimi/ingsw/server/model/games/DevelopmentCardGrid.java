@@ -18,6 +18,7 @@ public class DevelopmentCardGrid {
 
     /**
      * This constructor requires an array of all Development Cards (because it initializes randomly the grid with all of them) and the observer which the grid has to be attached to.
+     * The cards of level 1 will be placed in the 3rd row, meanwhile the card of level 3 will be placed in the 1st row. All the cards will be placed in the right column, in order of colors.
      * @param devCards The array that contains all the Development Card of the game.
      * @param gridObserver The GridObserver that will observe the status of the grid that is going to be built.
      */
@@ -33,7 +34,7 @@ public class DevelopmentCardGrid {
         Collections.shuffle(devCardsList);
 
         for(DevelopmentCard card : devCardsList)
-            grid[card.getLevel() - 1][card.getType().getColumn()].add(card);
+            grid[3 - card.getLevel()][card.getType().getColumn()].add(card);
 
     }
 

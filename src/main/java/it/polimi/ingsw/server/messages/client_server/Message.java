@@ -7,6 +7,6 @@ import java.io.Serializable;
 
 public interface Message extends Serializable {
 
-    public abstract void handleMessage(State state,Controller controller);
+    void handleMessage(State state,Controller controller);
 
 }

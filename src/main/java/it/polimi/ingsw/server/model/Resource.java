@@ -11,7 +11,7 @@ public enum Resource {
     FAITH("Red"),
     WHITE("White");
 
-    private String color;
+    private final String color;
 
     Resource(String color){
         this.color = color;

@@ -50,7 +50,7 @@ public class BoardTest {
         MultiplayerGame multiplayerGame = new MultiplayerGame(player,vv);
         Board b = player1.getBoard();
 
-        b.addDevelopmentCard(multiplayerGame.getCardFromGrid(0,1), 0);
+        b.addDevelopmentCard(multiplayerGame.getCardFromGrid(2,1), 0);
         assertEquals(1, b.getCardNumber(1, Color.BLUE));
     }
 
@@ -188,20 +188,20 @@ public class BoardTest {
         MultiplayerGame multiplayerGame = new MultiplayerGame(player,vv);
         Board b = player1.getBoard();
 
-        DevelopmentCard c = multiplayerGame.getCardFromGrid(0,0);
+        DevelopmentCard c = multiplayerGame.getCardFromGrid(2,0);
         b.addDevelopmentCard(c,0);
         assertEquals(1,b.getCardNumber(1, Color.GREEN));
         c = multiplayerGame.getCardFromGrid(1,3);
         b.addDevelopmentCard(c,0);
         assertEquals(1,b.getCardNumber(2,Color.PURPLE));
 
-        c = multiplayerGame.getCardFromGrid(2,0);
+        c = multiplayerGame.getCardFromGrid(0,0);
         b.addDevelopmentCard(c,0);
         assertEquals(c,b.getCardSlot()[0].getTopCard());
         assertEquals(1,b.getCardNumber(3, Color.GREEN));
         assertEquals(2,b.getCardNumber(1, Color.GREEN));
 
-        c = multiplayerGame.getCardFromGrid(0,2);
+        c = multiplayerGame.getCardFromGrid(2,2);
         b.addDevelopmentCard(c,1);
         assertEquals(1,b.getCardNumber(3, Color.GREEN));
         assertEquals(2,b.getCardNumber(1, Color.GREEN));
@@ -387,19 +387,19 @@ public class BoardTest {
         SoloGame solo = new SoloGame(player1,vv);
         Board b1 = player1.getBoard();
 
-        b1.addDevelopmentCard(solo.getCardFromGrid(0, 0), 0);
+        b1.addDevelopmentCard(solo.getCardFromGrid(2, 0), 0);
         assertFalse(solo.isGameOver());
         b1.addDevelopmentCard(solo.getCardFromGrid(1, 0), 0);
         assertFalse(solo.isGameOver());
-        b1.addDevelopmentCard(solo.getCardFromGrid(2, 0), 0);
-        assertFalse(solo.isGameOver());
-        b1.addDevelopmentCard(solo.getCardFromGrid(0, 0), 1);
-        assertFalse(solo.isGameOver());
-        b1.addDevelopmentCard(solo.getCardFromGrid(1, 0), 1);
+        b1.addDevelopmentCard(solo.getCardFromGrid(0, 0), 0);
         assertFalse(solo.isGameOver());
         b1.addDevelopmentCard(solo.getCardFromGrid(2, 0), 1);
         assertFalse(solo.isGameOver());
-        b1.addDevelopmentCard(solo.getCardFromGrid(0, 0), 2);
+        b1.addDevelopmentCard(solo.getCardFromGrid(1, 0), 1);
+        assertFalse(solo.isGameOver());
+        b1.addDevelopmentCard(solo.getCardFromGrid(0, 0), 1);
+        assertFalse(solo.isGameOver());
+        b1.addDevelopmentCard(solo.getCardFromGrid(2, 0), 2);
         assertTrue(solo.isGameOver());
     }
 

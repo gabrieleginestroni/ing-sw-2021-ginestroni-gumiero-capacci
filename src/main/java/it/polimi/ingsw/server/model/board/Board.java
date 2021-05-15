@@ -1,11 +1,13 @@
 package it.polimi.ingsw.server.model.board;
 
 import it.polimi.ingsw.server.exceptions.*;
+
 import it.polimi.ingsw.server.model.Color;
 import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.games.Game;
+
 import it.polimi.ingsw.server.virtual_view.BoardObserver;
 
 import java.util.ArrayList;
@@ -415,8 +417,6 @@ public class Board {
         boardObserver.notifyLeaderDiscard(cardIndex);
         return giveFaithPoints(1);
     }
-
-/*
 
     //TODO
     //REMOVE

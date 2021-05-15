@@ -7,16 +7,16 @@ import java.util.Map;
 
 public class BoardView {
     private final String nickname;
-    private List<Integer> hiddenHand;
-    private List<Integer> activeLeaders;
-    private Map<String,Integer> strongBox;
-    private ArrayList<Integer>[] cardSlot;
-    private int faithTrackMarker;
-    private boolean[] popeTiles;
-    private List<String> warehouseDepotResource;
-    private List<Integer> warehouseDepotQuantity;
-    private List<String> leaderDepotResource;
-    private List<Integer> leaderDepotQuantity;
+    private final List<Integer> hiddenHand;
+    private final List<Integer> activeLeaders;
+    private final Map<String,Integer> strongBox;
+    private final ArrayList<Integer>[] cardSlot;
+    private final int faithTrackMarker;
+    private final boolean[] popeTiles;
+    private final List<String> warehouseDepotResource;
+    private final List<Integer> warehouseDepotQuantity;
+    private final List<String> leaderDepotResource;
+    private final List<Integer> leaderDepotQuantity;
     private boolean inkwell;
 
     public BoardView(String nickname) {

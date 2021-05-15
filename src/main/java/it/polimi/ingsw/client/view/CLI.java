@@ -7,8 +7,8 @@ import it.polimi.ingsw.server.model.Resource;
 import java.util.*;
 
 public class CLI extends View{
-    private Scanner scanner;
-    private Gson gson;
+    private final Scanner scanner;
+    private final Gson gson;
 
     public CLI(){
         this.scanner = new Scanner(System.in);
@@ -25,7 +25,7 @@ public class CLI extends View{
         this.personalBoardView = gson.fromJson(personalBoard, BoardView.class);
         this.showMessage(this.personalBoardView.toString());
         if(otherBoards.size() != 0) {
-            this.otherBoardsView = new ArrayList<BoardView>();
+            this.otherBoardsView = new ArrayList<>();
             otherBoards.stream().forEach(s -> {
                 otherBoardsView.add(gson.fromJson(s, BoardView.class));
             });

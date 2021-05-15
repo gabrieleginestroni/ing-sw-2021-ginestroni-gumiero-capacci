@@ -129,8 +129,6 @@ public class ClientHandler implements Runnable {
     }
 
     public Message waitMessage() throws IOException, ClassNotFoundException {
-        Message msg = (Message)input.readObject();
-
-        return msg;
+        return (Message)input.readObject();
     }
 }

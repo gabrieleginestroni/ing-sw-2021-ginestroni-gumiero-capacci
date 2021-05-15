@@ -19,11 +19,7 @@ public class Market {
     public Market(MarketObserver marketObserver) {
         this.marketObserver = marketObserver;
         this.layout = new Resource[3][4];
-        //Gson gson = new Gson();
         try {
-            //Reading Marbles from JSON
-            //Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/Marbles.json"));
-            //Resource[] marbles = gson.fromJson(reader, Resource[].class);
 
             Resource[] marbles = {Resource.COIN, Resource.COIN, Resource.WHITE, Resource.WHITE, Resource.WHITE, Resource.WHITE, Resource.FAITH, Resource.SERVANT, Resource.SERVANT, Resource.STONE, Resource.STONE, Resource.SHIELD, Resource.SHIELD};
             List<Resource> tmpArr = Arrays.asList(marbles);
@@ -35,7 +31,7 @@ public class Market {
         }catch(Exception e) {
             e.printStackTrace();
         }
-        //marketObserver.notifyMarketChange(getColorLayout(), freeMarble.getColor());
+
     }
 
     public String[][] getColorLayout(){
@@ -82,8 +78,7 @@ public class Market {
         //shift marbles
         tmp = this.freeMarble;
         this.freeMarble = layout[row][0];
-        for(int i = 0; i < layout[row].length-1; i++)
-            layout[row][i] = layout[row][i+1];
+        if (layout[row].length - 1 >= 0) System.arraycopy(layout[row], 1, layout[row], 0, layout[row].length - 1);
         layout[row][layout[row].length-1] = tmp;
 
         marketObserver.notifyMarketChange(getColorLayout(), freeMarble.getColor());
@@ -100,12 +95,12 @@ public class Market {
         int cur;
         Resource tmp;
 
-        for(int i = 0; i < layout.length; i++){
-            if(gain.containsKey(layout[i][col]))
-                cur = 1 + gain.get(layout[i][col]);
+        for (Resource[] resources : layout) {
+            if (gain.containsKey(resources[col]))
+                cur = 1 + gain.get(resources[col]);
             else
                 cur = 1;
-            gain.put(layout[i][col], cur);
+            gain.put(resources[col], cur);
         }
 
         //shift marbles

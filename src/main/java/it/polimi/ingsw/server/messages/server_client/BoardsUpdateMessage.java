@@ -1,7 +1,5 @@
 package it.polimi.ingsw.server.messages.server_client;
 
-import it.polimi.ingsw.client.view.CLI;
-import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.client.view.View;
 
 import java.util.ArrayList;
@@ -12,7 +10,7 @@ public class BoardsUpdateMessage implements AnswerMessage {
     private final List<String> otherBoards;
 
     public BoardsUpdateMessage() {
-        this.otherBoards = new ArrayList<String>();
+        this.otherBoards = new ArrayList<>();
     }
 
     public void addPersonalBoard(String personalBoard) {

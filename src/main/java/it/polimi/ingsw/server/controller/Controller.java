@@ -5,7 +5,6 @@ import it.polimi.ingsw.server.controller.states.SoloState;
 import it.polimi.ingsw.server.controller.states.State;
 import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.model.games.Game;
-import it.polimi.ingsw.server.model.games.Lorenzo;
 import it.polimi.ingsw.server.virtual_view.VirtualView;
 
 import java.util.List;
@@ -37,8 +36,6 @@ public abstract class Controller {
             this.setCurrentState((SoloState) state);
 
     }
-
-    ;
 
     abstract void setCurrentState(MultiplayerState multiplayerState);
 

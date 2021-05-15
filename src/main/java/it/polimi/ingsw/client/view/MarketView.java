@@ -1,7 +1,5 @@
 package it.polimi.ingsw.client.view;
 
-import java.util.Arrays;
-
 public class MarketView {
     private String[][] market;
     private String freeMarble;
@@ -11,12 +9,8 @@ public class MarketView {
         StringBuilder str = new StringBuilder("\n");
         for(int i = 0; i < 3; i++) {
             str.append("[  ");
-            for (int j = 0; j < 4; j++) {
-                StringBuilder s = new StringBuilder("");
-                for(int h = market[i][j].length(); h < 10; h++)
-                    s.append(" ");
-                str = str.append(market[i][j]).append(s);
-            }
+            for (int j = 0; j < 4; j++)
+                str.append(market[i][j]).append(" ".repeat(Math.max(0, 10 - market[i][j].length())));
             str.append("]\n");
         }
 

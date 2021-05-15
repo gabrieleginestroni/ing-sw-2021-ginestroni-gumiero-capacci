@@ -1,16 +1,17 @@
 package it.polimi.ingsw.server.virtual_view;
 
-
 import com.google.gson.Gson;
 import it.polimi.ingsw.server.ClientHandler;
+
 import it.polimi.ingsw.server.controller.Player;
+
 import it.polimi.ingsw.server.messages.client_server.ChosenInitialResourcesMessage;
 import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
 import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.messages.server_client.*;
+
 import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
-import it.polimi.ingsw.server.model.cards.ProductionPowerStrategy;
 
 import java.io.IOException;
 import java.util.*;

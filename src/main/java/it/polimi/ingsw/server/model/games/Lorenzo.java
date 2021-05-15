@@ -3,7 +3,7 @@ package it.polimi.ingsw.server.model.games;
 import it.polimi.ingsw.server.virtual_view.LorenzoObserver;
 
 /**
- * Class that represents the entity of Lorenzo il Magnifico for the solo version of the game.
+ * Class that represents the entity of Lorenzo for the solo version of the game.
  * @author Tommaso Capacci
  */
 public class Lorenzo{

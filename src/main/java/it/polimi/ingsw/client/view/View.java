@@ -8,7 +8,6 @@ import it.polimi.ingsw.server.model.cards.LeaderCard;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class View {

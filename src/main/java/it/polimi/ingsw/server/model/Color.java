@@ -9,7 +9,7 @@ public enum Color {
     YELLOW(2),
     PURPLE(3);
 
-    private int column;
+    private final int column;
 
     Color(int column) {
         this.column = column;
