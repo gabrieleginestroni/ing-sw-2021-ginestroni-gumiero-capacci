@@ -110,13 +110,19 @@ public class Board {
      * Adds a white marble power to the player
      * @param res Resource type of the white marble power
      */
-    public void addWhiteMarble(Resource res){ whiteMarbles.add(res); }
+    public void addWhiteMarble(Resource res){
+        whiteMarbles.add(res);
+        this.boardObserver.notifyWhiteMarble(res.toString());
+    }
 
     /**
      * Adds a discount power to the player
      * @param res Resource type of the discount power
      */
-    public void addDiscount(Resource res){ discount.add(res); }
+    public void addDiscount(Resource res){
+        discount.add(res);
+        this.boardObserver.notifyDiscount(res.toString());
+    }
 
     /**
      * Returns a copy of the list of white marbles resources powers

@@ -13,6 +13,8 @@ import java.util.*;
  */
 public class BoardObserver {
     private final String nickname;
+    private final ArrayList<String> whiteMarbles;
+    private final ArrayList<String> discounts;
     private final List<Integer> hiddenHand;
     private final List<Integer> activeLeaders;
     private final Map<String,Integer> strongBox;
@@ -27,6 +29,7 @@ public class BoardObserver {
     private final transient VirtualView virtualView;
 
 
+
     /**
      * Creates an empty board observer
      * @param nickname Nickname of the player which the board observer belongs to
@@ -35,6 +38,8 @@ public class BoardObserver {
      */
     public BoardObserver(String nickname,VirtualView virtualView) {
         this.nickname = nickname;
+        whiteMarbles = new ArrayList<>();
+        discounts = new ArrayList<>();
 
         this.hiddenHand = new ArrayList<>();
         this.virtualView = virtualView;
@@ -198,6 +203,17 @@ public class BoardObserver {
         inkwell = true;
         virtualView.updateInkwellView(this.nickname);
     }
+
+    public void notifyDiscount(String discount){
+        this.discounts.add(discount);
+        virtualView.updateBoardVirtualView();
+    }
+
+    public void notifyWhiteMarble(String whiteMarble){
+        this.whiteMarbles.add(whiteMarble);
+        virtualView.updateBoardVirtualView();
+    }
+
 
     @Override
     public String toString() {
