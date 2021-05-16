@@ -188,7 +188,7 @@ public class CLI extends View{
             boolean success = false;
             while(!success){
                 this.showMessage("Choose next action (0 -> market, 1 -> buy a development, 2 -> activate production, 3 -> leader action) ");
-                move = Integer.parseInt(scanner.nextLine());
+                move = Integer.parseInt(scanner.nextLine().trim());
                 if(move >= 0 && move <= 3)
                     success = true;
             }
@@ -213,8 +213,93 @@ public class CLI extends View{
                 if(row >= 0 && row <= 2 && col >= 0 && col <= 3)
                     success = true;
             }
-            Map<Resource, Map<Integer, Integer>> resToRemove = null; //TODO build map
-            this.networkHandler.sendMessage(new ChosenDevCardToPurchase(row,col,resToRemove));
+
+            Map<Integer, Map<Resource, Integer>> resToRemove = new HashMap<>();
+            Map<Resource, Integer> cardCost = super.getDevelopmentCardByID(super.devGrid.getGridId(row, col)).getCost();
+
+            //Applying discounts
+            List<String> discounts = super.personalBoardView.getDiscounts();
+            for(String s : discounts){
+                if(cardCost.get(Resource.valueOf(s)) != null)
+                    cardCost.put(Resource.valueOf(s), cardCost.get(Resource.valueOf(s))-1);
+            }
+
+            for(Map.Entry<Resource,Integer> entry:cardCost.entrySet()) {
+                int quantity = 0;
+                int availableQuantity = 0;
+                int deltaQuantity = 0;
+                //Keeps asking where to pick the same resource if selected resources are not enough
+                while (quantity < entry.getValue()) {
+                    System.out.println("Pick " + (entry.getValue()-quantity) + " " + entry.getKey() + " from your depots");
+                    int i = 0;
+
+                    //Prints where the required resource is available inside warehouse depots, updating the current status based
+                    //on the previous choices made
+                    List<String> tmpDep = super.personalBoardView.getWarehouseDepotResource();
+                    List<Integer> tmpRes = super.personalBoardView.getWarehouseDepotQuantity();
+                    for (String s : tmpDep) {
+                        if (!s.equals("NULL") && Resource.valueOf(s) == entry.getKey()) {
+                            if(resToRemove.get(i) != null && resToRemove.get(i).get(entry.getKey()) != null)
+                                deltaQuantity = resToRemove.get(i).get(entry.getKey());
+                            else
+                                deltaQuantity = 0;
+                            System.out.println("Warehouse depot (" + i + ") => " + (tmpRes.get(i) - deltaQuantity ) + " " + s + " available");
+                            availableQuantity += tmpRes.get(i);
+                        }
+                        i++;
+                    }
+
+                    //Prints where the required resource is available inside leader depots, updating the current status based
+                    //on the previous choices made
+                    tmpDep = super.personalBoardView.getLeaderDepotResource();
+                    tmpRes = super.personalBoardView.getLeaderDepotQuantity();
+                    for (String s : tmpDep) {
+                        if (!s.equals("NULL") && Resource.valueOf(s) == entry.getKey()){
+                            if(resToRemove.get(i) != null && resToRemove.get(i).get(entry.getKey()) != null)
+                                deltaQuantity = resToRemove.get(i).get(entry.getKey());
+                            else
+                                deltaQuantity = 0;
+                            System.out.println("Leader depot (" + i + ") => " + (tmpRes.get(i) - deltaQuantity) + " " + s + " available");
+                            availableQuantity += tmpRes.get(i);
+                        }
+                        i++;
+                    }
+
+                    //Prints where the required resource is available inside strongbox, updating the current status based
+                    //on the previous choices made
+                    if(resToRemove.get(i) != null && resToRemove.get(i).get(entry.getKey()) != null)
+                        deltaQuantity = resToRemove.get(i).get(entry.getKey());
+                    else
+                        deltaQuantity = 0;
+                    System.out.println("Strongbox (" + i + ") => " + ( super.personalBoardView.getStrongBox().get(entry.getKey().toString()) - deltaQuantity) + " " + entry.getKey() + " available");
+                    availableQuantity += super.personalBoardView.getStrongBox().get(entry.getKey().toString());
+
+                    //Fail if we don't have enough overall resources to buy the card
+                    if(availableQuantity >= entry.getValue()) {
+                        int depot = scanner.nextInt();
+                        int addedQuantity = Integer.parseInt(scanner.nextLine().trim());
+                        Map<Resource, Integer> tmpMap;
+
+                        quantity += addedQuantity; //progressive count of resource to remove
+
+                        //add or insert element in the remove map
+                        if(resToRemove.get(depot) != null) {
+                            tmpMap = resToRemove.get(depot);
+                            if(resToRemove.get(depot).get(entry.getKey()) != null)
+                                addedQuantity += resToRemove.get(depot).get(entry.getKey());
+                        }else
+                            tmpMap = new HashMap<>();
+                        tmpMap.put(entry.getKey(), addedQuantity);
+                        resToRemove.put(depot, tmpMap);
+                        System.out.println(new Gson().toJson(resToRemove));
+                    }else {
+                        System.out.println("Cannot buy card, only " + availableQuantity + " " + entry.getKey() + ", " + entry.getValue() + " needed");
+                        break;
+                    }
+                }
+            }
+
+            this.networkHandler.sendMessage(new ChosenDevCardToPurchase(row, col, resToRemove));
 
         } else
             this.showMessage(  currentPlayerNickname + " is purchasing a development card");

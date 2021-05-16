@@ -17,7 +17,7 @@ public class ClientCLI {
         //String ip = "94.176.46.205";
         String ip = "localhost";
         view.showMessage("Insert server port number:");
-        int port = Integer.parseInt(scanner.nextLine());
+        int port = Integer.parseInt(scanner.nextLine().trim());
 
         try {
             Socket socket = new Socket(ip, port);

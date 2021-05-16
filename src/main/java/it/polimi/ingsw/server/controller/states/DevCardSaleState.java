@@ -22,7 +22,7 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
     }
 
     @Override
-    public void visitDevCardSaleState(int row, int col,Map<Resource,Map<Integer,Integer>> resToRemove, Controller controller) {
+    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, Controller controller) {
         VirtualView virtualView = controller.getVirtualView();
         Player currentPlayer = controller.getCurrentPlayer();
         Game model = controller.getModel();
@@ -40,19 +40,12 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
                 controller.setCurrentState(controller.getStartTurnState());
                 virtualView.startTurn(currentPlayer.getNickname());
             } else {
-                    //TODO remove resource
+                //TODO remove resource
+
             }
-
-
-
 
         } catch (emptyDevCardGridSlotSelectedException e) {
             controller.getVirtualView().devCardSaleAction(currentPlayer.getNickname());
         }
-
-
-
-
-
     }
 }

@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class BoardView {
     private final String nickname;
+    private final ArrayList<String> whiteMarbles;
+    private final ArrayList<String> discounts;
     private final List<Integer> hiddenHand;
     private final List<Integer> activeLeaders;
     private final Map<String,Integer> strongBox;
@@ -21,6 +23,8 @@ public class BoardView {
 
     public BoardView(String nickname) {
         this.nickname = nickname;
+        whiteMarbles = null;
+        discounts = null;
         hiddenHand = null;
         activeLeaders = null;
         strongBox = null;
@@ -34,8 +38,32 @@ public class BoardView {
         inkwell = false;
     }
 
+    public Map<String, Integer> getStrongBox() {
+        return strongBox;
+    }
+
+    public List<String> getWarehouseDepotResource() {
+        return warehouseDepotResource;
+    }
+
+    public List<Integer> getWarehouseDepotQuantity() {
+        return warehouseDepotQuantity;
+    }
+
+    public List<String> getLeaderDepotResource() {
+        return leaderDepotResource;
+    }
+
+    public List<Integer> getLeaderDepotQuantity() {
+        return leaderDepotQuantity;
+    }
+
     public String getNickname() {
         return nickname;
+    }
+
+    public ArrayList<String> getDiscounts() {
+        return discounts;
     }
 
     public void setInkwell() {
@@ -46,6 +74,8 @@ public class BoardView {
     public String toString() {
         return "BoardView{" +
                 "nickname='" + nickname + '\'' +
+                ", whiteMarbles=" + whiteMarbles  +
+                ", discounts=" + discounts  +
                 ", hiddenHand=" + hiddenHand  +
                 ", activeLeaders=" + activeLeaders +
                 ", strongBox=" + strongBox +

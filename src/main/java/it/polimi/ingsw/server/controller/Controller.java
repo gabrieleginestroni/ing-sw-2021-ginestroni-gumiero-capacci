@@ -30,11 +30,11 @@ public abstract class Controller {
     public abstract List<Player> othersPlayers();
 
     public void setCurrentState(State state) {
-        if (state instanceof MultiplayerState)
+        if (this instanceof MultiplayerController)
             this.setCurrentState((MultiplayerState) state);
-        else
+        else{
             this.setCurrentState((SoloState) state);
-
+        }
     }
 
     abstract void setCurrentState(MultiplayerState multiplayerState);

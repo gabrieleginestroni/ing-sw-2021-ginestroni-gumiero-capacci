@@ -19,6 +19,20 @@ public class StartTurnState implements MultiplayerState,SoloState {
                 controller.getVirtualView().marketAction(currentPlayer);
                 break;
             case 1:
+                //TODO TESTING
+                try {
+                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.COIN, 100);
+                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SHIELD, 100);
+                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SERVANT, 100);
+                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.STONE, 100);
+                    controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.COIN, 1, 0);
+                    controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.SHIELD, 2, 1);
+                    controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.SERVANT, 3, 2);
+                    controller.getCurrentPlayer().getBoard().addLeaderDepot(Resource.STONE);
+                    controller.getCurrentPlayer().getBoard().addLeaderDepotResource(Resource.STONE, 2, 0);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
                 controller.setCurrentState(controller.getDevCardSaleState());
                 controller.getVirtualView().devCardSaleAction(currentPlayer);
                 break;
@@ -38,7 +52,7 @@ public class StartTurnState implements MultiplayerState,SoloState {
     }
 
     @Override
-    public void visitDevCardSaleState(int row, int col, Map<Resource, Map<Integer,Integer>> resToRemove, Controller controller) {
+    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, Controller controller) {
 
     }
 }

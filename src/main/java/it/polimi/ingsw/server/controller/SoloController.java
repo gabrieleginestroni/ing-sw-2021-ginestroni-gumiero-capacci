@@ -50,7 +50,7 @@ public class SoloController extends Controller{
 
     @Override
     public void handleMessage(Message message) {
-
+        message.handleMessage(this.currentState,this);
     }
 
     @Override

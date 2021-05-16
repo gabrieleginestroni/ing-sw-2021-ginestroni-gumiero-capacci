@@ -3,6 +3,10 @@ package it.polimi.ingsw.client.view;
 public class GridView {
     private int[][] grid;
 
+    public int getGridId(int row, int col) {
+        return grid[row][col];
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder("\n");
