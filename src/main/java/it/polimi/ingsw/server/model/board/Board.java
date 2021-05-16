@@ -197,6 +197,16 @@ public class Board {
     }
 
     /**
+     * Checks if the DevelopmentCard can be place in the cardSlot
+     * @param cardSlotIndex Index of the card slot (between 0 and 2)
+     * @param developmentCard Development Card to check
+     * @return true if the card can be placed, false otherwise
+     */
+    public boolean canAddDevCard(int cardSlotIndex, DevelopmentCard developmentCard){
+        return this.cardSlot[cardSlotIndex].canAddDevCard(developmentCard);
+    }
+
+    /**
      * Adds a Development card to the specified card slot
      * @param card Development card to insert
      * @param cardSlotIndex Index of the slot where to insert the card (between 0 and 2)

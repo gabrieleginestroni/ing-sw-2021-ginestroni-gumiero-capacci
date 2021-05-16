@@ -54,6 +54,8 @@ public class CardSlot {
      * @return Pile's top development card
      */
     public DevelopmentCard getTopCard(){
+        if(this.devCards.isEmpty())
+            return null;
         return this.devCards.get(0);
     }
 
@@ -81,6 +83,14 @@ public class CardSlot {
      */
     public int getGenericCardNumber(){
         return devCards.size();
+    }
+
+    public boolean canAddDevCard(DevelopmentCard developmentCard){
+        if(developmentCard.getLevel() != 1 && this.getTopCard() == null)
+            return false;
+        else if(developmentCard.getLevel() != this.getTopCard().getLevel()+1)
+            return false;
+        return true;
     }
 
     //TODO

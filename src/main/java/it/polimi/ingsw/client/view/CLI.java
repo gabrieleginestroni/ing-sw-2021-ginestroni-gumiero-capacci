@@ -17,7 +17,60 @@ public class CLI extends View{
 
     @Override
     public void showMessage(String str) {
+        //TODO move to visit method
+        // buildCLI();
         System.out.println(str);
+    }
+
+
+    public void buildCLI() {
+        String[] pixelMatrix = new String[24];
+        for(int i = 0; i < 24; i++)
+            pixelMatrix[i] = "";
+        try {
+            if (this.otherBoardsView != null) {
+                for (int i = 0; i < this.otherBoardsView.size(); i++) {
+                    String nick = this.otherBoardsView.get(i).getNickname();
+                    pixelMatrix[0] += "Player " + nick + " ".repeat(Math.max(4, 20 - nick.length()));
+                    for (int j = 0; j < this.otherBoardsView.get(i).getStrongBox().get(Resource.SHIELD.toString()); j++)
+                        pixelMatrix[1] += "\uD83D\uDEE1"; //🛡
+                    pixelMatrix[1] += " ".repeat(Math.max(4, 20 - this.otherBoardsView.get(i).getStrongBox().get(Resource.SHIELD.toString())));
+                    for (int j = 0; j < this.otherBoardsView.get(i).getStrongBox().get(Resource.STONE.toString()); j++)
+                        pixelMatrix[2] += "\uD83D\uDC8E"; //💎
+                    pixelMatrix[2] += " ".repeat(Math.max(4, 20 - this.otherBoardsView.get(i).getStrongBox().get(Resource.STONE.toString())));
+                    for (int j = 0; j < this.otherBoardsView.get(i).getStrongBox().get(Resource.SERVANT.toString()); j++)
+                        pixelMatrix[3] += "\uD83D\uDC68"; //👨
+                    pixelMatrix[3] += " ".repeat(Math.max(4, 20 - this.otherBoardsView.get(i).getStrongBox().get(Resource.SERVANT.toString())));
+                    for (int j = 0; j < this.otherBoardsView.get(i).getStrongBox().get(Resource.COIN.toString()); j++)
+                        pixelMatrix[4] += "\uD83D\uDCB0"; //💰
+                    pixelMatrix[4] += " ".repeat(Math.max(4, 20 - this.otherBoardsView.get(i).getStrongBox().get(Resource.COIN.toString())));
+                }
+            }
+            if (this.personalBoardView != null) {
+                String nick = this.personalBoardView.getNickname();
+                pixelMatrix[17] += "Your Strongbox";
+                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.SHIELD.toString()); j++)
+                    pixelMatrix[18] += "\uD83D\uDEE1"; //🛡
+                pixelMatrix[18] += " ".repeat(Math.max(4, 20 - this.personalBoardView.getStrongBox().get(Resource.SHIELD.toString())));
+                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.STONE.toString()); j++)
+                    pixelMatrix[19] += "\uD83D\uDC8E"; //💎
+                pixelMatrix[19] += " ".repeat(Math.max(4, 20 - this.personalBoardView.getStrongBox().get(Resource.STONE.toString())));
+                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.SERVANT.toString()); j++)
+                    pixelMatrix[20] += "\uD83D\uDC68"; //👨
+                pixelMatrix[20] += " ".repeat(Math.max(4, 20 - this.personalBoardView.getStrongBox().get(Resource.SERVANT.toString())));
+                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.COIN.toString()); j++)
+                    pixelMatrix[21] += "\uD83D\uDCB0"; //💰
+                pixelMatrix[21] += " ".repeat(Math.max(4, 20 - this.personalBoardView.getStrongBox().get(Resource.COIN.toString())));
+            }
+            if(this.devGrid != null){
+                pixelMatrix[10] = this.devGrid.toString();
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < 24; i++) {
+            System.out.println(pixelMatrix[i]);
+        }
     }
 
     @Override
@@ -217,6 +270,10 @@ public class CLI extends View{
             Map<Integer, Map<Resource, Integer>> resToRemove = new HashMap<>();
             Map<Resource, Integer> cardCost = super.getDevelopmentCardByID(super.devGrid.getGridId(row, col)).getCost();
 
+
+            System.out.println("Choose the cardslot index where you want to place the card");
+            int cardSlot = Integer.parseInt(scanner.nextLine().trim());
+
             //Applying discounts
             List<String> discounts = super.personalBoardView.getDiscounts();
             for(String s : discounts){
@@ -295,11 +352,11 @@ public class CLI extends View{
                     }else {
                         System.out.println("Cannot buy card, only " + availableQuantity + " " + entry.getKey() + ", " + entry.getValue() + " needed");
                         break;
+                        //add error
                     }
                 }
             }
-
-            this.networkHandler.sendMessage(new ChosenDevCardToPurchase(row, col, resToRemove));
+            this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(row, col, resToRemove, cardSlot));
 
         } else
             this.showMessage(  currentPlayerNickname + " is purchasing a development card");
