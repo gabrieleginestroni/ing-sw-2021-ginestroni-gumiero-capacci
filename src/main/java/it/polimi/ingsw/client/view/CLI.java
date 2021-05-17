@@ -19,7 +19,8 @@ public class CLI extends View{
     public void showMessage(String str) {
         //TODO move to visit method
         // buildCLI();
-        System.out.println(str);
+        if(str != null)
+            System.out.println(str);
     }
 
 
@@ -237,8 +238,7 @@ public class CLI extends View{
     @Override
     public void visitStartTurn(String currentPlayerNickname,String errorMessage) {
         if(this.nickname.equals(currentPlayerNickname)){
-            if(errorMessage != null)
-                showMessage(errorMessage);
+            showMessage(errorMessage);
             int move = -1;
             boolean success = false;
             while(!success){
@@ -363,5 +363,37 @@ public class CLI extends View{
         } else
             this.showMessage(  currentPlayerNickname + " is purchasing a development card");
 
+    }
+
+    @Override
+    public void visitMiddleTurn(String currentPlayerNickname,String errorMessage) {
+
+        if(this.nickname.equals(currentPlayerNickname)){
+            showMessage(errorMessage);
+            showMessage("Choose next action (0 -> end your turn, 1 -> leader action ) ");
+            int move = Integer.parseInt(scanner.nextLine().trim());
+            this.networkHandler.sendMessage(new ChosenMiddleMove(move));
+
+        } else
+            this.showMessage(currentPlayerNickname + " is in middle turn");
+
+    }
+
+    @Override
+    public void visitLeaderAction(String currentPlayerNickname) {
+        if(this.nickname.equals(currentPlayerNickname)){
+            List<Integer> hiddenHand = super.personalBoardView.getHiddenHand();
+            Map<Integer,Integer> actionMap = new HashMap<>();
+            int index = 0;
+            for(Integer cardId : hiddenHand) {
+                showMessage("Type the action you want to do with leader card "+cardId+" (0 -> do nothing, 1 -> activate, 2 -> discard");
+                int move = Integer.parseInt(scanner.nextLine().trim());
+                actionMap.put(index,move);
+                index++;
+            }
+            this.networkHandler.sendMessage(new ChosenLeaderAction(actionMap));
+
+        } else
+            this.showMessage(currentPlayerNickname + " is executing a leader action");
     }
 }

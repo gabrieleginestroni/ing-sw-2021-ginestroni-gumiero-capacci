@@ -82,4 +82,14 @@ public class GUI extends View{
     public void visitDevCardSale(String currentPlayerNickname) {
 
     }
+
+    @Override
+    public void visitMiddleTurn(String currentPlayerNickname, String errorMessage) {
+
+    }
+
+    @Override
+    public void visitLeaderAction(String currentPlayerNickname) {
+
+    }
 }

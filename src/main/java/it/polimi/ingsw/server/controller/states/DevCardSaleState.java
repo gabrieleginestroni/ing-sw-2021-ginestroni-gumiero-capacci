@@ -7,6 +7,7 @@ import it.polimi.ingsw.server.controller.states.exceptions.invalidMoveException;
 import it.polimi.ingsw.server.exceptions.*;
 
 import it.polimi.ingsw.server.model.Resource;
+import it.polimi.ingsw.server.model.board.Board;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.games.Game;
 
@@ -15,7 +16,7 @@ import it.polimi.ingsw.server.virtual_view.VirtualView;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DevCardSaleState implements MultiplayerState,SoloState {
+public class DevCardSaleState implements MultiplayerState {
 
 
     @Override
@@ -24,10 +25,22 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
     }
 
     @Override
-    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) {
+    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller){
+        commonVisit(row,col,resToRemove,cardSlot,controller);
+        if(!controller.getMediator().isLeaderActionDone()) {
+            controller.setCurrentState(controller.getMiddleTurnState());
+            controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(),null);
+        } else {
+            controller.setCurrentState(controller.getEndTurnState());
+            controller.getEndTurnState().visitEndTurnState(controller);
+        }
+    }
+
+    void commonVisit(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) {
         VirtualView virtualView = controller.getVirtualView();
         Player currentPlayer = controller.getCurrentPlayer();
         Game model = controller.getModel();
+        Board board = currentPlayer.getBoard();
         DevelopmentCard card;
         String strError;
         try {
@@ -40,13 +53,13 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
             Map<Resource,Integer> cost = card.getCost();
             boolean canPurchase = true;
             for(Map.Entry<Resource,Integer> entry:cost.entrySet())
-                if(currentPlayer.getBoard().getResourceNumber(entry.getKey()) < entry.getValue()) {
-                    strError = "Not enough "+ entry.getKey()+", "+currentPlayer.getBoard().getResourceNumber(entry.getKey())+" ("+entry.getValue()+" needed)";
+                if(board.getResourceNumber(entry.getKey()) < entry.getValue()) {
+                    strError = "Not enough "+ entry.getKey()+", "+board.getResourceNumber(entry.getKey())+" ("+entry.getValue()+" needed)";
                     throw new invalidMoveException(strError);
                 }
 
             //check if can purchase the card and put it in the chosen cardSlot
-            if(!currentPlayer.getBoard().canAddDevCard(cardSlot, card)) {
+            if(!board.canAddDevCard(cardSlot, card)) {
 
                 strError = "Cannot place card inside slot "+cardSlot;
                 throw new invalidMoveException(strError);
@@ -61,7 +74,7 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
             }
 
             //Applying discounts
-            for(Resource r : currentPlayer.getBoard().getDiscount()){
+            for(Resource r : board.getDiscount()){
                 tmpMap.merge(r, 1, Integer::sum);
             }
 
@@ -80,12 +93,12 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
                 int quantityToRemove = entry.getValue().get(resourceToRemove);
                 if(entry.getKey() < 3) {
                     //warehouse depots
-                    Resource resourceInDepot = currentPlayer.getBoard().getWarehouseDepotResourceType(entry.getKey());
+                    Resource resourceInDepot = board.getWarehouseDepotResourceType(entry.getKey());
                     if(resourceInDepot != resourceToRemove) {
                         strError = "Error warehouse depot "+entry.getKey()+" of " + resourceInDepot + " not " + resourceToRemove;
                         throw new invalidMoveException(strError);
                     }else{
-                        int quantityInDepot = currentPlayer.getBoard().getWarehouseDepotResourceNumber(entry.getKey());
+                        int quantityInDepot = board.getWarehouseDepotResourceNumber(entry.getKey());
                         if(quantityInDepot < quantityToRemove) {
                             strError = "Error quantity  " + quantityInDepot + " in warehouse depot "+entry.getKey()+", at least " + quantityToRemove;
                             throw new invalidMoveException(strError);
@@ -95,7 +108,7 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
                     //leader depots
                     Resource resourceInDepot;
                     try {
-                        resourceInDepot = currentPlayer.getBoard().getLeaderDepotResourceType(entry.getKey() - 3);
+                        resourceInDepot = board.getLeaderDepotResourceType(entry.getKey() - 3);
                     } catch (IndexOutOfBoundsException e){
                         strError = "Leader depot does not exist yet";
                         throw new invalidMoveException(strError);
@@ -104,7 +117,7 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
                         strError = "Error leader depot "+(entry.getKey()-3)+" of "+ resourceInDepot + " not " + resourceToRemove;
                         throw new invalidMoveException(strError);
                     }else{
-                        int quantityInDepot = currentPlayer.getBoard().getLeaderDepotResourceNumber(entry.getKey()-3);
+                        int quantityInDepot = board.getLeaderDepotResourceNumber(entry.getKey()-3);
                         if(quantityInDepot < quantityToRemove) {
                             strError = "Error quantity  " + quantityInDepot + " in leader depot "+(entry.getKey()-3)+", at least " + quantityToRemove;
                             throw new invalidMoveException(strError);
@@ -112,7 +125,7 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
                     }
                 }else{
                     //strongbox
-                    int quantityInStrongbox = currentPlayer.getBoard().getStrongBoxResource(resourceToRemove);
+                    int quantityInStrongbox = board.getStrongBoxResource(resourceToRemove);
                     if(quantityInStrongbox < quantityToRemove){
                         strError = "Error quantity  " + quantityInStrongbox + " in strongbox, at least " + quantityToRemove;
                         throw new invalidMoveException(strError);
@@ -126,20 +139,20 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
                     Resource resourceToRemove = entry.getValue().keySet().stream().findFirst().orElseGet(null);
                     int quantityToRemove = entry.getValue().get(resourceToRemove);
                     if(entry.getKey() < 3)
-                        currentPlayer.getBoard().removeWarehouseDepotResource(resourceToRemove, quantityToRemove, entry.getKey());
+                        board.removeWarehouseDepotResource(resourceToRemove, quantityToRemove, entry.getKey());
                     else if(entry.getKey() < 5)
-                        currentPlayer.getBoard().removeLeaderDepotResource(resourceToRemove, quantityToRemove, entry.getKey()-3);
+                        board.removeLeaderDepotResource(resourceToRemove, quantityToRemove, entry.getKey()-3);
                     else
-                        currentPlayer.getBoard().removeStrongboxResource(resourceToRemove, quantityToRemove);
+                        board.removeStrongboxResource(resourceToRemove, quantityToRemove);
                 }
-                currentPlayer.getBoard().addDevelopmentCard(card, cardSlot);
+                board.addDevelopmentCard(card, cardSlot);
                 model.removeCardFromGrid(row, col);
             }  catch (invalidDevelopmentCardLevelPlacementException | invalidStrongBoxRemoveException | developmentCardSlotLimitExceededException | invalidResourceTypeException | removeResourceLimitExceededException | emptyDevCardGridSlotSelectedException e) {
                 throw new invalidMoveException("Generic card purchase error");
             }
-            //TODO toMiddleTurnState
+
             System.out.println("Card added with success in slot "+cardSlot);
-            controller.setCurrentState(controller.getStartTurnState());
+            controller.getMediator().setMainActionDone();
 
 
         }  catch(invalidMoveException e) {
@@ -147,5 +160,20 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
             controller.setCurrentState(controller.getStartTurnState());
             virtualView.startTurn(currentPlayer.getNickname(),e.getErrorMessage());
         }
+    }
+
+    @Override
+    public void visitMiddleTurnState(int move, Controller controller) {
+
+    }
+
+    @Override
+    public void visitEndTurnState(Controller controller) {
+
+    }
+
+    @Override
+    public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) {
+
     }
 }

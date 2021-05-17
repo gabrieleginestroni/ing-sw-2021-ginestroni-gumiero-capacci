@@ -1,13 +1,11 @@
 package it.polimi.ingsw.server.controller.states;
 
 import it.polimi.ingsw.server.controller.Controller;
-
 import it.polimi.ingsw.server.model.Resource;
 
 import java.util.Map;
 
-public class MarketState implements MultiplayerState,SoloState {
-
+public class EndTurnState implements MultiplayerState {
     @Override
     public void visitStartTurnState(int move, Controller controller) {
 
@@ -25,7 +23,7 @@ public class MarketState implements MultiplayerState,SoloState {
 
     @Override
     public void visitEndTurnState(Controller controller) {
-
+        //TODO
     }
 
     @Override

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.cards;
 import it.polimi.ingsw.server.model.Resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,5 +52,13 @@ public class LeaderCard extends Card{
 
     public boolean isActive() {
         return active;
+    }
+
+    public List<CardRequirement> getCardRequirements() {
+        return new ArrayList<>(cardRequirements);
+    }
+
+    public List<ResourceRequirement> getResourceRequirements() {
+        return new ArrayList<>(resourceRequirements);
     }
 }

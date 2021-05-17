@@ -20,9 +20,12 @@ public class SoloController extends Controller{
 
     public static final SoloState startTurnState = new StartTurnState();
     public static final SoloState marketState = new MarketState();
-    public static final SoloState devCardSaleState = new DevCardSaleState();
-    public static final SoloState leaderActionState = new LeaderActionState();
+    public static final SoloState devCardSaleState = new SoloDevCardSaleState();
+    public static final SoloState leaderActionState = new SoloLeaderActionState();
     public static final SoloState activateProductionState = new ActivateProductionState();
+    public static final SoloState middleTurnState = new MiddleTurnState();
+    public static final SoloState endTurnState = new LorenzoTurnState();
+
 
 
     //TODO
@@ -119,4 +122,14 @@ public class SoloController extends Controller{
     public State getStartTurnState() {
         return startTurnState;
     }
+
+    @Override
+    public State getMiddleTurnState() { return middleTurnState;
+    }
+
+    @Override
+    public State getEndTurnState() { return endTurnState;
+    }
+
+
 }

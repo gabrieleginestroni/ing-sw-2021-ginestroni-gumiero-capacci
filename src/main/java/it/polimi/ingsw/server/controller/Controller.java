@@ -51,5 +51,7 @@ public abstract class Controller {
     public abstract State getLeaderActionState();
     public abstract State getDevCardSaleState();
     public abstract State getStartTurnState();
+    public abstract State getMiddleTurnState();
+    public abstract State getEndTurnState();
 
 }

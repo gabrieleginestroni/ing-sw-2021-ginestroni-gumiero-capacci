@@ -70,6 +70,10 @@ public class BoardView {
         this.inkwell = true;
     }
 
+    public List<Integer> getHiddenHand() {
+        return hiddenHand;
+    }
+
     @Override
     public String toString() {
         return "BoardView{" +

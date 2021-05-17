@@ -265,6 +265,21 @@ public class VirtualView {
         });
 
     }
+    public void middleTurn(String currentPlayerNickname,String errorMessage){
+        MiddleTurnStateMessage message = new MiddleTurnStateMessage(currentPlayerNickname,errorMessage);
+
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+
+    }
+
+
 
 
 

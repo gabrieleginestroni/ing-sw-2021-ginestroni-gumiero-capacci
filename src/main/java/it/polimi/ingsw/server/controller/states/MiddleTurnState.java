@@ -1,13 +1,11 @@
 package it.polimi.ingsw.server.controller.states;
 
 import it.polimi.ingsw.server.controller.Controller;
-
 import it.polimi.ingsw.server.model.Resource;
 
 import java.util.Map;
 
-public class MarketState implements MultiplayerState,SoloState {
-
+public class MiddleTurnState implements MultiplayerState,SoloState {
     @Override
     public void visitStartTurnState(int move, Controller controller) {
 
@@ -15,12 +13,20 @@ public class MarketState implements MultiplayerState,SoloState {
 
     @Override
     public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) {
-
     }
 
     @Override
     public void visitMiddleTurnState(int move, Controller controller) {
-
+        switch (move){
+            case 0:
+                controller.setCurrentState(controller.getEndTurnState());
+                controller.getEndTurnState().visitEndTurnState(controller);
+                break;
+            default:
+                controller.setCurrentState(controller.getLeaderActionState());
+                controller.getVirtualView().leaderAction(controller.getCurrentPlayer().getNickname());
+                break;
+        }
     }
 
     @Override
