@@ -42,7 +42,7 @@ public class SoloController extends Controller{
         this.virtualView.gameStarted();
 
         currentState = startTurnState;
-        virtualView.startTurn(this.player.getNickname());
+        virtualView.startTurn(this.player.getNickname(),null);
 
 
         //currentState = StartGameState;

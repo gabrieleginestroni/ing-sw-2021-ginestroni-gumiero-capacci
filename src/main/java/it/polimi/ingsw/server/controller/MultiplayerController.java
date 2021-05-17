@@ -133,7 +133,7 @@ public class MultiplayerController extends Controller{
         virtualView.gameStarted();
 
         currentState = startTurnState;
-        virtualView.startTurn(this.turnHandler.getCurrentPlayer().getNickname());
+        virtualView.startTurn(this.turnHandler.getCurrentPlayer().getNickname(),null);
 
 
     }

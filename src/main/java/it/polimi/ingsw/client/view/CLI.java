@@ -235,8 +235,10 @@ public class CLI extends View{
     }
 
     @Override
-    public void visitStartTurn(String currentPlayerNickname) {
+    public void visitStartTurn(String currentPlayerNickname,String errorMessage) {
         if(this.nickname.equals(currentPlayerNickname)){
+            if(errorMessage != null)
+                showMessage(errorMessage);
             int move = -1;
             boolean success = false;
             while(!success){
