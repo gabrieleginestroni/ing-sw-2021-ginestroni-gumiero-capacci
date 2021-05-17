@@ -47,26 +47,20 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
                 Map<Resource, Integer> tmpMap = new HashMap<>();  //map of total resource amount to remove
                 for(Map.Entry<Integer, Map<Resource,Integer>> entry:resToRemove.entrySet()) {
                     for(Map.Entry<Resource,Integer> resourceEntry:entry.getValue().entrySet()) {
-                        if(tmpMap.get(resourceEntry.getKey()) != null)
-                            tmpMap.put(resourceEntry.getKey(), tmpMap.get(resourceEntry.getKey())+resourceEntry.getValue());
-                        else
-                            tmpMap.put(resourceEntry.getKey(), resourceEntry.getValue());
+                        tmpMap.merge(resourceEntry.getKey(), resourceEntry.getValue(), Integer::sum);
                     }
                 }
 
                 //Applying discounts
                 for(Resource r : currentPlayer.getBoard().getDiscount()){
-                    if(tmpMap.get(r) != null)
-                        tmpMap.put(r, tmpMap.get(r)+1);
-                    else
-                        tmpMap.put(r, 1);
+                    tmpMap.merge(r, 1, Integer::sum);
                 }
 
                 boolean error = false;
 
                 //Check if total amount of each resource to remove is correct
                 for(Map.Entry<Resource,Integer> entry:cost.entrySet()){
-                    if(tmpMap.get(entry.getKey()) != entry.getValue()) {
+                    if(!tmpMap.get(entry.getKey()).equals(entry.getValue())) {
                         System.out.println("Incorrect number of " + entry.getKey() + " to remove, " + tmpMap.get(entry.getKey()) + "instead of " + entry.getValue());
                         error = true;
                         break;
@@ -94,9 +88,16 @@ public class DevCardSaleState implements MultiplayerState,SoloState {
                         }
                     }else if(entry.getKey() < 5){
                         //leader depots
-                        Resource resourceInDepot = currentPlayer.getBoard().getLeaderDepotResourceType(entry.getKey()-3);
+                        Resource resourceInDepot;
+                        try {
+                            resourceInDepot = currentPlayer.getBoard().getLeaderDepotResourceType(entry.getKey() - 3);
+                        } catch (IndexOutOfBoundsException e){
+                            System.out.println("Leader depot does not exist yet");
+                            error = true;
+                            break;
+                        }
                         if(resourceInDepot != resourceToRemove) {
-                            System.out.println("Error leader depot "+entry.getKey()+" of "+ resourceInDepot + " not " + resourceToRemove);
+                            System.out.println("Error leader depot "+(entry.getKey()-3)+" of "+ resourceInDepot + " not " + resourceToRemove);
                             error = true;
                             break;
                         }else{

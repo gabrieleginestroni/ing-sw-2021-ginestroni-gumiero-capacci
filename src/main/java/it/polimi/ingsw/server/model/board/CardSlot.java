@@ -86,11 +86,14 @@ public class CardSlot {
     }
 
     public boolean canAddDevCard(DevelopmentCard developmentCard){
-        if(developmentCard.getLevel() != 1 && this.getTopCard() == null)
-            return false;
-        else if(developmentCard.getLevel() != this.getTopCard().getLevel()+1)
-            return false;
-        return true;
+        if(getTopCard() == null) {
+            if (developmentCard.getLevel() == 1)
+                return true;
+        }
+        else if(developmentCard.getLevel()-1 == getTopCard().getLevel())
+            return true;
+
+        return false;
     }
 
     //TODO

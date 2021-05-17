@@ -199,7 +199,7 @@ public class Warehouse {
      * @param index Index of the leader depot
      * @return Resource quantity
      */
-    public int getLeaderDepotResourceNumber(int index){
+    public int getLeaderDepotResourceNumber(int index) throws IndexOutOfBoundsException{
          return leaderStorages.get(index).getResourceQuantity();
 
     }
@@ -218,7 +218,7 @@ public class Warehouse {
      * @param index Index of the leader depot
      * @return Resource type
      */
-    public Resource getLeaderDepotResourceType(int index){
+    public Resource getLeaderDepotResourceType(int index) throws IndexOutOfBoundsException{
         return leaderStorages.get(index).getResourceType() ;
     }
 

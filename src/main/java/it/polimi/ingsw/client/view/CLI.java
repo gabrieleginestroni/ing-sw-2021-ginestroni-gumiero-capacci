@@ -316,8 +316,8 @@ public class CLI extends View{
                                 deltaQuantity = resToRemove.get(i).get(entry.getKey());
                             else
                                 deltaQuantity = 0;
-                            System.out.println("Leader depot (" + i + ") => " + (tmpRes.get(i) - deltaQuantity) + " " + s + " available");
-                            availableQuantity += tmpRes.get(i);
+                            System.out.println("Leader depot (" + i + ") => " + (tmpRes.get(i-3) - deltaQuantity) + " " + s + " available");
+                            availableQuantity += tmpRes.get(i-3);
                         }
                         i++;
                     }

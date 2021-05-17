@@ -74,7 +74,7 @@ public class Board {
      * @param index Index of the leader depot
      * @return Resource quantity
      */
-    public int getLeaderDepotResourceNumber(int index){
+    public int getLeaderDepotResourceNumber(int index) throws IndexOutOfBoundsException{
         return wareHouse.getLeaderDepotResourceNumber(index) ;
     }
 
@@ -92,7 +92,7 @@ public class Board {
      * @param index Index of the leader depot
      * @return Resource type
      */
-    public Resource getLeaderDepotResourceType(int index){
+    public Resource getLeaderDepotResourceType(int index) throws IndexOutOfBoundsException{
         return wareHouse.getLeaderDepotResourceType(index) ;
     }
 
@@ -203,6 +203,8 @@ public class Board {
      * @return true if the card can be placed, false otherwise
      */
     public boolean canAddDevCard(int cardSlotIndex, DevelopmentCard developmentCard){
+        if(cardSlotIndex < 0 || cardSlotIndex > 2)
+            return false;
         return this.cardSlot[cardSlotIndex].canAddDevCard(developmentCard);
     }
 
