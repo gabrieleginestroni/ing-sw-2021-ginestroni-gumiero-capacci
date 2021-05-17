@@ -279,6 +279,20 @@ public class VirtualView {
 
     }
 
+    public void mainAction(String currentPlayerNickname,String errorMessage){
+        MainActionStateMessage message = new MainActionStateMessage(currentPlayerNickname,errorMessage);
+
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+
+    }
+
 
 
 

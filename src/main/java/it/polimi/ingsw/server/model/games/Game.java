@@ -199,4 +199,6 @@ public abstract class Game {
     public GridObserver getGridObserver() {
         return gridObserver;
     }
+
+    public abstract void vaticanReport(int sectionIndex);
 }

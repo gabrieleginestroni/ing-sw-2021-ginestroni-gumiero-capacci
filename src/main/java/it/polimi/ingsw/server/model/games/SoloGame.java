@@ -89,6 +89,11 @@ public class SoloGame extends Game{
             gameIsOver();
     }
 
+    @Override
+    public void vaticanReport(int sectionIndex) {
+        player.getBoard().computeActivationPopeTile(sectionIndex);
+    }
+
     /**
      * This method propagates the notification of the last drawn Action Token from the pile to the instance of LorenzoObserver valid for this Solo Game.
      * @param actionTokenId The ID of the last drawn Action Token.

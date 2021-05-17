@@ -21,6 +21,11 @@ public class LeaderActionState implements MultiplayerState,SoloState {
     }
 
     @Override
+    public void visitMainActionState(int move, Controller controller) {
+
+    }
+
+    @Override
     public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) {
 
     }
@@ -37,6 +42,14 @@ public class LeaderActionState implements MultiplayerState,SoloState {
 
     @Override
     public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) {
+        commonVisit(actionMap,controller);
+        controller.getMediator().setLeaderActionDone();
+        if(controller.getMediator().isMainActionDone()){
+            controller.setCurrentState(controller.getEndTurnState());
+            controller.getEndTurnState().visitEndTurnState(controller);
+        } else {
+
+        }
 
     }
 
@@ -62,12 +75,12 @@ public class LeaderActionState implements MultiplayerState,SoloState {
                             if(board.getCardNumber(cardReq.getLevel(),cardReq.getColor()) < cardReq.getQuantity())
                                 throw new invalidMoveException("Card requirements to activate the leader card not met ");
                         }
-
+                        break;
                     case 2:
                         int activatedSection = board.discardLeaderCard(entry.getKey());
-                        if(activatedSection != -1){
-                            //TODO
-                        }
+                        if(activatedSection != -1)
+                            controller.getModel().vaticanReport(activatedSection);
+                        break;
                 }
             }
 

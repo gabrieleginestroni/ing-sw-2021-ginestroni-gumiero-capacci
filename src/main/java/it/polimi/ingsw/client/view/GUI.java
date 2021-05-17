@@ -92,4 +92,9 @@ public class GUI extends View{
     public void visitLeaderAction(String currentPlayerNickname) {
 
     }
+
+    @Override
+    public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
+
+    }
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 
 public interface State {
     void visitStartTurnState(int move, Controller controller);
+    void visitMainActionState(int move, Controller controller);
     void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller);
     void visitMiddleTurnState(int move,Controller controller);
     void visitEndTurnState(Controller controller);

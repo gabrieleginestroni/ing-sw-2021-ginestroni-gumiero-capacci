@@ -5,10 +5,10 @@ import it.polimi.ingsw.server.controller.states.State;
 
 import java.util.Map;
 
-public class ChosenLeaderAction implements Message {
+public class ChosenLeaderActionMessage implements Message {
     private final Map<Integer,Integer> actionMap;
 
-    public ChosenLeaderAction(Map<Integer, Integer> actionMap) {
+    public ChosenLeaderActionMessage(Map<Integer, Integer> actionMap) {
         this.actionMap = actionMap;
     }
 

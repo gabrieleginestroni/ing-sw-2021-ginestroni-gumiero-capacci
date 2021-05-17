@@ -15,41 +15,21 @@ public class StartTurnState implements MultiplayerState,SoloState {
         String currentPlayer = controller.getCurrentPlayer().getNickname();
         switch (move){
             case 0:
-                controller.setCurrentState(controller.getMarketState());
-                controller.getVirtualView().marketAction(currentPlayer);
+                controller.setCurrentState(controller.getMainActionState());
+                controller.getVirtualView().mainAction(currentPlayer,null);
                 break;
             case 1:
-                //TODO TESTING
-                try {
-                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.COIN, 3);
-                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SHIELD, 2);
-                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SERVANT, 1);
-                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.STONE, 5);
-                    if(controller.getCurrentPlayer().getBoard().getWarehouseDepotResourceType(0) == null) {
-                        controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.COIN, 1, 0);
-                        controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.SHIELD, 2, 1);
-                        controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.SERVANT, 3, 2);
-                        controller.getCurrentPlayer().getBoard().addLeaderDepot(Resource.STONE);
-                        controller.getCurrentPlayer().getBoard().addLeaderDepotResource(Resource.STONE, 2, 0);
-                    }
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-                controller.setCurrentState(controller.getDevCardSaleState());
-                controller.getVirtualView().devCardSaleAction(currentPlayer);
-                break;
-            case 2:
-                controller.setCurrentState(controller.getActivateProductionState());
-                controller.getVirtualView().productionAction(currentPlayer);
-                break;
-            default:
                 controller.setCurrentState(controller.getLeaderActionState());
                 controller.getVirtualView().leaderAction(currentPlayer);
                 break;
-
         }
 
 
+
+    }
+
+    @Override
+    public void visitMainActionState(int move, Controller controller) {
 
     }
 

@@ -70,6 +70,7 @@ public abstract class View {
     public abstract void visitDevCardSale(String currentPlayerNickname);
     public abstract void visitMiddleTurn(String currentPlayerNickname,String errorMessage);
     public abstract void visitLeaderAction(String currentPlayerNickname);
+    public abstract void visitMainActionState(String currentPlayerNickname,String errorMessage);
 
 
     public DevelopmentCard getDevelopmentCardByID(int cardID){

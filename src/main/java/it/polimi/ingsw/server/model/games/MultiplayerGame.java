@@ -31,4 +31,8 @@ public class MultiplayerGame extends Game{
         super.virtualView.updateBoardVirtualView();
     }
 
+    @Override
+    public void vaticanReport(int sectionIndex) {
+        players.stream().forEach(p -> p.getBoard().computeActivationPopeTile(sectionIndex));
+    }
 }

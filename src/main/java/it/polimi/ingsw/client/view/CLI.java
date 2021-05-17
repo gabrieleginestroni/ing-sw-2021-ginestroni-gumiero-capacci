@@ -372,7 +372,7 @@ public class CLI extends View{
             showMessage(errorMessage);
             showMessage("Choose next action (0 -> end your turn, 1 -> leader action ) ");
             int move = Integer.parseInt(scanner.nextLine().trim());
-            this.networkHandler.sendMessage(new ChosenMiddleMove(move));
+            this.networkHandler.sendMessage(new ChosenMiddleMoveMessage(move));
 
         } else
             this.showMessage(currentPlayerNickname + " is in middle turn");
@@ -391,9 +391,22 @@ public class CLI extends View{
                 actionMap.put(index,move);
                 index++;
             }
-            this.networkHandler.sendMessage(new ChosenLeaderAction(actionMap));
+            this.networkHandler.sendMessage(new ChosenLeaderActionMessage(actionMap));
 
         } else
             this.showMessage(currentPlayerNickname + " is executing a leader action");
+    }
+
+    @Override
+    public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
+
+        if(this.nickname.equals(currentPlayerNickname)){
+            showMessage(errorMessage);
+            showMessage("Choose next action (0 -> market, 1 -> development card purchase, 2 -> activate production) ");
+            int move = Integer.parseInt(scanner.nextLine().trim());
+            this.networkHandler.sendMessage(new ChosenMainMoveMessage(move));
+
+        } else
+            this.showMessage(currentPlayerNickname + " is choosing main action");
     }
 }

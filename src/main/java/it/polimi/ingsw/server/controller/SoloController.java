@@ -25,6 +25,7 @@ public class SoloController extends Controller{
     public static final SoloState activateProductionState = new ActivateProductionState();
     public static final SoloState middleTurnState = new MiddleTurnState();
     public static final SoloState endTurnState = new LorenzoTurnState();
+    public static final SoloState mainActionState = new MainActionState();
 
 
 
@@ -129,6 +130,10 @@ public class SoloController extends Controller{
 
     @Override
     public State getEndTurnState() { return endTurnState;
+    }
+
+    @Override
+    public State getMainActionState() { return mainActionState;
     }
 
 

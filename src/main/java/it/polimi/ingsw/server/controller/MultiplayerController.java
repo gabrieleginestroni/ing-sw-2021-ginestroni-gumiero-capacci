@@ -34,6 +34,7 @@ public class MultiplayerController extends Controller{
     public static final MultiplayerState activateProductionState = new ActivateProductionState();
     public static final MultiplayerState middleTurnState = new MiddleTurnState();
     public static final MultiplayerState endTurnState = new EndTurnState();
+    public static final MultiplayerState mainActionState = new MainActionState();
 
 
 
@@ -226,6 +227,9 @@ public class MultiplayerController extends Controller{
     public State getEndTurnState() { return endTurnState;
     }
 
+    @Override
+    public State getMainActionState() {return mainActionState;
+    }
 
 
 }

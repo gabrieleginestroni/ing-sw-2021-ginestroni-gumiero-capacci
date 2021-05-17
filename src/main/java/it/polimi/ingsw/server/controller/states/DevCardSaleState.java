@@ -25,6 +25,11 @@ public class DevCardSaleState implements MultiplayerState {
     }
 
     @Override
+    public void visitMainActionState(int move, Controller controller) {
+
+    }
+
+    @Override
     public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller){
         commonVisit(row,col,resToRemove,cardSlot,controller);
         if(!controller.getMediator().isLeaderActionDone()) {
@@ -157,8 +162,8 @@ public class DevCardSaleState implements MultiplayerState {
 
         }  catch(invalidMoveException e) {
             System.out.println(currentPlayer.getNickname() + " " + e.getErrorMessage());
-            controller.setCurrentState(controller.getStartTurnState());
-            virtualView.startTurn(currentPlayer.getNickname(),e.getErrorMessage());
+            controller.setCurrentState(controller.getMainActionState());
+            virtualView.mainAction(currentPlayer.getNickname(),e.getErrorMessage());
         }
     }
 

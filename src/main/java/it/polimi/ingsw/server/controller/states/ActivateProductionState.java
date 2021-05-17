@@ -13,6 +13,11 @@ public class ActivateProductionState implements MultiplayerState,SoloState {
     }
 
     @Override
+    public void visitMainActionState(int move, Controller controller) {
+
+    }
+
+    @Override
     public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) {
 
     }
