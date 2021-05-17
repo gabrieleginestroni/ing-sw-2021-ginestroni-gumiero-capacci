@@ -236,15 +236,14 @@ public class CLI extends View{
     }
 
     @Override
-    public void visitStartTurn(String currentPlayerNickname,String errorMessage) {
+    public void visitStartTurn(String currentPlayerNickname) {
         if(this.nickname.equals(currentPlayerNickname)){
-            showMessage(errorMessage);
             int move = -1;
             boolean success = false;
             while(!success){
-                this.showMessage("Choose next action (0 -> market, 1 -> buy a development, 2 -> activate production, 3 -> leader action) ");
+                this.showMessage("Choose next action (0 -> main action, 1 -> leader action) ");
                 move = Integer.parseInt(scanner.nextLine().trim());
-                if(move >= 0 && move <= 3)
+                if(move >= 0 && move <= 1)
                     success = true;
             }
             this.networkHandler.sendMessage(new ChosenFirstMoveMessage(move));
@@ -370,8 +369,14 @@ public class CLI extends View{
 
         if(this.nickname.equals(currentPlayerNickname)){
             showMessage(errorMessage);
-            showMessage("Choose next action (0 -> end your turn, 1 -> leader action ) ");
-            int move = Integer.parseInt(scanner.nextLine().trim());
+            int move = -1;
+            boolean success = false;
+            while(!success){
+                showMessage("Choose next action (0 -> skip leader action, 1 -> leader action ) ");
+                move = Integer.parseInt(scanner.nextLine().trim());
+                if(move >= 0 && move <= 1)
+                    success = true;
+            }
             this.networkHandler.sendMessage(new ChosenMiddleMoveMessage(move));
 
         } else
@@ -386,7 +391,7 @@ public class CLI extends View{
             Map<Integer,Integer> actionMap = new HashMap<>();
             int index = 0;
             for(Integer cardId : hiddenHand) {
-                showMessage("Type the action you want to do with leader card "+cardId+" (0 -> do nothing, 1 -> activate, 2 -> discard");
+                showMessage("Type the action you want to do with leader card "+cardId+" (0 -> do nothing, 1 -> activate, 2 -> discard)");
                 int move = Integer.parseInt(scanner.nextLine().trim());
                 actionMap.put(index,move);
                 index++;
@@ -402,8 +407,14 @@ public class CLI extends View{
 
         if(this.nickname.equals(currentPlayerNickname)){
             showMessage(errorMessage);
-            showMessage("Choose next action (0 -> market, 1 -> development card purchase, 2 -> activate production) ");
-            int move = Integer.parseInt(scanner.nextLine().trim());
+            int move = -1;
+            boolean success = false;
+            while(!success){
+                showMessage("Choose next action (0 -> market, 1 -> development card purchase, 2 -> activate production) ");
+                move = Integer.parseInt(scanner.nextLine().trim());
+                if(move >= 0 && move <= 2)
+                    success = true;
+            }
             this.networkHandler.sendMessage(new ChosenMainMoveMessage(move));
 
         } else

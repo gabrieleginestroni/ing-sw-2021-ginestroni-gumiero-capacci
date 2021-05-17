@@ -58,6 +58,7 @@ public abstract class View {
     public abstract void visitGameStarted(String str);
     public abstract void visitInitialResource(int quantity);
     public abstract void visitInkwell(String nickname);
+
     public abstract void visitLeaderProposal(int[] proposedLeaderCards);
     public abstract void visitLobbyFull(String str);
     public abstract void visitLobbyNotReady(String str);
@@ -66,7 +67,8 @@ public abstract class View {
     public abstract void visitMarketUpdate(String updatedMarket);
     public abstract void visitRequestLobbySize(String str);
     public abstract void visitNicknameAlreadyUsed(String str,String gameID);
-    public abstract void visitStartTurn(String currentPlayerNickname,String errorMessage);
+
+    public abstract void visitStartTurn(String currentPlayerNickname);
     public abstract void visitDevCardSale(String currentPlayerNickname);
     public abstract void visitMiddleTurn(String currentPlayerNickname,String errorMessage);
     public abstract void visitLeaderAction(String currentPlayerNickname);

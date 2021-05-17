@@ -13,6 +13,23 @@ public class StartTurnState implements MultiplayerState,SoloState {
 
 
         String currentPlayer = controller.getCurrentPlayer().getNickname();
+
+        //TODO CHEATING
+        try {
+            controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.COIN, 100);
+            controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SHIELD, 200);
+            controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SERVANT, 100);
+            controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.STONE, 5000);
+            if(controller.getCurrentPlayer().getBoard().getWarehouseDepotResourceType(0) == null) {
+                controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.COIN, 1, 0);
+                controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.SHIELD, 2, 1);
+                controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.SERVANT, 3, 2);
+                controller.getCurrentPlayer().getBoard().addLeaderDepot(Resource.STONE);
+                controller.getCurrentPlayer().getBoard().addLeaderDepotResource(Resource.STONE, 2, 0);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         switch (move){
             case 0:
                 controller.setCurrentState(controller.getMainActionState());

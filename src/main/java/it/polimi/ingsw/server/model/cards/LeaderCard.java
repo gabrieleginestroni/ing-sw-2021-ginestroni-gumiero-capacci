@@ -55,10 +55,14 @@ public class LeaderCard extends Card{
     }
 
     public List<CardRequirement> getCardRequirements() {
-        return new ArrayList<>(cardRequirements);
+        if(cardRequirements != null)
+            return new ArrayList<>(cardRequirements);
+        return new ArrayList<>();
     }
 
     public List<ResourceRequirement> getResourceRequirements() {
-        return new ArrayList<>(resourceRequirements);
+        if(resourceRequirements != null)
+            return new ArrayList<>(resourceRequirements);
+        return new ArrayList<>();
     }
 }

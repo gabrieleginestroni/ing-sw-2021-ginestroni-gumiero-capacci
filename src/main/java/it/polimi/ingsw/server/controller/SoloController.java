@@ -135,6 +135,4 @@ public class SoloController extends Controller{
     @Override
     public State getMainActionState() { return mainActionState;
     }
-
-
 }

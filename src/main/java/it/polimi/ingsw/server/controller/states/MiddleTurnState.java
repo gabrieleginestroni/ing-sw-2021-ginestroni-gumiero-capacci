@@ -24,8 +24,13 @@ public class MiddleTurnState implements MultiplayerState,SoloState {
     public void visitMiddleTurnState(int move, Controller controller) {
         switch (move){
             case 0:
-                controller.setCurrentState(controller.getEndTurnState());
-                controller.getEndTurnState().visitEndTurnState(controller);
+                if(controller.getMediator().isMainActionDone()) {
+                    controller.setCurrentState(controller.getEndTurnState());
+                    controller.getEndTurnState().visitEndTurnState(controller);
+                }else{
+                    controller.setCurrentState(controller.getMainActionState());
+                    controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), "Please do a main action");
+                }
                 break;
             default:
                 controller.setCurrentState(controller.getLeaderActionState());

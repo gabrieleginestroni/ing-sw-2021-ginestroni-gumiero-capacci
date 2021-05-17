@@ -74,7 +74,7 @@ public class GUI extends View{
     }
 
     @Override
-    public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
+    public void visitStartTurn(String currentPlayerNickname) {
 
     }
 

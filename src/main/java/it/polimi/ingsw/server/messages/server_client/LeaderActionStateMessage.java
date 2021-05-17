@@ -12,6 +12,6 @@ public class LeaderActionStateMessage implements AnswerMessage {
 
     @Override
     public void selectView(View view) {
-
+        view.visitLeaderAction(this.currentPlayerNickname);
     }
 }
