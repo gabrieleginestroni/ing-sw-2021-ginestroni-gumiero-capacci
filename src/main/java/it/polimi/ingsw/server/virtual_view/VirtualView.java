@@ -293,11 +293,18 @@ public class VirtualView {
 
     }
 
+    public void showResult(String winner, Map<String, Integer> gameResult){
+        GameOverMessage message = new GameOverMessage(winner,gameResult);
 
-
-
-
-
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+    }
 
     public String toJSONString(){
         return new Gson().toJson(this);

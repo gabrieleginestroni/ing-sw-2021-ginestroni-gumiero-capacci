@@ -32,10 +32,11 @@ public class EndTurnState implements MultiplayerState {
             controller.setCurrentState(controller.getEndGameState());
             controller.getEndGameState().visitEndGameState(null, controller);
         }else{
+            String prevPlayer = controller.getCurrentPlayer().getNickname();
             controller.nextPlayer();
             controller.setCurrentState(controller.getStartTurnState());
-            System.out.println("OK");
-            controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(), null);
+            controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(), prevPlayer+" turn ended");
+            controller.getMediator().refresh();
         }
     }
 

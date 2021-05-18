@@ -12,6 +12,7 @@ public class LorenzoTurnState extends EndTurnState implements SoloState {
         if(!controller.isGameOver()) {
             controller.setCurrentState(controller.getStartTurnState());
             controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(), "Lorenzo has done his move!");
+            controller.getMediator().refresh();
         }else{
             controller.setCurrentState(controller.getEndGameState());
             controller.getEndTurnState().visitEndGameState(null, controller);

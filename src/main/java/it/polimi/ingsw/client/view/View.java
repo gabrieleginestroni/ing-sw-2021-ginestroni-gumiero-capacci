@@ -9,6 +9,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 public abstract class View {
     GridView devGrid;
@@ -73,6 +74,7 @@ public abstract class View {
     public abstract void visitMiddleTurn(String currentPlayerNickname,String errorMessage);
     public abstract void visitLeaderAction(String currentPlayerNickname);
     public abstract void visitMainActionState(String currentPlayerNickname,String errorMessage);
+    public abstract void visitGameOverState(String winner, Map<String, Integer> gameResult);
 
 
     public DevelopmentCard getDevelopmentCardByID(int cardID){
@@ -84,7 +86,5 @@ public abstract class View {
         if(cardID > 0 && cardID <= leaderCards.length) return this.leaderCards[cardID-1];
         return null;
     }
-
-
 
 }

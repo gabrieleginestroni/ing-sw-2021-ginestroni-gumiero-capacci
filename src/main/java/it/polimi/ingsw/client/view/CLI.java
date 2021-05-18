@@ -230,6 +230,12 @@ public class CLI extends View{
         this.showMessage(str);
 
         String nickname = scanner.nextLine();
+        while(nickname.length() > 20) {
+            showMessage("Nickname must be < 20 chars");
+            showMessage("Type nickname:");
+            nickname = scanner.nextLine();
+        }
+
         this.setNickname(nickname);
 
         this.networkHandler.sendMessage(new LoginRequestMessage(gameID,nickname));
@@ -265,7 +271,7 @@ public class CLI extends View{
                 this.showMessage("Type row and column of the card you want to buy ");
                 row = scanner.nextInt();
                 col = Integer.parseInt(scanner.nextLine().trim());
-                if(row >= 0 && row <= 2 && col >= 0 && col <= 3)
+                if(row >= 0 && row <= 2 && col >= 0 && col <= 3 && super.devGrid.getGridId(row, col) != 0)
                     success = true;
             }
 
@@ -420,5 +426,18 @@ public class CLI extends View{
 
         } else
             this.showMessage(currentPlayerNickname + " is choosing main action");
+    }
+
+    @Override
+    public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
+
+        if(this.nickname.equals(winner))
+            this.showMessage("YOU WIN!!!");
+        else
+            this.showMessage(winner+ " WINS!!!");
+        String resMsg = "";
+        for(Map.Entry<String,Integer> res: gameResult.entrySet())
+           resMsg += res.getKey()+" ==> "+res.getValue()+" POINTS\n";
+        this.showMessage(resMsg);
     }
 }

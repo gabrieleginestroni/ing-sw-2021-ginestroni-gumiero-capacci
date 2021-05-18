@@ -27,8 +27,14 @@ public class ClientCLI {
 
             view.showMessage("Type game ID:");
             String gameID = scanner.nextLine();
+            String nickname;
             view.showMessage("Type nickname:");
-            String nickname = scanner.nextLine();
+            nickname = scanner.nextLine();
+            while(nickname.length() > 20) {
+                view.showMessage("Nickname must be < 20 chars");
+                view.showMessage("Type nickname:");
+                nickname = scanner.nextLine();
+            }
             view.setNickname(nickname);
             networkHandler.sendMessage(new LoginRequestMessage(gameID,nickname));
 

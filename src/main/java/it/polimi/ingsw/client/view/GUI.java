@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import java.util.List;
+import java.util.Map;
 
 public class GUI extends View{
     @Override
@@ -95,6 +96,11 @@ public class GUI extends View{
 
     @Override
     public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
+
+    }
+
+    @Override
+    public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
 
     }
 }

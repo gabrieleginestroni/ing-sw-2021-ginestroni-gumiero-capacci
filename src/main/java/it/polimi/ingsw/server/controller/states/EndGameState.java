@@ -1,8 +1,11 @@
 package it.polimi.ingsw.server.controller.states;
 
 import it.polimi.ingsw.server.controller.Controller;
+import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.model.Resource;
 
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
 
 public class EndGameState implements MultiplayerState{
@@ -38,6 +41,12 @@ public class EndGameState implements MultiplayerState{
 
     @Override
     public void visitEndGameState(String winner,Controller controller) {
-        //TODO
+        Map<String, Integer> tmpMap = new HashMap<>();
+        Map<String, Integer> playersVictoryPoints = new HashMap<>();
+        tmpMap.put(controller.getCurrentPlayer().getNickname(), controller.getCurrentPlayer().getBoard().computeVictoryPoints());
+        for(Player p: controller.othersPlayers())
+            tmpMap.put(p.getNickname(), p.getBoard().computeVictoryPoints());
+        tmpMap.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())) .forEachOrdered(p -> playersVictoryPoints.put(p.getKey(), p.getValue()));
+        controller.getVirtualView().showResult(playersVictoryPoints.entrySet().iterator().next().getKey(), playersVictoryPoints);
     }
 }
