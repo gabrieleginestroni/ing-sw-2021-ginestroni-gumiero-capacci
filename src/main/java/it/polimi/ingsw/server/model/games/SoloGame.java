@@ -54,6 +54,7 @@ public class SoloGame extends Game{
         return lorenzo.addFaithPoints(points);
     }
 
+    @Override
     /**
      * Method that draws and applies the effect of the next Action Token from the pile used in the specific Game.
      * @return -1 if the drawn Action Token does not activate any Vatican Report, 0 if it activates the first Vatican Report, 1 for the second and 2 for the last one.

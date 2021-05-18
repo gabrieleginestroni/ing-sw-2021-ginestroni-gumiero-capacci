@@ -42,9 +42,10 @@ public class ActionTokensPile {
      * @return -1 if the drawn Action Token does not activate any Vatican Report, 0 if it activates the first Vatican Report, 1 for the second and 2 for the last one.
      */
     public int drawPile(SoloGame solo) {
-        solo.notifyDrawnActionToken(actionTokens.get(tokenPileStatus[nextToDraw]).getId());
-
         nextToDraw++;
+
+        solo.notifyDrawnActionToken(actionTokens.get(tokenPileStatus[nextToDraw - 1]).getId());
+
         return actionTokens.get(tokenPileStatus[nextToDraw - 1]).activateEffect(solo);
     }
 

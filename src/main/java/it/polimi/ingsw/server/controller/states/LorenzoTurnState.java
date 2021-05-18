@@ -1,38 +1,20 @@
 package it.polimi.ingsw.server.controller.states;
 
 import it.polimi.ingsw.server.controller.Controller;
-import it.polimi.ingsw.server.model.Resource;
 
-import java.util.Map;
-
-public class LorenzoTurnState implements SoloState {
-    @Override
-    public void visitStartTurnState(int move, Controller controller) {
-
-    }
-
-    @Override
-    public void visitMainActionState(int move, Controller controller) {
-
-    }
-
-    @Override
-    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) {
-
-    }
-
-    @Override
-    public void visitMiddleTurnState(int move, Controller controller) {
-
-    }
-
+public class LorenzoTurnState extends EndTurnState implements SoloState {
     @Override
     public void visitEndTurnState(Controller controller) {
-        //TODO
-    }
+        int activatedSection = controller.getModel().drawFromTokenPile();
+        if(activatedSection != -1)
+            controller.getModel().vaticanReport(activatedSection);
 
-    @Override
-    public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) {
-
+        if(!controller.isGameOver()) {
+            controller.setCurrentState(controller.getStartTurnState());
+            controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(), "Lorenzo has done his move!");
+        }else{
+            controller.setCurrentState(controller.getEndGameState());
+            controller.getEndTurnState().visitEndGameState(null, controller);
+        }
     }
 }

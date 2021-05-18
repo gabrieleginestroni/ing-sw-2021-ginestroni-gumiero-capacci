@@ -59,6 +59,11 @@ public class LeaderActionState implements MultiplayerState,SoloState {
         }
     }
 
+    @Override
+    public void visitEndGameState(String winner,Controller controller) {
+
+    }
+
     void commonVisit(Map<Integer, Integer> actionMap, Controller controller) throws invalidMoveException{
         Player currentPlayer = controller.getCurrentPlayer();
         Board board = currentPlayer.getBoard();

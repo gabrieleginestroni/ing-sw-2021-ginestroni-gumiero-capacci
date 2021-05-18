@@ -48,4 +48,9 @@ public class MiddleTurnState implements MultiplayerState,SoloState {
     public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) {
 
     }
+
+    @Override
+    public void visitEndGameState(String winner, Controller controller) {
+
+    }
 }

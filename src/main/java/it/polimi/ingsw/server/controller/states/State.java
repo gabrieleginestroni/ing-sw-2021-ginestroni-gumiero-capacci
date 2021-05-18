@@ -13,5 +13,6 @@ public interface State {
     void visitMiddleTurnState(int move,Controller controller);
     void visitEndTurnState(Controller controller);
     void visitLeaderActionState(Map<Integer,Integer> actionMap,Controller controller);
+    void visitEndGameState(String winner, Controller controller);
 
 }

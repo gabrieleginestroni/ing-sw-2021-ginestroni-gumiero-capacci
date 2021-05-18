@@ -12,14 +12,22 @@ public class SoloDevCardSaleState extends DevCardSaleState implements SoloState 
     public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) {
         try {
             super.commonVisit(row, col, resToRemove, cardSlot, controller);
-            //TODO change next state
-            if (!controller.getMediator().isLeaderActionDone()) {
-                System.out.println("Solo turn end!");
-                controller.setCurrentState(controller.getMiddleTurnState());
-                controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
-            } else {
-                controller.setCurrentState(controller.getEndTurnState());
-                controller.getEndTurnState().visitEndTurnState(controller);
+            if(controller.isGameOver()){
+                if(controller.getModel().isColumnEmpty(col)){
+                    controller.setCurrentState(controller.getEndGameState());
+                    controller.getEndGameState().visitEndGameState(null, controller);
+                }else{
+                    controller.setCurrentState(controller.getEndGameState());
+                    controller.getEndGameState().visitEndGameState(controller.getCurrentPlayer().getNickname(), controller);
+                }
+            }else{
+                if (!controller.getMediator().isLeaderActionDone()) {
+                    controller.setCurrentState(controller.getMiddleTurnState());
+                    controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
+                } else {
+                    controller.setCurrentState(controller.getEndTurnState());
+                    controller.getEndTurnState().visitEndTurnState(controller);
+                }
             }
         } catch(invalidMoveException e) {
             System.out.println(controller.getCurrentPlayer().getNickname() + " " + e.getErrorMessage());

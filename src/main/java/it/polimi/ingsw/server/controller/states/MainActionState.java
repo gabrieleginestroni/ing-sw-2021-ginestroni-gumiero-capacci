@@ -66,4 +66,9 @@ public class MainActionState implements SoloState,MultiplayerState {
     public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) {
 
     }
+
+    @Override
+    public void visitEndGameState(String winner,Controller controller) {
+
+    }
 }

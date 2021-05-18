@@ -28,11 +28,24 @@ public class EndTurnState implements MultiplayerState {
 
     @Override
     public void visitEndTurnState(Controller controller) {
-        //TODO
+        if(controller.isGameOver() && controller.isRoundOver()){
+            controller.setCurrentState(controller.getEndGameState());
+            controller.getEndGameState().visitEndGameState(null, controller);
+        }else{
+            controller.nextPlayer();
+            controller.setCurrentState(controller.getStartTurnState());
+            System.out.println("OK");
+            controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(), null);
+        }
     }
 
     @Override
     public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) {
+
+    }
+
+    @Override
+    public void visitEndGameState(String winner,Controller controller) {
 
     }
 }

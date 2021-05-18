@@ -35,6 +35,7 @@ public class MultiplayerController extends Controller{
     public static final MultiplayerState middleTurnState = new MiddleTurnState();
     public static final MultiplayerState endTurnState = new EndTurnState();
     public static final MultiplayerState mainActionState = new MainActionState();
+    public static final MultiplayerState endGameState = new EndGameState();
 
 
 
@@ -139,7 +140,6 @@ public class MultiplayerController extends Controller{
         currentState = startTurnState;
         virtualView.startTurn(this.turnHandler.getCurrentPlayer().getNickname(),null);
 
-
     }
 
     @Override
@@ -153,7 +153,12 @@ public class MultiplayerController extends Controller{
 
     @Override
     public boolean isGameOver() {
-        return false;
+        return model.isGameOver();
+    }
+
+    @Override
+    public boolean isRoundOver() {
+        return turnHandler.isRoundOver();
     }
 
     @Override
@@ -229,6 +234,10 @@ public class MultiplayerController extends Controller{
 
     @Override
     public State getMainActionState() {return mainActionState;
+    }
+
+    @Override
+    public State getEndGameState() { return endGameState;
     }
 
 

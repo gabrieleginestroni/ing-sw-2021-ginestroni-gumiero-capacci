@@ -5,8 +5,7 @@ import it.polimi.ingsw.server.model.Resource;
 
 import java.util.Map;
 
-public class ActivateProductionState implements MultiplayerState,SoloState {
-
+public class EndGameState implements MultiplayerState{
     @Override
     public void visitStartTurnState(int move, Controller controller) {
 
@@ -38,7 +37,7 @@ public class ActivateProductionState implements MultiplayerState,SoloState {
     }
 
     @Override
-    public void visitEndGameState(String winner, Controller controller) {
-
+    public void visitEndGameState(String winner,Controller controller) {
+        //TODO
     }
 }

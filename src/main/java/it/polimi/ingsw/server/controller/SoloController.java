@@ -26,6 +26,7 @@ public class SoloController extends Controller{
     public static final SoloState middleTurnState = new MiddleTurnState();
     public static final SoloState endTurnState = new LorenzoTurnState();
     public static final SoloState mainActionState = new MainActionState();
+    public static final SoloState endGameState = new SoloEndGameState();
 
 
 
@@ -59,6 +60,11 @@ public class SoloController extends Controller{
 
     @Override
     public boolean isGameOver() {
+        return model.isGameOver();
+    }
+
+    @Override
+    public boolean isRoundOver() {
         return false;
     }
 
@@ -73,9 +79,7 @@ public class SoloController extends Controller{
     }
 
     @Override
-    public void nextPlayer() {
-
-    }
+    public void nextPlayer() {}
 
     @Override
     public List<Player> othersPlayers() {
@@ -134,5 +138,9 @@ public class SoloController extends Controller{
 
     @Override
     public State getMainActionState() { return mainActionState;
+    }
+
+    @Override
+    public State getEndGameState() { return endGameState;
     }
 }

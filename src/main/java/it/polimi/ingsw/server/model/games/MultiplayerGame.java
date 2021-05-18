@@ -35,4 +35,9 @@ public class MultiplayerGame extends Game{
     public void vaticanReport(int sectionIndex) {
         players.stream().forEach(p -> p.getBoard().computeActivationPopeTile(sectionIndex));
     }
+
+    @Override
+    public int drawFromTokenPile() {
+        return 0;
+    }
 }

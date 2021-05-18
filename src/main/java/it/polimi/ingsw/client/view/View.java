@@ -68,7 +68,7 @@ public abstract class View {
     public abstract void visitRequestLobbySize(String str);
     public abstract void visitNicknameAlreadyUsed(String str,String gameID);
 
-    public abstract void visitStartTurn(String currentPlayerNickname);
+    public abstract void visitStartTurn(String currentPlayerNickname, String errorMessage);
     public abstract void visitDevCardSale(String currentPlayerNickname);
     public abstract void visitMiddleTurn(String currentPlayerNickname,String errorMessage);
     public abstract void visitLeaderAction(String currentPlayerNickname);

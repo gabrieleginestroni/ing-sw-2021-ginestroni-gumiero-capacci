@@ -61,17 +61,10 @@ public class DevelopmentCardGrid {
         int column = color.getColumn();
         int cardToDiscard = 2;
 
-        for(int i = 0; i < 2 && cardToDiscard > 0; i++){
-            if(grid[i][column].size() > 1) {
+        for(int i = 2; i >= 0 && cardToDiscard > 0; i--){
+            for(int j = 0; j < grid[i][column].size() && cardToDiscard > 0; j++){
                 grid[i][column].removeLast();
-                grid[i][column].removeLast();
-                cardToDiscard = 0;
-            }
-            else{
-                if(grid[i][column].size() == 1) {
-                    grid[i][column].removeLast();
-                    cardToDiscard--;
-                }
+                cardToDiscard--;
             }
         }
 
@@ -121,5 +114,13 @@ public class DevelopmentCardGrid {
                     tempStatus[i][j] = grid[i][j].getLast().getId();
             }
         return tempStatus;
+    }
+
+    //TODO documentation
+    public boolean isColumnEmpty(int col){
+        for(int i = 0; i <= 2; i++)
+            if(!grid[i][col].isEmpty())
+                return false;
+        return true;
     }
 }

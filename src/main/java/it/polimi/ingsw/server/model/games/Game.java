@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.model.games;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.server.exceptions.emptyDevCardGridSlotSelectedException;
+import it.polimi.ingsw.server.model.Color;
 import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
@@ -200,5 +201,13 @@ public abstract class Game {
         return gridObserver;
     }
 
+    //TODO documentation
+    public boolean isColumnEmpty(int col){
+        return devCardsGrid.isColumnEmpty(col);
+    }
+
+    //TODO documentation
     public abstract void vaticanReport(int sectionIndex);
+
+    public abstract int drawFromTokenPile();
 }

@@ -27,7 +27,6 @@ public class LorenzoObserver {
      */
     public void notifyLorenzoStatus(int newBlackCross){
         this.blackCrossMarker = newBlackCross;
-
          virtualView.updateLorenzoVirtualView();
     }
 
@@ -35,7 +34,10 @@ public class LorenzoObserver {
      * Changes Lorenzo's last drawn token action notifies to the virtual view a change of the Lorenzo status
      * @param lastDrawnActionToken New last drawn token action
      */
-    public void notifyLastDrawnActionToken(String lastDrawnActionToken){this.lastDrawnActionToken = lastDrawnActionToken;}
+    public void notifyLastDrawnActionToken(String lastDrawnActionToken){
+        this.lastDrawnActionToken = lastDrawnActionToken;
+        virtualView.updateLorenzoVirtualView();
+    }
 
     public String toJSONString(){
         return new Gson().toJson(this);

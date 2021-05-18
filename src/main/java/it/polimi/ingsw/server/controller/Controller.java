@@ -21,6 +21,8 @@ public abstract class Controller {
 
     public abstract boolean isGameOver();
 
+    public abstract boolean isRoundOver();
+
     public abstract Player getCurrentPlayer();
 
     public abstract CommunicationMediator getMediator();
@@ -44,6 +46,7 @@ public abstract class Controller {
     public VirtualView getVirtualView() {
         return this.virtualView;
     }
+
     public abstract Game getModel();
 
     public abstract State getMarketState();
@@ -54,5 +57,6 @@ public abstract class Controller {
     public abstract State getMiddleTurnState();
     public abstract State getEndTurnState();
     public abstract State getMainActionState();
+    public abstract State getEndGameState();
 
 }

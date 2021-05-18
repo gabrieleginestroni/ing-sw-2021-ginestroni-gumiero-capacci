@@ -195,7 +195,7 @@ public class VirtualView {
     }
 
     public void startTurn(String currentPlayerNickname,String errorMessage){
-        StartTurnStateMessage message = new StartTurnStateMessage(currentPlayerNickname);
+        StartTurnStateMessage message = new StartTurnStateMessage(currentPlayerNickname, errorMessage);
 
         players.stream().forEach(p -> {
             try{
