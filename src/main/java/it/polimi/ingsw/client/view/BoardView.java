@@ -57,7 +57,13 @@ public class BoardView {
     }
 
     public int getTopCardSlot(int index) {
-        return cardSlot[index].get(cardSlot[index].size()-1);
+        int card;
+        try {
+            card = cardSlot[index].get(cardSlot[index].size() - 1);
+        }catch (Exception e){
+            return 0;
+        }
+        return card;
     }
 
     public List<String> getLeaderDepotResource() {

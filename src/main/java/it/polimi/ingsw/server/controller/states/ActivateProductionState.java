@@ -39,7 +39,7 @@ public class ActivateProductionState implements MultiplayerState {
         Player currentPlayer = controller.getCurrentPlayer();
         Board board = currentPlayer.getBoard();
 
-        if(chosenResource.equals(Resource.FAITH))
+        if(chosenResource != null && chosenResource.equals(Resource.FAITH))
             throw new invalidMoveException("Cannot produce Faith Points!");
 
         if(productionIndex >= 0 && productionIndex <= 2){
@@ -251,8 +251,10 @@ public class ActivateProductionState implements MultiplayerState {
             for (Map.Entry<Resource, Integer> entry : outputProduction.entrySet()){
                 if(entry.getKey() != Resource.FAITH)
                     board.addStrongboxResource(entry.getKey(), entry.getValue());
-                else
-                    board.giveFaithPoints(entry.getValue());
+                else {
+                    int activatedSectionIndex = board.giveFaithPoints(entry.getValue());
+                    controller.getModel().vaticanReport(activatedSectionIndex);
+                }
             }
 
             controller.getMediator().setMainActionDone();

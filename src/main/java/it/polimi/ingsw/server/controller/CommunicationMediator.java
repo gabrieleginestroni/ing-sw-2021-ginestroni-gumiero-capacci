@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.server.model.Resource;
 
 import java.util.HashMap;
@@ -49,5 +50,7 @@ public class CommunicationMediator {
                 prevQty = productionOutputs.get(entry.getKey());
             productionOutputs.put(entry.getKey(), prevQty + entry.getValue());
         }
+        System.out.println(new Gson().toJson(res));
+        System.out.println(productionOutputs);
     }
 }

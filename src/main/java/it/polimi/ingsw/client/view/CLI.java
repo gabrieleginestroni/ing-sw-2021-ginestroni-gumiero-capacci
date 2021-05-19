@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.messages.client_server.*;
 import it.polimi.ingsw.server.model.Resource;
 
@@ -492,23 +493,184 @@ public class CLI extends View{
     public void visitProductionState(String currentPlayerNickname, String errorMessage) {
         if(this.nickname.equals(currentPlayerNickname)){
             showMessage(errorMessage);
-            int move = -1;
+            int productionIndex = -1;
             boolean success = false;
-            while(!success){
+            while (!success) {
                 showMessage("Choose a production to activate(0, 1, 2 for cardSlot, 3,4 for leader production, 5 for board production, 6 to apply)");
-                move = Integer.parseInt(scanner.nextLine().trim());
-                if(move >= 0 && move <= 6)
+                productionIndex = Integer.parseInt(scanner.nextLine().trim());
+                if (productionIndex >= 0 && productionIndex <= 6)
                     success = true;
             }
 
-            if(0 <= move && move <= 2){
-                personalBoardView.getTopCardSlot(move);
-                //TODO
-                //GENERATE MAP
+            Map<Integer, Integer> wareHouseMap = new HashMap<>();
+            Map<Resource, Integer> strongBoxMap = new HashMap<>();
+            Resource chosenResource;
+            int quantity = 0;
+            int deltaQuantity = 0;
+            int availableQuantity = 0;
+            Map<Resource, Integer> productionInput = null;
+
+            if (productionIndex <= 4) {
+                if (productionIndex <= 2) {
+                    //development card production
+                    int card = personalBoardView.getTopCardSlot(productionIndex);
+                    productionInput = this.getDevelopmentCardByID(card).getProductionInput();
+                } else {
+                    int card = personalBoardView.getActiveLeaders().get(productionIndex-3);
+                    productionInput = new HashMap<>();
+                    productionInput.put(this.getLeaderCardByID(card).getResource(), 1);
+                }
+
+                //Keeps asking where to pick the same resource if selected resources are not enough
+                for (Map.Entry<Resource, Integer> entry : productionInput.entrySet()) {
+                    while (quantity < entry.getValue()) {
+                        System.out.println("Pick " + (entry.getValue() - quantity) + " " + entry.getKey() + " from your depots");
+                        int i = 0;
+
+                        //Prints where the required resource is available inside warehouse depots, updating the current status based
+                        //on the previous choices made
+                        List<String> tmpDep = super.personalBoardView.getWarehouseDepotResource();
+                        List<Integer> tmpRes = super.personalBoardView.getWarehouseDepotQuantity();
+                        for (String s : tmpDep) {
+                            if (!s.equals("NULL") && Resource.valueOf(s) == entry.getKey()) {
+                                if (wareHouseMap.get(i) != null && wareHouseMap.get(i) != null)
+                                    deltaQuantity = wareHouseMap.get(i);
+                                else
+                                    deltaQuantity = 0;
+                                System.out.println("Warehouse depot (" + i + ") => " + (tmpRes.get(i) - deltaQuantity) + " " + s + " available");
+                                availableQuantity += tmpRes.get(i);
+                            }
+                            i++;
+                        }
+
+                        //Prints where the required resource is available inside leader depots, updating the current status based
+                        //on the previous choices made
+                        tmpDep = super.personalBoardView.getLeaderDepotResource();
+                        tmpRes = super.personalBoardView.getLeaderDepotQuantity();
+                        for (String s : tmpDep) {
+                            if (!s.equals("NULL") && Resource.valueOf(s) == entry.getKey()) {
+                                if (wareHouseMap.get(i) != null && wareHouseMap.get(i) != null)
+                                    deltaQuantity = wareHouseMap.get(i);
+                                else
+                                    deltaQuantity = 0;
+                                System.out.println("Leader depot (" + i + ") => " + (tmpRes.get(i - 3) - deltaQuantity) + " " + s + " available");
+                                availableQuantity += tmpRes.get(i - 3);
+                            }
+                            i++;
+                        }
+
+                        System.out.println("Strongbox (" + i + ") => " + ( super.personalBoardView.getStrongBox().get(entry.getKey().toString()) - deltaQuantity) + " " + entry.getKey() + " available");
+                        availableQuantity += super.personalBoardView.getStrongBox().get(entry.getKey().toString());
+
+                        //Fail if we don't have enough overall resources to buy the card
+                        if (availableQuantity >= entry.getValue()) {
+                            int depot = scanner.nextInt();
+                            int addedQuantity = Integer.parseInt(scanner.nextLine().trim());
+
+                            quantity += addedQuantity; //progressive count of resource to remove
+
+                            //add or insert element in the remove map
+                            if (depot != 5) {
+                                wareHouseMap.merge(depot, addedQuantity, Integer::sum);
+                            } else
+                                strongBoxMap.merge(entry.getKey(), addedQuantity, Integer::sum);
+
+                            System.out.println(new Gson().toJson(wareHouseMap));
+                            System.out.println(new Gson().toJson(strongBoxMap));
+                        } else {
+                            System.out.println("Cannot activate production, only " + availableQuantity + " " + entry.getKey() + ", " + entry.getValue() + " needed");
+                            break;
+                            //add error
+                        }
+                    }
+                }
+            } else if (productionIndex == 5) {
+                while (quantity < 2) {
+                    System.out.println("Pick " + (2 - quantity) + " from your depots");
+                    int i = 0;
+
+                    //Prints all available resources inside warehouse depots, updating the current status based on the previous choices made
+                    List<String> tmpDep = super.personalBoardView.getWarehouseDepotResource();
+                    List<Integer> tmpRes = super.personalBoardView.getWarehouseDepotQuantity();
+                    for (String s : tmpDep) {
+                        if (!s.equals("NULL")) {
+                            if (wareHouseMap.get(i) != null && wareHouseMap.get(i) != null)
+                                deltaQuantity = wareHouseMap.get(i);
+                            else
+                                deltaQuantity = 0;
+                            System.out.println("Warehouse depot (" + i + ") => " + (tmpRes.get(i) - deltaQuantity) + " " + s + " available");
+                            availableQuantity += tmpRes.get(i);
+                        }
+                        i++;
+                    }
+
+                    //Prints all available resources inside leader depots, updating the current status based on the previous choices made
+                    tmpDep = super.personalBoardView.getLeaderDepotResource();
+                    tmpRes = super.personalBoardView.getLeaderDepotQuantity();
+                    for (String s : tmpDep) {
+                        if (!s.equals("NULL")) {
+                            if (wareHouseMap.get(i) != null && wareHouseMap.get(i) != null)
+                                deltaQuantity = wareHouseMap.get(i);
+                            else
+                                deltaQuantity = 0;
+                            System.out.println("Leader depot (" + i + ") => " + (tmpRes.get(i - 3) - deltaQuantity) + " " + s + " available");
+                            availableQuantity += tmpRes.get(i - 3);
+                        }
+                        i++;
+                    }
+
+                    //Prints where the required resource is available inside strongbox, updating the current status based
+                    //on the previous choices made
+                    for (Resource r : Resource.values()) {
+                        if (strongBoxMap.get(r) != null && strongBoxMap.get(r) != null)
+                            deltaQuantity = strongBoxMap.get(r);
+                        else
+                            deltaQuantity = 0;
+                        System.out.println("Strongbox (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r.toString() + " available");
+                        availableQuantity += super.personalBoardView.getStrongBox().get(r.toString());
+                    }
+
+                    //Fail if we don't have enough overall resources to buy the card
+                    if (availableQuantity >= 2) {
+                        int depot = scanner.nextInt();
+                        int res = 0;
+                        i = 0;
+                        if(depot == 5){
+                            for (Resource r : Resource.values()) {
+                                if (strongBoxMap.get(r) != null && strongBoxMap.get(r) != null)
+                                    deltaQuantity = strongBoxMap.get(r);
+                                else
+                                    deltaQuantity = 0;
+                                System.out.println(r.toString()+" (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r.toString() + " available");
+                                i++;
+                            }
+                            res = scanner.nextInt();
+                        }
+                        int addedQuantity = Integer.parseInt(scanner.nextLine().trim());
+                        quantity += addedQuantity; //progressive count of resource to remove
+
+                        //add or insert element in the remove map
+                        if (depot != 5) {
+                            wareHouseMap.merge(depot, addedQuantity, Integer::sum);
+                        } else
+                            strongBoxMap.merge(Resource.values()[res], addedQuantity, Integer::sum);
+
+                        System.out.println(new Gson().toJson(wareHouseMap));
+                        System.out.println(new Gson().toJson(strongBoxMap));
+                    } else {
+                        System.out.println("Cannot activate production, only " + availableQuantity + ", 2 needed");
+                        break;
+                        //add error
+                    }
+                }
             }
+            if (productionIndex >= 3 && productionIndex != 6) {
+                System.out.println("Choose resource to produce");
+                chosenResource = Resource.valueOf(scanner.nextLine().toUpperCase());
+            } else
+                chosenResource = null;
 
-            this.networkHandler.sendMessage(new ChosenMainMoveMessage(move));
-
+            this.networkHandler.sendMessage(new ChosenProductionMessage(productionIndex, wareHouseMap, strongBoxMap, chosenResource));
         } else
             this.showMessage(currentPlayerNickname + " is activating production");
 

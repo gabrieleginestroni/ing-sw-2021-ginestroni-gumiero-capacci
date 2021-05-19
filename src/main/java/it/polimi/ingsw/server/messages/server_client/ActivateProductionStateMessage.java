@@ -13,6 +13,6 @@ public class ActivateProductionStateMessage implements AnswerMessage {
 
     @Override
     public void selectView(View view) {
-
+        view.visitProductionState(currentPlayerNickname, errorMessage);
     }
 }

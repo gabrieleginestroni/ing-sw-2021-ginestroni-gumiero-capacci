@@ -11,16 +11,20 @@ public class SoloActivateProductionState extends ActivateProductionState impleme
     public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller){
         try {
             commonVisit(productionIndex, wareHouseMap, strongBoxMap, chosenResource, controller);
-            if(controller.isGameOver()){
-                controller.setCurrentState(controller.getEndGameState());
-                controller.getEndGameState().visitEndGameState(controller.getCurrentPlayer().getNickname(), controller);
+            if(productionIndex != 6) {
+                controller.getVirtualView().productionAction(controller.getCurrentPlayer().getNickname(), null);
             }else {
-                if(!controller.getMediator().isLeaderActionDone()) {
-                    controller.setCurrentState(controller.getMiddleTurnState());
-                    controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
-                }else{
-                    controller.setCurrentState(controller.getEndTurnState());
-                    controller.getEndTurnState().visitEndTurnState(controller);
+                if (controller.isGameOver()) {
+                    controller.setCurrentState(controller.getEndGameState());
+                    controller.getEndGameState().visitEndGameState(controller.getCurrentPlayer().getNickname(), controller);
+                } else {
+                    if (!controller.getMediator().isLeaderActionDone()) {
+                        controller.setCurrentState(controller.getMiddleTurnState());
+                        controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
+                    } else {
+                        controller.setCurrentState(controller.getEndTurnState());
+                        controller.getEndTurnState().visitEndTurnState(controller);
+                    }
                 }
             }
         } catch (invalidMoveException e) {

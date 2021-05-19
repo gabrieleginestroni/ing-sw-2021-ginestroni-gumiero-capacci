@@ -20,7 +20,9 @@ public class StartTurnState implements MultiplayerState,SoloState {
             controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SHIELD, 200);
             controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SERVANT, 100);
             controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.STONE, 5000);
-            if(controller.getCurrentPlayer().getBoard().getWarehouseDepotResourceType(0) == null) {
+            if(controller.getCurrentPlayer().getBoard().getWarehouseDepotResourceType(0) == null
+            && controller.getCurrentPlayer().getBoard().getWarehouseDepotResourceType(1) == null
+            && controller.getCurrentPlayer().getBoard().getWarehouseDepotResourceType(2) == null) {
                 controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.COIN, 1, 0);
                 controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.SHIELD, 2, 1);
                 controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.SERVANT, 3, 2);
