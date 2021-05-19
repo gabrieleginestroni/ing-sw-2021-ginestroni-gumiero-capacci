@@ -100,6 +100,11 @@ public class GUI extends View{
     }
 
     @Override
+    public void visitProductionState(String currentPlayerNickname, String errorMessage) {
+
+    }
+
+    @Override
     public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
 
     }

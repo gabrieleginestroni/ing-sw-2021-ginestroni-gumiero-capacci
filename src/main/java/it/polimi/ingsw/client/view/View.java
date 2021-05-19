@@ -73,6 +73,7 @@ public abstract class View {
     public abstract void visitMiddleTurn(String currentPlayerNickname,String errorMessage);
     public abstract void visitLeaderAction(String currentPlayerNickname);
     public abstract void visitMainActionState(String currentPlayerNickname,String errorMessage);
+    public abstract void visitProductionState(String currentPlayerNickname,String errorMessage);
     public abstract void visitGameOverState(String winner, Map<String, Integer> gameResult);
 
 

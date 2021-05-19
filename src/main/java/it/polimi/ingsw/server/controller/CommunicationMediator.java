@@ -16,6 +16,10 @@ public class CommunicationMediator {
         productionOutputs = new HashMap<>();
     }
 
+    public Map<Resource, Integer> getProductionOutputs() {
+        return productionOutputs;
+    }
+
     public boolean isMainActionDone() {
         return mainActionDone;
     }

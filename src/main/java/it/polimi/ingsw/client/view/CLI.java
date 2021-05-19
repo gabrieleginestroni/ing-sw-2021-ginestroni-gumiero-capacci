@@ -18,58 +18,118 @@ public class CLI extends View{
     @Override
     public void showMessage(String str) {
         //TODO move to visit method
-        // buildCLI();
+        //buildCLI();
         if(str != null)
             System.out.println(str);
     }
 
+    public String[] buildPersonalBoardCLI() {
+        String[] personalMatrix = new String[12];
+        for (int i = 0; i < personalMatrix.length; i++)
+            personalMatrix[i] = "";
 
-    public void buildCLI() {
-        String[] pixelMatrix = new String[24];
-        for(int i = 0; i < 24; i++)
-            pixelMatrix[i] = "";
         try {
+            if (this.personalBoardView != null) {
+                personalMatrix[0] += "Your Strongbox";
+                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.SHIELD.toString()); j++)
+                    personalMatrix[1] += "\uD83D\uDEE1"; //🛡
+                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.STONE.toString()); j++)
+                    personalMatrix[2] += "\uD83D\uDC8E"; //💎
+                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.SERVANT.toString()); j++)
+                    personalMatrix[3] += "\uD83D\uDC68"; //👨
+                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.COIN.toString()); j++)
+                    personalMatrix[4] += "\uD83D\uDCB0"; //💰
+            }
+        } catch (Exception e) {
+            //OK
+        }
+
+        //limit line width to 20
+        for (int i = 0; i < personalMatrix.length; i++){
+            personalMatrix[i] += " ".repeat(Math.max(0, 20 - personalMatrix[i].length()));
+            personalMatrix[i] = personalMatrix[i].substring(0, Math.min(personalMatrix[i].length(), 20));
+            if (personalMatrix[i].length() == 20)
+                personalMatrix[i] = personalMatrix[i] + "+";
+        }
+        return personalMatrix;
+    }
+
+    public String[] buildOtherBoardsCLI() {
+        String[] otherMatrix = new String[12];
+        for(int i = 0; i < otherMatrix.length; i++)
+            otherMatrix[i] = "";
+
+        try{
             if (this.otherBoardsView != null) {
                 for (int i = 0; i < this.otherBoardsView.size(); i++) {
                     String nick = this.otherBoardsView.get(i).getNickname();
-                    pixelMatrix[0] += "Player " + nick + " ".repeat(Math.max(4, 20 - nick.length()));
+                    otherMatrix[0 * (i+1)] += "Player " + nick + " ".repeat(Math.max(4, 20 - nick.length()));
                     for (int j = 0; j < this.otherBoardsView.get(i).getStrongBox().get(Resource.SHIELD.toString()); j++)
-                        pixelMatrix[1] += "\uD83D\uDEE1"; //🛡
-                    pixelMatrix[1] += " ".repeat(Math.max(4, 20 - this.otherBoardsView.get(i).getStrongBox().get(Resource.SHIELD.toString())));
+                        otherMatrix[1 * (i+1)] += "\uD83D\uDEE1"; //🛡
                     for (int j = 0; j < this.otherBoardsView.get(i).getStrongBox().get(Resource.STONE.toString()); j++)
-                        pixelMatrix[2] += "\uD83D\uDC8E"; //💎
-                    pixelMatrix[2] += " ".repeat(Math.max(4, 20 - this.otherBoardsView.get(i).getStrongBox().get(Resource.STONE.toString())));
+                        otherMatrix[2 * (i+1)] += "\uD83D\uDC8E"; //💎
                     for (int j = 0; j < this.otherBoardsView.get(i).getStrongBox().get(Resource.SERVANT.toString()); j++)
-                        pixelMatrix[3] += "\uD83D\uDC68"; //👨
-                    pixelMatrix[3] += " ".repeat(Math.max(4, 20 - this.otherBoardsView.get(i).getStrongBox().get(Resource.SERVANT.toString())));
+                        otherMatrix[3 * (i+1)] += "\uD83D\uDC68"; //👨
                     for (int j = 0; j < this.otherBoardsView.get(i).getStrongBox().get(Resource.COIN.toString()); j++)
-                        pixelMatrix[4] += "\uD83D\uDCB0"; //💰
-                    pixelMatrix[4] += " ".repeat(Math.max(4, 20 - this.otherBoardsView.get(i).getStrongBox().get(Resource.COIN.toString())));
+                        otherMatrix[4 * (i+1)] += "\uD83D\uDCB0"; //💰
                 }
             }
-            if (this.personalBoardView != null) {
-                String nick = this.personalBoardView.getNickname();
-                pixelMatrix[17] += "Your Strongbox";
-                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.SHIELD.toString()); j++)
-                    pixelMatrix[18] += "\uD83D\uDEE1"; //🛡
-                pixelMatrix[18] += " ".repeat(Math.max(4, 20 - this.personalBoardView.getStrongBox().get(Resource.SHIELD.toString())));
-                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.STONE.toString()); j++)
-                    pixelMatrix[19] += "\uD83D\uDC8E"; //💎
-                pixelMatrix[19] += " ".repeat(Math.max(4, 20 - this.personalBoardView.getStrongBox().get(Resource.STONE.toString())));
-                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.SERVANT.toString()); j++)
-                    pixelMatrix[20] += "\uD83D\uDC68"; //👨
-                pixelMatrix[20] += " ".repeat(Math.max(4, 20 - this.personalBoardView.getStrongBox().get(Resource.SERVANT.toString())));
-                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.COIN.toString()); j++)
-                    pixelMatrix[21] += "\uD83D\uDCB0"; //💰
-                pixelMatrix[21] += " ".repeat(Math.max(4, 20 - this.personalBoardView.getStrongBox().get(Resource.COIN.toString())));
-            }
-            if(this.devGrid != null){
-                pixelMatrix[10] = this.devGrid.toString();
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch(Exception e){
+            //OK
         }
-        for (int i = 0; i < 24; i++) {
+
+        //fix line width to 20
+        for(int i = 0; i < otherMatrix.length; i++) {
+            otherMatrix[i] += " ".repeat(Math.max(0, 20 - otherMatrix[i].length()));
+            otherMatrix[i] = otherMatrix[i].substring(0, Math.min(otherMatrix[i].length(), 20));
+        }
+        return otherMatrix;
+    }
+
+    public String[] buildGameCLI(){
+        String[] gameMatrix = new String[12];
+        int i = 0;
+        for(i = 0; i < gameMatrix.length; i++)
+            gameMatrix[i] = "";
+
+        try {
+            if (this.devGrid != null) {
+                String[] tmp = this.devGrid.toString().split("\n");
+                for (String row : tmp) {
+                    gameMatrix[i] = row;
+                    i++;
+                }
+                i++;
+                tmp = this.marketView.toString().split("\n");
+                for (String row : tmp) {
+                    gameMatrix[i] = row;
+                    i++;
+                }
+            }
+        }catch (Exception e){
+            //OK
+        }
+
+        //limit line width to 20
+        for(i = 0; i < gameMatrix.length; i++) {
+            gameMatrix[i] += " ".repeat(Math.max(0, 20 - gameMatrix[i].length()));
+            gameMatrix[i] = gameMatrix[i].substring(0, Math.min(gameMatrix[i].length(), 20));
+        }
+        return gameMatrix;
+    }
+
+
+
+    public void buildCLI() {
+        String[] pixelMatrix = new String[12];
+        String[] personalMatrix = buildPersonalBoardCLI();
+        String[] otherMatrix = buildOtherBoardsCLI();
+        String[] gameMatrix = buildGameCLI();
+        for(int i = 0; i < pixelMatrix.length; i++)
+            pixelMatrix[i] = "";
+
+        for (int i = 0; i < pixelMatrix.length; i++) {
+            pixelMatrix[i] = personalMatrix[i]+gameMatrix[i]+otherMatrix[i];
             System.out.println(pixelMatrix[i]);
         }
     }
@@ -426,6 +486,32 @@ public class CLI extends View{
 
         } else
             this.showMessage(currentPlayerNickname + " is choosing main action");
+    }
+
+    @Override
+    public void visitProductionState(String currentPlayerNickname, String errorMessage) {
+        if(this.nickname.equals(currentPlayerNickname)){
+            showMessage(errorMessage);
+            int move = -1;
+            boolean success = false;
+            while(!success){
+                showMessage("Choose a production to activate(0, 1, 2 for cardSlot, 3,4 for leader production, 5 for board production, 6 to apply)");
+                move = Integer.parseInt(scanner.nextLine().trim());
+                if(move >= 0 && move <= 6)
+                    success = true;
+            }
+
+            if(0 <= move && move <= 2){
+                personalBoardView.getTopCardSlot(move);
+                //TODO
+                //GENERATE MAP
+            }
+
+            this.networkHandler.sendMessage(new ChosenMainMoveMessage(move));
+
+        } else
+            this.showMessage(currentPlayerNickname + " is activating production");
+
     }
 
     @Override

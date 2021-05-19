@@ -17,7 +17,22 @@ import java.util.Map;
 public class ActivateProductionState implements MultiplayerState {
     @Override
     public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) {
-
+        try {
+            commonVisit(productionIndex, wareHouseMap, strongBoxMap, chosenResource, controller);
+            if(productionIndex != 6) {
+                controller.getVirtualView().productionAction(controller.getCurrentPlayer().getNickname(), null);
+            }else{
+                if(!controller.getMediator().isLeaderActionDone()) {
+                    controller.setCurrentState(controller.getMiddleTurnState());
+                    controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
+                }else{
+                    controller.setCurrentState(controller.getEndTurnState());
+                    controller.getEndTurnState().visitEndTurnState(controller);
+                }
+            }
+        } catch (invalidMoveException e) {
+            controller.getVirtualView().productionAction(controller.getCurrentPlayer().getNickname(), e.getErrorMessage());
+        }
     }
 
     void commonVisit(int productionIndex, Map<Integer, Integer> warehouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) throws invalidMoveException {
@@ -109,11 +124,10 @@ public class ActivateProductionState implements MultiplayerState {
                 }
 
                 controller.getMediator().addProductionOutputs(card.getProductionOutput());
-                controller.getVirtualView().productionAction(currentPlayer.getNickname(), null);
-
             }
 
         }
+
         if(productionIndex == 3 || productionIndex == 4){
             //leader production 0 and 1
             LeaderCard card = board.getActiveLeaderCard().get(productionIndex - 3);
@@ -173,16 +187,75 @@ public class ActivateProductionState implements MultiplayerState {
             Map<Resource, Integer> resMap = new HashMap<>();
             resMap.put(chosenResource, 1);
             resMap.put(Resource.FAITH, 1);
+
             controller.getMediator().addProductionOutputs(resMap);
-
-            controller.getVirtualView().productionAction(currentPlayer.getNickname(), null);
-
         }
+
         if(productionIndex == 5){
             //board production
+
+            //check if total amount of resource is 2
+            int totalQty = 0;
+            for (Map.Entry<Integer, Integer> entry : warehouseMap.entrySet())
+                totalQty += entry.getValue();
+            for(Map.Entry<Resource, Integer> entry:strongBoxMap.entrySet())
+                totalQty += entry.getValue();
+            if(totalQty != 2)
+                throw new invalidMoveException("Wrong resources amount selected!");
+
+            //check if owned resources are enough
+            Resource res = null;
+            for (Map.Entry<Resource, Integer> entry : strongBoxMap.entrySet()) {
+                if (board.getStrongBoxResource(entry.getKey()) < entry.getValue())
+                    throw new invalidMoveException("Insufficient number of " + entry.getKey() + " in strongbox");
+            }
+            for (Map.Entry<Integer, Integer> entry : warehouseMap.entrySet()) {
+                int depotIndex = entry.getKey();
+                if(0 <= depotIndex && depotIndex <= 2) {
+                    res = board.getWarehouseDepotResourceType(depotIndex);
+                    if (board.getWarehouseDepotResourceNumber(depotIndex) < entry.getValue())
+                        throw new invalidMoveException("Insufficient number of " + res + " in warehouse depot " + depotIndex);
+                }
+                if(depotIndex == 3 || depotIndex == 4) {
+                    res = board.getLeaderDepotResourceType(depotIndex - 3);
+                    if(board.getLeaderDepotResourceNumber(depotIndex - 3) < entry.getValue())
+                        throw new invalidMoveException("Insufficient number of " + res + " in leader depot " + (depotIndex - 3));
+                }
+            }
+
+            //Remove resources
+            try{
+                for (Map.Entry<Resource, Integer> entry : strongBoxMap.entrySet())
+                    board.removeStrongboxResource(entry.getKey(), entry.getValue());
+                for (Map.Entry<Integer, Integer> entry : warehouseMap.entrySet()) {
+                    int depotIndex = entry.getKey();
+                    res = board.getWarehouseDepotResourceType(depotIndex);
+                    if(0 <= depotIndex && depotIndex <= 2)
+                        board.removeWarehouseDepotResource(res, entry.getValue(), depotIndex);
+                    else
+                        board.removeLeaderDepotResource(res, entry.getValue(), depotIndex-3);
+                }
+            }catch (invalidStrongBoxRemoveException | invalidResourceTypeException | removeResourceLimitExceededException e) {
+                throw new invalidMoveException("Generic board production error");
+            }
+
+            Map<Resource, Integer> resMap = new HashMap<>();
+            resMap.put(chosenResource, 1);
+
+            controller.getMediator().addProductionOutputs(resMap);
         }
+
         if(productionIndex == 6){
             //give production output and exit state
+            Map<Resource, Integer> outputProduction = controller.getMediator().getProductionOutputs();
+            for (Map.Entry<Resource, Integer> entry : outputProduction.entrySet()){
+                if(entry.getKey() != Resource.FAITH)
+                    board.addStrongboxResource(entry.getKey(), entry.getValue());
+                else
+                    board.giveFaithPoints(entry.getValue());
+            }
+
+            controller.getMediator().setMainActionDone();
         }
 
     }

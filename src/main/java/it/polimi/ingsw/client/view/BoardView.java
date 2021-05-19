@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.view;
 
+import it.polimi.ingsw.server.model.cards.DevelopmentCard;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,6 +50,14 @@ public class BoardView {
 
     public List<Integer> getWarehouseDepotQuantity() {
         return warehouseDepotQuantity;
+    }
+
+    public List<Integer> getActiveLeaders() {
+        return activeLeaders;
+    }
+
+    public int getTopCardSlot(int index) {
+        return cardSlot[index].get(cardSlot[index].size()-1);
     }
 
     public List<String> getLeaderDepotResource() {
