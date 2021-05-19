@@ -22,7 +22,7 @@ public class SoloController extends Controller{
     public static final SoloState marketState = new MarketState();
     public static final SoloState devCardSaleState = new SoloDevCardSaleState();
     public static final SoloState leaderActionState = new SoloLeaderActionState();
-    public static final SoloState activateProductionState = new ActivateProductionState();
+    public static final SoloState activateProductionState = new SoloActivateProductionState();
     public static final SoloState middleTurnState = new MiddleTurnState();
     public static final SoloState endTurnState = new LorenzoTurnState();
     public static final SoloState mainActionState = new MainActionState();

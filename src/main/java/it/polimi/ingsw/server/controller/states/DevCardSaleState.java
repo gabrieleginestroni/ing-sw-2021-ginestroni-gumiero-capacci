@@ -48,6 +48,16 @@ public class DevCardSaleState implements MultiplayerState {
         }
     }
 
+    @Override
+    public void visitMarketState(int move, int index, Controller controller) {
+
+    }
+
+    @Override
+    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap,  Controller controller) {
+
+    }
+
     void commonVisit(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) throws invalidMoveException{
         Player currentPlayer = controller.getCurrentPlayer();
         Game model = controller.getModel();

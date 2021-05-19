@@ -21,6 +21,16 @@ public class MiddleTurnState implements MultiplayerState,SoloState {
     }
 
     @Override
+    public void visitMarketState(int move, int index, Controller controller) {
+
+    }
+
+    @Override
+    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap,  Controller controller) {
+
+    }
+
+    @Override
     public void visitMiddleTurnState(int move, Controller controller) {
         switch (move){
             case 0:

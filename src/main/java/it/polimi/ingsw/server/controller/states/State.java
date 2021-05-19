@@ -7,12 +7,16 @@ import it.polimi.ingsw.server.model.Resource;
 import java.util.Map;
 
 public interface State {
+
     void visitStartTurnState(int move, Controller controller);
     void visitMainActionState(int move, Controller controller);
-    void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller);
     void visitMiddleTurnState(int move,Controller controller);
     void visitEndTurnState(Controller controller);
-    void visitLeaderActionState(Map<Integer,Integer> actionMap,Controller controller);
     void visitEndGameState(String winner, Controller controller);
+
+    void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller);
+    void visitMarketState(int move, int index, Controller controller);
+    void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Controller controller);
+    void visitLeaderActionState(Map<Integer,Integer> actionMap,Controller controller);
 
 }

@@ -236,10 +236,8 @@ public class VirtualView {
 
     }
 
-
-
-    public void productionAction(String currentPlayerNickname){
-        ActivateProductionStateMessage message = new ActivateProductionStateMessage(currentPlayerNickname);
+    public void productionAction(String currentPlayerNickname, String errorMessage){
+        ActivateProductionStateMessage message = new ActivateProductionStateMessage(currentPlayerNickname, errorMessage);
 
         players.stream().forEach(p -> {
             try{

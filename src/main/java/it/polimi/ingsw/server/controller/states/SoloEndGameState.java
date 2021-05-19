@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server.controller.states;
 
 import it.polimi.ingsw.server.controller.Controller;
-import it.polimi.ingsw.server.controller.Player;
 
 import java.util.HashMap;
 import java.util.Map;

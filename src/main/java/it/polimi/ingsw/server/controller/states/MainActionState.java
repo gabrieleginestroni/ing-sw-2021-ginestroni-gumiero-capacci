@@ -41,7 +41,7 @@ public class MainActionState implements SoloState,MultiplayerState {
                 break;
             case 2:
                 controller.setCurrentState(controller.getActivateProductionState());
-                controller.getVirtualView().productionAction(currentPlayer);
+                controller.getVirtualView().productionAction(currentPlayer, null);
                 break;
 
         }
@@ -49,6 +49,16 @@ public class MainActionState implements SoloState,MultiplayerState {
 
     @Override
     public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) {
+
+    }
+
+    @Override
+    public void visitMarketState(int move, int index, Controller controller) {
+
+    }
+
+    @Override
+    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap,  Controller controller) {
 
     }
 

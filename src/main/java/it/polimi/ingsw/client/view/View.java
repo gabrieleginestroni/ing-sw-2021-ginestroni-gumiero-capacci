@@ -53,7 +53,6 @@ public abstract class View {
     }
     public void addNetworkHandler(NetworkHandler networkHandler) { this.networkHandler = networkHandler;}
 
-
     public abstract void visitBoardsUpdate(String personalBoard, List<String> otherBoards);
     public abstract void visitDevGridUpdate(String updatedGrid);
     public abstract void visitGameStarted(String str);

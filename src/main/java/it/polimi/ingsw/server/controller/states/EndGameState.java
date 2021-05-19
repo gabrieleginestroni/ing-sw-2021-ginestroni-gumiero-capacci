@@ -25,6 +25,16 @@ public class EndGameState implements MultiplayerState{
     }
 
     @Override
+    public void visitMarketState(int move, int index, Controller controller) {
+
+    }
+
+    @Override
+    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap,  Controller controller) {
+
+    }
+
+    @Override
     public void visitMiddleTurnState(int move, Controller controller) {
 
     }
