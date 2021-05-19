@@ -16,7 +16,7 @@ public interface State {
 
     void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller);
     void visitMarketState(int move, int index, Controller controller);
-    void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Controller controller);
+    void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller);
     void visitLeaderActionState(Map<Integer,Integer> actionMap,Controller controller);
 
 }

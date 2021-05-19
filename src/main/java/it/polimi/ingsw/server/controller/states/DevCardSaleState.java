@@ -54,7 +54,7 @@ public class DevCardSaleState implements MultiplayerState {
     }
 
     @Override
-    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap,  Controller controller) {
+    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) {
 
     }
 
@@ -165,6 +165,7 @@ public class DevCardSaleState implements MultiplayerState {
                 else
                     board.removeStrongboxResource(resourceToRemove, quantityToRemove);
             }
+
             board.addDevelopmentCard(card, cardSlot);
             model.removeCardFromGrid(row, col);
         }  catch (invalidDevelopmentCardLevelPlacementException | invalidStrongBoxRemoveException | developmentCardSlotLimitExceededException | invalidResourceTypeException | removeResourceLimitExceededException | emptyDevCardGridSlotSelectedException e) {

@@ -61,7 +61,7 @@ public class StartTurnState implements MultiplayerState,SoloState {
     }
 
     @Override
-    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Controller controller) {
+    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) {
 
     }
 
