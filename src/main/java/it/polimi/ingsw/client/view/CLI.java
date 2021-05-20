@@ -514,9 +514,16 @@ public class CLI extends View{
                 if (productionIndex <= 2) {
                     //development card production
                     int card = personalBoardView.getTopCardSlot(productionIndex);
-                    productionInput = this.getDevelopmentCardByID(card).getProductionInput();
+                    if(card != 0)
+                        productionInput = this.getDevelopmentCardByID(card).getProductionInput();
+                    else
+                        System.out.println("No development card in slot "+productionIndex);//TODO fix bug
                 } else {
-                    int card = personalBoardView.getActiveLeaders().get(productionIndex-3);
+                    int card = 0;
+                    if(personalBoardView.getActiveLeaders() != null && personalBoardView.getActiveLeaders().size() > productionIndex - 3)
+                        card = personalBoardView.getActiveLeaders().get(productionIndex-3);
+                    else
+                        System.out.println("No active leader selected "+(productionIndex-3));//TODO fix bug
                     productionInput = new HashMap<>();
                     productionInput.put(this.getLeaderCardByID(card).getResource(), 1);
                 }
@@ -586,7 +593,7 @@ public class CLI extends View{
                 }
             } else if (productionIndex == 5) {
                 while (quantity < 2) {
-                    System.out.println("Pick " + (2 - quantity) + " from your depots");
+                    System.out.println("Pick " + (2 - quantity) + " resources from your depots");
                     int i = 0;
 
                     //Prints all available resources inside warehouse depots, updating the current status based on the previous choices made
@@ -622,14 +629,15 @@ public class CLI extends View{
                     //Prints where the required resource is available inside strongbox, updating the current status based
                     //on the previous choices made
                     for (Resource r : Resource.values()) {
-                        if (strongBoxMap.get(r) != null && strongBoxMap.get(r) != null)
-                            deltaQuantity = strongBoxMap.get(r);
-                        else
-                            deltaQuantity = 0;
-                        System.out.println("Strongbox (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r.toString() + " available");
-                        availableQuantity += super.personalBoardView.getStrongBox().get(r.toString());
+                        if (r != Resource.FAITH && r != Resource.WHITE) {
+                            if (strongBoxMap.get(r) != null && strongBoxMap.get(r) != null)
+                                deltaQuantity = strongBoxMap.get(r);
+                            else
+                                deltaQuantity = 0;
+                            System.out.println("Strongbox (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r.toString() + " available");
+                            availableQuantity += super.personalBoardView.getStrongBox().get(r.toString());
+                        }
                     }
-
                     //Fail if we don't have enough overall resources to buy the card
                     if (availableQuantity >= 2) {
                         int depot = scanner.nextInt();
@@ -637,12 +645,14 @@ public class CLI extends View{
                         i = 0;
                         if(depot == 5){
                             for (Resource r : Resource.values()) {
-                                if (strongBoxMap.get(r) != null && strongBoxMap.get(r) != null)
-                                    deltaQuantity = strongBoxMap.get(r);
-                                else
-                                    deltaQuantity = 0;
-                                System.out.println(r.toString()+" (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r.toString() + " available");
-                                i++;
+                                if (r != Resource.FAITH && r != Resource.WHITE){
+                                    if (strongBoxMap.get(r) != null && strongBoxMap.get(r) != null)
+                                        deltaQuantity = strongBoxMap.get(r);
+                                    else
+                                        deltaQuantity = 0;
+                                    System.out.println(r.toString()+" (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r.toString() + " available");
+                                    i++;
+                                }
                             }
                             res = scanner.nextInt();
                         }

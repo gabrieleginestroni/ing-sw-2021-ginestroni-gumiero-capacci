@@ -42,6 +42,9 @@ public class ActivateProductionState implements MultiplayerState {
         if(chosenResource != null && chosenResource.equals(Resource.FAITH))
             throw new invalidMoveException("Cannot produce Faith Points!");
 
+        if(chosenResource != null && chosenResource.equals(Resource.WHITE))
+            throw new invalidMoveException("Cannot produce white marbles!");
+
         if(productionIndex >= 0 && productionIndex <= 2){
             //card slot 0, 1 and 2
             DevelopmentCard card = board.getTopCard(productionIndex);
@@ -124,6 +127,7 @@ public class ActivateProductionState implements MultiplayerState {
                 }
 
                 controller.getMediator().addProductionOutputs(card.getProductionOutput());
+                controller.getMediator().setMainActionDone();
             }
 
         }
@@ -189,6 +193,7 @@ public class ActivateProductionState implements MultiplayerState {
             resMap.put(Resource.FAITH, 1);
 
             controller.getMediator().addProductionOutputs(resMap);
+            controller.getMediator().setMainActionDone();
         }
 
         if(productionIndex == 5){
@@ -243,6 +248,7 @@ public class ActivateProductionState implements MultiplayerState {
             resMap.put(chosenResource, 1);
 
             controller.getMediator().addProductionOutputs(resMap);
+            controller.getMediator().setMainActionDone();
         }
 
         if(productionIndex == 6){
@@ -258,7 +264,7 @@ public class ActivateProductionState implements MultiplayerState {
                 }
             }
 
-            controller.getMediator().setMainActionDone();
+
         }
 
     }
