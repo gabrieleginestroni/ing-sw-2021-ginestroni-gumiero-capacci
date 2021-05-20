@@ -253,7 +253,8 @@ public class ActivateProductionState implements MultiplayerState {
                     board.addStrongboxResource(entry.getKey(), entry.getValue());
                 else {
                     int activatedSectionIndex = board.giveFaithPoints(entry.getValue());
-                    controller.getModel().vaticanReport(activatedSectionIndex);
+                    if(activatedSectionIndex != -1)
+                        controller.getModel().vaticanReport(activatedSectionIndex);
                 }
             }
 

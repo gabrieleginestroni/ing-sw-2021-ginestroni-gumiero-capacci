@@ -94,13 +94,13 @@ public class BoardView {
     public String toString() {
         return "BoardView{" +
                 "nickname='" + nickname + '\'' +
+                ", faithTrackMarker=" + faithTrackMarker +
                 ", whiteMarbles=" + whiteMarbles  +
                 ", discounts=" + discounts  +
                 ", hiddenHand=" + hiddenHand  +
                 ", activeLeaders=" + activeLeaders +
                 ", strongBox=" + strongBox +
                 ", cardSlot=" + Arrays.toString(cardSlot) +
-                ", faithTrackMarker=" + faithTrackMarker +
                 ", popeTiles=" + Arrays.toString(popeTiles) +
                 ", warehouseDepotResource=" + warehouseDepotResource +
                 ", warehouseDepotQuantity=" + warehouseDepotQuantity +
