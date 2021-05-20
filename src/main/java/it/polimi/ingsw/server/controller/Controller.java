@@ -53,11 +53,15 @@ public abstract class Controller {
     public abstract State getActivateProductionState();
     public abstract State getLeaderActionState();
     public abstract State getDevCardSaleState();
+    public abstract State getResourceManagementState();
+    public abstract State getSwapState();
+    public abstract State getWhiteMarbleState();
 
     public abstract State getStartTurnState();
     public abstract State getMiddleTurnState();
     public abstract State getEndTurnState();
     public abstract State getMainActionState();
     public abstract State getEndGameState();
+
 
 }

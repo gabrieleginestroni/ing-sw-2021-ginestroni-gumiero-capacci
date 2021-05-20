@@ -17,7 +17,7 @@ public class MainActionState implements SoloState,MultiplayerState {
         switch (move){
             case 0:
                 controller.setCurrentState(controller.getMarketState());
-                controller.getVirtualView().marketAction(currentPlayer);
+                controller.getVirtualView().marketAction(currentPlayer,null);
                 break;
             case 1:
                 //TODO TESTING
@@ -74,6 +74,21 @@ public class MainActionState implements SoloState,MultiplayerState {
 
     @Override
     public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) {
+
+    }
+
+    @Override
+    public void visitResourceManagementState(Controller controller) {
+
+    }
+
+    @Override
+    public void visitSwapState(Controller controller) {
+
+    }
+
+    @Override
+    public void visitWhiteMarbleState(Controller controller) {
 
     }
 

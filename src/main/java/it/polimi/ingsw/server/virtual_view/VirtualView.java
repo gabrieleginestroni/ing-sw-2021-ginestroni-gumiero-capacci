@@ -7,6 +7,7 @@ import it.polimi.ingsw.server.controller.Player;
 
 import it.polimi.ingsw.server.messages.client_server.ChosenInitialResourcesMessage;
 import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
+import it.polimi.ingsw.server.messages.client_server.ChosenWhiteMarbleMessage;
 import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.messages.server_client.*;
 
@@ -208,8 +209,8 @@ public class VirtualView {
 
     }
 
-    public void marketAction(String currentPlayerNickname){
-        MarketStateMessage message = new MarketStateMessage(currentPlayerNickname);
+    public void marketAction(String currentPlayerNickname,String errorMessage){
+        MarketStateMessage message = new MarketStateMessage(currentPlayerNickname,errorMessage);
 
         players.stream().forEach(p -> {
             try{
@@ -302,6 +303,39 @@ public class VirtualView {
                 //p.getClientHandler().sendErrorMessage();
             }
         });
+    }
+
+    public Resource proposeWhiteMarble(Resource res1, Resource res2, Player currentPlayer){
+        ClientHandler playerHandler = currentPlayer.getClientHandler();
+        try {
+
+            playerHandler.sendAnswerMessage(new ProposeWhiteMarbleMessage(res1,res2));
+
+            Message msg = playerHandler.waitMessage();
+
+            if(msg instanceof ChosenWhiteMarbleMessage)
+                return ((ChosenWhiteMarbleMessage) msg).getRes();
+
+        } catch (IOException | ClassNotFoundException e){
+            //TODO
+            //p.getClientHandler().sendErrorMessage();
+        }
+        return null;
+
+    }
+
+    public void proposeSwap(String currentPlayerNickname,String errorMessage){
+        SwapMessage message = new SwapMessage(currentPlayerNickname,errorMessage);
+
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+
     }
 
     public String toJSONString(){

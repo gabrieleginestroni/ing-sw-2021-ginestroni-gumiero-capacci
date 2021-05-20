@@ -36,6 +36,9 @@ public class MultiplayerController extends Controller{
     public static final MultiplayerState endTurnState = new EndTurnState();
     public static final MultiplayerState mainActionState = new MainActionState();
     public static final MultiplayerState endGameState = new EndGameState();
+    public static final MultiplayerState resourceManagementState = new ResourceManagementState();
+    public static final MultiplayerState swapState = new SwapState();
+    public static final MultiplayerState whiteMarbleState = new WhiteMarbleState();
 
 
 
@@ -218,6 +221,15 @@ public class MultiplayerController extends Controller{
     public State getDevCardSaleState() {
         return devCardSaleState;
     }
+
+    @Override
+    public State getResourceManagementState() {return resourceManagementState;    }
+
+    @Override
+    public State getSwapState() {return swapState;    }
+
+    @Override
+    public State getWhiteMarbleState() {return whiteMarbleState;    }
 
     @Override
     public State getStartTurnState() {

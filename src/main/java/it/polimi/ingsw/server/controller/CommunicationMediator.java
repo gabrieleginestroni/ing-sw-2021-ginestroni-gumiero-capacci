@@ -10,11 +10,23 @@ public class CommunicationMediator {
     private boolean mainActionDone;
     private boolean leaderActionDone;
     private Map<Resource, Integer> productionOutputs;
+    private Map<Resource, Integer> marketResources;
+    private boolean playerWon;
+
+    public boolean isPlayerWon() {
+        return playerWon;
+    }
+
+    public void setPlayerWon() {
+        this.playerWon = true;
+    }
 
     public CommunicationMediator() {
         this.mainActionDone = false;
         this.leaderActionDone = false;
         productionOutputs = new HashMap<>();
+        marketResources = new HashMap<>();
+        this.playerWon = false;
     }
 
     public Map<Resource, Integer> getProductionOutputs() {
@@ -41,6 +53,8 @@ public class CommunicationMediator {
         this.mainActionDone = false;
         this.leaderActionDone = false;
         productionOutputs = new HashMap<>();
+        marketResources = new HashMap<>();
+        this.playerWon = false;
     }
 
     public void addProductionOutputs(Map<Resource, Integer> res){
@@ -52,5 +66,44 @@ public class CommunicationMediator {
         }
         System.out.println(new Gson().toJson(res));
         System.out.println(productionOutputs);
+    }
+
+    public Map<Resource, Integer> getMarketResources() {
+        return marketResources;
+    }
+
+    public void setMarketResources(Map<Resource, Integer> marketResources) {
+        this.marketResources = marketResources;
+    }
+
+    public void discardWhiteMarbles(){
+        marketResources.remove(Resource.WHITE);
+    }
+    public void substitute1WhiteMarble(Resource res){
+        if(marketResources.containsKey(Resource.WHITE)){
+            int oldWhiteMarble = marketResources.get(Resource.WHITE);
+            if(oldWhiteMarble == 1)
+                this.discardWhiteMarbles();
+            else
+                marketResources.put(Resource.WHITE, oldWhiteMarble - 1);
+            marketResources.put(res,marketResources.getOrDefault(res,0) + 1);
+        }
+    }
+
+    public void substituteAllWhiteMarble(Resource res){
+        if(marketResources.containsKey(Resource.WHITE)){
+            int oldWhiteMarble = marketResources.get(Resource.WHITE);
+            this.discardWhiteMarbles();
+            marketResources.put(res,marketResources.getOrDefault(res,0) + oldWhiteMarble);
+        }
+    }
+
+    public int removeFaith(){
+        int oldFaith = marketResources.getOrDefault(Resource.FAITH,0);
+        if(oldFaith != 0) {
+            marketResources.remove(Resource.FAITH);
+            return oldFaith;
+        } else
+            return 0;
     }
 }

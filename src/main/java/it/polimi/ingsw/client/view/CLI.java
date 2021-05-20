@@ -303,6 +303,11 @@ public class CLI extends View{
     }
 
     @Override
+    public void visitWhiteMarbleProposal(Resource res1, Resource res2) {
+
+    }
+
+    @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
         showMessage(errorMessage);
         if(this.nickname.equals(currentPlayerNickname)){
@@ -697,5 +702,15 @@ public class CLI extends View{
         for(Map.Entry<String,Integer> res: gameResult.entrySet())
            resMsg += res.getKey()+" ==> "+res.getValue()+" POINTS\n";
         this.showMessage(resMsg);
+    }
+
+    @Override
+    public void visitMarketState(String currentPlayerNickname, String errorMessage) {
+        //TODO
+    }
+
+    @Override
+    public void visitSwapState(String currentPlayerNickname, String errorMessage) {
+        //TODO
     }
 }

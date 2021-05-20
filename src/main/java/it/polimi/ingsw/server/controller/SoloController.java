@@ -10,6 +10,7 @@ import it.polimi.ingsw.server.model.games.SoloGame;
 
 import it.polimi.ingsw.server.virtual_view.VirtualView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SoloController extends Controller{
@@ -27,6 +28,9 @@ public class SoloController extends Controller{
     public static final SoloState endTurnState = new LorenzoTurnState();
     public static final SoloState mainActionState = new MainActionState();
     public static final SoloState endGameState = new SoloEndGameState();
+    public static final SoloState resourceManagementState = new SoloResourceManagementState();
+    public static final SoloState swapState = new SwapState();
+    public static final SoloState whiteMarbleState = new WhiteMarbleState();
 
 
 
@@ -83,7 +87,7 @@ public class SoloController extends Controller{
 
     @Override
     public List<Player> othersPlayers() {
-        return null;
+        return new ArrayList<Player>();
     }
 
 
@@ -124,13 +128,21 @@ public class SoloController extends Controller{
     }
 
     @Override
+    public State getResourceManagementState() { return resourceManagementState;    }
+
+    @Override
+    public State getSwapState() {return swapState;    }
+
+    @Override
+    public State getWhiteMarbleState() {return whiteMarbleState;    }
+
+    @Override
     public State getStartTurnState() {
         return startTurnState;
     }
 
     @Override
-    public State getMiddleTurnState() { return middleTurnState;
-    }
+    public State getMiddleTurnState() { return middleTurnState;    }
 
     @Override
     public State getEndTurnState() { return endTurnState;

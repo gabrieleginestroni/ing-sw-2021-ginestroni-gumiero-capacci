@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.client.NetworkHandler;
+import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 
@@ -67,6 +68,7 @@ public abstract class View {
     public abstract void visitMarketUpdate(String updatedMarket);
     public abstract void visitRequestLobbySize(String str);
     public abstract void visitNicknameAlreadyUsed(String str,String gameID);
+    public abstract void visitWhiteMarbleProposal(Resource res1,Resource res2);
 
     public abstract void visitStartTurn(String currentPlayerNickname, String errorMessage);
     public abstract void visitDevCardSale(String currentPlayerNickname);
@@ -75,6 +77,8 @@ public abstract class View {
     public abstract void visitMainActionState(String currentPlayerNickname,String errorMessage);
     public abstract void visitProductionState(String currentPlayerNickname,String errorMessage);
     public abstract void visitGameOverState(String winner, Map<String, Integer> gameResult);
+    public abstract void visitMarketState(String currentPlayerNickname,String errorMessage);
+    public abstract void visitSwapState(String currentPlayerNickname,String errorMessage);
 
 
     public DevelopmentCard getDevelopmentCardByID(int cardID){

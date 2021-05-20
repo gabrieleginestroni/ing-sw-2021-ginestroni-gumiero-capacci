@@ -56,6 +56,21 @@ public class EndTurnState implements MultiplayerState {
     }
 
     @Override
+    public void visitResourceManagementState(Controller controller) {
+
+    }
+
+    @Override
+    public void visitSwapState(Controller controller) {
+
+    }
+
+    @Override
+    public void visitWhiteMarbleState(Controller controller) {
+
+    }
+
+    @Override
     public void visitEndGameState(String winner,Controller controller) {
 
     }

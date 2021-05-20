@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.view;
 
+import it.polimi.ingsw.server.model.Resource;
+
 import java.util.List;
 import java.util.Map;
 
@@ -75,6 +77,11 @@ public class GUI extends View{
     }
 
     @Override
+    public void visitWhiteMarbleProposal(Resource res1, Resource res2) {
+
+    }
+
+    @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
 
     }
@@ -106,6 +113,16 @@ public class GUI extends View{
 
     @Override
     public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
+
+    }
+
+    @Override
+    public void visitMarketState(String currentPlayerNickname, String errorMessage) {
+
+    }
+
+    @Override
+    public void visitSwapState(String currentPlayerNickname, String errorMessage) {
 
     }
 }
