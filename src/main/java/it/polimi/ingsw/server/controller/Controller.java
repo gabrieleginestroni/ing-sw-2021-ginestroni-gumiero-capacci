@@ -31,17 +31,7 @@ public abstract class Controller {
 
     public abstract List<Player> othersPlayers();
 
-    public void setCurrentState(State state) {
-        if (this instanceof MultiplayerController)
-            this.setCurrentState((MultiplayerState) state);
-        else{
-            this.setCurrentState((SoloState) state);
-        }
-    }
-
-    abstract void setCurrentState(MultiplayerState multiplayerState);
-
-    abstract void setCurrentState(SoloState state);
+    public abstract void setCurrentState(State state);
 
     public VirtualView getVirtualView() {
         return this.virtualView;

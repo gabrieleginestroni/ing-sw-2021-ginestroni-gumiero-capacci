@@ -92,15 +92,10 @@ public class SoloController extends Controller{
 
 
     @Override
-    void setCurrentState(MultiplayerState multiplayerState) {
-
+    public void setCurrentState(State state) {
+        this.currentState = (SoloState) state;
     }
 
-    @Override
-    void setCurrentState(SoloState state) {
-        this.currentState = state;
-
-    }
 
     @Override
     public Game getModel() {

@@ -184,18 +184,12 @@ public class MultiplayerController extends Controller{
         return this.turnHandler.getOtherPlayers();
     }
 
-
-
     @Override
-    public void setCurrentState(MultiplayerState multiplayerState) {
-        this.currentState = multiplayerState;
+    public void setCurrentState(State state) {
+        this.currentState = (MultiplayerState) state;
     }
 
-    @Override
-    public void setCurrentState(SoloState state) {
 
-
-    }
 
     @Override
     public Game getModel() {
