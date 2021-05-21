@@ -209,5 +209,7 @@ public abstract class Game {
     //TODO documentation
     public abstract void vaticanReport(int sectionIndex);
 
+    public abstract int addFaithLorenzo(int points);
+
     public abstract int drawFromTokenPile();
 }

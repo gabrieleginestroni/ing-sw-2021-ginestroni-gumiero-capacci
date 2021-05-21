@@ -37,6 +37,11 @@ public class MultiplayerGame extends Game{
     }
 
     @Override
+    public int addFaithLorenzo(int points) {
+        return 0;
+    }
+
+    @Override
     public int drawFromTokenPile() {
         return 0;
     }

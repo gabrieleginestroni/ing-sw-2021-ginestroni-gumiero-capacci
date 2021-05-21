@@ -125,4 +125,9 @@ public class GUI extends View{
     public void visitSwapState(String currentPlayerNickname, String errorMessage) {
 
     }
+
+    @Override
+    public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
+
+    }
 }

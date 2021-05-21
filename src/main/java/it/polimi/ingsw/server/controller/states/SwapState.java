@@ -1,11 +1,35 @@
 package it.polimi.ingsw.server.controller.states;
 
 import it.polimi.ingsw.server.controller.Controller;
+import it.polimi.ingsw.server.controller.states.exceptions.invalidMoveException;
+import it.polimi.ingsw.server.exceptions.invalidSwapException;
 import it.polimi.ingsw.server.model.Resource;
 
 import java.util.Map;
 
 public class SwapState implements MultiplayerState,SoloState {
+
+    @Override
+    public void visitSwapState(int dep1,int dep2,Controller controller) {
+        try {
+            if(dep1 != -1) {
+                try {
+                    if(dep1 == dep2)
+                        throw new invalidMoveException("Cannot same same depot");
+                    controller.getCurrentPlayer().getBoard().swapDepot(dep1, dep2);
+                    controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(),null);
+                } catch (invalidSwapException e) {
+                    throw new invalidMoveException("Cannot swap warehouse depot " + dep1 + " with warehouse depot " + dep2);
+                }
+            } else {
+                controller.setCurrentState(controller.getResourceManagementState());
+                controller.getResourceManagementState().visitResourceManagementState(controller);
+
+            }
+        } catch(invalidMoveException e) {
+            controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(),e.getErrorMessage());
+        }
+    }
     @Override
     public void visitStartTurnState(int move, Controller controller) {
 
@@ -56,10 +80,7 @@ public class SwapState implements MultiplayerState,SoloState {
 
     }
 
-    @Override
-    public void visitSwapState(Controller controller) {
 
-    }
 
     @Override
     public void visitWhiteMarbleState(Controller controller) {

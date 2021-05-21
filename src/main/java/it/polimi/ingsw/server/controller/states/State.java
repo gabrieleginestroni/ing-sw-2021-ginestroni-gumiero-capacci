@@ -19,7 +19,7 @@ public interface State {
     void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller);
     void visitLeaderActionState(Map<Integer,Integer> actionMap,Controller controller);
     void visitResourceManagementState(Controller controller);
-    void visitSwapState(Controller controller);
+    void visitSwapState(int dep1,int dep2, Controller controller);
     void visitWhiteMarbleState(Controller controller);
 
 }

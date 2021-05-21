@@ -81,7 +81,7 @@ public class MarketState implements MultiplayerState,SoloState{
     }
 
     @Override
-    public void visitSwapState(Controller controller) {
+    public void visitSwapState(int dep1,int dep2,Controller controller) {
 
     }
 

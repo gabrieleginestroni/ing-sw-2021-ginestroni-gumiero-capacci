@@ -713,4 +713,9 @@ public class CLI extends View{
     public void visitSwapState(String currentPlayerNickname, String errorMessage) {
         //TODO
     }
+
+    @Override
+    public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
+
+    }
 }

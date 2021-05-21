@@ -12,6 +12,9 @@ public class CommunicationMediator {
     private Map<Resource, Integer> productionOutputs;
     private Map<Resource, Integer> marketResources;
     private boolean playerWon;
+    private String previousErrorMessage;
+    private int chosenDepot;
+    private boolean marketStateEnded;
 
     public boolean isPlayerWon() {
         return playerWon;
@@ -27,6 +30,9 @@ public class CommunicationMediator {
         productionOutputs = new HashMap<>();
         marketResources = new HashMap<>();
         this.playerWon = false;
+        this.previousErrorMessage = null;
+        this.chosenDepot = -2;
+        this.marketStateEnded = false;
     }
 
     public Map<Resource, Integer> getProductionOutputs() {
@@ -55,6 +61,9 @@ public class CommunicationMediator {
         productionOutputs = new HashMap<>();
         marketResources = new HashMap<>();
         this.playerWon = false;
+        this.previousErrorMessage = null;
+        this.chosenDepot = -2;
+        this.marketStateEnded = false;
     }
 
     public void addProductionOutputs(Map<Resource, Integer> res){
@@ -105,5 +114,38 @@ public class CommunicationMediator {
             return oldFaith;
         } else
             return 0;
+    }
+
+    public void remove1Resource(Resource res){
+        int oldQty = marketResources.getOrDefault(res,0);
+        if(oldQty != 0) {
+            marketResources.put(res,oldQty - 1);
+            if(marketResources.get(res) == 0)
+                marketResources.remove(res);
+        }
+    }
+
+    public String getPreviousErrorMessage() {
+        return previousErrorMessage;
+    }
+
+    public void setPreviousErrorMessage(String previousErrorMessage) {
+        this.previousErrorMessage = previousErrorMessage;
+    }
+
+    public int getChosenDepot() {
+        return chosenDepot;
+    }
+
+    public void setChosenDepot(int chosenDepot) {
+        this.chosenDepot = chosenDepot;
+    }
+
+    public boolean isMarketStateEnded() {
+        return marketStateEnded;
+    }
+
+    public void setMarketStateEnded() {
+        this.marketStateEnded = true;
     }
 }

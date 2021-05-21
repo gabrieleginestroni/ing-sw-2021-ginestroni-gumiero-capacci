@@ -70,6 +70,7 @@ public abstract class View {
     public abstract void visitNicknameAlreadyUsed(String str,String gameID);
     public abstract void visitWhiteMarbleProposal(Resource res1,Resource res2);
 
+
     public abstract void visitStartTurn(String currentPlayerNickname, String errorMessage);
     public abstract void visitDevCardSale(String currentPlayerNickname);
     public abstract void visitMiddleTurn(String currentPlayerNickname,String errorMessage);
@@ -79,6 +80,7 @@ public abstract class View {
     public abstract void visitGameOverState(String winner, Map<String, Integer> gameResult);
     public abstract void visitMarketState(String currentPlayerNickname,String errorMessage);
     public abstract void visitSwapState(String currentPlayerNickname,String errorMessage);
+    public abstract void visitResourceManagementState(Resource res,String currentPlayerNickname,String errorMessage);
 
 
     public DevelopmentCard getDevelopmentCardByID(int cardID){

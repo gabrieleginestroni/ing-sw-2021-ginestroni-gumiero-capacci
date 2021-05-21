@@ -44,7 +44,7 @@ public class SoloGame extends Game{
 
         super.virtualView.updateBoardVirtualView();
     }
-
+    @Override
     /**
      * Method that adds Faith Points to the Black Cross indicator.
      * @param points The amount of points that must be added to the Black Cross indicator.

@@ -5,10 +5,7 @@ import it.polimi.ingsw.server.ClientHandler;
 
 import it.polimi.ingsw.server.controller.Player;
 
-import it.polimi.ingsw.server.messages.client_server.ChosenInitialResourcesMessage;
-import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
-import it.polimi.ingsw.server.messages.client_server.ChosenWhiteMarbleMessage;
-import it.polimi.ingsw.server.messages.client_server.Message;
+import it.polimi.ingsw.server.messages.client_server.*;
 import it.polimi.ingsw.server.messages.server_client.*;
 
 import it.polimi.ingsw.server.model.Resource;
@@ -335,7 +332,28 @@ public class VirtualView {
                 //p.getClientHandler().sendErrorMessage();
             }
         });
+    }
 
+    public int proposeMarketResource(Resource res,Player currentPlayer,String errorMessage){
+        ProposeMarketResourceMessage message = new ProposeMarketResourceMessage(res,currentPlayer.getNickname(),errorMessage);
+        ClientHandler playerHandler = currentPlayer.getClientHandler();
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
+       try {
+           Message msg = playerHandler.waitMessage();
+           if (msg instanceof ChosenMarketDepotMessage)
+               return ((ChosenMarketDepotMessage) msg).getChosenDepot();
+       } catch (IOException | ClassNotFoundException e){
+           //TODO
+           //p.getClientHandler().sendErrorMessage();
+       }
+       return -1;
     }
 
     public String toJSONString(){
