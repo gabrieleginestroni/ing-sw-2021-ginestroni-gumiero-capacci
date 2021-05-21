@@ -50,7 +50,7 @@ public class EndGameState implements MultiplayerState{
     }
 
     @Override
-    public void visitResourceManagementState(Controller controller) {
+    public void visitResourceManagementState(String errorMessage,Controller controller) {
 
     }
 

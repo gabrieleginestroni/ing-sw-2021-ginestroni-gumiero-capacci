@@ -70,7 +70,7 @@ public class LeaderActionState implements MultiplayerState,SoloState {
     }
 
     @Override
-    public void visitResourceManagementState(Controller controller) {
+    public void visitResourceManagementState(String errorMessage,Controller controller) {
 
     }
 

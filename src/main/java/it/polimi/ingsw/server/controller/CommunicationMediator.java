@@ -12,11 +12,10 @@ public class CommunicationMediator {
     private Map<Resource, Integer> productionOutputs;
     private Map<Resource, Integer> marketResources;
     private boolean playerWon;
-    private String previousErrorMessage;
     private int chosenDepot;
     private boolean marketStateEnded;
 
-    public boolean isPlayerWon() {
+    public boolean hasPlayerWon() {
         return playerWon;
     }
 
@@ -30,7 +29,6 @@ public class CommunicationMediator {
         productionOutputs = new HashMap<>();
         marketResources = new HashMap<>();
         this.playerWon = false;
-        this.previousErrorMessage = null;
         this.chosenDepot = -2;
         this.marketStateEnded = false;
     }
@@ -61,7 +59,6 @@ public class CommunicationMediator {
         productionOutputs = new HashMap<>();
         marketResources = new HashMap<>();
         this.playerWon = false;
-        this.previousErrorMessage = null;
         this.chosenDepot = -2;
         this.marketStateEnded = false;
     }
@@ -125,13 +122,6 @@ public class CommunicationMediator {
         }
     }
 
-    public String getPreviousErrorMessage() {
-        return previousErrorMessage;
-    }
-
-    public void setPreviousErrorMessage(String previousErrorMessage) {
-        this.previousErrorMessage = previousErrorMessage;
-    }
 
     public int getChosenDepot() {
         return chosenDepot;

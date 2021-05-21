@@ -15,7 +15,7 @@ public class SwapState implements MultiplayerState,SoloState {
             if(dep1 != -1) {
                 try {
                     if(dep1 == dep2)
-                        throw new invalidMoveException("Cannot same same depot");
+                        throw new invalidMoveException("Cannot swap same depot");
                     controller.getCurrentPlayer().getBoard().swapDepot(dep1, dep2);
                     controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(),null);
                 } catch (invalidSwapException e) {
@@ -23,7 +23,7 @@ public class SwapState implements MultiplayerState,SoloState {
                 }
             } else {
                 controller.setCurrentState(controller.getResourceManagementState());
-                controller.getResourceManagementState().visitResourceManagementState(controller);
+                controller.getResourceManagementState().visitResourceManagementState(null,controller);
 
             }
         } catch(invalidMoveException e) {
@@ -76,7 +76,7 @@ public class SwapState implements MultiplayerState,SoloState {
     }
 
     @Override
-    public void visitResourceManagementState(Controller controller) {
+    public void visitResourceManagementState(String errorMessage,Controller controller) {
 
     }
 

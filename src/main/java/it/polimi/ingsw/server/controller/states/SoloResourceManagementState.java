@@ -5,9 +5,9 @@ import it.polimi.ingsw.server.controller.states.exceptions.invalidMoveException;
 
 public class SoloResourceManagementState extends ResourceManagementState implements SoloState {
     @Override
-    public void visitResourceManagementState(Controller controller) {
+    public void visitResourceManagementState(String errorMessage, Controller controller) {
         try{
-            commonVisit(controller);
+            commonVisit(errorMessage,controller);
             int chosenDepot = controller.getMediator().getChosenDepot();
             if(chosenDepot == -1){ //discard
                     int activatedSection = controller.getModel().addFaithLorenzo(1);
@@ -15,22 +15,29 @@ public class SoloResourceManagementState extends ResourceManagementState impleme
                         controller.getModel().vaticanReport(activatedSection);
             } //TODO
             if(controller.getMediator().isMarketStateEnded()) {
-                if(controller.isGameOver()){ //Lorenzo wins
+                if(controller.isGameOver()){ //Lorenzo or player won
                     controller.setCurrentState(controller.getEndGameState());
-                    controller.getEndTurnState().visitEndGameState(null,controller);
-                } else {
-                    controller.setCurrentState(controller.getEndTurnState());
-                    controller.getEndTurnState().visitEndTurnState(controller);
+                    if(controller.getMediator().hasPlayerWon()) //player won
+                        controller.getEndGameState().visitEndGameState(controller.getCurrentPlayer().getNickname(),controller);
+                    else //Lorenzo won
+                        controller.getEndGameState().visitEndGameState(null,controller);
+                } else { //game not over
+                    if(!controller.getMediator().isLeaderActionDone()){ //player can do a leader action
+                        controller.setCurrentState(controller.getMiddleTurnState());
+                        controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(),null);
+                    } else { //player can't do a leader action
+                        controller.setCurrentState(controller.getEndTurnState());
+                        controller.getEndTurnState().visitEndTurnState(controller);
+                    }
                 }
-            } else {
+            } else { //market action not ended
                 controller.getMediator().setChosenDepot(-2);
                 controller.setCurrentState(controller.getSwapState());
                 controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(), null);
             }
 
         } catch (invalidMoveException e) {
-            controller.getMediator().setPreviousErrorMessage(e.getErrorMessage());
-            controller.getResourceManagementState().visitResourceManagementState(controller);
+            controller.getResourceManagementState().visitResourceManagementState(e.getErrorMessage(),controller);
         }
 
     }

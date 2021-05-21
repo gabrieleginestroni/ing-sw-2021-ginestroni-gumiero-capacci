@@ -15,9 +15,9 @@ import java.util.Map;
 public class ResourceManagementState implements MultiplayerState {
 
     @Override
-    public void visitResourceManagementState(Controller controller){
+    public void visitResourceManagementState(String errorMessage,Controller controller){
         try{
-            commonVisit(controller);
+            commonVisit(errorMessage,controller);
             int chosenDepot = controller.getMediator().getChosenDepot();
             if(chosenDepot == -1){ //discard
                 controller.othersPlayers().stream().forEach(p -> {
@@ -26,31 +26,35 @@ public class ResourceManagementState implements MultiplayerState {
                         controller.getModel().vaticanReport(activatedSection);
                 });
             }
-            if(controller.getMediator().isMarketStateEnded()) {
-                controller.setCurrentState(controller.getEndTurnState());
-                controller.getEndTurnState().visitEndTurnState(controller);
-            } else {
+            if(controller.getMediator().isMarketStateEnded()) { //market action not ended
+                if(!controller.getMediator().isLeaderActionDone()){ //player can do a leader action
+                    controller.setCurrentState(controller.getMiddleTurnState());
+                    controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(),null);
+                } else { //player can't do a leader action
+                    controller.setCurrentState(controller.getEndTurnState());
+                    controller.getEndTurnState().visitEndTurnState(controller);
+                }
+            } else { //market action not ended
                 controller.getMediator().setChosenDepot(-2);
                 controller.setCurrentState(controller.getSwapState());
                 controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(), null);
             }
 
         } catch (invalidMoveException e) {
-            controller.getMediator().setPreviousErrorMessage(e.getErrorMessage());
-            controller.getResourceManagementState().visitResourceManagementState(controller);
+            controller.getResourceManagementState().visitResourceManagementState(e.getErrorMessage(),controller);
         }
 
     }
 
 
-    void commonVisit(Controller controller) throws invalidMoveException {
+    void commonVisit(String errorMessage, Controller controller) throws invalidMoveException {
         CommunicationMediator mediator = controller.getMediator();
         Map<Resource,Integer> resMap = mediator.getMarketResources();
         Board board = controller.getCurrentPlayer().getBoard();
         Resource res; //resource to propose to the player
         if(resMap.entrySet().iterator().hasNext()) {
             res = resMap.entrySet().iterator().next().getKey();
-            int chosenDepot = controller.getVirtualView().proposeMarketResource(res,controller.getCurrentPlayer(),mediator.getPreviousErrorMessage());
+            int chosenDepot = controller.getVirtualView().proposeMarketResource(res,controller.getCurrentPlayer(),errorMessage);
             mediator.setChosenDepot(chosenDepot);
             if(chosenDepot >= 0 && chosenDepot <= 4) {
                 if(chosenDepot <= 2){
@@ -59,7 +63,7 @@ public class ResourceManagementState implements MultiplayerState {
                         throw new invalidMoveException("Cannot place resource in the warehouse depot");
                     try {
                         board.addWarehouseDepotResource(res,1,chosenDepot);
-                        mediator.setPreviousErrorMessage(null);
+
                     } catch (addResourceLimitExceededException | duplicatedWarehouseTypeException | invalidResourceTypeException e) {
                         throw new invalidMoveException("Invalid resource warehouse placement");
                     }
@@ -72,7 +76,7 @@ public class ResourceManagementState implements MultiplayerState {
                             throw new invalidMoveException("Wrong depot resource type, trying to place " + res + " into a " + resDepot + " depot");
                         try {
                             board.addLeaderDepotResource(res, 1, chosenDepot - 3);
-                            mediator.setPreviousErrorMessage(null);
+
                         } catch (addResourceLimitExceededException | invalidResourceTypeException e) {
                             throw new invalidMoveException("Invalid resource leader placement");
                         }
@@ -83,9 +87,10 @@ public class ResourceManagementState implements MultiplayerState {
             }
 
             mediator.remove1Resource(res);
-        } else
+        } else {
+            mediator.setMainActionDone();
             mediator.setMarketStateEnded();
-
+        }
     }
 
 
