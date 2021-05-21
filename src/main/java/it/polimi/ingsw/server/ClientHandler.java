@@ -49,8 +49,6 @@ public class ClientHandler implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
     }
 
 
@@ -76,10 +74,9 @@ public class ClientHandler implements Runnable {
                         else
                             sendAnswerMessage(new LobbyNotReadyMessage());
                     } else {
-
-                        if(lobby.isNicknameUsed(nickname)){
+                        if(lobby.isNicknameUsed(nickname))
                             sendAnswerMessage(new NicknameAlreadyUsedMessage(gameID));
-                        } else {
+                        else {
                             lobby.addPlayer(nickname, this);
                             this.gameLobby = lobby;
                             sendAnswerMessage(new LoginSuccessMessage(gameLobby.getPlayers()));

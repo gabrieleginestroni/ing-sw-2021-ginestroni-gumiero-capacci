@@ -46,7 +46,7 @@ public class Lobby {
         this.players.add(new Player(nickname,clientHandler));
     }
 
-    public synchronized void startGame(){
+    public void startGame(){ //this method was synchronized before
 
         controller = ControllerFactory.getController(players);
         gameStarted = true;

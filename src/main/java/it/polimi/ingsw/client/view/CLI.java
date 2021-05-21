@@ -277,7 +277,7 @@ public class CLI extends View{
     @Override
     public void visitRequestLobbySize(String str) {
         this.showMessage(str);
-        this.networkHandler.sendMessage(new LoginSizeMessage(scanner.nextInt()));
+        this.networkHandler.sendMessage(new LoginSizeMessage(Integer.parseInt(scanner.nextLine().trim())));
     }
 
     @Override
