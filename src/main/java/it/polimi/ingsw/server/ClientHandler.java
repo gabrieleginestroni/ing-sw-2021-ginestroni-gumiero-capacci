@@ -116,7 +116,7 @@ public class ClientHandler implements Runnable {
     private void gamePhase() throws IOException, ClassNotFoundException {
         Controller controller= this.gameLobby.getController();
 
-        while(!controller.isGameOver()){
+        while(1 == 1){
             Message msg = waitMessage();
             controller.handleMessage(msg);
         }

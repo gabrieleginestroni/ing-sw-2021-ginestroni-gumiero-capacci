@@ -20,6 +20,7 @@ public class MainActionState implements SoloState,MultiplayerState {
                 controller.getVirtualView().marketAction(currentPlayer,null);
                 break;
             case 1:
+                /*
                 //TODO TESTING
                 try {
                     controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.COIN, 3);
@@ -36,6 +37,7 @@ public class MainActionState implements SoloState,MultiplayerState {
                 }catch(Exception e){
                     e.printStackTrace();
                 }
+                 */
                 controller.setCurrentState(controller.getDevCardSaleState());
                 controller.getVirtualView().devCardSaleAction(currentPlayer);
                 break;

@@ -2,7 +2,6 @@ package it.polimi.ingsw.server.controller.states;
 
 import it.polimi.ingsw.server.controller.CommunicationMediator;
 import it.polimi.ingsw.server.controller.Controller;
-import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.controller.states.exceptions.invalidMoveException;
 import it.polimi.ingsw.server.exceptions.addResourceLimitExceededException;
 import it.polimi.ingsw.server.exceptions.duplicatedWarehouseTypeException;
@@ -52,7 +51,7 @@ public class ResourceManagementState implements MultiplayerState {
         Map<Resource,Integer> resMap = mediator.getMarketResources();
         Board board = controller.getCurrentPlayer().getBoard();
         Resource res; //resource to propose to the player
-        if(resMap.entrySet().iterator().hasNext()) {
+        if(!resMap.isEmpty()) {
             res = resMap.entrySet().iterator().next().getKey();
             int chosenDepot = controller.getVirtualView().proposeMarketResource(res,controller.getCurrentPlayer(),errorMessage);
             mediator.setChosenDepot(chosenDepot);

@@ -11,10 +11,14 @@ public class StartTurnState implements MultiplayerState,SoloState {
     @Override
     public void visitStartTurnState(int move, Controller controller) {
 
-
         String currentPlayer = controller.getCurrentPlayer().getNickname();
 
         //TODO CHEATING
+        System.out.println("start turn of " + controller.getCurrentPlayer().getNickname());
+        int activatedSection = controller.getCurrentPlayer().getBoard().giveFaithPoints(10);
+        if( activatedSection != -1)
+            controller.getModel().vaticanReport(activatedSection);
+        /*
         try {
             controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.COIN, 100);
             controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SHIELD, 200);
@@ -32,6 +36,7 @@ public class StartTurnState implements MultiplayerState,SoloState {
         }catch(Exception e){
             e.printStackTrace();
         }
+         */
         switch (move){
             case 0:
                 controller.setCurrentState(controller.getMainActionState());
