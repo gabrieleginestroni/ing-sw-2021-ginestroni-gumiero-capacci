@@ -59,8 +59,8 @@ public class ResourceManagementState implements MultiplayerState {
             if(chosenDepot >= 0 && chosenDepot <= 4) {
                 if(chosenDepot <= 2){
                     Resource resDepot = controller.getCurrentPlayer().getBoard().getWarehouseDepotResourceType(chosenDepot);
-                    if(resDepot == null || resDepot != res)
-                        throw new invalidMoveException("Cannot place resource in the warehouse depot");
+                    if(resDepot != null && resDepot != res)
+                        throw new invalidMoveException("Cannot place resource "+res+" in warehouse depot containing "+resDepot);
                     try {
                         board.addWarehouseDepotResource(res,1,chosenDepot);
 

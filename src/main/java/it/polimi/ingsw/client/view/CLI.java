@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view;
 
 import com.google.gson.Gson;
-import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.messages.client_server.*;
 import it.polimi.ingsw.server.model.Resource;
 
@@ -26,8 +25,7 @@ public class CLI extends View{
 
     public String[] buildPersonalBoardCLI() {
         String[] personalMatrix = new String[12];
-        for (int i = 0; i < personalMatrix.length; i++)
-            personalMatrix[i] = "";
+        Arrays.fill(personalMatrix, "");
 
         try {
             if (this.personalBoardView != null) {
@@ -57,22 +55,21 @@ public class CLI extends View{
 
     public String[] buildOtherBoardsCLI() {
         String[] otherMatrix = new String[12];
-        for(int i = 0; i < otherMatrix.length; i++)
-            otherMatrix[i] = "";
+        Arrays.fill(otherMatrix, "");
 
         try{
             if (this.otherBoardsView != null) {
                 for (int i = 0; i < this.otherBoardsView.size(); i++) {
                     String nick = this.otherBoardsView.get(i).getNickname();
-                    otherMatrix[0 * (i+1)] += "Player " + nick + " ".repeat(Math.max(4, 20 - nick.length()));
+                    otherMatrix[5 * i] += "Player " + nick + " ".repeat(Math.max(4, 20 - nick.length()));
                     for (int j = 0; j < this.otherBoardsView.get(i).getStrongBox().get(Resource.SHIELD.toString()); j++)
-                        otherMatrix[1 * (i+1)] += "\uD83D\uDEE1"; //🛡
+                        otherMatrix[1 + 5 * i] += "\uD83D\uDEE1"; //🛡
                     for (int j = 0; j < this.otherBoardsView.get(i).getStrongBox().get(Resource.STONE.toString()); j++)
-                        otherMatrix[2 * (i+1)] += "\uD83D\uDC8E"; //💎
+                        otherMatrix[2 + 5 * i] += "\uD83D\uDC8E"; //💎
                     for (int j = 0; j < this.otherBoardsView.get(i).getStrongBox().get(Resource.SERVANT.toString()); j++)
-                        otherMatrix[3 * (i+1)] += "\uD83D\uDC68"; //👨
+                        otherMatrix[3 + 5 * i] += "\uD83D\uDC68"; //👨
                     for (int j = 0; j < this.otherBoardsView.get(i).getStrongBox().get(Resource.COIN.toString()); j++)
-                        otherMatrix[4 * (i+1)] += "\uD83D\uDCB0"; //💰
+                        otherMatrix[4 + 5 * i] += "\uD83D\uDCB0"; //💰
                 }
             }
         }catch(Exception e){
@@ -89,9 +86,8 @@ public class CLI extends View{
 
     public String[] buildGameCLI(){
         String[] gameMatrix = new String[12];
+        Arrays.fill(gameMatrix, "");
         int i = 0;
-        for(i = 0; i < gameMatrix.length; i++)
-            gameMatrix[i] = "";
 
         try {
             if (this.devGrid != null) {
@@ -126,8 +122,7 @@ public class CLI extends View{
         String[] personalMatrix = buildPersonalBoardCLI();
         String[] otherMatrix = buildOtherBoardsCLI();
         String[] gameMatrix = buildGameCLI();
-        for(int i = 0; i < pixelMatrix.length; i++)
-            pixelMatrix[i] = "";
+        Arrays.fill(pixelMatrix, "");
 
         for (int i = 0; i < pixelMatrix.length; i++) {
             pixelMatrix[i] = personalMatrix[i]+gameMatrix[i]+otherMatrix[i];
@@ -141,9 +136,8 @@ public class CLI extends View{
         this.showMessage(this.personalBoardView.toString());
         if(otherBoards.size() != 0) {
             this.otherBoardsView = new ArrayList<>();
-            otherBoards.stream().forEach(s -> {
-                otherBoardsView.add(gson.fromJson(s, BoardView.class));
-            });
+            otherBoards.forEach(s -> otherBoardsView.add(gson.fromJson(s, BoardView.class)));
+
             this.showMessage(this.otherBoardsView.toString());
         }
     }
@@ -345,7 +339,7 @@ public class CLI extends View{
             Map<Resource, Integer> cardCost = super.getDevelopmentCardByID(super.devGrid.getGridId(row, col)).getCost();
 
 
-            System.out.println("Choose the cardslot index where you want to place the card");
+            System.out.println("Choose the cardSlot index where you want to place the card");
             int cardSlot = Integer.parseInt(scanner.nextLine().trim());
 
             //Applying discounts
@@ -706,16 +700,78 @@ public class CLI extends View{
 
     @Override
     public void visitMarketState(String currentPlayerNickname, String errorMessage) {
-        //TODO
+        if(this.nickname.equals(currentPlayerNickname)){
+            showMessage(errorMessage);
+            int move = -1;
+            boolean success = false;
+            while(!success){
+                showMessage("Choose move (0 -> horizontal, 1 -> vertical ) ");
+                move = Integer.parseInt(scanner.nextLine().trim());
+                if(move >= 0 && move <= 1)
+                    success = true;
+            }
+
+            success = false;
+            int index = -1;
+            int col = 0;
+            String str;
+            if(move == 1){
+                col = 1;
+                str = "column";
+            }else
+                str = "row";
+
+            while(!success){
+                showMessage("Choose "+str+" to shift (0 to "+(2+col)+")");
+                index = Integer.parseInt(scanner.nextLine().trim());
+                if(index >= 0 && index <= (2 + col))
+                    success = true;
+            }
+
+            this.networkHandler.sendMessage(new ChosenMarketMoveMessage(move, index));
+
+        } else
+            this.showMessage(currentPlayerNickname + " is doing a market move");
     }
 
     @Override
     public void visitSwapState(String currentPlayerNickname, String errorMessage) {
-        //TODO
+        if(this.nickname.equals(currentPlayerNickname)){
+            showMessage(errorMessage);
+            int depot1 = -1;
+            int depot2 = 0;
+            String junk;
+            boolean success = false;
+            while(!success){
+                showMessage("Choose 2 depot to swap (-1 to skip, 0, 1, 2 for warehouse depots) ");
+                depot1 = scanner.nextInt();
+                if(depot1 != -1)
+                    depot2 = Integer.parseInt(scanner.nextLine().trim());
+                else
+                    junk = scanner.nextLine(); //to clean input buffer
+                if(depot1 >= -1 && depot1 <= 2 && depot2 >= 0 && depot2 <= 2 && depot1 != depot2)
+                    success = true;
+            }
+            this.networkHandler.sendMessage(new ChosenSwapDepotMessage(depot1, depot2));
+        } else
+            this.showMessage(currentPlayerNickname + " is swapping depots");
     }
 
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
+        if(this.nickname.equals(currentPlayerNickname)){
+            showMessage(errorMessage);
+            int depotIndex = -1;
+            boolean success = false;
+            while(!success){
+                showMessage("Choose depot to place "+res+" (-1 to discard, 0, 1, 2 for warehouse depots, 3, 4 for leader depots) ");
+                depotIndex = Integer.parseInt(scanner.nextLine().trim());
+                if(depotIndex >= -1 && depotIndex <= 4)
+                    success = true;
+            }
 
+            this.networkHandler.sendMessage(new ChosenMarketDepotMessage(depotIndex));
+        } else
+            this.showMessage(currentPlayerNickname + " is placing resources in depots");
     }
 }

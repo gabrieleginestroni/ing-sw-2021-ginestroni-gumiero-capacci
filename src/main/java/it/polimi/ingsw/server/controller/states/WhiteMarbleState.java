@@ -27,8 +27,11 @@ public class WhiteMarbleState implements MultiplayerState,SoloState {
         }
         //handling faith resource
         int faith = mediator.removeFaith();
-        int activatedSection = controller.getCurrentPlayer().getBoard().giveFaithPoints(faith);
-        controller.getModel().vaticanReport(activatedSection);
+        if(faith != 0) {
+            int activatedSection = controller.getCurrentPlayer().getBoard().giveFaithPoints(faith);
+            if (activatedSection != -1)
+                controller.getModel().vaticanReport(activatedSection);
+        }
         if(controller.isGameOver())
             mediator.setPlayerWon();
         controller.setCurrentState(controller.getSwapState());

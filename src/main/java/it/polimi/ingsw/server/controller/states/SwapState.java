@@ -14,6 +14,8 @@ public class SwapState implements MultiplayerState,SoloState {
         try {
             if(dep1 != -1) {
                 try {
+                    if(dep1 > 2 || dep2 > 2)
+                        throw new invalidMoveException("Invalid depot");
                     if(dep1 == dep2)
                         throw new invalidMoveException("Cannot swap same depot");
                     controller.getCurrentPlayer().getBoard().swapDepot(dep1, dep2);
