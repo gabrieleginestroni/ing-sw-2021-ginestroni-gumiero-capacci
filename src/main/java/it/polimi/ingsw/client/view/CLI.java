@@ -175,7 +175,7 @@ public class CLI extends View{
     }
 
     @Override
-    public void visitInitialResource(int quantity) {
+    public void visitInitialResource(int quantity)  {
 
         StringBuilder str = new StringBuilder("(");
 

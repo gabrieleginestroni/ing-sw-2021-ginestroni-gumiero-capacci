@@ -31,9 +31,18 @@ public class NetworkHandler implements Runnable {
     public void run() {
         try {
             AnswerMessage message;
+            boolean success;
             while(!view.isGameOver()){
                 message = (AnswerMessage) input.readObject();
-                message.selectView(view);
+                success = false;
+                while(!success){
+                    try {
+                        message.selectView(view);
+                        success = true;
+                    } catch(Exception e){
+                        view.showMessage("Invalid input, please retry");
+                    }
+                }
             }
 
             socket.close();
