@@ -367,7 +367,7 @@ public class CLI extends View{
             for(Map.Entry<Resource,Integer> entry:cardCost.entrySet()) {
                 int quantity = 0;
                 int availableQuantity = 0;
-                int deltaQuantity = 0;
+                int deltaQuantity;
                 //Keeps asking where to pick the same resource if selected resources are not enough
                 while (quantity < entry.getValue()) {
                     System.out.println("Pick " + (entry.getValue()-quantity) + " " + entry.getKey() + " from your depots");
@@ -522,7 +522,7 @@ public class CLI extends View{
             int quantity = 0;
             int deltaQuantity = 0;
             int availableQuantity = 0;
-            Map<Resource, Integer> productionInput = null;
+            Map<Resource, Integer> productionInput;
 
             if (productionIndex <= 4) {
                 if (productionIndex <= 2) {
@@ -533,7 +533,7 @@ public class CLI extends View{
                     else
                         throw new invalidClientInputException("No development card in slot "+productionIndex);//TODO fix bug
                 } else {
-                    int card = 0;
+                    int card;
                     if(personalBoardView.getActiveLeaders() != null && personalBoardView.getActiveLeaders().size() > productionIndex - 3)
                         card = personalBoardView.getActiveLeaders().get(productionIndex-3);
                     else
@@ -648,7 +648,7 @@ public class CLI extends View{
                                 deltaQuantity = strongBoxMap.get(r);
                             else
                                 deltaQuantity = 0;
-                            System.out.println("Strongbox (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r.toString() + " available");
+                            System.out.println("Strongbox (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r + " available");
                             availableQuantity += super.personalBoardView.getStrongBox().get(r.toString());
                         }
                     }
@@ -664,7 +664,7 @@ public class CLI extends View{
                                         deltaQuantity = strongBoxMap.get(r);
                                     else
                                         deltaQuantity = 0;
-                                    System.out.println(r.toString()+" (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r.toString() + " available");
+                                    System.out.println(r.toString()+" (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r + " available");
                                     i++;
                                 }
                             }
@@ -706,10 +706,10 @@ public class CLI extends View{
             this.showMessage("YOU WIN!!!");
         else
             this.showMessage(winner+ " WINS!!!");
-        String resMsg = "";
+        StringBuilder resMsg = new StringBuilder();
         for(Map.Entry<String,Integer> res: gameResult.entrySet())
-           resMsg += res.getKey()+" ==> "+res.getValue()+" POINTS\n";
-        this.showMessage(resMsg);
+           resMsg.append(res.getKey()).append(" ==> ").append(res.getValue()).append(" POINTS\n");
+        this.showMessage(resMsg.toString());
 
         super.gameOver = true;
     }
@@ -756,7 +756,6 @@ public class CLI extends View{
             showMessage(errorMessage);
             int depot1 = -1;
             int depot2 = 0;
-            String junk;
             boolean success = false;
             while(!success){
                 showMessage("Choose 2 depot to swap (-1 to skip, 0, 1, 2 for warehouse depots) ");
@@ -764,7 +763,7 @@ public class CLI extends View{
                 if(depot1 != -1)
                     depot2 = Integer.parseInt(scanner.nextLine().trim());
                 else
-                    junk = scanner.nextLine(); //to clean input buffer
+                    scanner.nextLine(); //to clean input buffer
                 if(depot1 >= -1 && depot1 <= 2 && depot2 >= 0 && depot2 <= 2 && depot1 != depot2)
                     success = true;
             }

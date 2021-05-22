@@ -4,8 +4,12 @@ import it.polimi.ingsw.client.view.CLI;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -41,14 +45,25 @@ public class ClientCLI {
 
             Thread networkThread = new Thread(networkHandler);
             networkThread.start();
+
+            /*
             while(!view.isGameOver()){
                 String input;
+                scanner = new Scanner(System.in);
                 TimeUnit.SECONDS.sleep(1);
-                if(view.getCurrentPlayer() != null && !view.getCurrentPlayer().equals(view.getNickname())){
+                if(view.getCurrentPlayer() != null && !view.getCurrentPlayer().equals(view.getNickname())) {
                     input = scanner.nextLine();
-                    System.out.println("It's "+view.getCurrentPlayer()+"'s turn, please wait yours.");
+                    if (!view.getCurrentPlayer().equals(view.getNickname()))
+                        view.showMessage("It's " + view.getCurrentPlayer() + "'s turn, please wait yours.");
+                    else{
+                        String fakeInput = "fakeInput\n";
+                        InputStream in = new ByteArrayInputStream(fakeInput.getBytes(StandardCharsets.UTF_8));
+                        scanner = new Scanner(in);
+                    }
                 }
-            }
+             }
+             */
+
             networkThread.join();
 
         } catch (IOException | InterruptedException e) {
