@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.client.NetworkHandler;
+import it.polimi.ingsw.client.view.exceptions.invalidClientInputException;
 import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
@@ -82,7 +83,7 @@ public abstract class View {
     public abstract void visitMiddleTurn(String currentPlayerNickname,String errorMessage);
     public abstract void visitLeaderAction(String currentPlayerNickname);
     public abstract void visitMainActionState(String currentPlayerNickname,String errorMessage);
-    public abstract void visitProductionState(String currentPlayerNickname,String errorMessage);
+    public abstract void visitProductionState(String currentPlayerNickname,String errorMessage) throws invalidClientInputException;
     public abstract void visitGameOverState(String winner, Map<String, Integer> gameResult);
     public abstract void visitMarketState(String currentPlayerNickname,String errorMessage);
     public abstract void visitSwapState(String currentPlayerNickname,String errorMessage);

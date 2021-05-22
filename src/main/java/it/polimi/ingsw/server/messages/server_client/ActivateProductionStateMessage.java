@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.messages.server_client;
 
 import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.exceptions.invalidClientInputException;
 
 public class ActivateProductionStateMessage implements AnswerMessage {
     private final String currentPlayerNickname;
@@ -12,7 +13,7 @@ public class ActivateProductionStateMessage implements AnswerMessage {
     }
 
     @Override
-    public void selectView(View view) {
-        view.visitProductionState(currentPlayerNickname, errorMessage);
+    public void selectView(View view) throws invalidClientInputException {
+        view.visitProductionState (currentPlayerNickname, errorMessage);
     }
 }

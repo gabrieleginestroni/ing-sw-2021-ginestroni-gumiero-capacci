@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.exceptions.invalidClientInputException;
 import it.polimi.ingsw.server.messages.client_server.*;
 import it.polimi.ingsw.server.messages.server_client.*;
 
@@ -39,7 +40,10 @@ public class NetworkHandler implements Runnable {
                     try {
                         message.selectView(view);
                         success = true;
-                    } catch(Exception e){
+                    } catch (invalidClientInputException e) {
+                        view.showMessage(e.getErrorMessage()+", please retry");
+                    }
+                    catch(Exception e){
                         view.showMessage("Invalid input, please retry");
                     }
                 }

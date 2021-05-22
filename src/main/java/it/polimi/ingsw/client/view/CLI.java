@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.client.view.exceptions.invalidClientInputException;
 import it.polimi.ingsw.server.messages.client_server.*;
 import it.polimi.ingsw.server.model.Resource;
 
@@ -503,7 +504,7 @@ public class CLI extends View{
     }
 
     @Override
-    public void visitProductionState(String currentPlayerNickname, String errorMessage) {
+    public void visitProductionState(String currentPlayerNickname, String errorMessage) throws invalidClientInputException {
         if(this.nickname.equals(currentPlayerNickname)){
             showMessage(errorMessage);
             int productionIndex = -1;
@@ -530,13 +531,13 @@ public class CLI extends View{
                     if(card != 0)
                         productionInput = this.getDevelopmentCardByID(card).getProductionInput();
                     else
-                        System.out.println("No development card in slot "+productionIndex);//TODO fix bug
+                        throw new invalidClientInputException("No development card in slot "+productionIndex);//TODO fix bug
                 } else {
                     int card = 0;
                     if(personalBoardView.getActiveLeaders() != null && personalBoardView.getActiveLeaders().size() > productionIndex - 3)
                         card = personalBoardView.getActiveLeaders().get(productionIndex-3);
                     else
-                        System.out.println("No active leader selected "+(productionIndex-3));//TODO fix bug
+                        throw new invalidClientInputException("No active leader selected "+(productionIndex-3));//TODO fix bug
                     productionInput = new HashMap<>();
                     productionInput.put(this.getLeaderCardByID(card).getResource(), 1);
                 }
