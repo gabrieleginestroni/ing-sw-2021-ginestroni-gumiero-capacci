@@ -299,17 +299,17 @@ public class CLI extends View{
     @Override
     public void visitWhiteMarbleProposal(Resource res1, Resource res2) {
         int res = 0;
-            boolean success = false;
-            while(!success){
-                this.showMessage("You have 2 white marbles powers. Please choose what resource you want to get from a white marble (0 -> "+res1+", 1 -> "+res2+" ");
-                res = Integer.parseInt(scanner.nextLine().trim());
-                if(res >= 0 && res <= 1)
-                    success = true;
-            }
-            if(res == 0)
-                this.networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res1));
-            else
-                this.networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res2));
+        boolean success = false;
+        while(!success){
+            this.showMessage("You have 2 white marbles powers. Please choose what resource you want to get from a white marble (0 -> "+res1+", 1 -> "+res2+" ");
+            res = Integer.parseInt(scanner.nextLine().trim());
+            if(res >= 0 && res <= 1)
+                success = true;
+        }
+        if(res == 0)
+            this.networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res1));
+        else
+            this.networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res2));
 
 
 
@@ -317,6 +317,7 @@ public class CLI extends View{
 
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
+        super.currentPlayer = currentPlayerNickname;
         showMessage(errorMessage);
         if(this.nickname.equals(currentPlayerNickname)){
             int move = -1;
@@ -331,7 +332,6 @@ public class CLI extends View{
 
         } else
             this.showMessage("The turn of " +currentPlayerNickname + " is starting");
-
 
     }
 
@@ -701,7 +701,6 @@ public class CLI extends View{
 
     @Override
     public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
-
         if(this.nickname.equals(winner))
             this.showMessage("YOU WIN!!!");
         else
@@ -710,6 +709,8 @@ public class CLI extends View{
         for(Map.Entry<String,Integer> res: gameResult.entrySet())
            resMsg += res.getKey()+" ==> "+res.getValue()+" POINTS\n";
         this.showMessage(resMsg);
+
+        super.gameOver = true;
     }
 
     @Override

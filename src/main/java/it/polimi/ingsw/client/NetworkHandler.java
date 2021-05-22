@@ -31,8 +31,7 @@ public class NetworkHandler implements Runnable {
     public void run() {
         try {
             AnswerMessage message;
-            boolean gameOver = false;
-            while(!gameOver){
+            while(!view.isGameOver()){
                 message = (AnswerMessage) input.readObject();
                 message.selectView(view);
             }

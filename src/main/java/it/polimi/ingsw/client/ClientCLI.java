@@ -40,6 +40,11 @@ public class ClientCLI {
 
             Thread networkThread = new Thread(networkHandler);
             networkThread.start();
+            while(!view.isGameOver()){
+                String input = scanner.nextLine();
+                if(!view.getCurrentPlayer().equals(view.getNickname()))
+                    view.showMessage("It's "+view.getCurrentPlayer()+"'s turn, please wait yours.");
+            }
             networkThread.join();
 
         } catch (IOException | InterruptedException e) {

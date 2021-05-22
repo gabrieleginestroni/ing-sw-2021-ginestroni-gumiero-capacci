@@ -19,11 +19,14 @@ public abstract class View {
     LorenzoView lorenzoView;
     MarketView marketView;
     NetworkHandler networkHandler;
+    boolean gameOver;
 
     DevelopmentCard[] developmentCards;
     LeaderCard[] leaderCards;
 
     String nickname;
+    String currentPlayer;
+
 
     View(){
         Gson gson = new Gson();
@@ -43,11 +46,14 @@ public abstract class View {
         }catch(Exception e) {
             e.printStackTrace();
         }
+        this.gameOver = false;
     }
-
+    public String getCurrentPlayer() { return this.currentPlayer;}
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+    public boolean isGameOver(){return this.gameOver;}
+    public String getNickname(){return this.nickname;}
 
     public void showMessage(String str) {
         System.out.println(str);
