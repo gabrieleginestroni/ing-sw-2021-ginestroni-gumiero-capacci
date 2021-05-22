@@ -7,6 +7,7 @@ import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class ClientCLI {
     public static void main(String[] args) {
@@ -41,9 +42,12 @@ public class ClientCLI {
             Thread networkThread = new Thread(networkHandler);
             networkThread.start();
             while(!view.isGameOver()){
-                String input = scanner.nextLine();
-                if(!view.getCurrentPlayer().equals(view.getNickname()))
-                    view.showMessage("It's "+view.getCurrentPlayer()+"'s turn, please wait yours.");
+                String input;
+                TimeUnit.SECONDS.sleep(1);
+                if(view.getCurrentPlayer() != null && !view.getCurrentPlayer().equals(view.getNickname())){
+                    input = scanner.nextLine();
+                    System.out.println("It's "+view.getCurrentPlayer()+"'s turn, please wait yours.");
+                }
             }
             networkThread.join();
 
