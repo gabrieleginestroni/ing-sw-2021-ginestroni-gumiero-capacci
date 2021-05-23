@@ -276,9 +276,13 @@ public class CLI extends View{
     }
 
     @Override
-    public void visitRequestLobbySize(String str) {
+    public void visitRequestLobbySize(String str) throws invalidClientInputException {
         this.showMessage(str);
-        this.networkHandler.sendMessage(new LoginSizeMessage(Integer.parseInt(scanner.nextLine().trim())));
+        int dim = Integer.parseInt(scanner.nextLine().trim());
+        if(dim <= 0 || dim >= 5)
+            throw new invalidClientInputException("Invalid lobby size, please retry");
+        this.networkHandler.sendMessage(new LoginSizeMessage(dim));
+
     }
 
     @Override
@@ -331,9 +335,13 @@ public class CLI extends View{
             }
             this.networkHandler.sendMessage(new ChosenFirstMoveMessage(move));
 
-        } else
-            this.showMessage("The turn of " +currentPlayerNickname + " is starting");
-
+        } else {
+            this.showMessage("The turn of " + currentPlayerNickname + " is starting");
+            /* if (scanner.hasNext()) {
+                this.showMessage("It's " + this.getCurrentPlayer() + "'s turn, please wait yours.");
+                scanner.nextLine();
+            } */
+        }
     }
 
     @Override
