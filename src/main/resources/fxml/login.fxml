@@ -12,7 +12,7 @@
          <children>
             <ImageView fitHeight="572.0" fitWidth="425.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Documents/3anno2sem/ProjIngSw/images/login_image.png" />
+                  <Image url="@/images/login_image.png" />
                </image>
             </ImageView>
          </children>
@@ -23,7 +23,7 @@
          <children>
             <ImageView fitHeight="566.0" fitWidth="360.0" layoutX="-5.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Documents/3anno2sem/ProjIngSw/images/login_background.png" />
+                  <Image url="@/images/login_background.png" />
                </image>
             </ImageView>
          </children>
