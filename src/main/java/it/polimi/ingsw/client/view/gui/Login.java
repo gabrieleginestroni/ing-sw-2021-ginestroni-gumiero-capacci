@@ -12,12 +12,14 @@ public class Login extends Application {
         launch(args);
     }
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         ClientGUI.setStg(primaryStage);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
         primaryStage.setTitle("boh");
-        primaryStage.setScene(new Scene(root,800,500));
+        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(root,836,588));
         primaryStage.show();
 
     }
