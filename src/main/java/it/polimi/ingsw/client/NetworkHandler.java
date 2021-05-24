@@ -44,6 +44,7 @@ public class NetworkHandler implements Runnable {
                         view.showMessage(e.getErrorMessage()+", please retry");
                     }
                     catch(Exception e){
+                        //e.printStackTrace();
                         view.showMessage("Invalid input, please retry");
                     }
                 }

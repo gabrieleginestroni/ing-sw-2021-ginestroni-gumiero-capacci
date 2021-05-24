@@ -47,7 +47,7 @@ public class CLI extends View{
                 depotName = "Leader depot";
             else
                 depotName = "Strongbox";
-            System.out.println(depotName+" (" + index.getKey() + ") => " + index.getValue() + " available");
+            this.showMessage(depotName+" (" + index.getKey() + ") => " + index.getValue() + " available");
             availableQuantity += index.getValue();
         }
         return availableQuantity;
@@ -172,7 +172,7 @@ public class CLI extends View{
 
         for (int i = 0; i < pixelMatrix.length; i++) {
             pixelMatrix[i] = personalMatrix[i]+gameMatrix[i]+otherMatrix[i];
-            System.out.println(pixelMatrix[i]);
+            this.showMessage(pixelMatrix[i]);
         }
     }
 
@@ -396,9 +396,13 @@ public class CLI extends View{
             int row = -1;
             int col = -1;
             while(!success){
-                this.showMessage("Type row and column of the card you want to buy ");
+                this.showMessage("Type row and column of the card you want to buy, row '-1' for skipping card purchase ");
                 row = scanner.nextInt();
                 col = Integer.parseInt(scanner.nextLine().trim());
+                if(row == -1 || col == -1) {
+                    this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(-1, -1, null, -1));
+                    return;
+                }
                 if(row >= 0 && row <= 2 && col >= 0 && col <= 3 && super.devGrid.getGridId(row, col) != 0)
                     success = true;
             }
@@ -406,10 +410,10 @@ public class CLI extends View{
             Map<Integer, Map<Resource, Integer>> resToRemove = new HashMap<>();
             Map<Resource, Integer> cardCost = super.getDevelopmentCardByID(super.devGrid.getGridId(row, col)).getCost();
 
-            this.showMessage("Choose the cardSlot index where you want to place the card");
             success = false;
             int cardSlot = -1;
             while(!success) {
+                this.showMessage("Choose the cardSlot index where you want to place the card");
                 cardSlot = Integer.parseInt(scanner.nextLine().trim());
                 if(0 <= cardSlot && cardSlot <= 4)
                     success = true;
@@ -431,7 +435,7 @@ public class CLI extends View{
                 //Keeps asking where to pick the same resource if selected resources are not enough
                 while (quantity < entry.getValue()) {
                     int remainingToPick = entry.getValue()-quantity;
-                    System.out.println("Pick " + remainingToPick + " " + entry.getKey() + " from your depots");
+                    this.showMessage("Pick " + remainingToPick + " " + entry.getKey() + " from your depots");
 
                      availableQuantity = printIndexMap(indexMap)+quantity;
 
@@ -440,7 +444,7 @@ public class CLI extends View{
                         int depot = scanner.nextInt();
                         int addedQuantity = Integer.parseInt(scanner.nextLine().trim());
                         if(addedQuantity > remainingToPick) {
-                            System.out.println("You picked "+addedQuantity+" "+entry.getKey()+", only "+remainingToPick+" needed, picking "+remainingToPick);
+                            this.showMessage("You picked "+addedQuantity+" "+entry.getKey()+", only "+remainingToPick+" needed, picking "+remainingToPick);
                             addedQuantity = remainingToPick;
                         }
 
@@ -460,7 +464,7 @@ public class CLI extends View{
                             tmpMap = new HashMap<>();
                         tmpMap.put(entry.getKey(), addedQuantity);
                         resToRemove.put(depot, tmpMap);
-                        System.out.println(new Gson().toJson(resToRemove)); //TODO DEBUG
+                        this.showMessage(new Gson().toJson(resToRemove)); //TODO DEBUG
                     }else {
                         throw new invalidClientInputException("Cannot buy card, only " + availableQuantity + " " + entry.getKey() + ", " + entry.getValue() + " needed");//TODO fix bug
                     }
@@ -576,7 +580,7 @@ public class CLI extends View{
                     //Keeps asking where to pick the same resource if selected resources are not enough
                     while (quantity < entry.getValue()) {
                         int remainingToPick = entry.getValue() - quantity;
-                        System.out.println("Pick " + remainingToPick + " " + entry.getKey() + " from your depots");
+                        this.showMessage("Pick " + remainingToPick + " " + entry.getKey() + " from your depots");
 
                         availableQuantity = printIndexMap(indexMap)+quantity;
 
@@ -585,7 +589,7 @@ public class CLI extends View{
                             int depot = scanner.nextInt();
                             int addedQuantity = Integer.parseInt(scanner.nextLine().trim());
                             if(addedQuantity > remainingToPick) {
-                                System.out.println("You picked "+addedQuantity+" "+entry.getKey()+", only "+remainingToPick+" needed, picking "+remainingToPick);
+                                this.showMessage("You picked "+addedQuantity+" "+entry.getKey()+", only "+remainingToPick+" needed, picking "+remainingToPick);
                                 addedQuantity = remainingToPick;
                             }
                             if(indexMap.get(depot) < addedQuantity)
@@ -600,8 +604,8 @@ public class CLI extends View{
                                 strongBoxMap.merge(entry.getKey(), addedQuantity, Integer::sum);
                             indexMap.put(depot, indexMap.get(depot) - addedQuantity);
 
-                            System.out.println(new Gson().toJson(wareHouseMap)); //TODO DEBUG
-                            System.out.println(new Gson().toJson(strongBoxMap)); //TODO DEBUG
+                            this.showMessage(new Gson().toJson(wareHouseMap)); //TODO DEBUG
+                            this.showMessage(new Gson().toJson(strongBoxMap)); //TODO DEBUG
                         } else {
                             throw new invalidClientInputException("Cannot activate production, only " + availableQuantity + " " + entry.getKey() + ", " + entry.getValue() + " needed");
                         }
@@ -609,7 +613,7 @@ public class CLI extends View{
                 }
             } else if (productionIndex == 5) {
                 while (quantity < 2) {
-                    System.out.println("Pick " + (2 - quantity) + " resources from your depots");
+                    this.showMessage("Pick " + (2 - quantity) + " resources from your depots");
                     int i = 0;
 
                     //Prints all available resources inside warehouse depots, updating the current status based on the previous choices made
@@ -621,7 +625,7 @@ public class CLI extends View{
                                 deltaQuantity = wareHouseMap.get(i);
                             else
                                 deltaQuantity = 0;
-                            System.out.println("Warehouse depot (" + i + ") => " + (tmpRes.get(i) - deltaQuantity) + " " + s + " available");
+                            this.showMessage("Warehouse depot (" + i + ") => " + (tmpRes.get(i) - deltaQuantity) + " " + s + " available");
                             availableQuantity += tmpRes.get(i);
                         }
                         i++;
@@ -636,7 +640,7 @@ public class CLI extends View{
                                 deltaQuantity = wareHouseMap.get(i);
                             else
                                 deltaQuantity = 0;
-                            System.out.println("Leader depot (" + i + ") => " + (tmpRes.get(i - 3) - deltaQuantity) + " " + s + " available");
+                            this.showMessage("Leader depot (" + i + ") => " + (tmpRes.get(i - 3) - deltaQuantity) + " " + s + " available");
                             availableQuantity += tmpRes.get(i - 3);
                         }
                         i++;
@@ -650,7 +654,7 @@ public class CLI extends View{
                                 deltaQuantity = strongBoxMap.get(r);
                             else
                                 deltaQuantity = 0;
-                            System.out.println("Strongbox (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r + " available");
+                            this.showMessage("Strongbox (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r + " available");
                             availableQuantity += super.personalBoardView.getStrongBox().get(r.toString());
                         }
                     }
@@ -666,7 +670,7 @@ public class CLI extends View{
                                         deltaQuantity = strongBoxMap.get(r);
                                     else
                                         deltaQuantity = 0;
-                                    System.out.println(r.toString()+" (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r + " available");
+                                    this.showMessage(r.toString()+" (" + i + ") => " + (super.personalBoardView.getStrongBox().get(r.toString()) - deltaQuantity) + " " + r + " available");
                                     i++;
                                 }
                             }
@@ -681,17 +685,16 @@ public class CLI extends View{
                         } else
                             strongBoxMap.merge(Resource.values()[res], addedQuantity, Integer::sum);
 
-                        System.out.println(new Gson().toJson(wareHouseMap)); //TODO DEBUG
-                        System.out.println(new Gson().toJson(strongBoxMap)); //TODO DEBUG
+                        this.showMessage(new Gson().toJson(wareHouseMap)); //TODO DEBUG
+                        this.showMessage(new Gson().toJson(strongBoxMap)); //TODO DEBUG
                     } else {
-                        System.out.println("Cannot activate production, only " + availableQuantity + ", 2 needed");
-                        break;
-                        //add error
+                        throw new invalidClientInputException("Cannot activate production, only " + availableQuantity + ", 2 needed");
+
                     }
                 }
             }
             if (productionIndex >= 3 && productionIndex != 6) {
-                System.out.println("Choose resource to produce");
+                this.showMessage("Choose resource to produce");
                 chosenResource = Resource.valueOf(scanner.nextLine().toUpperCase());
             } else
                 chosenResource = null;

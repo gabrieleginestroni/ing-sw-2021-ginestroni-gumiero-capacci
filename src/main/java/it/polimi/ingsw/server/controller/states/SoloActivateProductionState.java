@@ -14,16 +14,21 @@ public class SoloActivateProductionState extends ActivateProductionState impleme
             if(productionIndex != 6) {
                 controller.getVirtualView().productionAction(controller.getCurrentPlayer().getNickname(), null);
             }else {
-                if (controller.isGameOver()) {
-                    controller.setCurrentState(controller.getEndGameState());
-                    controller.getEndGameState().visitEndGameState(controller.getCurrentPlayer().getNickname(), controller);
+                if (!controller.getMediator().isMainActionDone()) {
+                    controller.setCurrentState(controller.getMainActionState());
+                    controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), "Please do a main action");
                 } else {
-                    if (!controller.getMediator().isLeaderActionDone()) {
-                        controller.setCurrentState(controller.getMiddleTurnState());
-                        controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
+                    if (controller.isGameOver()) {
+                        controller.setCurrentState(controller.getEndGameState());
+                        controller.getEndGameState().visitEndGameState(controller.getCurrentPlayer().getNickname(), controller);
                     } else {
-                        controller.setCurrentState(controller.getEndTurnState());
-                        controller.getEndTurnState().visitEndTurnState(controller);
+                        if (!controller.getMediator().isLeaderActionDone()) {
+                            controller.setCurrentState(controller.getMiddleTurnState());
+                            controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
+                        } else {
+                            controller.setCurrentState(controller.getEndTurnState());
+                            controller.getEndTurnState().visitEndTurnState(controller);
+                        }
                     }
                 }
             }

@@ -69,6 +69,8 @@ public class DevCardSaleState implements MultiplayerState {
             card = model.getCardFromGrid(row, col);
         } catch (emptyDevCardGridSlotSelectedException e) {
             throw new invalidMoveException("The selected grid slot is empty");
+        }catch (ArrayIndexOutOfBoundsException e) {
+            throw new invalidMoveException("Please do a main action");
         }
 
         Map<Resource,Integer> cost = card.getCost();

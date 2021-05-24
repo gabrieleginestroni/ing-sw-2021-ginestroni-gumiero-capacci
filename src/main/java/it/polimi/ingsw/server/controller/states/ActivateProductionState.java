@@ -21,13 +21,18 @@ public class ActivateProductionState implements MultiplayerState {
             commonVisit(productionIndex, wareHouseMap, strongBoxMap, chosenResource, controller);
             if(productionIndex != 6) {
                 controller.getVirtualView().productionAction(controller.getCurrentPlayer().getNickname(), null);
-            }else{
-                if(!controller.getMediator().isLeaderActionDone()) {
-                    controller.setCurrentState(controller.getMiddleTurnState());
-                    controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
-                }else{
-                    controller.setCurrentState(controller.getEndTurnState());
-                    controller.getEndTurnState().visitEndTurnState(controller);
+            }else {
+                if (!controller.getMediator().isMainActionDone()) {
+                    controller.setCurrentState(controller.getMainActionState());
+                    controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), "Please do a main action");
+                } else {
+                    if (!controller.getMediator().isLeaderActionDone()) {
+                        controller.setCurrentState(controller.getMiddleTurnState());
+                        controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
+                    } else {
+                        controller.setCurrentState(controller.getEndTurnState());
+                        controller.getEndTurnState().visitEndTurnState(controller);
+                    }
                 }
             }
         } catch (invalidMoveException e) {

@@ -116,6 +116,7 @@ public class LeaderActionState implements MultiplayerState,SoloState {
                     board.activateLeaderCard(entry.getKey() - offset);
                     if(entry.getKey() == 0)
                         offset++;
+                    controller.getMediator().setLeaderActionDone();
                     break;
                 case 2:
                     int activatedSection = board.discardLeaderCard(entry.getKey() - offset);
@@ -123,9 +124,9 @@ public class LeaderActionState implements MultiplayerState,SoloState {
                         controller.getModel().vaticanReport(activatedSection);
                     if(entry.getKey() == 0)
                         offset++;
+                    controller.getMediator().setLeaderActionDone();
                     break;
             }
         }
-        controller.getMediator().setLeaderActionDone();
     }
 }
