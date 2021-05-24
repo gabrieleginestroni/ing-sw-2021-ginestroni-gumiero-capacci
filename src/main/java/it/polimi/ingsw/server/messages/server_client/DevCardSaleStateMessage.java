@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.messages.server_client;
 
 import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.exceptions.invalidClientInputException;
 
 public class DevCardSaleStateMessage implements AnswerMessage {
     private final String currentPlayerNickname;
@@ -10,8 +11,7 @@ public class DevCardSaleStateMessage implements AnswerMessage {
     }
 
     @Override
-    public void selectView(View view) {
+    public void selectView(View view) throws invalidClientInputException {
         view.visitDevCardSale(currentPlayerNickname);
-
     }
 }
