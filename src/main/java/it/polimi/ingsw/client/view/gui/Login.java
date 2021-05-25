@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view.gui;
 
 import it.polimi.ingsw.client.ClientGUI;
+import it.polimi.ingsw.client.view.GUI;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,12 +16,13 @@ public class Login extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ClientGUI.setStg(primaryStage);
+        GUI.setStg(primaryStage);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
-        primaryStage.setTitle("boh");
+        primaryStage.setTitle("Masters of Renaissance");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root,836,588));
         primaryStage.show();
+
 
     }
 }

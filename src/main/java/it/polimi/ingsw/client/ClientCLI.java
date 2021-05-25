@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class ClientCLI {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        View view = new CLI();
+        CLI view = new CLI();
         //System.out.println("Insert server ip address:");
         //String ip = scanner.nextLine();
         //String ip = "94.176.46.205";

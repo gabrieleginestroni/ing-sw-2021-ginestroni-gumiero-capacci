@@ -1,11 +1,52 @@
 package it.polimi.ingsw.client.view;
 
+import it.polimi.ingsw.client.ClientGUI;
+import it.polimi.ingsw.client.NetworkHandler;
+import it.polimi.ingsw.client.view.gui.controllers.GUIController;
 import it.polimi.ingsw.server.model.Resource;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 public class GUI extends View{
+    public static final String LOGIN = "login.fxml";
+    private static final String SETUP_LEADER = "setupLeader.fxml";
+    private static final String SETUP_RESOURCE = "setupResource.fxml";
+    private static final String MAIN_GUI = "game.fxml";
+    private static final String END_GAME = "endGame.fxml";
+
+    private static Stage stg;
+    private final Map<String, GUIController> controllersMap = new HashMap<>();
+    private final HashMap<String, Scene> scenesMap = new HashMap<>();
+
+
+    public GUI() {
+        List<String> fxml = new ArrayList<>(Arrays.asList(LOGIN, SETUP_LEADER, SETUP_RESOURCE, MAIN_GUI, END_GAME));
+        try {
+            for (String path : fxml) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + path));
+                scenesMap.put(path, new Scene(loader.load()));
+                GUIController controller = loader.getController();
+                controller.setGUI(this);
+                controllersMap.put(path, controller);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        changeScene(scenesMap.get(LOGIN));
+    }
+    public static void setStg(Stage stg) {
+        GUI.stg = stg;
+    }
+
+    public void changeScene(Scene scene) {
+        stg.setScene(scene);
+    }
+
     @Override
     public void showMessage(String str) {
 
@@ -73,6 +114,7 @@ public class GUI extends View{
 
     @Override
     public void visitNicknameAlreadyUsed(String str,String gameID) {
+
 
     }
 

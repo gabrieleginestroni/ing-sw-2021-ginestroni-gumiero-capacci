@@ -55,6 +55,7 @@
                </font>
             </Label>
             <TextField layoutX="193.0" layoutY="185.0" promptText="Server ip" translateY="40.0" />
+            <Button disable="true" layoutX="174.0" layoutY="346.0" mnemonicParsing="false" onAction="#userJoin" text="Join" visible="false" />
          </children>
       </AnchorPane>
    </right>
