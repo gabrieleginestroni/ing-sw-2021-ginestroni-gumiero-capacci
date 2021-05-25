@@ -19,7 +19,7 @@ public class CLI extends View{
     @Override
     public void showMessage(String str) {
         //TODO move to visit method
-        //buildCLI();
+        buildCLI();
         if(str != null)
             System.out.println(str);
     }
@@ -69,38 +69,65 @@ public class CLI extends View{
     }
 
 
-    private String[] buildPersonalBoardCLI() {
-        String[] personalMatrix = new String[12];
+    private String[] buildPersonalBoardCLI(int size) {
+        String[] personalMatrix = new String[size];
         Arrays.fill(personalMatrix, "");
 
         try {
             if (this.personalBoardView != null) {
-                personalMatrix[0] += "Your Strongbox";
-                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.SHIELD.toString()); j++)
-                    personalMatrix[1] += "\uD83D\uDEE1"; //🛡
-                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.STONE.toString()); j++)
-                    personalMatrix[2] += "\uD83D\uDC8E"; //💎
-                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.SERVANT.toString()); j++)
-                    personalMatrix[3] += "\uD83D\uDC68"; //👨
-                for (int j = 0; j < this.personalBoardView.getStrongBox().get(Resource.COIN.toString()); j++)
-                    personalMatrix[4] += "\uD83D\uDCB0"; //💰
+                personalMatrix[0] += "Your Board";
+                personalMatrix[1] += "Strongbox";
+                int i = 2;
+                for(Resource res : Resource.values()) {
+                    if(res != Resource.FAITH && res != Resource.WHITE)
+                        for (int j = 0; j < this.personalBoardView.getStrongBox().get(res.toString()); j++)
+                            personalMatrix[i] += ConsoleColors.resourceMap.get(res);
+                    i++;
+                }
+                personalMatrix[i] += "Warehouse Depots";
+                i++;
+                int offset = i;
+                for(int index = 2; index >= 0; index--){
+                    String res = this.personalBoardView.getWarehouseDepotResource().get(index);
+                    System.out.println(res+" "+i);
+                    int quantity = this.personalBoardView.getWarehouseDepotQuantity().get(index); //reverse
+                    for (int j = 0; j < quantity; j++)
+                        personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.valueOf(res));
+                    for(int j = 0; j < index-quantity+1; j++)
+                        personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
+                    i++;
+                }
+                personalMatrix[i] += "Leader Depots";
+                i++;
+                offset = i;
+                for(String res : this.personalBoardView.getLeaderDepotResource()){
+                    System.out.println(res+" "+i);
+                    int quantity = this.personalBoardView.getLeaderDepotQuantity().get(i-offset);
+                    for (int j = 0; j < quantity; j++)
+                        personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.valueOf(res));
+                    for(int j = 0; j < 2-quantity; j++)
+                        personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
+                    i++;
+                }
             }
         } catch (Exception e) {
             //OK
+            e.printStackTrace();
         }
 
         //limit line width to 20
         for (int i = 0; i < personalMatrix.length; i++){
+            System.out.println(personalMatrix[i]+" "+personalMatrix[i].length());
+            if (personalMatrix[i].length() > 20)
+                personalMatrix[i] = personalMatrix[i].substring(0, 18) + "+";
             personalMatrix[i] += " ".repeat(Math.max(0, 20 - personalMatrix[i].length()));
             personalMatrix[i] = personalMatrix[i].substring(0, Math.min(personalMatrix[i].length(), 20));
-            if (personalMatrix[i].length() == 20)
-                personalMatrix[i] = personalMatrix[i] + "+";
         }
         return personalMatrix;
     }
 
-    private String[] buildOtherBoardsCLI() {
-        String[] otherMatrix = new String[12];
+    private String[] buildOtherBoardsCLI(int size) {
+        String[] otherMatrix = new String[size];
         Arrays.fill(otherMatrix, "");
 
         try{
@@ -130,8 +157,8 @@ public class CLI extends View{
         return otherMatrix;
     }
 
-    private String[] buildGameCLI(){
-        String[] gameMatrix = new String[12];
+    private String[] buildGameCLI(int size){
+        String[] gameMatrix = new String[size];
         Arrays.fill(gameMatrix, "");
         int i = 0;
 
@@ -143,8 +170,10 @@ public class CLI extends View{
                     i++;
                 }
                 i++;
-                tmp = this.marketView.toString().split("\n");
+                tmp = this.marketView.toString().toUpperCase().replaceAll(" +", " ").split("\n");
                 for (String row : tmp) {
+                    for(Map.Entry<String, String> entry : ConsoleColors.colorMap.entrySet())
+                        row = row.replace(entry.getKey(), entry.getValue()+" █"+ConsoleColors.colorMap.get("RESET"));
                     gameMatrix[i] = row;
                     i++;
                 }
@@ -152,27 +181,29 @@ public class CLI extends View{
         }catch (Exception e){
             //OK
         }
-
+/*
         //limit line width to 20
         for(i = 0; i < gameMatrix.length; i++) {
             gameMatrix[i] += " ".repeat(Math.max(0, 20 - gameMatrix[i].length()));
             gameMatrix[i] = gameMatrix[i].substring(0, Math.min(gameMatrix[i].length(), 20));
         }
+*/
         return gameMatrix;
     }
 
 
 
     public void buildCLI() {
-        String[] pixelMatrix = new String[12];
-        String[] personalMatrix = buildPersonalBoardCLI();
-        String[] otherMatrix = buildOtherBoardsCLI();
-        String[] gameMatrix = buildGameCLI();
+        int size = 20; //number of lines;
+        String[] pixelMatrix = new String[size];
+        String[] personalMatrix = buildPersonalBoardCLI(size);
+        String[] otherMatrix = buildOtherBoardsCLI(size);
+        String[] gameMatrix = buildGameCLI(size);
         Arrays.fill(pixelMatrix, "");
 
         for (int i = 0; i < pixelMatrix.length; i++) {
             pixelMatrix[i] = personalMatrix[i]+gameMatrix[i]+otherMatrix[i];
-            this.showMessage(pixelMatrix[i]);
+            System.out.println(pixelMatrix[i]);
         }
     }
 
@@ -398,7 +429,10 @@ public class CLI extends View{
             while(!success){
                 this.showMessage("Type row and column of the card you want to buy, row '-1' for skipping card purchase ");
                 row = scanner.nextInt();
-                col = Integer.parseInt(scanner.nextLine().trim());
+                if(row != -1)
+                    col = Integer.parseInt(scanner.nextLine().trim());
+                else
+                    scanner.nextLine();
                 if(row == -1 || col == -1) {
                     this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(-1, -1, null, -1));
                     return;
@@ -694,8 +728,21 @@ public class CLI extends View{
                 }
             }
             if (productionIndex >= 3 && productionIndex != 6) {
-                this.showMessage("Choose resource to produce");
-                chosenResource = Resource.valueOf(scanner.nextLine().toUpperCase());
+                Resource[] resources = Resource.values();
+                String str = "";
+                for(int i = 0; i < resources.length-2; i++)
+                    str += i+" for "+resources[i]+", ";
+                str = str.substring(0, str.length()-2);
+                success = false;
+                chosenResource = null;
+                while(!success) {
+                    this.showMessage("Choose resource to produce: " + str);
+                    int ind = Integer.parseInt(scanner.nextLine());
+                    if(0 <= ind && ind <= resources.length-2) {
+                        chosenResource = resources[ind];
+                        success = true;
+                    }
+                }
             } else
                 chosenResource = null;
 
