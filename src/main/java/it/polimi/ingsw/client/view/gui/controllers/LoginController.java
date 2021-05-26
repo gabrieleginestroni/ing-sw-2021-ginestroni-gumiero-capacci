@@ -2,8 +2,11 @@ package it.polimi.ingsw.client.view.gui.controllers;
 
 import it.polimi.ingsw.client.NetworkHandler;
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.client.view.exceptions.invalidClientInputException;
 import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
+import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
 import it.polimi.ingsw.server.model.Resource;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,8 +18,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Map;
 
-public class LoginController implements GUIController {
-    private GUI view;
+public class LoginController extends GUIController {
     @FXML
     private Button logInButton;
     @FXML
@@ -29,6 +31,8 @@ public class LoginController implements GUIController {
     private Label bottomLabel;
     @FXML
     private Label loginLog;
+    @FXML
+    private Label message;
 
 
 
@@ -44,7 +48,6 @@ public class LoginController implements GUIController {
             loginLog.setTextFill(Color.color(0,0.8,0.6));
             loginLog.setText("Connection successful!");
             loginLog.setVisible(true);
-            GUI view = new GUI();
             NetworkHandler networkHandler = new NetworkHandler(socket, view);
             view.addNetworkHandler(networkHandler);
             Thread networkThread = new Thread(networkHandler);
@@ -55,14 +58,24 @@ public class LoginController implements GUIController {
             topTextField.setPromptText("Game ID");
             bottomTextField.setPromptText("Nickname");
             logInButton.setText("Join");
+            topTextField.clear();
+            bottomTextField.clear();
 
-            logInButton.setOnAction( actionEvent -> {
-                System.out.println("Test");
+            logInButton.setOnAction( actionEvent -> Platform.runLater(()-> {
                 String nickname = bottomTextField.getText();
                 String gameId = topTextField.getText();
-                view.setNickname(nickname);
-                networkHandler.sendMessage(new LoginRequestMessage(gameId,nickname));
-            });
+
+                if(nickname.length() < 20) {
+                    view.setNickname(nickname);
+                    super.networkHandler.sendMessage(new LoginRequestMessage(gameId, nickname));
+                }
+                else {
+                    loginLog.setVisible(false);
+                    loginLog.setTextFill(Color.color(1,0,0));
+                    loginLog.setText("Nickname must be < 20 chars!");
+                    loginLog.setVisible(true);
+                }
+            }));
 
 
 
@@ -71,12 +84,6 @@ public class LoginController implements GUIController {
             loginLog.setText("Connection error!");
             loginLog.setVisible(true);
         }
-
-    }
-
-    @Override
-    public void setGUI(GUI view) {
-        this.view = view;
 
     }
 
@@ -98,6 +105,23 @@ public class LoginController implements GUIController {
 
     @Override
     public void visitRequestLobbySize(String str) {
+        message.setText(str);
+        message.setVisible(true);
+        topLabel.setText("Lobby size");
+        bottomLabel.setVisible(false);
+        topTextField.setPromptText("Size");
+        bottomTextField.setVisible(false);
+        logInButton.setText("Create lobby");
+        topTextField.clear();
+        bottomTextField.clear();
+        logInButton.setOnAction( actionEvent -> Platform.runLater(()-> {
+            int dim = Integer.parseInt(bottomTextField.getText().trim());
+            if(dim <= 0 || dim >= 5)
+                loginLog.setText("Invalid lobby size, please retry");
+            else
+                this.networkHandler.sendMessage(new LoginSizeMessage(dim));
+        }));
+
 
     }
 

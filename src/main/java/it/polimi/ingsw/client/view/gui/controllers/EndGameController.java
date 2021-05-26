@@ -5,13 +5,8 @@ import it.polimi.ingsw.server.model.Resource;
 
 import java.util.Map;
 
-public class EndGameController implements GUIController {
-    private GUI view;
-    @Override
-    public void setGUI(GUI view) {
-        this.view = view;
+public class EndGameController extends GUIController {
 
-    }
 
     @Override
     public void visitBoardsUpdate(GUI view) {

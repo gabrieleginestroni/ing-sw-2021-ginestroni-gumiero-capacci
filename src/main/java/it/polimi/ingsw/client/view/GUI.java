@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.ClientGUI;
 import it.polimi.ingsw.client.NetworkHandler;
 import it.polimi.ingsw.client.view.gui.controllers.GUIController;
 import it.polimi.ingsw.server.model.Resource;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,7 +26,7 @@ public class GUI extends View{
 
 
     public GUI() {
-        List<String> fxml = new ArrayList<>(Arrays.asList(LOGIN, SETUP_LEADER, SETUP_RESOURCE, MAIN_GUI, END_GAME));
+        List<String> fxml = new ArrayList<>(Arrays.asList(SETUP_LEADER, SETUP_RESOURCE, MAIN_GUI, END_GAME));
         try {
             for (String path : fxml) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + path));
@@ -38,6 +39,19 @@ public class GUI extends View{
             e.printStackTrace();
         }
     }
+
+    public void addLoginController(GUIController loginController,Scene loginScene){
+        controllersMap.put(LOGIN,loginController);
+        scenesMap.put(LOGIN,loginScene);
+    }
+
+    @Override
+    public void addNetworkHandler(NetworkHandler networkHandler){
+        super.networkHandler = networkHandler;
+        for(Map.Entry<String,GUIController> entry:controllersMap.entrySet())
+            entry.getValue().setNetworkHandler(networkHandler);
+    }
+
     public static void setStg(Stage stg) {
         GUI.stg = stg;
     }
@@ -51,6 +65,33 @@ public class GUI extends View{
 
     }
 
+    @Override
+    public void visitNicknameAlreadyUsed(String str,String gameID) {
+
+
+    }
+
+    @Override
+    public void visitLobbyFull(String str) {
+
+    }
+
+    @Override
+    public void visitLobbyNotReady(String str) {
+
+    }
+
+    @Override
+    public void visitLoginSuccess(String currentPlayers) {
+
+    }
+
+    @Override
+    public void visitRequestLobbySize(String str) {
+        Platform.runLater(() -> controllersMap.get(LOGIN).visitRequestLobbySize(str));
+    }
+
+    //-----------------------------------------------------------------------------------------
     @Override
     public void visitBoardsUpdate(String personalBoard, List<String> otherBoards) {
 
@@ -82,38 +123,12 @@ public class GUI extends View{
     }
 
     @Override
-    public void visitLobbyFull(String str) {
-
-    }
-
-    @Override
-    public void visitLobbyNotReady(String str) {
-
-    }
-
-    @Override
-    public void visitLoginSuccess(String currentPlayers) {
-
-    }
-
-    @Override
     public void visitLorenzoUpdate(String updatedLorenzo) {
 
     }
 
     @Override
     public void visitMarketUpdate(String updatedMarket) {
-
-    }
-
-    @Override
-    public void visitRequestLobbySize(String str) {
-
-    }
-
-    @Override
-    public void visitNicknameAlreadyUsed(String str,String gameID) {
-
 
     }
 

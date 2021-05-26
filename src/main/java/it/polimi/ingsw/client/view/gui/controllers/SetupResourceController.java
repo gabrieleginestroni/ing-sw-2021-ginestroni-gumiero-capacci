@@ -5,13 +5,8 @@ import it.polimi.ingsw.server.model.Resource;
 
 import java.util.Map;
 
-public class SetupResourceController implements GUIController {
-    private GUI view;
-    @Override
-    public void setGUI(GUI view) {
-        this.view = view;
+public class SetupResourceController extends GUIController {
 
-    }
 
     @Override
     public void visitBoardsUpdate(GUI view) {
