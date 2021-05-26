@@ -69,8 +69,8 @@ public class CLI extends View{
     }
 
 
-    private String[] buildPersonalBoardCLI(int size) {
-        String[] personalMatrix = new String[size];
+    private String[] buildPersonalBoardCLI(int lines, int maxWidth) {
+        String[] personalMatrix = new String[lines];
         Arrays.fill(personalMatrix, "");
 
         try {
@@ -79,9 +79,15 @@ public class CLI extends View{
                 personalMatrix[1] += "Strongbox";
                 int i = 2;
                 for(Resource res : Resource.values()) {
+                    int j = 0;
                     if(res != Resource.FAITH && res != Resource.WHITE)
-                        for (int j = 0; j < this.personalBoardView.getStrongBox().get(res.toString()); j++)
-                            personalMatrix[i] += ConsoleColors.resourceMap.get(res);
+                        for (j = 0; j < this.personalBoardView.getStrongBox().get(res.toString()) && j < maxWidth/2; j++) {
+                            personalMatrix[i] += ConsoleColors.colorMap.get(res.getColor().toUpperCase())+ConsoleColors.resourceMap.get(res)+ConsoleColors.colorMap.get("RESET");
+                            if (j == maxWidth/2-1)
+                                personalMatrix[i] += "+";
+                        }
+                        for(int a = j; a < maxWidth; a++)
+                            personalMatrix[i] += " ";
                     i++;
                 }
                 personalMatrix[i] += "Warehouse Depots";
@@ -89,45 +95,43 @@ public class CLI extends View{
                 int offset = i;
                 for(int index = 2; index >= 0; index--){
                     String res = this.personalBoardView.getWarehouseDepotResource().get(index);
-                    System.out.println(res+" "+i);
                     int quantity = this.personalBoardView.getWarehouseDepotQuantity().get(index); //reverse
                     for (int j = 0; j < quantity; j++)
-                        personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.valueOf(res));
+                        personalMatrix[i] += ConsoleColors.colorMap.get(Resource.valueOf(res).getColor().toUpperCase())+ConsoleColors.resourceMap.get(Resource.valueOf(res))+ConsoleColors.colorMap.get("RESET");;
                     for(int j = 0; j < index-quantity+1; j++)
                         personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
+                    for(int j = index+1; j < maxWidth; j++)
+                        personalMatrix[i] += " ";
                     i++;
                 }
                 personalMatrix[i] += "Leader Depots";
                 i++;
                 offset = i;
                 for(String res : this.personalBoardView.getLeaderDepotResource()){
-                    System.out.println(res+" "+i);
                     int quantity = this.personalBoardView.getLeaderDepotQuantity().get(i-offset);
                     for (int j = 0; j < quantity; j++)
-                        personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.valueOf(res));
+                        personalMatrix[i] += ConsoleColors.colorMap.get(Resource.valueOf(res).getColor().toUpperCase())+ConsoleColors.resourceMap.get(Resource.valueOf(res))+ConsoleColors.colorMap.get("RESET");;
                     for(int j = 0; j < 2-quantity; j++)
                         personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
                     i++;
+                }
+                for (int j = 0; j < personalMatrix.length; j++) {
+                    //System.out.println("RIGA "+j+" =>"+"("+personalMatrix[j].length()+") "+new Gson().toJson(personalMatrix[j]));
+                    if(j < 2 || j >= 6 && j <= 8 || j == 12) {
+                        personalMatrix[j] += " ".repeat(Math.max(0, maxWidth - personalMatrix[j].length()));
+                        personalMatrix[j] = personalMatrix[j].substring(0, maxWidth);
+                    }
                 }
             }
         } catch (Exception e) {
             //OK
             e.printStackTrace();
         }
-
-        //limit line width to 20
-        for (int i = 0; i < personalMatrix.length; i++){
-            System.out.println(personalMatrix[i]+" "+personalMatrix[i].length());
-            if (personalMatrix[i].length() > 20)
-                personalMatrix[i] = personalMatrix[i].substring(0, 18) + "+";
-            personalMatrix[i] += " ".repeat(Math.max(0, 20 - personalMatrix[i].length()));
-            personalMatrix[i] = personalMatrix[i].substring(0, Math.min(personalMatrix[i].length(), 20));
-        }
         return personalMatrix;
     }
 
-    private String[] buildOtherBoardsCLI(int size) {
-        String[] otherMatrix = new String[size];
+    private String[] buildOtherBoardsCLI(int lines, int maxWidth) {
+        String[] otherMatrix = new String[lines];
         Arrays.fill(otherMatrix, "");
 
         try{
@@ -149,16 +153,16 @@ public class CLI extends View{
             //OK
         }
 
-        //fix line width to 20
+        //fix line width to maxWidth
         for(int i = 0; i < otherMatrix.length; i++) {
-            otherMatrix[i] += " ".repeat(Math.max(0, 20 - otherMatrix[i].length()));
-            otherMatrix[i] = otherMatrix[i].substring(0, Math.min(otherMatrix[i].length(), 20));
+            otherMatrix[i] += " ".repeat(Math.max(0, maxWidth - otherMatrix[i].length()));
+            otherMatrix[i] = otherMatrix[i].substring(0, Math.min(otherMatrix[i].length(), maxWidth));
         }
         return otherMatrix;
     }
 
-    private String[] buildGameCLI(int size){
-        String[] gameMatrix = new String[size];
+    private String[] buildGameCLI(int lines, int maxWidth){
+        String[] gameMatrix = new String[lines];
         Arrays.fill(gameMatrix, "");
         int i = 0;
 
@@ -181,26 +185,30 @@ public class CLI extends View{
         }catch (Exception e){
             //OK
         }
-/*
-        //limit line width to 20
+
+        /*
+        //limit line width to maxWidth
         for(i = 0; i < gameMatrix.length; i++) {
-            gameMatrix[i] += " ".repeat(Math.max(0, 20 - gameMatrix[i].length()));
-            gameMatrix[i] = gameMatrix[i].substring(0, Math.min(gameMatrix[i].length(), 20));
+            gameMatrix[i] += " ".repeat(Math.max(0, maxWidth - gameMatrix[i].length()));
+            gameMatrix[i] = gameMatrix[i].substring(0, Math.min(gameMatrix[i].length(), maxWidth));
         }
-*/
+        */
         return gameMatrix;
     }
 
 
 
     public void buildCLI() {
-        int size = 20; //number of lines;
-        String[] pixelMatrix = new String[size];
-        String[] personalMatrix = buildPersonalBoardCLI(size);
-        String[] otherMatrix = buildOtherBoardsCLI(size);
-        String[] gameMatrix = buildGameCLI(size);
+        int lines = 20; //number of lines;
+        int maxWidth = 50; //number of lines;
+        String[] pixelMatrix = new String[lines];
+        String[] personalMatrix = buildPersonalBoardCLI(lines, maxWidth);
+        String[] otherMatrix = buildOtherBoardsCLI(lines, maxWidth);
+        String[] gameMatrix = buildGameCLI(lines, maxWidth);
         Arrays.fill(pixelMatrix, "");
-
+        //TO CLEAR CONSOLE?
+        //System.out.print("\033[H\033[2J");
+        //System.out.flush();
         for (int i = 0; i < pixelMatrix.length; i++) {
             pixelMatrix[i] = personalMatrix[i]+gameMatrix[i]+otherMatrix[i];
             System.out.println(pixelMatrix[i]);
