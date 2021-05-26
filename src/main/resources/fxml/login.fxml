@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefWidth="825.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefWidth="825.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.LoginController">
    <center>
       <AnchorPane BorderPane.alignment="CENTER_LEFT">
          <children>
@@ -29,33 +29,20 @@
                   <Image url="@../images/login_background.png" />
                </image>
             </ImageView>
-            <TextField fx:id="serverPort" layoutX="193.0" layoutY="226.0" promptText="Server port" translateY="40.0" />
-            <TextField fx:id="gameId" layoutX="193.0" layoutY="226.0" promptText="Game ID" translateY="40.0" visible="false" />
-            <TextField fx:id="nickName" layoutX="193.0" layoutY="185.0" promptText="Nickname" translateY="40.0" visible="false" />
-            <Label layoutX="68.0" layoutY="224.0" text="Server port" translateY="40.0">
+            <TextField fx:id="bottomTextField" layoutX="193.0" layoutY="226.0" promptText="Server port" translateY="40.0" />
+            <Label fx:id="bottomLabel" layoutX="68.0" layoutY="224.0" text="Server port" translateY="40.0">
                <font>
                   <Font name="Gabriola" size="23.0" />
                </font>
             </Label>
-            <Label layoutX="75.0" layoutY="183.0" text="Game ID" translateY="40.0" visible="false">
+            <Label fx:id="loginLog" layoutX="212.0" layoutY="156.0" prefHeight="18.0" prefWidth="146.0" textFill="#00a92a" translateY="40.0" visible="false" />
+            <Button fx:id="logInButton" layoutX="169.0" layoutY="306.0" mnemonicParsing="false" onAction="#userLogin" text="Connect" translateY="40.0" />
+            <Label fx:id="topLabel" layoutX="76.0" layoutY="183.0" text="Server IP" translateY="40.0">
                <font>
                   <Font name="Gabriola" size="23.0" />
                </font>
             </Label>
-            <Label layoutX="71.0" layoutY="224.0" text="Nickname" translateY="40.0" visible="false">
-               <font>
-                  <Font name="Gabriola" size="23.0" />
-               </font>
-            </Label>
-            <Label fx:id="loginError" layoutX="264.0" layoutY="147.0" prefHeight="18.0" prefWidth="0.0" translateY="40.0" />
-            <Button fx:id="logInButton" layoutX="169.0" layoutY="306.0" mnemonicParsing="false" text="Log in" translateY="40.0" />
-            <Label layoutX="76.0" layoutY="183.0" text="Server IP" translateY="40.0">
-               <font>
-                  <Font name="Gabriola" size="23.0" />
-               </font>
-            </Label>
-            <TextField layoutX="193.0" layoutY="185.0" promptText="Server ip" translateY="40.0" />
-            <Button disable="true" layoutX="174.0" layoutY="346.0" mnemonicParsing="false" onAction="#userJoin" text="Join" visible="false" />
+            <TextField fx:id="topTextField" layoutX="193.0" layoutY="185.0" promptText="Server ip" translateY="40.0" />
          </children>
       </AnchorPane>
    </right>

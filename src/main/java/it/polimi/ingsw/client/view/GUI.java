@@ -19,7 +19,7 @@ public class GUI extends View{
     private static final String MAIN_GUI = "game.fxml";
     private static final String END_GAME = "endGame.fxml";
 
-    private static Stage stg;
+    public static Stage stg;
     private final Map<String, GUIController> controllersMap = new HashMap<>();
     private final HashMap<String, Scene> scenesMap = new HashMap<>();
 
@@ -37,7 +37,6 @@ public class GUI extends View{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        changeScene(scenesMap.get(LOGIN));
     }
     public static void setStg(Stage stg) {
         GUI.stg = stg;
