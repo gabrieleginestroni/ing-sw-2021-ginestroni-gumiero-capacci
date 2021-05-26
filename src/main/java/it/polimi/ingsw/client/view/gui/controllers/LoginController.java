@@ -115,7 +115,7 @@ public class LoginController extends GUIController {
         topTextField.clear();
         bottomTextField.clear();
         logInButton.setOnAction( actionEvent -> Platform.runLater(()-> {
-            int dim = Integer.parseInt(bottomTextField.getText().trim());
+            int dim = Integer.parseInt(topTextField.getText().trim());
             if(dim <= 0 || dim >= 5)
                 loginLog.setText("Invalid lobby size, please retry");
             else
