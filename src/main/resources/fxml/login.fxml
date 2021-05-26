@@ -35,7 +35,10 @@
                   <Font name="Gabriola" size="23.0" />
                </font>
             </Label>
-            <Label fx:id="loginLog" layoutX="212.0" layoutY="156.0" prefHeight="18.0" prefWidth="146.0" textFill="#00a92a" translateY="40.0" visible="false" />
+            <Label fx:id="loginLog" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="267.0" prefHeight="18.0" prefWidth="351.0" textAlignment="CENTER" textFill="#009122" translateY="40.0" visible="false">
+               <font>
+                  <Font name="Gabriola" size="24.0" />
+               </font></Label>
             <Button fx:id="logInButton" layoutX="169.0" layoutY="306.0" mnemonicParsing="false" onAction="#userLogin" text="Connect" translateY="40.0" />
             <Label fx:id="topLabel" layoutX="76.0" layoutY="183.0" text="Server IP" translateY="40.0">
                <font>
@@ -43,7 +46,10 @@
                </font>
             </Label>
             <TextField fx:id="topTextField" layoutX="193.0" layoutY="185.0" promptText="Server ip" translateY="40.0" />
-            <Label fx:id="message" layoutX="185.0" layoutY="391.0" visible="false" />
+            <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="133.0" prefHeight="79.0" prefWidth="358.0" textAlignment="CENTER" visible="false" wrapText="true">
+               <font>
+                  <Font name="Gabriola" size="24.0" />
+               </font></Label>
          </children>
       </AnchorPane>
    </right>

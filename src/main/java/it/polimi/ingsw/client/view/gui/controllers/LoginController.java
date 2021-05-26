@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import org.w3c.dom.Text;
 import javafx.event.ActionEvent;
@@ -34,10 +35,6 @@ public class LoginController extends GUIController {
     @FXML
     private Label message;
 
-
-
-
-
     public void userLogin(ActionEvent event) {
         sendLoginRequest();
     }
@@ -45,7 +42,7 @@ public class LoginController extends GUIController {
     private void sendLoginRequest() {
         try {
             Socket socket = new Socket(topTextField.getText(), Integer.parseInt(bottomTextField.getText()));
-            loginLog.setTextFill(Color.color(0,0.8,0.6));
+            loginLog.setTextFill(Color.color(0,0.6,0));
             loginLog.setText("Connection successful!");
             loginLog.setVisible(true);
             NetworkHandler networkHandler = new NetworkHandler(socket, view);
@@ -68,6 +65,7 @@ public class LoginController extends GUIController {
                 if(nickname.length() < 20) {
                     view.setNickname(nickname);
                     super.networkHandler.sendMessage(new LoginRequestMessage(gameId, nickname));
+                    loginLog.setVisible(false);
                 }
                 else {
                     loginLog.setVisible(false);
@@ -116,8 +114,11 @@ public class LoginController extends GUIController {
         bottomTextField.clear();
         logInButton.setOnAction( actionEvent -> Platform.runLater(()-> {
             int dim = Integer.parseInt(topTextField.getText().trim());
-            if(dim <= 0 || dim >= 5)
+            if(dim <= 0 || dim >= 5) {
                 loginLog.setText("Invalid lobby size, please retry");
+                loginLog.setTextFill(Color.color(1, 0, 0));
+                loginLog.setVisible(true);
+            }
             else
                 this.networkHandler.sendMessage(new LoginSizeMessage(dim));
         }));
