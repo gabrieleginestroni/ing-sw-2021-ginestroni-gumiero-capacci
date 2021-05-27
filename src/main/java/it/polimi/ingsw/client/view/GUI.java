@@ -67,23 +67,22 @@ public class GUI extends View{
 
     @Override
     public void visitNicknameAlreadyUsed(String str,String gameID) {
-
-
+        Platform.runLater(() -> controllersMap.get(LOGIN).visitNicknameAlreadyUsed(str, gameID));
     }
 
     @Override
     public void visitLobbyFull(String str) {
-
+        Platform.runLater(() -> controllersMap.get(LOGIN).visitLobbyFull(str));
     }
 
     @Override
     public void visitLobbyNotReady(String str) {
-
+        Platform.runLater(() -> controllersMap.get(LOGIN).visitLobbyNotReady(str));
     }
 
     @Override
     public void visitLoginSuccess(String currentPlayers) {
-
+        Platform.runLater(() -> controllersMap.get(LOGIN).visitLoginSuccess(currentPlayers));
     }
 
     @Override

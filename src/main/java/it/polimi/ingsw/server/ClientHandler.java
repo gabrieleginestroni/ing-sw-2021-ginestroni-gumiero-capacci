@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.server.controller.Controller;
+import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
 import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
 import it.polimi.ingsw.server.messages.client_server.Message;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -79,7 +81,7 @@ public class ClientHandler implements Runnable {
                         else {
                             lobby.addPlayer(nickname, this);
                             this.gameLobby = lobby;
-                            sendAnswerMessage(new LoginSuccessMessage(gameLobby.getPlayers()));
+                            sendAnswerToAllPlayers(new LoginSuccessMessage(gameLobby.getPlayers()));
                             loginStatus = false;
 
                             if(lobby.isFull())
@@ -97,7 +99,7 @@ public class ClientHandler implements Runnable {
                     lobby.setSize(sizeMessage.getSize());
                     lobby.addPlayer(nickname, this);
                     this.gameLobby = lobby;
-                    sendAnswerMessage(new LoginSuccessMessage(gameLobby.getPlayers()));
+                    sendAnswerToAllPlayers(new LoginSuccessMessage(gameLobby.getPlayers()));
                     loginStatus = false;
 
                     if(lobby.isFull())
@@ -118,7 +120,19 @@ public class ClientHandler implements Runnable {
             controller.handleMessage(msg);
         }
 
+    }
 
+    public void sendAnswerToAllPlayers(AnswerMessage message){
+        List<Player> players = gameLobby.getPlayers();
+
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (IOException | NullPointerException e) {
+                //TODO
+                //p.getClientHandler().sendErrorMessage();
+            }
+        });
     }
 
     public void sendAnswerMessage(AnswerMessage message) throws IOException {

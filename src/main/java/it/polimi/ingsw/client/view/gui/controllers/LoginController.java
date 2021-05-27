@@ -36,12 +36,13 @@ public class LoginController extends GUIController {
     private Label message;
 
     public void userLogin(ActionEvent event) {
-        sendLoginRequest();
+        Platform.runLater(()-> sendLoginRequest());
     }
 
     private void sendLoginRequest() {
         try {
             Socket socket = new Socket(topTextField.getText(), Integer.parseInt(bottomTextField.getText()));
+            message.setLineSpacing(-10.0);
             loginLog.setTextFill(Color.color(0,0.6,0));
             loginLog.setText("Connection successful!");
             loginLog.setVisible(true);
@@ -85,6 +86,23 @@ public class LoginController extends GUIController {
 
     }
 
+    private void setAllNotVisible(){
+
+        logInButton.setVisible(false);
+        logInButton.setDisable(true);
+        bottomTextField.setVisible(false);
+        topTextField.setVisible(false);
+        topLabel.setVisible(false);
+        bottomLabel.setVisible(false);
+        loginLog.setVisible(false);
+        message.setVisible(false);
+
+    }
+
+    @Override
+    public void visitNicknameAlreadyUsed(String str, String gameID) {
+
+    }
 
     @Override
     public void visitLobbyFull(String str) {
@@ -98,7 +116,11 @@ public class LoginController extends GUIController {
 
     @Override
     public void visitLoginSuccess(String currentPlayers) {
-
+        setAllNotVisible();
+        message.setText("Login success!\n" +
+                "Current players:\n" + currentPlayers);
+        message.setPrefHeight(300);
+        message.setVisible(true);
     }
 
     @Override
@@ -126,10 +148,6 @@ public class LoginController extends GUIController {
 
     }
 
-    @Override
-    public void visitNicknameAlreadyUsed(String str, String gameID) {
-
-    }
     //--------------------------------------------------------------------------------------------------------------
     @Override
     public void visitBoardsUpdate(GUI view) {

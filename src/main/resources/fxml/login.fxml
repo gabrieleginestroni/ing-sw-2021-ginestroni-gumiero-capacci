@@ -39,14 +39,14 @@
                <font>
                   <Font name="Gabriola" size="24.0" />
                </font></Label>
-            <Button fx:id="logInButton" layoutX="169.0" layoutY="306.0" mnemonicParsing="false" onAction="#userLogin" text="Connect" translateY="40.0" />
+            <Button fx:id="logInButton" alignment="CENTER" contentDisplay="CENTER" layoutX="169.0" layoutY="306.0" mnemonicParsing="false" onAction="#userLogin" text="Connect" translateY="40.0" />
             <Label fx:id="topLabel" layoutX="76.0" layoutY="183.0" text="Server IP" translateY="40.0">
                <font>
                   <Font name="Gabriola" size="23.0" />
                </font>
             </Label>
             <TextField fx:id="topTextField" layoutX="193.0" layoutY="185.0" promptText="Server ip" translateY="40.0" />
-            <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="133.0" prefHeight="79.0" prefWidth="358.0" textAlignment="CENTER" visible="false" wrapText="true">
+            <Label fx:id="message" alignment="CENTER" contentDisplay="TOP" graphicTextGap="1.0" layoutX="20.0" layoutY="128.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="84.0" prefWidth="358.0" textAlignment="CENTER" visible="false" wrapText="true">
                <font>
                   <Font name="Gabriola" size="24.0" />
                </font></Label>
