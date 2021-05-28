@@ -72,7 +72,11 @@ public class GUI extends View{
 
     @Override
     public void visitLobbyFull(String str) {
-        Platform.runLater(() -> controllersMap.get(LOGIN).visitLobbyFull(str));
+        //TODO TEST SCENE
+        Platform.runLater(() -> {
+            changeScene(scenesMap.get(MAIN_GUI));
+            //controllersMap.get(LOGIN).visitLobbyFull(str)
+        });
     }
 
     @Override
