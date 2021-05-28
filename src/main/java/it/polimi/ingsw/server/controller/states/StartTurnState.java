@@ -12,7 +12,7 @@ public class StartTurnState implements MultiplayerState,SoloState {
     public void visitStartTurnState(int move, Controller controller) {
 
         String currentPlayer = controller.getCurrentPlayer().getNickname();
-
+/*
         //TODO CHEATING
         System.out.println("start turn of " + controller.getCurrentPlayer().getNickname());
         int activatedSection = controller.getCurrentPlayer().getBoard().giveFaithPoints(10);

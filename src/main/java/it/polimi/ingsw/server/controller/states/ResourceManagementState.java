@@ -36,7 +36,10 @@ public class ResourceManagementState implements MultiplayerState {
             } else { //market action not ended
                 controller.getMediator().setChosenDepot(-2);
                 controller.setCurrentState(controller.getSwapState());
-                controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(), null);
+                String nextRes = null;
+                if(!controller.getMediator().getMarketResources().isEmpty())
+                    nextRes = "(Next resource: "+ controller.getMediator().getMarketResources().entrySet().iterator().next().getKey()+")";
+                controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(),nextRes );
             }
 
         } catch (invalidMoveException e) {
@@ -80,7 +83,7 @@ public class ResourceManagementState implements MultiplayerState {
                             throw new invalidMoveException("Invalid resource leader placement");
                         }
                     } catch (IndexOutOfBoundsException e) {
-                        throw new invalidMoveException("Cannot remove resource from a non-existing leader depot!");
+                        throw new invalidMoveException("Cannot place resource into a non-existing leader depot!");
                     }
                 }
             }

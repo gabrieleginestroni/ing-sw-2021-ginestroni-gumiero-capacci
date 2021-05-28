@@ -19,7 +19,7 @@ public class CLI extends View{
     @Override
     public void showMessage(String str) {
         //TODO move to visit method
-        buildCLI();
+        //buildCLI();
         if(str != null)
             System.out.println(str);
     }
@@ -390,7 +390,7 @@ public class CLI extends View{
         int res = 0;
         boolean success = false;
         while(!success){
-            this.showMessage("You have 2 white marbles powers. Please choose what resource you want to get from a white marble (0 -> "+res1+", 1 -> "+res2+" ");
+            this.showMessage("You have 2 white marbles powers. Please choose what resource you want to get from a white marble (0 -> "+res1+", 1 -> "+res2+")");
             res = Integer.parseInt(scanner.nextLine().trim());
             if(res >= 0 && res <= 1)
                 success = true;

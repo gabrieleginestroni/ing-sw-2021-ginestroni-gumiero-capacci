@@ -35,7 +35,10 @@ public class WhiteMarbleState implements MultiplayerState,SoloState {
         if(controller.isGameOver())
             mediator.setPlayerWon();
         controller.setCurrentState(controller.getSwapState());
-        controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(),null);
+        String nextRes = null;
+        if(!controller.getMediator().getMarketResources().isEmpty())
+            nextRes = "(Next resource: "+ controller.getMediator().getMarketResources().entrySet().iterator().next().getKey()+")";
+        controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(),nextRes);
     }
 
     @Override
