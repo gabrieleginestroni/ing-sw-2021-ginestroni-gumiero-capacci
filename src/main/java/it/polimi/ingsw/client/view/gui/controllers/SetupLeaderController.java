@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class SetupLeaderController extends GUIController {
 
-
     @Override
     public void visitBoardsUpdate(GUI view) {
 
