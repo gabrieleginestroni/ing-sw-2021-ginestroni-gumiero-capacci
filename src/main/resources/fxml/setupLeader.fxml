@@ -1,44 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="406.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.SetupLeaderController">
+<AnchorPane prefHeight="588.0" prefWidth="700.0" stylesheets="@/stylesheets/setupLeaderStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.SetupLeaderController">
    <children>
-      <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="421.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="178.39999999999998" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="588.0" fitWidth="422.0" rotate="180.0">
+         <image>
+            <Image url="@../images/table_background.jpg" />
+         </image>
+      </ImageView>
+      <GridPane layoutY="-1.0" prefHeight="588.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.20001220703125" minWidth="10.0" prefWidth="213.800048828125" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="210.39996337890625" minWidth="10.0" prefWidth="207.199951171875" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="362.9999755859375" minHeight="10.0" prefHeight="197.39996948242185" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="203.20001831054685" minHeight="10.0" prefHeight="202.4000305175781" vgrow="SOMETIMES" />
+          <RowConstraints vgrow="SOMETIMES" />
+          <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="201.0" fitWidth="211.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
-            <ImageView fitHeight="201.0" fitWidth="211.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
-            <ImageView fitHeight="200.0" fitWidth="212.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
-            <ImageView fitHeight="199.0" fitWidth="212.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="207.0" prefWidth="214.0" text="Button" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
-            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="207.0" prefWidth="214.0" text="Button" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
-            <Button layoutX="221.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="207.0" prefWidth="214.0" text="Button" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
-            <Button layoutX="10.0" layoutY="210.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="207.0" prefWidth="214.0" text="Button" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+            <ImageView fx:id="leader0" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="image1" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="leader1" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="image2" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="leader2" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="image3" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="leader3" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="image4" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
          </children>
       </GridPane>
-      <Pane layoutX="421.0" prefHeight="400.0" prefWidth="178.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="422.0" layoutY="-1.0" prefHeight="588.0" prefWidth="275.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
+         <children>
+            <ImageView fitHeight="588.0" fitWidth="282.0" layoutX="-3.0" rotate="180.0" y="1.0">
+               <image>
+                  <Image url="@../images/login_background.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="43.0" layoutY="280.0" text="Choose your Leader cards">
+               <font>
+                  <Font name="Gabriola" size="24.0" />
+               </font>
+            </Label>
+         </children>
       </Pane>
    </children>
    <cursor>
-      <Cursor fx:constant="HAND" />
+      <Cursor fx:constant="DEFAULT" />
    </cursor>
 </AnchorPane>

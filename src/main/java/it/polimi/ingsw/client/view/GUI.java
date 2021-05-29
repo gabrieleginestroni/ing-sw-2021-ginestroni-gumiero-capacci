@@ -74,7 +74,7 @@ public class GUI extends View{
     public void visitLobbyFull(String str) {
         //TODO TEST SCENE
         Platform.runLater(() -> {
-            changeScene(scenesMap.get(MAIN_GUI));
+            changeScene(scenesMap.get(SETUP_LEADER));
             //controllersMap.get(LOGIN).visitLobbyFull(str)
         });
     }
@@ -122,7 +122,11 @@ public class GUI extends View{
 
     @Override
     public void visitLeaderProposal(int[] proposedLeaderCards) {
-
+        //TODO TEST SCENE
+        Platform.runLater(() -> {
+            changeScene(scenesMap.get(SETUP_LEADER));
+            controllersMap.get(SETUP_LEADER).visitLeaderProposal(proposedLeaderCards);
+        });
     }
 
     @Override

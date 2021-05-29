@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefWidth="825.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.LoginController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="836.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.LoginController">
    <center>
-      <AnchorPane BorderPane.alignment="CENTER_LEFT">
+      <AnchorPane prefHeight="588.0" prefWidth="430.0" BorderPane.alignment="CENTER_LEFT">
          <children>
             <ImageView fitHeight="588.0" fitWidth="469.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -24,7 +24,7 @@
    <right>
       <AnchorPane BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <ImageView fitHeight="588.0" fitWidth="399.0" layoutX="-5.0" pickOnBounds="true">
+            <ImageView fitHeight="588.0" fitWidth="395.0" layoutX="-1.0" pickOnBounds="true">
                <image>
                   <Image url="@../images/login_background.png" />
                </image>
