@@ -10,20 +10,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
 public class SetupLeaderController extends GUIController {
     @FXML
-    private ImageView leader0;
+    private StackPane leader0;
     @FXML
-    private ImageView leader1;
+    private StackPane leader1;
     @FXML
-    private ImageView leader2;
+    private StackPane leader2;
     @FXML
-    private ImageView leader3;
+    private StackPane leader3;
     @FXML
     private Label leaderText;
     @FXML
@@ -47,25 +47,22 @@ public class SetupLeaderController extends GUIController {
     @Override
     public void visitLeaderProposal(int[] proposedLeaderCards) {
 
-        leader0.setImage(new Image("./images/leaderCardsFront/leader" + proposedLeaderCards[0] + ".png"));
-        leader0.setVisible(true);
-
-        leader1.setImage(new Image("./images/leaderCardsFront/leader" + proposedLeaderCards[1]+ ".png"));
-        leader1.setVisible(true);
-
-        leader2.setImage(new Image("./images/leaderCardsFront/leader" + proposedLeaderCards[2] + ".png"));
-        leader2.setVisible(true);
-
-        leader3.setImage(new Image("./images/leaderCardsFront/leader" + proposedLeaderCards[3] + ".png"));
-        leader3.setVisible(true);
+        setLeaderImage(proposedLeaderCards[0], leader0);
+        setLeaderImage(proposedLeaderCards[1], leader1);
+        setLeaderImage(proposedLeaderCards[2], leader2);
+        setLeaderImage(proposedLeaderCards[3], leader3);
 
         leader0.setOnMouseClicked(ActionEvent -> Platform.runLater(()-> setChosenLeader(0)));
         leader1.setOnMouseClicked(ActionEvent -> Platform.runLater(()-> setChosenLeader(1)));
         leader2.setOnMouseClicked(ActionEvent -> Platform.runLater(()-> setChosenLeader(2)));
         leader3.setOnMouseClicked(ActionEvent -> Platform.runLater(()-> setChosenLeader(3)));
+
     }
 
-
+    public void setLeaderImage(int cardId, StackPane pane){
+        ImageView img = new ImageView(new Image("./images/leaderCardsFront/leader" + cardId + ".png", 170.0, 260.0, false, false));
+        pane.getChildren().add(img);
+    }
 
     private void setChosenLeader(int i){
         if(chosenLeader.size() == 0 || i != chosenLeader.get(chosenLeader.size()-1))

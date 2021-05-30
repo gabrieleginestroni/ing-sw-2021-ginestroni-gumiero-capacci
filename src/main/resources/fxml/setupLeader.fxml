@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="588.0" prefWidth="700.0" stylesheets="@/stylesheets/setupLeaderStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.SetupLeaderController">
@@ -29,38 +30,22 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="leader0" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="imageLeader" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../images/leaderCardsFront/leader1.png" />
-               </image>
+            <StackPane fx:id="leader0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="180.0" styleClass="image" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="leader1" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="imageLeader" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../images/leaderCardsFront/leader1.png" />
-               </image>
+               </cursor></StackPane>
+            <StackPane fx:id="leader1" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="180.0" styleClass="image" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="leader2" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="imageLeader" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../images/leaderCardsFront/leader1.png" />
-               </image>
+               </cursor></StackPane>
+            <StackPane fx:id="leader2" layoutX="224.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="180.0" styleClass="image" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="leader3" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="imageLeader" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../images/leaderCardsFront/leader1.png" />
-               </image>
+               </cursor></StackPane>
+            <StackPane fx:id="leader3" layoutX="10.0" layoutY="304.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="180.0" styleClass="image" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
+               </cursor></StackPane>
          </children>
       </GridPane>
       <Pane layoutX="422.0" layoutY="-1.0" prefHeight="588.0" prefWidth="275.0">
