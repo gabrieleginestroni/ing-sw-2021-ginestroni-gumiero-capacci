@@ -197,7 +197,7 @@ public class Board {
     }
 
     /**
-     * Checks if the DevelopmentCard can be place in the cardSlot
+     * Checks if the DevelopmentCard can be placed in the cardSlot
      * @param cardSlotIndex Index of the card slot (between 0 and 2)
      * @param developmentCard Development Card to check
      * @return true if the card can be placed, false otherwise

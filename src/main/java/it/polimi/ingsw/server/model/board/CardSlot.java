@@ -51,7 +51,7 @@ public class CardSlot {
 
     /**
      * Gets the top card of the pile
-     * @return Pile's top development card
+     * @return Pile's top development card, Null is card slot is empty
      */
     public DevelopmentCard getTopCard(){
         if(this.devCards.isEmpty())
@@ -85,6 +85,11 @@ public class CardSlot {
         return devCards.size();
     }
 
+    /**
+     * Checks if a development card can be placed in the card slot
+     * @param developmentCard Development card to check
+     * @return True if card meets the level placement criteria, False otherwise
+     */
     public boolean canAddDevCard(DevelopmentCard developmentCard){
         if(getTopCard() == null) {
             if (developmentCard.getLevel() == 1)

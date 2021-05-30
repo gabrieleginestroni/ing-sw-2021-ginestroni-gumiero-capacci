@@ -205,11 +205,19 @@ public class BoardObserver {
         virtualView.updateInkwellView(this.nickname);
     }
 
+    /**
+     * Adds a discount power and notifies to the virtual view a change of the board status
+     * @param discount Discount type to add
+     */
     public void notifyDiscount(String discount){
         this.discounts.add(discount);
         virtualView.updateBoardVirtualView();
     }
 
+    /**
+     * Adds a white marble power and notifies to the virtual view a change of the board status
+     * @param whiteMarble White marble resource to add
+     */
     public void notifyWhiteMarble(String whiteMarble){
         this.whiteMarbles.add(whiteMarble);
         virtualView.updateBoardVirtualView();
