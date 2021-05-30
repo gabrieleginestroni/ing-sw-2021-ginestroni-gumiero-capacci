@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import it.polimi.ingsw.client.view.exceptions.invalidClientInputException;
 import it.polimi.ingsw.server.messages.client_server.*;
 import it.polimi.ingsw.server.model.Resource;
+import it.polimi.ingsw.server.model.cards.CardRequirement;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
+import it.polimi.ingsw.server.model.cards.LeaderCard;
+import it.polimi.ingsw.server.model.cards.ResourceRequirement;
 
 import java.util.*;
 
@@ -72,7 +75,9 @@ public class CLI extends View{
 
     private String[] buildPersonalBoardCLI(BoardView playerView, int lines, int maxWidth) {
         String[] personalMatrix = new String[lines];
+        int[] supportMatrix = new int[lines];
         Arrays.fill(personalMatrix, "");
+        Arrays.fill(supportMatrix, 0);
 
         try {
             if(playerView.getNickname().equals(this.getNickname()))
@@ -93,6 +98,7 @@ public class CLI extends View{
                     }
                     for(int a = j; a < maxWidth; a++)
                         personalMatrix[i] += " ";
+                supportMatrix[i] = 1;
                 i++;
             }
             personalMatrix[i] += "Warehouse Depots";
@@ -107,6 +113,7 @@ public class CLI extends View{
                     personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
                 for(int j = index+1; j < maxWidth; j++)
                     personalMatrix[i] += " ";
+                supportMatrix[i] = 1;
                 i++;
             }
             personalMatrix[i] += "Leader Depots";
@@ -120,11 +127,55 @@ public class CLI extends View{
                     personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
                 for(int j = 2; j < maxWidth; j++)
                     personalMatrix[i] += " ";
+                supportMatrix[i] = 1;
                 i++;
             }
+            if(playerView.getHiddenHand() != null){
+                personalMatrix[i] += "Hidden Hand";
+                i++;
+                int iStart = i;
+                int index = 0;
+                for(int j = 0; j < playerView.getHiddenHand().size(); j++) {
+                    i = iStart;
+                    String[] matrixNew = buildLeaderCard(this.getLeaderCardByID(playerView.getHiddenHand().get(j)));
+                    for (String s : matrixNew) {
+                        personalMatrix[i] += s;
+                        supportMatrix[i] = 1;
+                        i++;
+                    }
+                    index += 16;
+                }
+                int iEnd = i;
+                for(i = iStart; i < iEnd; i++)
+                    for(int j = index; j < maxWidth; j++)
+                        personalMatrix[i] += " ";
+            }
+
+            if(playerView.getActiveLeaders() != null){
+                personalMatrix[i] += "Active Leaders";
+                i++;
+                int iStart = i;
+                int index = 0;
+                for(int j = 0; j < playerView.getActiveLeaders().size(); j++) {
+                    i = iStart;
+                    String[] matrixNew = buildLeaderCard(this.getLeaderCardByID(playerView.getActiveLeaders().get(j)));
+                    for (String s : matrixNew) {
+                        personalMatrix[i] += s;
+                        supportMatrix[i] = 1;
+                        i++;
+                    }
+                    index += 16;
+                }
+                int iEnd = i;
+                for(i = iStart; i < iEnd; i++)
+                    for(int j = index; j < maxWidth; j++)
+                        personalMatrix[i] += " ";
+            }
+
             for (int j = 0; j < personalMatrix.length; j++) {
                 //System.out.println("RIGA "+j+" =>"+"("+personalMatrix[j].length()+") "+new Gson().toJson(personalMatrix[j]));
-                if(j < 2 || j >= 6 && j <= 8 || j == 12 || j > 13) {
+                //if(j < 2 || j >= 6 && j <= 8 || j == 12 || j == 15 || j > i) {
+                if(supportMatrix[j] == 0) {
                     personalMatrix[j] += " ".repeat(Math.max(0, maxWidth - personalMatrix[j].length()));
                     personalMatrix[j] = personalMatrix[j].substring(0, maxWidth);
                 }
@@ -287,9 +338,9 @@ public class CLI extends View{
                         for (Map.Entry<String, String> entry : ConsoleColors.colorMap.entrySet())
                             row = row.replace(entry.getKey(), entry.getValue() + " █" + ConsoleColors.colorMap.get("RESET"));
                         gameMatrix[i] = row.replaceAll("}", "");
+                        i++;
                     }
                     a++;
-                    i++;
                 }
             }
         }catch (Exception e){
@@ -299,24 +350,122 @@ public class CLI extends View{
 
 
         //limit line width to maxWidth
-        for(i = 0; i < gameMatrix.length; i++) {
-            gameMatrix[i] += " ".repeat(10);
-            //gameMatrix[i] += " ".repeat(Math.max(0, maxWidth - gameMatrix[i].length()));
+        for(int j = 0; j < gameMatrix.length; j++) {
+            if(maxWidth < gameMatrix[j].length())
+                gameMatrix[j] += " ".repeat(10);
+            else
+                gameMatrix[j] += " ".repeat(Math.max(0, maxWidth - gameMatrix[j].length()));
             //gameMatrix[i] = gameMatrix[i].substring(0, Math.min(gameMatrix[i].length(), maxWidth));
         }
 
         return gameMatrix;
     }
 
+    private String[] buildLeaderCard(LeaderCard leaderCard){
+        String[] matrix = new String[6];
+        Arrays.fill(matrix, "");
+        int maxSize = 12;
 
+        int i = 0;
+        int[] max = new int[10];
+
+        //first row card requirements(development card or resource)
+        matrix[i] += " █ ";
+        max[i] = 1;
+        if(leaderCard.getCardRequirements() != null){
+            for(CardRequirement requirement : leaderCard.getCardRequirements()){
+                if(requirement.getLevel() == 0)
+                    for(int j = 0; j < requirement.getQuantity(); j++)
+                        matrix[i] += ConsoleColors.colorMap.get(requirement.getColor().toString()) + "█" + ConsoleColors.colorMap.get("RESET");
+                else
+                    for(int j = 0; j < requirement.getQuantity(); j++)
+                        matrix[i] += ConsoleColors.colorMap.get(requirement.getColor().toString()) + requirement.getLevel() + ConsoleColors.colorMap.get("RESET");
+                matrix[i] += " ";
+                max[i] += requirement.getQuantity()+1;
+            }
+        }
+        if(leaderCard.getResourceRequirements() != null){
+            for(ResourceRequirement requirement : leaderCard.getResourceRequirements()){
+                for(int j = 0; j < requirement.getQuantity(); j++)
+                    matrix[i] += ConsoleColors.colorMap.get(requirement.getResource().getColor().toUpperCase()) + ConsoleColors.resourceMap.get(requirement.getResource()) + ConsoleColors.colorMap.get("RESET");
+                matrix[i] += " ";
+                max[i] += requirement.getQuantity()+1;
+            }
+        }
+        matrix[i] += " N."+leaderCard.getId();
+        max[i] += 4;
+        if(leaderCard.getId() > 9)
+            max[i]++;
+
+        //blank line
+        i++;
+        matrix[i] += " █";
+
+        //victory points
+        i++;
+        matrix[i] += " █    ";
+        matrix[i] += "("+leaderCard.getVictoryPoints()+")";
+        max[i] = 7;
+
+        //blank line
+        i++;
+        matrix[i] += " █";
+
+        //card power
+        i++;
+        matrix[i] += " █";
+        switch (leaderCard.getPower()){
+            case "discount" :
+                matrix[i] += "   "+ConsoleColors.colorMap.get(leaderCard.getResource().getColor().toUpperCase()) + "-1 "+ConsoleColors.resourceMap.get(leaderCard.getResource()) + ConsoleColors.colorMap.get("RESET");
+                max[i] = 7;
+                break;
+            case "depots" :
+                matrix[i] += "   "+ConsoleColors.colorMap.get(leaderCard.getResource().getColor().toUpperCase()) + ConsoleColors.resourceMap.get(leaderCard.getResource()) + " " + ConsoleColors.resourceMap.get(leaderCard.getResource()) + ConsoleColors.colorMap.get("RESET");
+                max[i] = 6;
+                break;
+            case "whiteMarble" :
+                matrix[i] += "   "+ ConsoleColors.colorMap.get(Resource.WHITE.getColor().toUpperCase()) +ConsoleColors.resourceMap.get(Resource.WHITE) + ConsoleColors.colorMap.get("RESET") + " = "+ConsoleColors.colorMap.get(leaderCard.getResource().getColor().toUpperCase()) +ConsoleColors.resourceMap.get(leaderCard.getResource()) + ConsoleColors.colorMap.get("RESET");
+                max[i] = 8;
+                break;
+            case "production" :
+                matrix[i] +=  " ? => "+ConsoleColors.colorMap.get(leaderCard.getResource().getColor().toUpperCase()) + ConsoleColors.resourceMap.get(leaderCard.getResource()) + ConsoleColors.colorMap.get("RESET") + " + " + ConsoleColors.resourceMap.get(Resource.FAITH);
+                max[i] = 11;
+                break;
+        }
+
+        //blank line
+        i++;
+        matrix[i] += " █";
+
+        for(i = 0; i < matrix.length; i++) {
+            for(int j = max[i]; j < maxSize; j++)
+                matrix[i] += " ";
+            matrix[i] += "█ ";
+            //System.out.println(new Gson().toJson(matrix[i]));
+        }
+        return matrix;
+    }
+
+    private void build4Leaders(int[] proposedLeaderCards){
+        String[] matrix = new String[6];
+        Arrays.fill(matrix, " ");
+        for(int cardId : proposedLeaderCards) {
+            String[] matrixNew = buildLeaderCard(this.getLeaderCardByID(cardId));
+            for(int i = 0; i < matrixNew.length; i++)
+                matrix[i] += matrixNew[i];
+        }
+
+        for(int i = 0; i < matrix.length; i++)
+            System.out.println(matrix[i]);
+    }
 
     public void buildCLI() {
-        int lines = 28; //number of lines;
+        int lines = 30; //number of lines;
         int maxWidth = 25; //maxWidth of each line;
         String[] pixelMatrix = new String[lines];
         String[] personalMatrix = new String[lines];
         if(this.personalBoardView != null)
-            personalMatrix = buildPersonalBoardCLI(this.personalBoardView, lines, maxWidth);
+            personalMatrix = buildPersonalBoardCLI(this.personalBoardView, lines, maxWidth+7);
         else
             Arrays.fill(personalMatrix, "");
 
@@ -458,6 +607,7 @@ public class CLI extends View{
         boolean success = false;
         while(!success){
             this.showMessage("Choose 2 of these 4 Leader Cards: " + Arrays.toString(proposedLeaderCards));
+            build4Leaders(proposedLeaderCards);
             this.showMessage("Select 0, 1, 2 or 3 : ");
             int ind1 = scanner.nextInt();
             int ind2 = Integer.parseInt(scanner.nextLine().trim());
