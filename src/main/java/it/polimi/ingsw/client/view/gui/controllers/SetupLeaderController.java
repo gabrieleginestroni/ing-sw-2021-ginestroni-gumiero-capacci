@@ -1,12 +1,19 @@
 package it.polimi.ingsw.client.view.gui.controllers;
 
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
 import it.polimi.ingsw.server.model.Resource;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.Map;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 public class SetupLeaderController extends GUIController {
     @FXML
@@ -17,34 +24,65 @@ public class SetupLeaderController extends GUIController {
     private ImageView leader2;
     @FXML
     private ImageView leader3;
+    @FXML
+    private Label leaderText;
+    @FXML
+    private Button sendLeader;
+
+    private final List<Integer> chosenLeader = new ArrayList<>();
+
+    public void sendLeaderMessage(){
+        Platform.runLater(()-> {
+            int[] arr = new int[2];
+            int i = 0;
+            for (Integer leader : chosenLeader) {
+                arr[i] = leader;
+                i++;
+            }
+            this.networkHandler.sendMessage(new ChosenLeaderMessage(arr));
+            view.changeScene(view.scenesMap.get(GUI.SETUP_RESOURCE));
+        });
+    }
 
     @Override
     public void visitLeaderProposal(int[] proposedLeaderCards) {
 
-        int i = 0;
-        for(int cardId : proposedLeaderCards){
-            switch(i){
-                case(0):
-                    leader0.setImage(new Image("./images/leaderCardsFront/leader" + cardId + ".png"));
-                    leader0.setVisible(true);
-                    break;
-                case(1):
-                    leader1.setImage(new Image("./images/leaderCardsFront/leader" + cardId + ".png"));
-                    leader1.setVisible(true);
-                    break;
-                case(2):
-                    leader2.setImage(new Image("./images/leaderCardsFront/leader" + cardId + ".png"));
-                    leader2.setVisible(true);
-                    break;
-                case(3):
-                    leader3.setImage(new Image("./images/leaderCardsFront/leader" + cardId + ".png"));
-                    leader3.setVisible(true);
-                    break;
-            }
-            i++;
-        }
+        leader0.setImage(new Image("./images/leaderCardsFront/leader" + proposedLeaderCards[0] + ".png"));
+        leader0.setVisible(true);
+
+        leader1.setImage(new Image("./images/leaderCardsFront/leader" + proposedLeaderCards[1]+ ".png"));
+        leader1.setVisible(true);
+
+        leader2.setImage(new Image("./images/leaderCardsFront/leader" + proposedLeaderCards[2] + ".png"));
+        leader2.setVisible(true);
+
+        leader3.setImage(new Image("./images/leaderCardsFront/leader" + proposedLeaderCards[3] + ".png"));
+        leader3.setVisible(true);
+
+        leader0.setOnMouseClicked(ActionEvent -> Platform.runLater(()-> setChosenLeader(0)));
+        leader1.setOnMouseClicked(ActionEvent -> Platform.runLater(()-> setChosenLeader(1)));
+        leader2.setOnMouseClicked(ActionEvent -> Platform.runLater(()-> setChosenLeader(2)));
+        leader3.setOnMouseClicked(ActionEvent -> Platform.runLater(()-> setChosenLeader(3)));
     }
 
+
+
+    private void setChosenLeader(int i){
+        if(chosenLeader.size() == 0 || i != chosenLeader.get(chosenLeader.size()-1))
+            chosenLeader.add(i);
+        if(chosenLeader.size() >= 2) {
+            sendLeader.setDisable(false);
+            if(chosenLeader.size() > 2)
+                chosenLeader.remove(0);
+        }
+        StringBuilder txt = new StringBuilder("You chose: \n ");
+        for(Integer leader: chosenLeader){
+            txt.append(leader);
+            txt.append(" ");
+        }
+        leaderText.setText(String.valueOf(txt));
+        leaderText.setVisible(true);
+    }
 //-----------------------------------------------------------------------------------
 
     @Override

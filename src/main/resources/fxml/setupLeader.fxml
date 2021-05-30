@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -28,7 +29,7 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="leader0" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="image1" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ImageView fx:id="leader0" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="imageLeader" visible="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../images/leaderCardsFront/leader1.png" />
                </image>
@@ -36,7 +37,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="leader1" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="image2" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ImageView fx:id="leader1" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="imageLeader" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../images/leaderCardsFront/leader1.png" />
                </image>
@@ -44,7 +45,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="leader2" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="image3" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fx:id="leader2" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="imageLeader" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../images/leaderCardsFront/leader1.png" />
                </image>
@@ -52,7 +53,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="leader3" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="image4" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fx:id="leader3" fitHeight="260.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" styleClass="imageLeader" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../images/leaderCardsFront/leader1.png" />
                </image>
@@ -77,6 +78,11 @@
                   <Font name="Gabriola" size="24.0" />
                </font>
             </Label>
+            <Button fx:id="sendLeader" disable="true" layoutX="112.0" layoutY="467.0" mnemonicParsing="false" onAction="#sendLeaderMessage" text="Send" />
+            <Label fx:id="leaderText" layoutX="119.0" layoutY="373.0">
+               <font>
+                  <Font name="Gabriola" size="12.0" />
+               </font></Label>
          </children>
       </Pane>
    </children>

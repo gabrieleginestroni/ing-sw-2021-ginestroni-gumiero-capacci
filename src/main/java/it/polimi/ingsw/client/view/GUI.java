@@ -15,14 +15,14 @@ import java.util.*;
 
 public class GUI extends View{
     public static final String LOGIN = "login.fxml";
-    private static final String SETUP_LEADER = "setupLeader.fxml";
-    private static final String SETUP_RESOURCE = "setupResource.fxml";
-    private static final String MAIN_GUI = "game.fxml";
-    private static final String END_GAME = "endGame.fxml";
+    public static final String SETUP_LEADER = "setupLeader.fxml";
+    public static final String SETUP_RESOURCE = "setupResource.fxml";
+    public static final String MAIN_GUI = "game.fxml";
+    public static final String END_GAME = "endGame.fxml";
 
     public static Stage stg;
-    private final Map<String, GUIController> controllersMap = new HashMap<>();
-    private final HashMap<String, Scene> scenesMap = new HashMap<>();
+    public final Map<String, GUIController> controllersMap = new HashMap<>();
+    public final HashMap<String, Scene> scenesMap = new HashMap<>();
 
 
     public GUI() {
@@ -107,11 +107,13 @@ public class GUI extends View{
 
     @Override
     public void visitGameStarted(String str) {
-
     }
 
     @Override
     public void visitInitialResource(int quantity) {
+        Platform.runLater(() -> {
+            controllersMap.get(SETUP_LEADER).visitInitialResource(quantity);
+        });
 
     }
 
