@@ -7,11 +7,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="588.0" prefWidth="700.0" stylesheets="@/stylesheets/setupLeaderStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.SetupResourceController">
+<AnchorPane prefHeight="588.0" prefWidth="700.0" stylesheets="@/stylesheets/setupResourcesStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.SetupResourceController">
     <children>
-        <ImageView fitHeight="588.0" fitWidth="422.0" rotate="180.0">
+        <ImageView fitHeight="588.0" fitWidth="422.0" nodeOrientation="INHERIT" rotate="180.0">
             <image>
                 <Image url="@../images/table_background.jpg" />
             </image>
@@ -38,6 +39,7 @@
                     </font></Label>
             </children>
         </Pane>
+      <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" layoutX="111.0" layoutY="194.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="200.0" />
     </children>
     <cursor>
         <Cursor fx:constant="DEFAULT" />

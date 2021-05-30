@@ -2,11 +2,42 @@ package it.polimi.ingsw.client.view.gui.controllers;
 
 import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.server.model.Resource;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 
+import java.net.URL;
 import java.util.Map;
+import java.util.ResourceBundle;
 
-public class SetupResourceController extends GUIController {
+public class SetupResourceController extends GUIController implements Initializable {
+    @FXML
+    private Rectangle rectangle;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        rectangle.setArcWidth(30.0);   // Corner radius
+        rectangle.setArcHeight(30.0);
+
+        ImagePattern pattern = new ImagePattern(
+                new Image("./images/warehouse.png", 280, 180, false, false) // Resizing
+        );
+
+        rectangle.setFill(pattern);
+        rectangle.setEffect(new DropShadow(20, Color.BLACK));  // Shadow
+        rectangle.setVisible(true);
+    }
+
+    @Override
+    public void visitInitialResource(int quantity) {
+
+    }
+
+//-----------------------------------------------------------------
 
     @Override
     public void visitBoardsUpdate(GUI view) {
@@ -55,11 +86,6 @@ public class SetupResourceController extends GUIController {
 
     @Override
     public void visitGameStarted(String str) {
-
-    }
-
-    @Override
-    public void visitInitialResource(int quantity) {
 
     }
 
@@ -127,4 +153,5 @@ public class SetupResourceController extends GUIController {
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
 
     }
+
 }
