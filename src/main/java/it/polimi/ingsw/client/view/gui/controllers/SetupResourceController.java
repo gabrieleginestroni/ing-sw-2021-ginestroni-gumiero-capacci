@@ -24,7 +24,7 @@ public class SetupResourceController extends GUIController implements Initializa
         rectangle.setArcHeight(30.0);
 
         ImagePattern pattern = new ImagePattern(
-                new Image("./images/warehouse.png", 280, 180, false, false) // Resizing
+                new Image("./images/warehouse.png", 350, 360, false, false) // Resizing
         );
 
         rectangle.setFill(pattern);

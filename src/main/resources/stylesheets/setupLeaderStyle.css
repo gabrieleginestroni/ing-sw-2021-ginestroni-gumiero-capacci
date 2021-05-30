@@ -1,16 +1,4 @@
-.image1:hover{
-    -fx-border-color: #FFFFFF;
-    -fx-border-width: 5px 5px 5px 5px;
-}
-.button2:hover{
-    -fx-border-color: #000000;
-    -fx-border-width: 0px 0px 5px 0px;
-}
-.button3:hover{
-    -fx-border-color: #000000;
-    -fx-border-width: 0px 0px 5px 0px;
-}
-.button4:hover{
-    -fx-border-color: #000000;
-    -fx-border-width: 0px 0px 5px 0px;
+.image:hover{
+    -fx-padding:10;
+    -fx-background-color: #000000;
 }

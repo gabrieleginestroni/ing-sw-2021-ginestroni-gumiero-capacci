@@ -73,7 +73,7 @@
                   <Image url="@../images/login_background.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="43.0" layoutY="280.0" text="Choose your Leader cards">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="43.0" layoutY="280.0" text="Choose 2 Leader cards">
                <font>
                   <Font name="Gabriola" size="24.0" />
                </font>
@@ -81,7 +81,7 @@
             <Button fx:id="sendLeader" disable="true" layoutX="112.0" layoutY="467.0" mnemonicParsing="false" onAction="#sendLeaderMessage" text="Send" />
             <Label fx:id="leaderText" layoutX="119.0" layoutY="373.0">
                <font>
-                  <Font name="Gabriola" size="12.0" />
+                  <Font name="Gabriola" size="18.0" />
                </font></Label>
          </children>
       </Pane>
