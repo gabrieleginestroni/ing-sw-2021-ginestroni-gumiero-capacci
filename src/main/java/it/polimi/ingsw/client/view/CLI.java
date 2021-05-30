@@ -70,60 +70,63 @@ public class CLI extends View{
     }
 
 
-    private String[] buildPersonalBoardCLI(int lines, int maxWidth) {
+    private String[] buildPersonalBoardCLI(BoardView playerView, int lines, int maxWidth) {
         String[] personalMatrix = new String[lines];
         Arrays.fill(personalMatrix, "");
 
         try {
-            if (this.personalBoardView != null) {
+            if(playerView.getNickname().equals(this.getNickname()))
                 personalMatrix[0] += "Your Board";
-                personalMatrix[1] += "Strongbox";
-                int i = 2;
-                for(Resource res : Resource.values()) {
-                    int j = 0;
-                    if(res != Resource.FAITH && res != Resource.WHITE)
-                        for (j = 0; j < this.personalBoardView.getStrongBox().get(res.toString()) && j < maxWidth/2; j++) {
-                            personalMatrix[i] += ConsoleColors.colorMap.get(res.getColor().toUpperCase())+ConsoleColors.resourceMap.get(res)+ConsoleColors.colorMap.get("RESET");
-                            if (j == maxWidth/2-1) {
-                                personalMatrix[i] += "+";
-                                j++;
-                            }
+            else
+                personalMatrix[0] += playerView.getNickname()+"'s Board";
+            personalMatrix[1] += "Strongbox";
+            int i = 2;
+            for(Resource res : Resource.values()) {
+                int j = 0;
+                if(res != Resource.FAITH && res != Resource.WHITE)
+                    for (j = 0; j < playerView.getStrongBox().get(res.toString()) && j < maxWidth; j++) {
+                        personalMatrix[i] += ConsoleColors.colorMap.get(res.getColor().toUpperCase())+ConsoleColors.resourceMap.get(res)+ConsoleColors.colorMap.get("RESET");
+                        if (j == maxWidth-2) {
+                            personalMatrix[i] += "+";
+                            j++;
                         }
-                        for(int a = j; a < maxWidth; a++)
-                            personalMatrix[i] += " ";
-                    i++;
-                }
-                personalMatrix[i] += "Warehouse Depots";
-                i++;
-                int offset = i;
-                for(int index = 2; index >= 0; index--){
-                    String res = this.personalBoardView.getWarehouseDepotResource().get(index);
-                    int quantity = this.personalBoardView.getWarehouseDepotQuantity().get(index); //reverse
-                    for (int j = 0; j < quantity; j++)
-                        personalMatrix[i] += ConsoleColors.colorMap.get(Resource.valueOf(res).getColor().toUpperCase())+ConsoleColors.resourceMap.get(Resource.valueOf(res))+ConsoleColors.colorMap.get("RESET");;
-                    for(int j = 0; j < index-quantity+1; j++)
-                        personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
-                    for(int j = index+1; j < maxWidth; j++)
-                        personalMatrix[i] += " ";
-                    i++;
-                }
-                personalMatrix[i] += "Leader Depots";
-                i++;
-                offset = i;
-                for(String res : this.personalBoardView.getLeaderDepotResource()){
-                    int quantity = this.personalBoardView.getLeaderDepotQuantity().get(i-offset);
-                    for (int j = 0; j < quantity; j++)
-                        personalMatrix[i] += ConsoleColors.colorMap.get(Resource.valueOf(res).getColor().toUpperCase())+ConsoleColors.resourceMap.get(Resource.valueOf(res))+ConsoleColors.colorMap.get("RESET");;
-                    for(int j = 0; j < 2-quantity; j++)
-                        personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
-                    i++;
-                }
-                for (int j = 0; j < personalMatrix.length; j++) {
-                    //System.out.println("RIGA "+j+" =>"+"("+personalMatrix[j].length()+") "+new Gson().toJson(personalMatrix[j]));
-                    if(j < 2 || j >= 6 && j <= 8 || j == 12 || j > 13) {
-                        personalMatrix[j] += " ".repeat(Math.max(0, maxWidth - personalMatrix[j].length()));
-                        personalMatrix[j] = personalMatrix[j].substring(0, maxWidth);
                     }
+                    for(int a = j; a < maxWidth; a++)
+                        personalMatrix[i] += " ";
+                i++;
+            }
+            personalMatrix[i] += "Warehouse Depots";
+            i++;
+            int offset = i;
+            for(int index = 2; index >= 0; index--){
+                String res = playerView.getWarehouseDepotResource().get(index);
+                int quantity = playerView.getWarehouseDepotQuantity().get(index); //reverse
+                for (int j = 0; j < quantity; j++)
+                    personalMatrix[i] += ConsoleColors.colorMap.get(Resource.valueOf(res).getColor().toUpperCase())+ConsoleColors.resourceMap.get(Resource.valueOf(res))+ConsoleColors.colorMap.get("RESET");;
+                for(int j = 0; j < index-quantity+1; j++)
+                    personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
+                for(int j = index+1; j < maxWidth; j++)
+                    personalMatrix[i] += " ";
+                i++;
+            }
+            personalMatrix[i] += "Leader Depots";
+            i++;
+            offset = i;
+            for(String res : playerView.getLeaderDepotResource()){
+                int quantity = playerView.getLeaderDepotQuantity().get(i-offset);
+                for (int j = 0; j < quantity; j++)
+                    personalMatrix[i] += ConsoleColors.colorMap.get(Resource.valueOf(res).getColor().toUpperCase())+ConsoleColors.resourceMap.get(Resource.valueOf(res))+ConsoleColors.colorMap.get("RESET");;
+                for(int j = 0; j < 2-quantity; j++)
+                    personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
+                for(int j = 2; j < maxWidth; j++)
+                    personalMatrix[i] += " ";
+                i++;
+            }
+            for (int j = 0; j < personalMatrix.length; j++) {
+                //System.out.println("RIGA "+j+" =>"+"("+personalMatrix[j].length()+") "+new Gson().toJson(personalMatrix[j]));
+                if(j < 2 || j >= 6 && j <= 8 || j == 12 || j > 13) {
+                    personalMatrix[j] += " ".repeat(Math.max(0, maxWidth - personalMatrix[j].length()));
+                    personalMatrix[j] = personalMatrix[j].substring(0, maxWidth);
                 }
             }
         } catch (Exception e) {
@@ -246,7 +249,7 @@ public class CLI extends View{
                             iProdStart++;
                         }
 
-                        //compute max size to set end of each line on same offset
+                        //compute max size to set end of each line on same offset, now fixed
                         int maxSize = 11;
                         /*
                         for (int j : max)
@@ -267,17 +270,25 @@ public class CLI extends View{
                             for(int h = max[j]; h < maxSize; h++)
                                 gameMatrix[j] += " ";
                             gameMatrix[j] += cardTypeColor;
+                            //System.out.println("RIGA "+j+" =>"+"("+gameMatrix[j].length()+") "+new Gson().toJson(gameMatrix[j]));
+
                         }
                         i++;
+                        for(int h = 0; h < maxSize+8; h++)
+                            gameMatrix[i] += " ";
                     }
                     i++;
                 }
                 i++;
                 tmp = this.marketView.toString().toUpperCase().replaceAll(" +", " ").split("\n");
+                int a = 0;
                 for (String row : tmp) {
-                    for(Map.Entry<String, String> entry : ConsoleColors.colorMap.entrySet())
-                        row = row.replace(entry.getKey(), entry.getValue()+" █"+ConsoleColors.colorMap.get("RESET"));
-                    gameMatrix[i] = row;
+                    if (a != 0){
+                        for (Map.Entry<String, String> entry : ConsoleColors.colorMap.entrySet())
+                            row = row.replace(entry.getKey(), entry.getValue() + " █" + ConsoleColors.colorMap.get("RESET"));
+                        gameMatrix[i] = row.replaceAll("}", "");
+                    }
+                    a++;
                     i++;
                 }
             }
@@ -301,17 +312,37 @@ public class CLI extends View{
 
     public void buildCLI() {
         int lines = 28; //number of lines;
-        int maxWidth = 50; //maxWidth of each line;
+        int maxWidth = 25; //maxWidth of each line;
         String[] pixelMatrix = new String[lines];
-        String[] personalMatrix = buildPersonalBoardCLI(lines, maxWidth);
-        String[] otherMatrix = buildOtherBoardsCLI(lines, maxWidth);
+        String[] personalMatrix = new String[lines];
+        if(this.personalBoardView != null)
+            personalMatrix = buildPersonalBoardCLI(this.personalBoardView, lines, maxWidth);
+        else
+            Arrays.fill(personalMatrix, "");
+
+        String[][] otherMatrix = new String[3][];
+        int i = 0;
+
+        if(otherBoardsView != null) {
+            for (BoardView otherPlayerView : otherBoardsView) {
+                if (otherPlayerView != null) {
+                    otherMatrix[i] = buildPersonalBoardCLI(otherPlayerView, lines, maxWidth);
+                    i++;
+                }
+            }
+        }
+
         String[] gameMatrix = buildGameCLI(lines, maxWidth);
         Arrays.fill(pixelMatrix, "");
         //TO CLEAR CONSOLE?
         //System.out.print("\033[H\033[2J");
         //System.out.flush();
-        for (int i = 0; i < pixelMatrix.length; i++) {
-            pixelMatrix[i] = personalMatrix[i]+gameMatrix[i]+otherMatrix[i];
+        for (i = 0; i < pixelMatrix.length; i++) {
+            String other = "";
+            if(otherBoardsView != null)
+                for(int j = 0; j < otherBoardsView.size(); j++)
+                    other += otherMatrix[j][i];
+            pixelMatrix[i] = personalMatrix[i]+gameMatrix[i]+other;
             System.out.println(pixelMatrix[i]);
         }
     }

@@ -19,6 +19,7 @@ public class ConsoleColors {
         put("GREY", "\033[0;30m");
     }}; //grey actually black
 
+
     //no symbols, to avoid shift because size of symbol is > 1
     public static final Map<Resource, String> resourceMap = new HashMap<>(){{
         put(Resource.SHIELD, "S");//🛡
@@ -26,10 +27,10 @@ public class ConsoleColors {
         put(Resource.COIN, "C");//💰
         put(Resource.STONE, "P");//💎
         put(Resource.FAITH, "F");//or ✝
-        put(Resource.WHITE, "W");//□
+        put(Resource.WHITE, "-");//□
     }};
-
     /*
+
     //with symbols
     public static final Map<Resource, String> resourceMap = new HashMap<>(){{
         put(Resource.SHIELD, "\uD83D\uDEE1");//🛡
@@ -39,5 +40,5 @@ public class ConsoleColors {
         put(Resource.FAITH, "✞");//or ✝
         put(Resource.WHITE, "□");//□
     }};
-     */
+    */
 }
