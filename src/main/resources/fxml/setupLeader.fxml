@@ -63,7 +63,7 @@
                   <Font name="Gabriola" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="sendLeader" disable="true" layoutX="112.0" layoutY="467.0" mnemonicParsing="false" onAction="#sendLeaderMessage" text="Send" />
+            <Button fx:id="sendLeader" disable="true" layoutX="112.0" layoutY="467.0" mnemonicParsing="false" onAction="#sendLeaderMessage" styleClass="button_custom" text="Send" />
             <Label fx:id="leaderText" layoutX="119.0" layoutY="373.0">
                <font>
                   <Font name="Gabriola" size="18.0" />

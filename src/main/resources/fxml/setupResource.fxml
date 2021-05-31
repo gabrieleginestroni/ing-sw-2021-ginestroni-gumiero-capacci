@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="588.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.SetupResourceController">
+<AnchorPane prefHeight="588.0" prefWidth="700.0" stylesheets="@/stylesheets/setupResourceStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.SetupResourceController">
     <children>
         <ImageView fitHeight="588.0" fitWidth="422.0" nodeOrientation="INHERIT" rotate="180.0">
             <image>
@@ -32,7 +32,7 @@
                         <Font name="Gabriola" size="24.0" />
                     </font>
                 </Label>
-                <Button disable="true" layoutX="116.0" layoutY="405.0" mnemonicParsing="false" text="Send" />
+                <Button disable="true" layoutX="116.0" layoutY="405.0" mnemonicParsing="false" styleClass="button_custom" text="Send" />
                 <Label fx:id="leaderText" layoutX="119.0" layoutY="373.0">
                     <font>
                         <Font name="Gabriola" size="12.0" />
