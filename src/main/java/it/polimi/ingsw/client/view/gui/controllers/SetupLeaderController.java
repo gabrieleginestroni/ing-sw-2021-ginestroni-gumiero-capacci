@@ -4,7 +4,6 @@ import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
 import it.polimi.ingsw.server.model.Resource;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -80,6 +79,7 @@ public class SetupLeaderController extends GUIController {
         leaderText.setText(String.valueOf(txt));
         leaderText.setVisible(true);
     }
+
 //-----------------------------------------------------------------------------------
 
     @Override

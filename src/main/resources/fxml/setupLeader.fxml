@@ -30,19 +30,19 @@
           <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <StackPane fx:id="leader0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="180.0" styleClass="image" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <StackPane fx:id="leader0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="175.0" styleClass="image" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></StackPane>
-            <StackPane fx:id="leader1" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="180.0" styleClass="image" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <StackPane fx:id="leader1" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="175.0" styleClass="image" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></StackPane>
-            <StackPane fx:id="leader2" layoutX="224.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="180.0" styleClass="image" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <StackPane fx:id="leader2" layoutX="224.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="175.0" styleClass="image" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></StackPane>
-            <StackPane fx:id="leader3" layoutX="10.0" layoutY="304.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="180.0" styleClass="image" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <StackPane fx:id="leader3" layoutX="10.0" layoutY="304.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="175.0" styleClass="image" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></StackPane>

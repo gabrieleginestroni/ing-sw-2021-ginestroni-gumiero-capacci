@@ -1,4 +1,9 @@
-.image:hover{
-    -fx-padding:10;
+.image{
     -fx-background-color: #000000;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 4, 4);
+}
+
+.image:hover{
+    -fx-background-color: #eded2b;
 }
