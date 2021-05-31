@@ -1,11 +1,33 @@
 package it.polimi.ingsw.client.view.gui.controllers;
 
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.client.view.GridView;
 import it.polimi.ingsw.server.model.Resource;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
+import java.net.URL;
 import java.util.Map;
+import java.util.ResourceBundle;
 
-public class GameController extends GUIController {
+public class GameController extends GUIController implements Initializable {
+
+    @FXML
+    private GridPane market;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //TODO finalize
+        int row=0;
+        int col=0;
+        ImageView marble =(ImageView) market.lookup("#marble_"+row+"_"+col);
+        marble.setImage(new Image("./images/warehouse.png"));
+    }
+
 
     @Override
     public void visitBoardsUpdate(GUI view) {
@@ -126,4 +148,6 @@ public class GameController extends GUIController {
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
 
     }
+
+
 }
