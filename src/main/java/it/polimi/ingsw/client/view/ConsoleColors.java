@@ -25,7 +25,7 @@ public class ConsoleColors {
         put(Resource.SHIELD, "S");//🛡
         put(Resource.SERVANT, "U");//👨
         put(Resource.COIN, "C");//💰
-        put(Resource.STONE, "P");//💎
+        put(Resource.STONE, "R");//💎
         put(Resource.FAITH, "F");//or ✝
         put(Resource.WHITE, "-");//□
     }};

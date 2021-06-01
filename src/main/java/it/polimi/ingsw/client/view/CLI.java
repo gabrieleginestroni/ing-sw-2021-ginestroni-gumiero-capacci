@@ -179,10 +179,9 @@ public class CLI extends View{
             i++;
             personalMatrix[i] = "      Faith Track: ";
             i++;
-            personalMatrix[i] += "  ";
             for(int j = 0; j < playerView.getFaithTrackMarker(); j++)
                 personalMatrix[i] += "█";
-            for(int j = playerView.getFaithTrackMarker(); j < 25; j++)
+            for(int j = playerView.getFaithTrackMarker(); j < 24; j++)
                 personalMatrix[i] += "O";
 
             for (int j = 0; j < personalMatrix.length; j++) {
@@ -444,7 +443,7 @@ public class CLI extends View{
                 max[i] = 6;
                 break;
             case "whiteMarble" :
-                matrix[i] += "   "+ ConsoleColors.colorMap.get(Resource.WHITE.getColor().toUpperCase()) +ConsoleColors.resourceMap.get(Resource.WHITE) + ConsoleColors.colorMap.get("RESET") + " = "+ConsoleColors.colorMap.get(leaderCard.getResource().getColor().toUpperCase()) +ConsoleColors.resourceMap.get(leaderCard.getResource()) + ConsoleColors.colorMap.get("RESET");
+                matrix[i] += "   "+ ConsoleColors.colorMap.get(Resource.WHITE.getColor().toUpperCase()) + "W" + ConsoleColors.colorMap.get("RESET") + " = "+ConsoleColors.colorMap.get(leaderCard.getResource().getColor().toUpperCase()) +ConsoleColors.resourceMap.get(leaderCard.getResource()) + ConsoleColors.colorMap.get("RESET");
                 max[i] = 8;
                 break;
             case "production" :
@@ -480,7 +479,7 @@ public class CLI extends View{
     }
 
     public void buildCLI() {
-        int lines = 30; //number of lines;
+        int lines = 33; //number of lines;
         int maxWidth = 25; //maxWidth of each line;
         String[] pixelMatrix = new String[lines];
         String[] personalMatrix = new String[lines];
