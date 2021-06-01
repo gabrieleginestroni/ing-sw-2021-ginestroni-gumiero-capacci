@@ -123,8 +123,12 @@ public class CLI extends View{
                 int quantity = playerView.getLeaderDepotQuantity().get(i-offset);
                 for (int j = 0; j < quantity; j++)
                     personalMatrix[i] += ConsoleColors.colorMap.get(Resource.valueOf(res).getColor().toUpperCase())+ConsoleColors.resourceMap.get(Resource.valueOf(res))+ConsoleColors.colorMap.get("RESET");;
-                for(int j = 0; j < 2-quantity; j++)
-                    personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
+                for(int j = 0; j < 2-quantity; j++) {
+                    if (res.equals("NULL"))
+                        personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
+                    else
+                        personalMatrix[i] += ConsoleColors.colorMap.get(Resource.valueOf(res).getColor().toUpperCase()) + ConsoleColors.resourceMap.get(Resource.WHITE) + ConsoleColors.colorMap.get("RESET");
+                }
                 for(int j = 2; j < maxWidth; j++)
                     personalMatrix[i] += " ";
                 supportMatrix[i] = 1;
@@ -171,6 +175,15 @@ public class CLI extends View{
                     for(int j = index; j < maxWidth; j++)
                         personalMatrix[i] += " ";
             }
+
+            i++;
+            personalMatrix[i] = "      Faith Track: ";
+            i++;
+            personalMatrix[i] += "  ";
+            for(int j = 0; j < playerView.getFaithTrackMarker(); j++)
+                personalMatrix[i] += "█";
+            for(int j = playerView.getFaithTrackMarker(); j < 25; j++)
+                personalMatrix[i] += "O";
 
             for (int j = 0; j < personalMatrix.length; j++) {
                 //System.out.println("RIGA "+j+" =>"+"("+personalMatrix[j].length()+") "+new Gson().toJson(personalMatrix[j]));
@@ -233,6 +246,7 @@ public class CLI extends View{
         String[] gameMatrix = new String[lines];
         Arrays.fill(gameMatrix, "");
         int i = 0;
+        int maxSize = 11; //fixed max size for devGrid
 
         try {
             if (this.devGrid != null) {
@@ -242,102 +256,108 @@ public class CLI extends View{
                     int iStart = i;
                     for(String id : cardIds){
                         i = iStart;
-                        int[] max = new int[50];
+                        int[] max = new int[50]; //support array to count length of line
                         Arrays.fill(max, 0);
                         DevelopmentCard card = this.getDevelopmentCardByID(Integer.parseInt(id));
-                        String cardTypeColor = "   "+ConsoleColors.colorMap.get(card.getType().toString()) + "█" + ConsoleColors.colorMap.get("RESET");
+                        if(card != null) {
+                            String cardTypeColor = "   " + ConsoleColors.colorMap.get(card.getType().toString()) + "█" + ConsoleColors.colorMap.get("RESET");
 
-                        //first row card level
-                        gameMatrix[i] += cardTypeColor;
-                        gameMatrix[i] += "  ";
-                        if(card.getLevel() < 3)
-                            gameMatrix[i] += " ";
-                        for(int j = 0; j < card.getLevel(); j++)
-                            gameMatrix[i] += ConsoleColors.colorMap.get(card.getType().toString()) + "█" + ConsoleColors.colorMap.get("RESET");
-                        if(card.getLevel() == 1)
-                            gameMatrix[i] += " ";
-                        //gameMatrix[i] += "  ";
-                        gameMatrix[i] += " N."+id; //debug
-                        max[i] += id.length()+1;
-                        max[i] += 7;
-
-                        //second row card cost
-                        i++;
-                        gameMatrix[i] += cardTypeColor;
-                        for(Map.Entry<Resource, Integer> entry: card.getCost().entrySet()) {
-                            gameMatrix[i] += " ";
-                            for (int j = 0; j < entry.getValue(); j++)
-                                gameMatrix[i] += ConsoleColors.colorMap.get(entry.getKey().getColor().toUpperCase()) + ConsoleColors.resourceMap.get(entry.getKey()) + ConsoleColors.colorMap.get("RESET");
-                            max[i] += entry.getValue()+1;
-                        }
-
-                        //third row card production
-                        i++;
-                        int iProdStart = i;
-                        int maxInput = 0;
-                        for(Map.Entry<Resource, Integer> entry: card.getProductionInput().entrySet()) {
-                            gameMatrix[i] += cardTypeColor+" ";
-                            for (int j = 0; j < entry.getValue(); j++)
-                                gameMatrix[i] += ConsoleColors.colorMap.get(entry.getKey().getColor().toUpperCase()) + ConsoleColors.resourceMap.get(entry.getKey()) + ConsoleColors.colorMap.get("RESET");
-                            max[i] += entry.getValue()+1;
-                            i++;
-                            if(maxInput < entry.getValue()+1)
-                                maxInput = entry.getValue()+1;
-                        }
-                        while(i < iProdStart + 3){
+                            //first row card level
                             gameMatrix[i] += cardTypeColor;
-                            for(int j = 0; j < maxInput; j++)
+                            gameMatrix[i] += "  ";
+                            if (card.getLevel() < 3) //add a space for card of level 1 and 2
                                 gameMatrix[i] += " ";
-                            max[i] = maxInput;
+                            for (int j = 0; j < card.getLevel(); j++)
+                                gameMatrix[i] += ConsoleColors.colorMap.get(card.getType().toString()) + "█" + ConsoleColors.colorMap.get("RESET");
+                            if (card.getLevel() == 1) //add a space for card of level 1
+                                gameMatrix[i] += " ";
+                            //gameMatrix[i] += "  ";
+                            gameMatrix[i] += " N." + id; //debug
+                            max[i] += id.length() + 1;
+                            max[i] += 7;
+
+                            //second row card cost
                             i++;
+                            gameMatrix[i] += cardTypeColor;
+                            for (Map.Entry<Resource, Integer> entry : card.getCost().entrySet()) {
+                                gameMatrix[i] += " ";
+                                for (int j = 0; j < entry.getValue(); j++)
+                                    gameMatrix[i] += ConsoleColors.colorMap.get(entry.getKey().getColor().toUpperCase()) + ConsoleColors.resourceMap.get(entry.getKey()) + ConsoleColors.colorMap.get("RESET");
+                                max[i] += entry.getValue() + 1;
+                            }
+
+                            //third row card production
+                            i++;
+                            int iProdStart = i;
+                            int maxInput = 0;
+                            for (Map.Entry<Resource, Integer> entry : card.getProductionInput().entrySet()) {
+                                gameMatrix[i] += cardTypeColor + " ";
+                                for (int j = 0; j < entry.getValue(); j++)
+                                    gameMatrix[i] += ConsoleColors.colorMap.get(entry.getKey().getColor().toUpperCase()) + ConsoleColors.resourceMap.get(entry.getKey()) + ConsoleColors.colorMap.get("RESET");
+                                max[i] += entry.getValue() + 1;
+                                i++;
+                                if (maxInput < entry.getValue() + 1)
+                                    maxInput = entry.getValue() + 1;
+                            }
+                            while (i < iProdStart + 3) {
+                                gameMatrix[i] += cardTypeColor;
+                                for (int j = 0; j < maxInput; j++)
+                                    gameMatrix[i] += " ";
+                                max[i] = maxInput;
+                                i++;
+                            }
+
+                            for (Map.Entry<Resource, Integer> entry : card.getProductionOutput().entrySet()) {
+                                gameMatrix[iProdStart] += " ==> ";
+                                for (int j = 0; j < entry.getValue(); j++)
+                                    gameMatrix[iProdStart] += ConsoleColors.colorMap.get(entry.getKey().getColor().toUpperCase()) + ConsoleColors.resourceMap.get(entry.getKey()) + ConsoleColors.colorMap.get("RESET");
+                                max[iProdStart] += entry.getValue() + 5;
+                                iProdStart++;
+                            }
+
+                            //compute max size to set end of each line on same offset, now fixed to maxSize
+                            /*
+                            for (int j : max)
+                                if (maxSize < j)
+                                    maxSize = j;
+                             */
+
+                            //last row victory point
+                            gameMatrix[i] += cardTypeColor;
+                            for (int j = 0; j < maxSize / 2; j++)
+                                gameMatrix[i] += " ";
+                            String str = "(" + card.getVictoryPoints() + ")";
+                            gameMatrix[i] += str;
+                            max[i] = str.length() + maxSize / 2;
+
+                            //set end of each line
+                            for (int j = iStart; j <= i; j++) {
+                                for (int h = max[j]; h < maxSize; h++)
+                                    gameMatrix[j] += " ";
+                                gameMatrix[j] += cardTypeColor;
+                                //System.out.println("RIGA "+j+" =>"+"("+gameMatrix[j].length()+") "+new Gson().toJson(gameMatrix[j]));
+
+                            }
+                            i++;
+                            for (int h = 0; h < maxSize + 8; h++)
+                                gameMatrix[i] += " ";
+                        }else{
+                            for(i = iStart; i < iStart + 7; i++)
+                                for(int j = 0; j < maxSize + 8; j++)
+                                    gameMatrix[i] += " ";
                         }
-
-                        for(Map.Entry<Resource, Integer> entry: card.getProductionOutput().entrySet()) {
-                            gameMatrix[iProdStart] += " ==> ";
-                            for (int j = 0; j < entry.getValue(); j++)
-                                gameMatrix[iProdStart] += ConsoleColors.colorMap.get(entry.getKey().getColor().toUpperCase()) + ConsoleColors.resourceMap.get(entry.getKey()) + ConsoleColors.colorMap.get("RESET");
-                            max[iProdStart] += entry.getValue()+5;
-                            iProdStart++;
-                        }
-
-                        //compute max size to set end of each line on same offset, now fixed
-                        int maxSize = 11;
-                        /*
-                        for (int j : max)
-                            if (maxSize < j)
-                                maxSize = j;
-                         */
-
-                        //last row victory point
-                        gameMatrix[i] += cardTypeColor;
-                        for(int j = 0; j < maxSize/2; j++)
-                            gameMatrix[i] += " ";
-                        String str = "("+card.getVictoryPoints()+")";
-                        gameMatrix[i] += str;
-                        max[i] = str.length()+maxSize/2;
-
-                        //set end of each line
-                        for(int j = iStart; j <= i; j++){
-                            for(int h = max[j]; h < maxSize; h++)
-                                gameMatrix[j] += " ";
-                            gameMatrix[j] += cardTypeColor;
-                            //System.out.println("RIGA "+j+" =>"+"("+gameMatrix[j].length()+") "+new Gson().toJson(gameMatrix[j]));
-
-                        }
-                        i++;
-                        for(int h = 0; h < maxSize+8; h++)
-                            gameMatrix[i] += " ";
                     }
                     i++;
                 }
-                i++;
+                for(int j = 0; j < maxSize + 8; j++)
+                    gameMatrix[i] += " ";
                 tmp = this.marketView.toString().toUpperCase().replaceAll(" +", " ").split("\n");
                 int a = 0;
                 for (String row : tmp) {
                     if (a != 0){
                         for (Map.Entry<String, String> entry : ConsoleColors.colorMap.entrySet())
                             row = row.replace(entry.getKey(), entry.getValue() + " █" + ConsoleColors.colorMap.get("RESET"));
-                        gameMatrix[i] = row.replaceAll("}", "");
+                        gameMatrix[i] = " ".repeat(30)+ row.replaceAll("}", "")+ " ".repeat(31);
                         i++;
                     }
                     a++;

@@ -27,6 +27,7 @@ public class MainActionState implements SoloState,MultiplayerState {
                     controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SHIELD, 20);
                     controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SERVANT, 10);
                     controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.STONE, 50);
+                    /*
                     if(controller.getCurrentPlayer().getBoard().getWarehouseDepotResourceType(0) == null) {
                         controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.COIN, 1, 0);
                         controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.SHIELD, 2, 1);
@@ -34,6 +35,7 @@ public class MainActionState implements SoloState,MultiplayerState {
                         controller.getCurrentPlayer().getBoard().addLeaderDepot(Resource.STONE);
                         controller.getCurrentPlayer().getBoard().addLeaderDepotResource(Resource.STONE, 2, 0);
                     }
+                    */
                 }catch(Exception e){
                     e.printStackTrace();
                 }

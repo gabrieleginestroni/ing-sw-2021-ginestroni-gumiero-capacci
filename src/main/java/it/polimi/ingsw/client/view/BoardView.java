@@ -66,6 +66,10 @@ public class BoardView {
         return card;
     }
 
+    public int getFaithTrackMarker() {
+        return faithTrackMarker;
+    }
+
     public List<String> getLeaderDepotResource() {
         return leaderDepotResource;
     }
