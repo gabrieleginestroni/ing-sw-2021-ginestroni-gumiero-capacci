@@ -84,41 +84,54 @@ public class CLI extends View{
                 personalMatrix[0] += "Your Board";
             else
                 personalMatrix[0] += playerView.getNickname()+"'s Board";
+
             personalMatrix[1] += "Strongbox";
             int i = 2;
+            //show resource in strongbox
             for(Resource res : Resource.values()) {
                 int j = 0;
-                if(res != Resource.FAITH && res != Resource.WHITE)
-                    for (j = 0; j < playerView.getStrongBox().get(res.toString()) && j < maxWidth; j++) {
-                        personalMatrix[i] += ConsoleColors.colorMap.get(res.getColor().toUpperCase())+ConsoleColors.resourceMap.get(res)+ConsoleColors.colorMap.get("RESET");
-                        if (j == maxWidth-2) {
+                if(res != Resource.FAITH && res != Resource.WHITE) {
+                    String str = "TOT: "+playerView.getStrongBox().get(res.toString())+" ";
+                    if(playerView.getStrongBox().get(res.toString()) < 10)
+                        str += " ";
+                    personalMatrix[i] += str;
+                    for (j = 0; j < playerView.getStrongBox().get(res.toString()) && j < maxWidth - str.length(); j++) {
+                        personalMatrix[i] += ConsoleColors.colorMap.get(res.getColor().toUpperCase()) + ConsoleColors.resourceMap.get(res) + ConsoleColors.colorMap.get("RESET");
+                        if (j == maxWidth - 2 - str.length()) {
                             personalMatrix[i] += "+";
                             j++;
                         }
                     }
-                    for(int a = j; a < maxWidth; a++)
-                        personalMatrix[i] += " ";
+                    j += str.length();
+                }
+                for (int a = j; a < maxWidth; a++)
+                    personalMatrix[i] += " ";
                 supportMatrix[i] = 1;
                 i++;
             }
+
+
             personalMatrix[i] += "Warehouse Depots";
             i++;
-            int offset = i;
+            //represent warehouse depots in reverse order, as in the original game
             for(int index = 2; index >= 0; index--){
                 String res = playerView.getWarehouseDepotResource().get(index);
                 int quantity = playerView.getWarehouseDepotQuantity().get(index); //reverse
                 for (int j = 0; j < quantity; j++)
                     personalMatrix[i] += ConsoleColors.colorMap.get(Resource.valueOf(res).getColor().toUpperCase())+ConsoleColors.resourceMap.get(Resource.valueOf(res))+ConsoleColors.colorMap.get("RESET");;
+                //blank - for every unused space in depot
                 for(int j = 0; j < index-quantity+1; j++)
                     personalMatrix[i] += ConsoleColors.resourceMap.get(Resource.WHITE);
+                //add padding
                 for(int j = index+1; j < maxWidth; j++)
                     personalMatrix[i] += " ";
                 supportMatrix[i] = 1;
                 i++;
             }
+
             personalMatrix[i] += "Leader Depots";
             i++;
-            offset = i;
+            int offset = i; //offset to get the correct leader depot
             for(String res : playerView.getLeaderDepotResource()){
                 int quantity = playerView.getLeaderDepotQuantity().get(i-offset);
                 for (int j = 0; j < quantity; j++)
@@ -129,11 +142,14 @@ public class CLI extends View{
                     else
                         personalMatrix[i] += ConsoleColors.colorMap.get(Resource.valueOf(res).getColor().toUpperCase()) + ConsoleColors.resourceMap.get(Resource.WHITE) + ConsoleColors.colorMap.get("RESET");
                 }
+                //add padding
                 for(int j = 2; j < maxWidth; j++)
                     personalMatrix[i] += " ";
                 supportMatrix[i] = 1;
                 i++;
             }
+
+            //display hiddenHand
             if(playerView.getHiddenHand() != null){
                 personalMatrix[i] += "Hidden Hand";
                 i++;
@@ -147,7 +163,7 @@ public class CLI extends View{
                         supportMatrix[i] = 1;
                         i++;
                     }
-                    index += 16;
+                    index += 16; //card length
                 }
                 int iEnd = i;
                 for(i = iStart; i < iEnd; i++)
@@ -168,7 +184,7 @@ public class CLI extends View{
                         supportMatrix[i] = 1;
                         i++;
                     }
-                    index += 16;
+                    index += 16; //card length
                 }
                 int iEnd = i;
                 for(i = iStart; i < iEnd; i++)
@@ -177,6 +193,8 @@ public class CLI extends View{
             }
 
             i++;
+
+            //display Faith Track
             personalMatrix[i] = "      Faith Track: ";
             i++;
             for(int j = 0; j < playerView.getFaithTrackMarker(); j++)
@@ -187,6 +205,8 @@ public class CLI extends View{
             for (int j = 0; j < personalMatrix.length; j++) {
                 //System.out.println("RIGA "+j+" =>"+"("+personalMatrix[j].length()+") "+new Gson().toJson(personalMatrix[j]));
                 //if(j < 2 || j >= 6 && j <= 8 || j == 12 || j == 15 || j > i) {
+
+                //if support matrix value is set to 1 it's a line containing color so padding already done
                 if(supportMatrix[j] == 0) {
                     personalMatrix[j] += " ".repeat(Math.max(0, maxWidth - personalMatrix[j].length()));
                     personalMatrix[j] = personalMatrix[j].substring(0, maxWidth);
@@ -249,10 +269,11 @@ public class CLI extends View{
 
         try {
             if (this.devGrid != null) {
+                //filter string to get only card ids from every line, separated by a space each
                 String[] tmp = this.devGrid.toString().replaceAll("[^0-9 \n]", "").trim().replaceAll(" +", " ").split("\n");
                 for (String row : tmp) {
                     String[] cardIds = row.trim().split(" ");
-                    int iStart = i;
+                    int iStart = i; //line where to start building the card(same for all the cards of same level)
                     for(String id : cardIds){
                         i = iStart;
                         int[] max = new int[50]; //support array to count length of line
@@ -261,7 +282,7 @@ public class CLI extends View{
                         if(card != null) {
                             String cardTypeColor = "   " + ConsoleColors.colorMap.get(card.getType().toString()) + "█" + ConsoleColors.colorMap.get("RESET");
 
-                            //first row card level
+                            //first row, card level
                             gameMatrix[i] += cardTypeColor;
                             gameMatrix[i] += "  ";
                             if (card.getLevel() < 3) //add a space for card of level 1 and 2
@@ -275,29 +296,31 @@ public class CLI extends View{
                             max[i] += id.length() + 1;
                             max[i] += 7;
 
-                            //second row card cost
+                            //second row, card cost
                             i++;
                             gameMatrix[i] += cardTypeColor;
                             for (Map.Entry<Resource, Integer> entry : card.getCost().entrySet()) {
                                 gameMatrix[i] += " ";
                                 for (int j = 0; j < entry.getValue(); j++)
                                     gameMatrix[i] += ConsoleColors.colorMap.get(entry.getKey().getColor().toUpperCase()) + ConsoleColors.resourceMap.get(entry.getKey()) + ConsoleColors.colorMap.get("RESET");
-                                max[i] += entry.getValue() + 1;
+                                max[i] += entry.getValue() + 1; //updating line length
                             }
 
-                            //third row card production
+                            //third row, card production
                             i++;
-                            int iProdStart = i;
-                            int maxInput = 0;
+                            int iProdStart = i; //support variable referring to the line where production section start
+                            int maxInput = 0; //support variable to set inner length of card
                             for (Map.Entry<Resource, Integer> entry : card.getProductionInput().entrySet()) {
                                 gameMatrix[i] += cardTypeColor + " ";
                                 for (int j = 0; j < entry.getValue(); j++)
                                     gameMatrix[i] += ConsoleColors.colorMap.get(entry.getKey().getColor().toUpperCase()) + ConsoleColors.resourceMap.get(entry.getKey()) + ConsoleColors.colorMap.get("RESET");
-                                max[i] += entry.getValue() + 1;
+                                max[i] += entry.getValue() + 1; //updating line length
                                 i++;
                                 if (maxInput < entry.getValue() + 1)
                                     maxInput = entry.getValue() + 1;
                             }
+
+                            //3 rows are used for production section, add space to blank lines if production input section is < 3
                             while (i < iProdStart + 3) {
                                 gameMatrix[i] += cardTypeColor;
                                 for (int j = 0; j < maxInput; j++)
@@ -321,9 +344,9 @@ public class CLI extends View{
                                     maxSize = j;
                              */
 
-                            //last row victory point
+                            //last row, victory point
                             gameMatrix[i] += cardTypeColor;
-                            for (int j = 0; j < maxSize / 2; j++)
+                            for (int j = 0; j < maxSize / 2; j++) //center victory points value
                                 gameMatrix[i] += " ";
                             String str = "(" + card.getVictoryPoints() + ")";
                             gameMatrix[i] += str;
@@ -338,9 +361,11 @@ public class CLI extends View{
 
                             }
                             i++;
+                            //padding for blank row
                             for (int h = 0; h < maxSize + 8; h++)
                                 gameMatrix[i] += " ";
                         }else{
+                            //blank slot, add blank rows
                             for(i = iStart; i < iStart + 7; i++)
                                 for(int j = 0; j < maxSize + 8; j++)
                                     gameMatrix[i] += " ";
@@ -348,14 +373,20 @@ public class CLI extends View{
                     }
                     i++;
                 }
+                //padding for blank row
                 for(int j = 0; j < maxSize + 8; j++)
                     gameMatrix[i] += " ";
+
+                //parsing market to have a list of color for every row separated by a space
                 tmp = this.marketView.toString().toUpperCase().replaceAll(" +", " ").split("\n");
-                int a = 0;
+                int a = 0; //counter to avoid writing first line
                 for (String row : tmp) {
                     if (a != 0){
+                        //modify line replacing the color name with the a colored █
                         for (Map.Entry<String, String> entry : ConsoleColors.colorMap.entrySet())
                             row = row.replace(entry.getKey(), entry.getValue() + " █" + ConsoleColors.colorMap.get("RESET"));
+
+                        //add padding to center line in middle of gameMatrix
                         gameMatrix[i] = " ".repeat(30)+ row.replaceAll("}", "")+ " ".repeat(31);
                         i++;
                     }
@@ -386,7 +417,7 @@ public class CLI extends View{
         int maxSize = 12;
 
         int i = 0;
-        int[] max = new int[10];
+        int[] max = new int[10]; //support array to count length of line
 
         //first row card requirements(development card or resource)
         matrix[i] += " █ ";
@@ -413,7 +444,7 @@ public class CLI extends View{
         }
         matrix[i] += " N."+leaderCard.getId();
         max[i] += 4;
-        if(leaderCard.getId() > 9)
+        if(leaderCard.getId() > 9) //if cardId is double digit then size is 2 char
             max[i]++;
 
         //blank line
@@ -456,6 +487,7 @@ public class CLI extends View{
         i++;
         matrix[i] += " █";
 
+        //add padding at end of every line
         for(i = 0; i < matrix.length; i++) {
             for(int j = max[i]; j < maxSize; j++)
                 matrix[i] += " ";
@@ -465,6 +497,7 @@ public class CLI extends View{
         return matrix;
     }
 
+    //proposing 4 leader card to chose
     private void build4Leaders(int[] proposedLeaderCards){
         String[] matrix = new String[6];
         Arrays.fill(matrix, " ");
@@ -480,11 +513,11 @@ public class CLI extends View{
 
     public void buildCLI() {
         int lines = 33; //number of lines;
-        int maxWidth = 25; //maxWidth of each line;
+        int maxWidth = 32; //maxWidth of each line;
         String[] pixelMatrix = new String[lines];
         String[] personalMatrix = new String[lines];
         if(this.personalBoardView != null)
-            personalMatrix = buildPersonalBoardCLI(this.personalBoardView, lines, maxWidth+7);
+            personalMatrix = buildPersonalBoardCLI(this.personalBoardView, lines, maxWidth);
         else
             Arrays.fill(personalMatrix, "");
 
