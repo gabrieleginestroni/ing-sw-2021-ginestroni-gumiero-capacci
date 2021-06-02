@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.Map;
@@ -17,6 +19,8 @@ public class GameController extends GUIController implements Initializable {
 
     @FXML
     private GridPane market;
+    @FXML
+    private Pane pane;
 
 
     @Override
@@ -26,6 +30,16 @@ public class GameController extends GUIController implements Initializable {
         int col=0;
         ImageView marble =(ImageView) market.lookup("#marble_"+row+"_"+col);
         marble.setImage(new Image("./images/warehouse.png"));
+
+        StackPane player = (StackPane) pane.lookup("#player");
+        player.getChildren().add(new ImageView(new Image("./images/punchboard/boardFront.png",698.0,497.0,true,true)));
+        for(int i = 0; i < 3; i++) {
+            StackPane otherPlayer = (StackPane) pane.lookup("#otherplayer_"+i);
+            otherPlayer.getChildren().add(new ImageView(new Image("./images/punchboard/boardBack.png", 372.0, 265.0, true, true)));
+            i++;
+        }
+
+
     }
 
 

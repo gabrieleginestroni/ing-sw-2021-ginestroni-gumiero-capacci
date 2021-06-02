@@ -74,8 +74,7 @@ public class GUI extends View{
     public void visitLobbyFull(String str) {
         //TODO TEST SCENE
         Platform.runLater(() -> {
-            changeScene(scenesMap.get(SETUP_LEADER));
-            //controllersMap.get(LOGIN).visitLobbyFull(str)
+            controllersMap.get(LOGIN).visitLobbyFull(str);
         });
     }
 

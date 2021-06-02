@@ -8,28 +8,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1490.0" stylesheets="@/stylesheets/gameStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.GameController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1490.0" stylesheets="@/stylesheets/gameStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.GameController">
    <children>
-      <ImageView fitHeight="265.0" fitWidth="390.0" pickOnBounds="true" preserveRatio="true" x="10.0" y="25.0">
-         <image>
-            <Image url="@../images/punchboard/boardFront.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="497.0" fitWidth="739.0" layoutX="388.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true" y="-10.0">
-         <image>
-            <Image url="@../images/punchboard/boardFront.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="265.0" fitWidth="390.0" layoutX="490.0" pickOnBounds="true" preserveRatio="true" x="10.0" y="25.0">
-         <image>
-            <Image url="@../images/punchboard/boardBack.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="265.0" fitWidth="390.0" layoutX="980.0" pickOnBounds="true" preserveRatio="true" x="10.0" y="25.0">
-         <image>
-            <Image url="@../images/punchboard/boardBack.png" />
-         </image>
-      </ImageView>
       <ImageView fitHeight="265.0" fitWidth="350.0" layoutX="50.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/punchboard/market_square.png" />
@@ -127,8 +107,8 @@
             <StackPane fx:id="player_leader_1" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <StackPane fx:id="otherplayer_0" layoutX="10.0" layoutY="25.0" maxHeight="265.0" maxWidth="416.0" minHeight="265.0" minWidth="372.0" prefHeight="265.0" prefWidth="372.0" />
-      <StackPane fx:id="otherplayer_1" layoutX="500.0" layoutY="25.0" prefHeight="265.0" prefWidth="371.0" />
+      <StackPane fx:id="otherplayer_0" layoutX="10.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" />
+      <StackPane fx:id="otherplayer_1" layoutX="500.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" />
       <StackPane fx:id="otherplayer_2" layoutX="990.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" />
       <StackPane fx:id="player" layoutX="388.0" layoutY="303.0" prefHeight="497.0" prefWidth="698.0" />
    </children>

@@ -62,7 +62,7 @@ public class SetupLeaderController extends GUIController {
     }
 
     public void setLeaderImage(int cardId, StackPane pane){
-        ImageView img = new ImageView(new Image("./images/leaderCardsFront/leader" + cardId + ".png", 170.0, 260.0, false, false));
+        ImageView img = new ImageView(new Image("./images/leaderCardsFront/leader" + cardId + ".png", 170.0, 260.0, false, true));
         pane.getChildren().add(img);
     }
 
