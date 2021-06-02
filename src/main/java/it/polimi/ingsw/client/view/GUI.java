@@ -112,7 +112,8 @@ public class GUI extends View{
     @Override
     public void visitInitialResource(int quantity) {
         Platform.runLater(() -> {
-            controllersMap.get(SETUP_LEADER).visitInitialResource(quantity);
+            //changeScene(scenesMap.get(MAIN_GUI));
+            controllersMap.get(SETUP_RESOURCE).visitInitialResource(quantity);
         });
 
     }

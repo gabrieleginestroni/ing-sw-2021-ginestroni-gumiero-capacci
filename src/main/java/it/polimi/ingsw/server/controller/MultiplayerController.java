@@ -57,7 +57,7 @@ public class MultiplayerController extends Controller{
         turnHandler = new TurnHandler(shuffledPlayers);
 
 
-        model = new MultiplayerGame(this.players,this.virtualView);
+        model = new MultiplayerGame(shuffledPlayers,this.virtualView);
 
         mediator = new CommunicationMediator();
 
