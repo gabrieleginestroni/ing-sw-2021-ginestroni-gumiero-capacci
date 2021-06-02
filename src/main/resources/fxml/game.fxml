@@ -10,7 +10,7 @@
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1490.0" stylesheets="@/stylesheets/gameStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.GameController">
    <children>
-      <ImageView fitHeight="265.0" fitWidth="350.0" layoutX="50.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="265.0" fitWidth="350.0" layoutX="50.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true" styleClass="board">
          <image>
             <Image url="@../images/punchboard/market_square.png" />
          </image>
@@ -107,9 +107,9 @@
             <StackPane fx:id="player_leader_1" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <StackPane fx:id="otherplayer_0" layoutX="10.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" />
-      <StackPane fx:id="otherplayer_1" layoutX="500.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" />
-      <StackPane fx:id="otherplayer_2" layoutX="990.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" />
-      <StackPane fx:id="player" layoutX="388.0" layoutY="303.0" prefHeight="497.0" prefWidth="698.0" />
+      <StackPane fx:id="otherplayer_0" layoutX="10.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board" />
+      <StackPane fx:id="otherplayer_1" layoutX="500.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board" />
+      <StackPane fx:id="otherplayer_2" layoutX="990.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board" />
+      <StackPane fx:id="player" layoutX="388.0" layoutY="303.0" prefHeight="497.0" prefWidth="698.0" styleClass="board" />
    </children>
 </Pane>

@@ -39,6 +39,7 @@ public class SetupLeaderController extends GUIController {
                 i++;
             }
             this.networkHandler.sendMessage(new ChosenLeaderMessage(arr));
+            //TODO testing
             //view.changeScene(view.scenesMap.get(GUI.SETUP_RESOURCE));
             view.stg.setX(30);
             view.stg.setY(0);

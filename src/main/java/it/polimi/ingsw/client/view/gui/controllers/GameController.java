@@ -7,9 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 
 import java.net.URL;
 import java.util.Map;
@@ -31,12 +29,14 @@ public class GameController extends GUIController implements Initializable {
         ImageView marble =(ImageView) market.lookup("#marble_"+row+"_"+col);
         marble.setImage(new Image("./images/warehouse.png"));
 
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("./images/table_background.jpg",1490.0,810.0,false,true),BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        pane.setBackground(new Background(backgroundImage));
         StackPane player = (StackPane) pane.lookup("#player");
         player.getChildren().add(new ImageView(new Image("./images/punchboard/boardFront.png",698.0,497.0,true,true)));
         for(int i = 0; i < 3; i++) {
             StackPane otherPlayer = (StackPane) pane.lookup("#otherplayer_"+i);
             otherPlayer.getChildren().add(new ImageView(new Image("./images/punchboard/boardBack.png", 372.0, 265.0, true, true)));
-            i++;
         }
 
 
@@ -90,9 +90,14 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitGameStarted(String str) {
-
+        if (view.getOtherBoardsView() != null) {
+            for (int i = 0; i < view.getOtherBoardsView().size(); i++) {
+                StackPane otherPlayer = (StackPane) pane.lookup("#otherplayer_" + i);
+                otherPlayer.getChildren().removeAll();
+                otherPlayer.getChildren().add(new ImageView(new Image("./images/punchboard/boardFront.png", 372.0, 265.0, true, true)));
+            }
+        }
     }
-
     @Override
     public void visitInitialResource(int quantity) {
 

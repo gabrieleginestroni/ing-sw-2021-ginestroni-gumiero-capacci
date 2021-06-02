@@ -106,6 +106,10 @@ public class GUI extends View{
 
     @Override
     public void visitGameStarted(String str) {
+        Platform.runLater(() -> {
+            //changeScene(scenesMap.get(MAIN_GUI));
+            controllersMap.get(MAIN_GUI).visitGameStarted(str);
+        });
     }
 
     @Override
