@@ -56,6 +56,14 @@ public class BoardView {
         return activeLeaders;
     }
 
+    public ArrayList<Integer>[] getCardSlot() {
+        return cardSlot;
+    }
+
+    public boolean hasInkwell() {
+        return inkwell;
+    }
+
     public int getTopCardSlot(int index) {
         int card;
         try {
