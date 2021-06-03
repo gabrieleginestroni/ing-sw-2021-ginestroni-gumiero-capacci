@@ -1,17 +1,19 @@
 package it.polimi.ingsw.client.view.gui.controllers;
 
+import it.polimi.ingsw.client.view.BoardView;
 import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.client.view.GridView;
+import it.polimi.ingsw.client.view.MarketView;
 import it.polimi.ingsw.server.model.Resource;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.net.URL;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class GameController extends GUIController implements Initializable {
 
@@ -52,21 +54,128 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitBoardsUpdate(GUI view) {
+        //updating player board
+        BoardView player = view.getPersonalBoardView();
+        List<BoardView> otherPlayer = view.getOtherBoardsView();
+        //updating strongbox
+        for(Map.Entry<String,Integer> strongbox: player.getStrongBox().entrySet()){
+            Label label = (Label)pane.lookup("#player_"+strongbox.getKey().toLowerCase());
+            label.setText(strongbox.getValue().toString());
+        }
+        //updating warehouse
+        List<String> warehouseDepotResource = player.getWarehouseDepotResource();
+        List<Integer> warehouseDepotQuantity = player.getWarehouseDepotQuantity();
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0 ; j <= i; j++){
+                ImageView resImg =(ImageView) pane.lookup("#player_warehouse_"+i+"_"+j);
+                if(j < warehouseDepotQuantity.get(i)) {
+                    resImg.setImage(new Image("./images/resources/" + warehouseDepotResource.get(i).toLowerCase() + ".png", 32, 26, true, true));
+                    resImg.setVisible(true);
+                } else
+                    resImg.setVisible(false);
+            }
+        }
 
+        //TODO leader depots
+
+        //updating hidden hand
+        for(int i = 0; i < 2; i++){
+            ImageView leaderImg = (ImageView) pane.lookup("#player_hidden_"+i);
+            if(i < player.getHiddenHand().size()){
+                leaderImg.setImage(new Image("./images/leaderCardsFront/" + player.getHiddenHand().get(i) + ".png", 126, 193, true, true));
+                leaderImg.setVisible(true);
+            } else
+                leaderImg.setVisible(false);
+        }
+        //updating active hand
+        for(int i = 0; i < 2; i++){
+            ImageView leaderImg = (ImageView) pane.lookup("#player_leader_"+i);
+            if(i < player.getActiveLeaders().size()){
+                leaderImg.setImage(new Image("./images/leaderCardsFront/" + player.getActiveLeaders().get(i) + ".png", 126, 193, true, true));
+                leaderImg.setVisible(true);
+            } else
+                leaderImg.setVisible(false);
+        }
+        //updating faith
+        for(int i = 1; i < 25; i++){
+            ImageView cellImg = (ImageView) pane.lookup("#player_faith_"+i);
+            if(i == player.getFaithTrackMarker())
+                cellImg.setVisible(true);
+            else
+                cellImg.setVisible(false);
+        }
+        // updating pope tiles
+        boolean[] popes = player.getPopeTiles();
+        for(int i = 0; i < 3; i++){
+            ImageView popeImg = (ImageView) pane.lookup("#player_pope_"+i);
+            if(popes[i])
+                popeImg.setVisible(true);
+            else
+                popeImg.setVisible(false);
+        }
+        // updating card slots
+        ArrayList<Integer>[] cardslots = player.getCardSlot();
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                ImageView devImg = (ImageView) pane.lookup("#player_cardslot_"+i+"_"+j);
+                if(j < cardslots[i].size()){
+                    devImg.setImage(new Image("./images/developmentCardsFront/" + cardslots[i].get(j) + ".png", 125, 237, true, true));
+                    devImg.setVisible(true);
+                } else
+                    devImg.setVisible(false);
+           }
+        }
+        //TODO other boards
     }
 
     @Override
     public void visitLorenzoUpdate(GUI view) {
+        for(int i = 1; i < 25; i++){
+            ImageView cellImg = (ImageView) pane.lookup("#lorenzo_faith_"+i);
+            if(i == view.getLorenzoView().getBlackCrossMarker())
+                cellImg.setVisible(true);
+            else
+                cellImg.setVisible(false);
+        }
+        String token = view.getLorenzoView().getLastDrawnActionToken();
+        String path = "shuffleActionToken";
+
+        ImageView tokenImg = (ImageView) pane.lookup("#lorenzo_token");
+        if(token.contains("Added"))
+            path = "add2BlackCross";
+        else if(token.contains("Blue"))
+            path = "discard2Blue";
+        else if(token.contains("Green"))
+            path = "discard2Green";
+        else if(token.contains("Purple"))
+            path = "discard2Purple";
+        else if(token.contains("Yellow"))
+            path = "discard2Yellow";
+        tokenImg.setImage(new Image("./images/punchboard/" + path + ".png", 45, 45, true, true));
 
     }
 
     @Override
     public void visitMarketUpdate(GUI view) {
+        String[][] market = view.getMarketView().getMarket();
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 4; j++){
+                ImageView marbleImg = (ImageView) pane.lookup("#marble_"+i+"_"+j);
+                marbleImg.setImage(new Image("./images/marbles/" + market[i][j].toLowerCase() + "Marble.png", 38, 34, true, true));
+            }
+        }
+        ImageView marbleImg = (ImageView) pane.lookup("#freemarble");
+        marbleImg.setImage(new Image("./images/marbles/" + view.getMarketView().getFreeMarble().toLowerCase() + "Marble.png", 38, 34, true, true));
 
     }
 
     @Override
     public void visitDevGridUpdate(GUI view) {
+
+    }
+
+    @Override
+    public void visitInkwell(String nickname) {
 
     }
 
@@ -110,10 +219,6 @@ public class GameController extends GUIController implements Initializable {
 
     }
 
-    @Override
-    public void visitInkwell(String nickname) {
-
-    }
 
     @Override
     public void visitLeaderProposal(int[] proposedLeaderCards) {

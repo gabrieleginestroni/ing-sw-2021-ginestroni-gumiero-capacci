@@ -56,7 +56,12 @@ public abstract class View {
     public boolean isGameOver(){return this.gameOver;}
     public String getNickname(){return this.nickname;}
     public List<BoardView> getOtherBoardsView(){ return this.otherBoardsView;}
-    public BoardView getPersonalBoardViewView(){ return this.personalBoardView;}
+    public BoardView getPersonalBoardView(){ return this.personalBoardView;}
+    public LorenzoView getLorenzoView(){ return this.lorenzoView;}
+
+    public MarketView getMarketView() {
+        return marketView;
+    }
 
     public void showMessage(String str) {
         System.out.println(str);

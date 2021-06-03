@@ -19,4 +19,12 @@ public class MarketView {
                 "freeMarble='" + freeMarble + '\'' +
                 '}';
     }
+
+    public String[][] getMarket() {
+        return market;
+    }
+
+    public String getFreeMarble() {
+        return freeMarble;
+    }
 }

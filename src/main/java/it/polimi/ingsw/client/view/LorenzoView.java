@@ -11,4 +11,12 @@ public class LorenzoView {
                 ", lastDrawnActionToken='" + lastDrawnActionToken + '\'' +
                 '}';
     }
+
+    public int getBlackCrossMarker() {
+        return blackCrossMarker;
+    }
+
+    public String getLastDrawnActionToken() {
+        return lastDrawnActionToken;
+    }
 }

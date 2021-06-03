@@ -40,6 +40,8 @@ public class BoardView {
         inkwell = false;
     }
 
+    public boolean[] getPopeTiles() { return popeTiles; }
+
     public Map<String, Integer> getStrongBox() {
         return strongBox;
     }

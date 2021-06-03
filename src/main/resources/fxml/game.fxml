@@ -17,7 +17,7 @@
             <Image url="@../images/punchboard/market_square.png" />
          </image>
       </ImageView>
-      <GridPane fx:id="market" gridLinesVisible="true" layoutX="115.0" layoutY="385.0" prefHeight="85.0" prefWidth="143.0">
+      <GridPane fx:id="market" layoutX="128.0" layoutY="385.0" prefHeight="87.0" prefWidth="120.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="20.0" prefWidth="20.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="20.0" prefWidth="20.0" />
@@ -30,21 +30,57 @@
           <RowConstraints minHeight="22.0" prefHeight="22.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="marble_2_0" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
-            <ImageView fx:id="marble_1_0" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
-            <ImageView fx:id="marble_0_0" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="marble_0_1" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-            <ImageView fx:id="marble_1_1" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ImageView fx:id="marble_2_1" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ImageView fx:id="marble_0_2" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-            <ImageView fx:id="marble_1_2" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <ImageView fx:id="marble_2_2" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ImageView fx:id="marble_0_3" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
-            <ImageView fx:id="marble_1_3" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <ImageView fx:id="marble_2_3" fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <ImageView fx:id="marble_2_0" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../images/marbles/blueMarble.png" />
+               </image></ImageView>
+            <ImageView fx:id="marble_1_0" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0" GridPane.rowIndex="1">
+			<image>
+                  <Image url="@../images/marbles/blueMarble.png" />
+               </image></ImageView>
+            <ImageView fx:id="marble_0_0" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
+			<image>
+                  <Image url="@../images/marbles/blueMarble.png" />
+               </image></ImageView>
+            <ImageView fx:id="marble_0_1" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0" GridPane.columnIndex="1">
+			<image>
+                  <Image url="@../images/marbles/blueMarble.png" />
+               </image></ImageView>
+            <ImageView fx:id="marble_1_1" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+			<image>
+                  <Image url="@../images/marbles/blueMarble.png" />
+               </image></ImageView>
+            <ImageView fx:id="marble_2_1" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+			<image>
+                  <Image url="@../images/marbles/blueMarble.png" />
+               </image></ImageView>
+            <ImageView fx:id="marble_0_2" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0" GridPane.columnIndex="2">
+			<image>
+                  <Image url="@../images/marbles/blueMarble.png" />
+               </image></ImageView>
+            <ImageView fx:id="marble_1_2" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+			<image>
+                  <Image url="@../images/marbles/blueMarble.png" />
+               </image></ImageView>
+            <ImageView fx:id="marble_2_2" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+			<image>
+                  <Image url="@../images/marbles/blueMarble.png" />
+               </image></ImageView>
+            <ImageView fx:id="marble_0_3" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0" GridPane.columnIndex="3">
+			<image>
+                  <Image url="@../images/marbles/blueMarble.png" />
+               </image></ImageView>
+            <ImageView fx:id="marble_1_3" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+			<image>
+                  <Image url="@../images/marbles/blueMarble.png" />
+               </image></ImageView>
+            <ImageView fx:id="marble_2_3" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+			<image>
+                  <Image url="@../images/marbles/blueMarble.png" />
+               </image></ImageView>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="390.0" layoutY="25.0" prefHeight="265.0" prefWidth="100.0">
+      <GridPane layoutX="390.0" layoutY="25.0" prefHeight="265.0" prefWidth="100.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
         </columnConstraints>
@@ -53,11 +89,17 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <StackPane fx:id="otherplayer_0_leader_0" prefHeight="150.0" prefWidth="200.0" />
-            <StackPane fx:id="otherplayer_0_leader_1" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <ImageView fx:id="otherplayer_0_leader_0" fitHeight="128.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image></ImageView>
+            <ImageView fx:id="otherplayer_0_leader_1" fitHeight="128.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image></ImageView>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="880.0" layoutY="25.0" prefHeight="265.0" prefWidth="100.0">
+      <GridPane layoutX="880.0" layoutY="25.0" prefHeight="265.0" prefWidth="100.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
          </columnConstraints>
@@ -66,11 +108,17 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <StackPane fx:id="otherplayer_1_leader_0" prefHeight="150.0" prefWidth="200.0" />
-            <StackPane fx:id="otherplayer_1_leader_1" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <ImageView fx:id="otherplayer_1_leader_0" fitHeight="128.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image></ImageView>
+            <ImageView fx:id="otherplayer_1_leader_1" fitHeight="128.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image></ImageView>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="1370.0" layoutY="25.0" prefHeight="265.0" prefWidth="100.0">
+      <GridPane layoutX="1370.0" layoutY="25.0" prefHeight="265.0" prefWidth="100.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
          </columnConstraints>
@@ -79,11 +127,17 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <StackPane fx:id="otherplayer_2_leader_0" prefHeight="150.0" prefWidth="200.0" />
-            <StackPane fx:id="otherplayer_2_leader_1" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <ImageView fx:id="otherplayer_2_leader_0" fitHeight="128.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image></ImageView>
+            <ImageView fx:id="otherplayer_2_leader_1" fitHeight="128.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image></ImageView>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="1120.0" layoutY="303.0" prefHeight="240.0" prefWidth="260.0">
+      <GridPane layoutX="1120.0" layoutY="303.0" prefHeight="240.0" prefWidth="260.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -92,11 +146,19 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <StackPane fx:id="player_hidden_0" prefHeight="150.0" prefWidth="200.0" />
-            <StackPane fx:id="player_hidden_1" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" />
+            <ImageView fx:id="player_hidden_0" fitHeight="193.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="player_hidden_1" fitHeight="193.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
-      <GridPane gridLinesVisible="true" layoutX="1120.0" layoutY="555.0" prefHeight="240.0" prefWidth="260.0">
+      <GridPane layoutX="1120.0" layoutY="555.0" prefHeight="240.0" prefWidth="260.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -105,8 +167,16 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <StackPane fx:id="player_leader_0" prefHeight="150.0" prefWidth="200.0" />
-            <StackPane fx:id="player_leader_1" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" />
+            <ImageView fx:id="player_leader_0" fitHeight="193.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="player_leader_1" fitHeight="193.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader1.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
       <StackPane layoutX="10.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
@@ -937,11 +1007,131 @@
                         <Image url="@../images/punchboard/pope_favor3_front.png" />
                      </image>
                   </ImageView>
+				  <ImageView fx:id="lorenzo_faith_1" fitHeight="47.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="-271.0" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+				  <ImageView fx:id="lorenzo_faith_2" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-237.0" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_3" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-237.0" translateY="-172.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_4" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-237.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_5" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-203.5" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_6" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-170.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_7" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-136.5" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_8" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-103.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_9" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-69.5" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_10" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-69.5" translateY="-172.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_11" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-69.3" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_12" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-34.0" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_13" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_14" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="34.0" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_15" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="68.0" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_16" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="103.0" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_17" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="103.0" translateY="-172.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_18" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="103.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_19" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="137.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_20" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="172.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_21" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="207.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_22" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="241.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_23" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="275.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lorenzo_faith_24" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="310.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/punchboard/blackCross.png" />
+                     </image>
+                  </ImageView>				  
                   <ImageView fx:id="player_faith_1" fitHeight="47.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="-271.0" translateY="-138.0">
                      <image>
                         <Image url="@../images/resources/faith.png" />
                      </image>
-                  </ImageView>
+                  </ImageView>			  
                   <ImageView fx:id="player_faith_2" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-237.0" translateY="-138.0">
                      <image>
                         <Image url="@../images/resources/faith.png" />
@@ -1114,9 +1304,19 @@
                   <Label fx:id="player_servant" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-218.0" translateY="140.0" />
                   <Label fx:id="player_shield" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-218.0" translateY="180.0" />
                   <Label fx:id="player_stone" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-280.0" translateY="180.0" />
+                  <ImageView fx:id="lorenzo_token" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" translateX="315.0" translateY="-150.0">
+                     <image>
+                        <Image url="@../images/punchboard/discard2Blue.png" />
+                     </image>
+                  </ImageView>
                </children>
             </StackPane>
          </children>
       </StackPane>
+      <ImageView fx:id="freemarble" fitHeight="34.0" fitWidth="38.0" layoutX="241.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/marbles/blueMarble.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
