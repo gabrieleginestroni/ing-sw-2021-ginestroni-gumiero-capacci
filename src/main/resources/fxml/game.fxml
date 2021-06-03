@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1490.0" stylesheets="@/stylesheets/gameStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.GameController">
    <children>
@@ -308,7 +309,8 @@
                <ImageView fx:id="otherplayer_0_cardslot_0_0" fitHeight="127.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="59.0">
                   <image>
                      <Image url="@../images/developmentCardsFront/development1.png" />
-                  </image></ImageView>
+                  </image>
+			   </ImageView>
                <ImageView fx:id="otherplayer_0_cardslot_0_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="42.0">
                   <image>
                      <Image url="@../images/developmentCardsFront/development1.png" />
@@ -358,25 +360,763 @@
          </StackPane>
        </StackPane>
       <StackPane layoutX="500.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
-          <ImageView fx:id="otherplayer_1" fitHeight="265.0" fitWidth="372.0" layoutX="500.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-              <image>
+         <children>
+            <ImageView fx:id="otherplayer_01" fitHeight="265.0" fitWidth="372.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
                   <Image url="@../images/punchboard/boardFront.png" />
-              </image>
-          </ImageView>
+               </image>
+            </ImageView>
+            <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="255.0">
+               <children>
+                  <ImageView fx:id="otherplayer_1_warehouse_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="-136.0" translateY="-10.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_warehouse_1_0" fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-148.0" translateY="13.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_warehouse_1_1" fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-127.0" translateY="13.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_warehouse_2_2" fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-120.0" translateY="36.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_warehouse_2_1" fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-138.0" translateY="36.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_warehouse_2_0" fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-156.0" translateY="36.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-167.0" translateY="75.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-130.0" translateY="75.0">
+                     <image>
+                        <Image url="@../images/resources/servant.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-167.0" translateY="97.0">
+                     <image>
+                        <Image url="@../images/resources/stone.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-130.0" translateY="97.0">
+                     <image>
+                        <Image url="@../images/resources/shield.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_pope_0" fitHeight="33.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="-81.0" translateY="-81.0">
+                     <image>
+                        <Image url="@../images/punchboard/pope_favor1_front.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_pope_1" fitHeight="33.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="10.0" translateY="-100.0">
+                     <image>
+                        <Image url="@../images/punchboard/pope_favor2_front.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_pope_2" fitHeight="33.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="121.0" translateY="-81.0">
+                     <image>
+                        <Image url="@../images/punchboard/pope_favor3_front.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_1" fitHeight="25.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="-145.0" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_2" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-127.0" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_3" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-127.0" translateY="-92.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_4" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-127.0" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_5" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-109.0" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_6" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-90.7" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_7" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-72.4" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_8" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-54.1" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_9" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-35.8" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_10" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-35.8" translateY="-92.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_11" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-35.8" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_12" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-17.5" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_13" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="0.8" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_14" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="19.1" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_15" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="37.4" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_16" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="55.7" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_17" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="55.7" translateY="-92.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_18" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="55.7" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_19" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="74.0" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_20" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="92.3" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_21" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="110.6" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_22" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="128.9" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_23" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="147.2" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_faith_24" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="165.5" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_inkwell" fitHeight="41.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" translateX="-162.0" translateY="-112.0">
+                     <image>
+                        <Image url="@../images/punchboard/inkwell.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_cardslot_0_0" fitHeight="127.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="59.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_cardslot_0_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="42.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_cardslot_0_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="25.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_cardslot_1_0" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="59.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_cardslot_1_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="42.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_cardslot_1_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="25.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_cardslot_2_0" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="59.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_cardslot_2_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="42.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_1_cardslot_2_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="25.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="otherplayer_1_coin" text="##" textFill="WHITE" translateX="-150.0" translateY="75.0" />
+                  <Label fx:id="otherplayer_1_servant" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-113.0" translateY="75.0" />
+                  <Label fx:id="otherplayer_1_shield" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-113.0" translateY="97.0" />
+                  <Label fx:id="otherplayer_1_stone" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-150.0" translateY="97.0" />
+               </children>
+            </StackPane>
+         </children>
       </StackPane>
       <StackPane layoutX="990.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
-          <ImageView fx:id="otherplayer_2" fitHeight="265.0" fitWidth="372.0" layoutX="990.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-              <image>
+         <children>
+            <ImageView fx:id="otherplayer_011" fitHeight="265.0" fitWidth="372.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
                   <Image url="@../images/punchboard/boardFront.png" />
-              </image>
-          </ImageView>
+               </image>
+            </ImageView>
+            <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="255.0">
+               <children>
+                  <ImageView fx:id="otherplayer_2_warehouse_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="-136.0" translateY="-10.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_warehouse_1_0" fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-148.0" translateY="13.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_warehouse_1_1" fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-127.0" translateY="13.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_warehouse_2_2" fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-120.0" translateY="36.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_warehouse_2_1" fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-138.0" translateY="36.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_warehouse_2_0" fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-156.0" translateY="36.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-167.0" translateY="75.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-130.0" translateY="75.0">
+                     <image>
+                        <Image url="@../images/resources/servant.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-167.0" translateY="97.0">
+                     <image>
+                        <Image url="@../images/resources/stone.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="14.0" fitWidth="17.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-130.0" translateY="97.0">
+                     <image>
+                        <Image url="@../images/resources/shield.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_pope_0" fitHeight="33.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="-81.0" translateY="-81.0">
+                     <image>
+                        <Image url="@../images/punchboard/pope_favor1_front.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_pope_1" fitHeight="33.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="10.0" translateY="-100.0">
+                     <image>
+                        <Image url="@../images/punchboard/pope_favor2_front.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_pope_2" fitHeight="33.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" translateX="121.0" translateY="-81.0">
+                     <image>
+                        <Image url="@../images/punchboard/pope_favor3_front.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_1" fitHeight="25.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="-145.0" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_2" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-127.0" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_3" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-127.0" translateY="-92.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_4" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-127.0" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_5" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-109.0" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_6" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-90.7" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_7" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-72.4" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_8" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-54.1" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_9" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-35.8" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_10" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-35.8" translateY="-92.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_11" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-35.8" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_12" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-17.5" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_13" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="0.8" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_14" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="19.1" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_15" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="37.4" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_16" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="55.7" translateY="-74.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_17" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="55.7" translateY="-92.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_18" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="55.7" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_19" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="74.0" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_20" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="92.3" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_21" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="110.6" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_22" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="128.9" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_23" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="147.2" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_faith_24" fitHeight="25.0" fitWidth="17.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="165.5" translateY="-110.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_inkwell" fitHeight="41.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" translateX="-162.0" translateY="-112.0">
+                     <image>
+                        <Image url="@../images/punchboard/inkwell.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_cardslot_0_0" fitHeight="127.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="59.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_cardslot_0_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="42.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_cardslot_0_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="25.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_cardslot_1_0" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="59.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_cardslot_1_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="42.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_cardslot_1_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="25.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_cardslot_2_0" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="59.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_cardslot_2_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="42.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="otherplayer_2_cardslot_2_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="25.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="otherplayer_2_coin" text="##" textFill="WHITE" translateX="-150.0" translateY="75.0" />
+                  <Label fx:id="otherplayer_2_servant" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-113.0" translateY="75.0" />
+                  <Label fx:id="otherplayer_2_shield" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-113.0" translateY="97.0" />
+                  <Label fx:id="otherplayer_2_stone" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-150.0" translateY="97.0" />
+               </children>
+            </StackPane>
+         </children>
       </StackPane>
       <StackPane layoutX="388.0" layoutY="303.0" prefHeight="497.0" prefWidth="698.0" styleClass="board">
-          <ImageView fx:id="player" fitHeight="497.0" fitWidth="698.0" layoutX="388.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
-              <image>
+         <children>
+            <ImageView fx:id="otherplayer_012" fitHeight="497.0" fitWidth="698.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
                   <Image url="@../images/punchboard/boardFront.png" />
-              </image>
-          </ImageView>
+               </image>
+            </ImageView>
+            <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="698.0">
+               <children>
+                  <ImageView fx:id="player_warehouse_0" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="-255.0" translateY="-20.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_warehouse_1_0" fitHeight="26.0" fitWidth="32.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-275.0" translateY="24.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_warehouse_1_1" fitHeight="26.0" fitWidth="32.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-240.0" translateY="24.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_warehouse_2_2" fitHeight="26.0" fitWidth="32.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-227.0" translateY="70.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_warehouse_2_1" fitHeight="26.0" fitWidth="32.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-259.0" translateY="70.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_warehouse_2_0" fitHeight="26.0" fitWidth="32.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-290.0" translateY="70.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-310.0" translateY="140.0">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-248.0" translateY="140.0">
+                     <image>
+                        <Image url="@../images/resources/servant.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-310.0" translateY="180.0">
+                     <image>
+                        <Image url="@../images/resources/stone.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="26.0" fitWidth="32.0" layoutX="188.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true" translateX="-248.0" translateY="180.0">
+                     <image>
+                        <Image url="@../images/resources/shield.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_pope_0" fitHeight="62.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" translateX="-152.0" translateY="-151.0">
+                     <image>
+                        <Image url="@../images/punchboard/pope_favor1_front.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_pope_1" fitHeight="62.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="-187.0">
+                     <image>
+                        <Image url="@../images/punchboard/pope_favor2_front.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_pope_2" fitHeight="62.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" translateX="226.0" translateY="-151.0">
+                     <image>
+                        <Image url="@../images/punchboard/pope_favor3_front.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_1" fitHeight="47.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="-271.0" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_2" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-237.0" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_3" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-237.0" translateY="-172.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_4" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-237.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_5" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-203.5" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_6" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-170.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_7" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-136.5" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_8" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-103.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_9" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-69.5" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_10" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-69.5" translateY="-172.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_11" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-69.3" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_12" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="-34.0" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_13" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_14" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="34.0" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_15" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="68.0" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_16" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="103.0" translateY="-138.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_17" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="103.0" translateY="-172.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_18" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="103.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_19" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="137.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_20" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="172.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_21" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="207.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_22" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="241.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_23" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="275.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_faith_24" fitHeight="47.0" fitWidth="32.0" layoutX="188.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" translateX="310.0" translateY="-206.0">
+                     <image>
+                        <Image url="@../images/resources/faith.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_inkwell" fitHeight="77.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true" translateX="-303.0" translateY="-209.0">
+                     <image>
+                        <Image url="@../images/punchboard/inkwell.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_cardslot_0_0" fitHeight="237.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" translateX="-16.0" translateY="112.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_cardslot_0_1" fitHeight="237.0" fitWidth="125.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-16.0" translateY="80.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_cardslot_0_2" fitHeight="237.0" fitWidth="125.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-16.0" translateY="48.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_cardslot_1_0" fitHeight="237.0" fitWidth="125.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="118.0" translateY="112.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_cardslot_1_1" fitHeight="237.0" fitWidth="125.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="118.0" translateY="80.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_cardslot_1_2" fitHeight="237.0" fitWidth="125.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="118.0" translateY="48.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_cardslot_2_0" fitHeight="237.0" fitWidth="125.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="256.0" translateY="112.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_cardslot_2_1" fitHeight="237.0" fitWidth="125.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="256.0" translateY="80.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="player_cardslot_2_2" fitHeight="237.0" fitWidth="125.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="256.0" translateY="48.0">
+                     <image>
+                        <Image url="@../images/developmentCardsFront/development1.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="player_coin" text="##" textFill="WHITE" translateX="-280.0" translateY="140.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
+                  <Label fx:id="player_servant" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-218.0" translateY="140.0" />
+                  <Label fx:id="player_shield" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-218.0" translateY="180.0" />
+                  <Label fx:id="player_stone" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-280.0" translateY="180.0" />
+               </children>
+            </StackPane>
+         </children>
       </StackPane>
    </children>
 </Pane>
