@@ -32,12 +32,19 @@ public class GameController extends GUIController implements Initializable {
         BackgroundImage backgroundImage = new BackgroundImage(new Image("./images/table_background.jpg",1490.0,810.0,false,true),BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
         pane.setBackground(new Background(backgroundImage));
-        StackPane player = (StackPane) pane.lookup("#player");
-        player.getChildren().add(new ImageView(new Image("./images/punchboard/boardFront.png",698.0,497.0,true,true)));
+        //StackPane player = (StackPane) pane.lookup("#player");
+        //player.getChildren().add(new ImageView(new Image("./images/punchboard/boardFront.png",698.0,497.0,true,true)));
         for(int i = 0; i < 3; i++) {
-            StackPane otherPlayer = (StackPane) pane.lookup("#otherplayer_"+i);
-            otherPlayer.getChildren().add(new ImageView(new Image("./images/punchboard/boardBack.png", 372.0, 265.0, true, true)));
+            ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_"+i);
+            otherPlayer.setImage(new Image("./images/punchboard/boardFront.png", 372.0, 265.0, true, true));
         }
+
+        //otherPlayer.getChildren().removeAll();
+        //otherPlayer.getChildren().add(new ImageView(new Image("./images/punchboard/boardFront.png", 372.0, 265.0, true, true)));
+        ImageView img = (ImageView)pane.lookup("#otherplayer_0_warehouse_0");
+        img.setImage(new Image("./images/resources/stone.png",14.0,17.0,false,false));
+
+
 
 
     }
