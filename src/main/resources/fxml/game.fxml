@@ -97,22 +97,22 @@
                <image>
                   <Image url="@../images/leaderCardsFront/leader7.png" />
                </image></ImageView>
-            <ImageView fx:id="otherplayer_0_leader_0_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="50.0">
+            <ImageView fx:id="otherplayer_0_leader_0_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="50.0"  visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="otherplayer_0_leader_0_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="50.0">
+            <ImageView fx:id="otherplayer_0_leader_0_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="50.0"  visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="otherplayer_0_leader_1_0" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="182.0">
+            <ImageView fx:id="otherplayer_0_leader_1_0" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="182.0"  visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="otherplayer_0_leader_1_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="182.0">
+            <ImageView fx:id="otherplayer_0_leader_1_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="182.0"  visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
@@ -136,22 +136,22 @@
                <image>
                   <Image url="@../images/leaderCardsFront/leader1.png" />
                </image></ImageView>
-			<ImageView fx:id="otherplayer_1_leader_0_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="50.0">
+			<ImageView fx:id="otherplayer_1_leader_0_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="50.0"  visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="otherplayer_1_leader_0_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="50.0">
+            <ImageView fx:id="otherplayer_1_leader_0_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="50.0"  visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="otherplayer_1_leader_1_0" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="182.0">
+            <ImageView fx:id="otherplayer_1_leader_1_0" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="182.0"  visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="otherplayer_1_leader_1_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="182.0">
+            <ImageView fx:id="otherplayer_1_leader_1_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="182.0"  visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
@@ -175,22 +175,22 @@
                <image>
                   <Image url="@../images/leaderCardsFront/leader1.png" />
                </image></ImageView>
-			<ImageView fx:id="otherplayer_2_leader_0_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="50.0">
+			<ImageView fx:id="otherplayer_2_leader_0_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="50.0" visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="otherplayer_2_leader_0_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="50.0">
+            <ImageView fx:id="otherplayer_2_leader_0_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="50.0" visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="otherplayer_2_leader_1_0" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="182.0">
+            <ImageView fx:id="otherplayer_2_leader_1_0" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="19.0" translateY="182.0" visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="otherplayer_2_leader_1_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="182.0">
+            <ImageView fx:id="otherplayer_2_leader_1_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="182.0" visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
@@ -237,22 +237,22 @@
                   <Image url="@../images/leaderCardsFront/leader7.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="player_leader_0_0" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="12.0" translateY="75.0">
+            <ImageView fx:id="player_leader_0_0" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="12.0" translateY="75.0" visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="player_leader_0_1" fitHeight="26.0" fitWidth="32.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" translateX="61.5" translateY="75.0">
+            <ImageView fx:id="player_leader_0_1" fitHeight="26.0" fitWidth="32.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" translateX="61.5" translateY="75.0" visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="player_leader_1_0" fitHeight="26.0" fitWidth="32.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" translateX="157.0" translateY="75.0">
+            <ImageView fx:id="player_leader_1_0" fitHeight="26.0" fitWidth="32.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" translateX="157.0" translateY="75.0" visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="player_leader_1_1" fitHeight="26.0" fitWidth="32.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" translateX="207.0" translateY="75.0">
+            <ImageView fx:id="player_leader_1_1" fitHeight="26.0" fitWidth="32.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" translateX="207.0" translateY="75.0" visible="false">
                <image>
                   <Image url="@../images/resources/coin.png" />
                </image>

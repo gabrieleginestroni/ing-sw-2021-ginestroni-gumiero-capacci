@@ -198,9 +198,14 @@ public class CLI extends View{
             personalMatrix[i] = "      Faith Track: ";
             i++;
             for(int j = 0; j < playerView.getFaithTrackMarker(); j++)
-                personalMatrix[i] += "█";
+                personalMatrix[i] += ConsoleColors.colorMap.get("RED") + "+" + ConsoleColors.colorMap.get("RESET");
             for(int j = playerView.getFaithTrackMarker(); j < 24; j++)
                 personalMatrix[i] += "░";
+            supportMatrix[i] = 1;
+
+            //padding
+            for (int h = 24; h < maxWidth; h++)
+                personalMatrix[i] += " ";
             i++;
 
             //card slot
@@ -599,6 +604,38 @@ public class CLI extends View{
         return matrix;
     }
 
+
+    //lorenzo status
+    private String[] buildLorenzoCLI(LorenzoView lorenzoView, int lines) {
+        String[] matrix = new String[lines];
+        Arrays.fill(matrix, " ");
+        //10 blank rows to start
+        int i = 15;
+
+        //display Faith Track
+        matrix[i] = "Lorenzo";
+        i++;
+
+        matrix[i] = "      Faith Track: ";
+        i++;
+        matrix[i] = "    ";
+        for(int j = 0; j < lorenzoView.getBlackCrossMarker(); j++)
+            matrix[i] += ConsoleColors.colorMap.get("BLACK") + "+" + ConsoleColors.colorMap.get("RESET");
+
+        for(int j = lorenzoView.getBlackCrossMarker(); j < 24; j++)
+            matrix[i] += "░";
+        i+=3;
+
+        //display last Lorenzo action
+        String lastAction = lorenzoView.getLastDrawnActionToken();
+        if(lastAction != null) {
+            matrix[i] = "      Last Lorenzo action: ";
+            i++;
+            matrix[i] = "    "+lastAction;
+        }
+        return matrix;
+    }
+
     //proposing 4 leader card to chose
     private void build4Leaders(int[] proposedLeaderCards){
         String[] matrix = new String[6];
@@ -630,6 +667,9 @@ public class CLI extends View{
         String[][] otherMatrix = new String[3][];
         int i = 0;
 
+        String[] lorenzoMatrix = new String[maxLines];
+        Arrays.fill(lorenzoMatrix, "");
+
         if(otherBoardsView != null) {
             for (BoardView otherPlayerView : otherBoardsView) {
                 if (otherPlayerView != null) {
@@ -639,7 +679,8 @@ public class CLI extends View{
                     i++;
                 }
             }
-        }
+        }else if(lorenzoView != null)
+            lorenzoMatrix = buildLorenzoCLI(lorenzoView, lines);
 
         String[] gameMatrix = buildGameCLI(lines);
         //TO CLEAR CONSOLE?
@@ -652,7 +693,7 @@ public class CLI extends View{
                 str += personalMatrix[i];
             else
                 str += " ".repeat(maxWidth);
-            str += gameMatrix[i];
+            str += gameMatrix[i]+lorenzoMatrix[i];
             if(otherBoardsView != null)
                 for(int j = 0; j < otherBoardsView.size(); j++){
                     if(otherMatrix[j].length > i)

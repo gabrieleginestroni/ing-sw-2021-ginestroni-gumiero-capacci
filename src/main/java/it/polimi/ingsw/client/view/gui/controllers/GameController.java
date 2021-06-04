@@ -32,13 +32,13 @@ public class GameController extends GUIController implements Initializable {
         //player.getChildren().add(new ImageView(new Image("./images/punchboard/boardFront.png",698.0,497.0,true,true)));
         for(int i = 0; i < 3; i++) {
             ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_"+i);
-            otherPlayer.setImage(new Image("./images/punchboard/boardFront.png", 372.0, 265.0, true, true));
+            otherPlayer.setImage(new Image("./images/punchboard/boardFront.png"));
         }
 
         //otherPlayer.getChildren().removeAll();
         //otherPlayer.getChildren().add(new ImageView(new Image("./images/punchboard/boardFront.png", 372.0, 265.0, true, true)));
         ImageView img = (ImageView)pane.lookup("#otherplayer_0_warehouse_0_0");
-        img.setImage(new Image("./images/resources/stone.png",14.0,17.0,false,false));
+        img.setImage(new Image("./images/resources/stone.png"));
 
 
 
@@ -48,6 +48,7 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitBoardsUpdate() {
+
         //updating player board
         BoardView player = view.getPersonalBoardView();
         //updating strongbox
@@ -55,6 +56,7 @@ public class GameController extends GUIController implements Initializable {
             Label label = (Label)pane.lookup("#player_"+strongbox.getKey().toLowerCase());
             label.setText(strongbox.getValue().toString());
         }
+
         //updating warehouse
         List<String> warehouseDepotResource = player.getWarehouseDepotResource();
         List<Integer> warehouseDepotQuantity = player.getWarehouseDepotQuantity();
@@ -62,7 +64,7 @@ public class GameController extends GUIController implements Initializable {
             for(int j = 0 ; j <= i; j++){
                 ImageView resImg =(ImageView) pane.lookup("#player_warehouse_"+i+"_"+j);
                 if(j < warehouseDepotQuantity.get(i)) {
-                    resImg.setImage(new Image("./images/resources/" + warehouseDepotResource.get(i).toLowerCase() + ".png", 32, 26, true, true));
+                    resImg.setImage(new Image("./images/resources/" + warehouseDepotResource.get(i).toLowerCase() + ".png"));
                     resImg.setVisible(true);
                 } else
                     resImg.setVisible(false);
@@ -80,7 +82,7 @@ public class GameController extends GUIController implements Initializable {
                     for(int j = 0; j < 2; j++ ) {
                         ImageView resImg = (ImageView) pane.lookup("#player_leader_" + i + "_"+j);
                         if(j < leaderDepotQuantity.get(offset)){
-                            resImg.setImage(new Image("./images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png", 32, 26, true, true));
+                            resImg.setImage(new Image("./images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png"));
                             resImg.setVisible(true);
                         } else
                             resImg.setVisible(false);
@@ -95,20 +97,22 @@ public class GameController extends GUIController implements Initializable {
         for(int i = 0; i < 2; i++){
             ImageView leaderImg = (ImageView) pane.lookup("#player_hidden_"+i);
             if(i < player.getHiddenHand().size()){
-                leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getHiddenHand().get(i) + ".png", 126, 193, false, true));
+                leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getHiddenHand().get(i) + ".png"));
                 leaderImg.setVisible(true);
             } else
                 leaderImg.setVisible(false);
         }
+
         //updating active hand
         for(int i = 0; i < 2; i++){
             ImageView leaderImg = (ImageView) pane.lookup("#player_leader_"+i);
             if(i < player.getActiveLeaders().size()){
-                leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getActiveLeaders().get(i) + ".png", 126, 193, false, true));
+                leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getActiveLeaders().get(i) + ".png"));
                 leaderImg.setVisible(true);
             } else
                 leaderImg.setVisible(false);
         }
+
         //updating faith
         for(int i = 1; i < 25; i++){
             ImageView cellImg = (ImageView) pane.lookup("#player_faith_"+i);
@@ -117,6 +121,7 @@ public class GameController extends GUIController implements Initializable {
             else
                 cellImg.setVisible(false);
         }
+
         // updating pope tiles
         boolean[] popes = player.getPopeTiles();
         for(int i = 0; i < 3; i++){
@@ -126,13 +131,14 @@ public class GameController extends GUIController implements Initializable {
             else
                 popeImg.setVisible(false);
         }
+
         // updating card slots
         ArrayList<Integer>[] cardslots = player.getCardSlot();
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
                 ImageView devImg = (ImageView) pane.lookup("#player_cardslot_"+i+"_"+j);
                 if(j < cardslots[i].size()){
-                    devImg.setImage(new Image("./images/developmentCardsFront/development" + cardslots[i].get(j) + ".png", 125, 237, true, true));
+                    devImg.setImage(new Image("./images/developmentCardsFront/development" + cardslots[i].get(j) + ".png"));
                     devImg.setVisible(true);
                 } else
                     devImg.setVisible(false);
@@ -141,88 +147,94 @@ public class GameController extends GUIController implements Initializable {
 
         //updating other boards
         List<BoardView> otherPlayers = view.getOtherBoardsView();
-        int playerIndex = 0;
+        if(otherPlayers != null){
+            int playerIndex = 0;
+            for(BoardView otherPlayer:otherPlayers){
 
-        for(BoardView otherPlayer:otherPlayers){
-            //updating strongbox
-            for(Map.Entry<String,Integer> strongbox: otherPlayer.getStrongBox().entrySet()){
-                Label label = (Label)pane.lookup("#otherplayer_"+playerIndex+"_"+strongbox.getKey().toLowerCase());
-                label.setText(strongbox.getValue().toString());
-            }
-            //updating warehouse
-            warehouseDepotResource = otherPlayer.getWarehouseDepotResource();
-            warehouseDepotQuantity = otherPlayer.getWarehouseDepotQuantity();
-            for(int i = 0; i < 3; i++) {
-                for(int j = 0 ; j <= i; j++){
-                    ImageView resImg =(ImageView) pane.lookup("#otherplayer_"+playerIndex+"_warehouse_"+i+"_"+j);
-                    if(j < warehouseDepotQuantity.get(i)) {
-                        resImg.setImage(new Image("./images/resources/" + warehouseDepotResource.get(i).toLowerCase() + ".png", 32, 26, true, true));
-                        resImg.setVisible(true);
-                    } else
-                        resImg.setVisible(false);
+                //updating strongbox
+                for(Map.Entry<String,Integer> strongbox: otherPlayer.getStrongBox().entrySet()){
+                    Label label = (Label)pane.lookup("#otherplayer_"+playerIndex+"_"+strongbox.getKey().toLowerCase());
+                    label.setText(strongbox.getValue().toString());
                 }
-            }
 
-            // updating leader depot resource
-             leaderDepotResource = otherPlayer.getLeaderDepotResource();
-             leaderDepotQuantity = otherPlayer.getLeaderDepotQuantity();
-             activeLeaders = otherPlayer.getActiveLeaders();
-             offset = 0;
-            if(activeLeaders != null) {
-                for (int i = 0; i < 2; i++){
-                    if(i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("depots")){
-                        for(int j = 0; j < 2; j++ ) {
-                            ImageView resImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_leader_" + i + "_"+j);
-                            if(j < leaderDepotQuantity.get(offset)){
-                                resImg.setImage(new Image("./images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png", 32, 26, true, true));
-                                resImg.setVisible(true);
-                            } else
-                                resImg.setVisible(false);
-                        }
-                        offset++;
+                //updating warehouse
+                warehouseDepotResource = otherPlayer.getWarehouseDepotResource();
+                warehouseDepotQuantity = otherPlayer.getWarehouseDepotQuantity();
+                for(int i = 0; i < 3; i++) {
+                    for(int j = 0 ; j <= i; j++){
+                        ImageView resImg =(ImageView) pane.lookup("#otherplayer_"+playerIndex+"_warehouse_"+i+"_"+j);
+                        if(j < warehouseDepotQuantity.get(i)) {
+                            resImg.setImage(new Image("./images/resources/" + warehouseDepotResource.get(i).toLowerCase() + ".png"));
+                            resImg.setVisible(true);
+                        } else
+                            resImg.setVisible(false);
                     }
                 }
-            }
 
-            //updating active hand
-            for(int i = 0; i < 2; i++){
-                ImageView leaderImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_leader_"+i);
-                if(i < otherPlayer.getActiveLeaders().size()){
-                    leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + otherPlayer.getActiveLeaders().get(i) + ".png", 126, 193, false, true));
-                    leaderImg.setVisible(true);
-                } else
-                    leaderImg.setVisible(false);
-            }
-            //updating faith
-            for(int i = 1; i < 25; i++){
-                ImageView cellImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_faith_"+i);
-                if(i == otherPlayer.getFaithTrackMarker())
-                    cellImg.setVisible(true);
-                else
-                    cellImg.setVisible(false);
-            }
-            // updating pope tiles
-            popes = otherPlayer.getPopeTiles();
-            for(int i = 0; i < 3; i++){
-                ImageView popeImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_pope_"+i);
-                if(popes[i])
-                    popeImg.setVisible(true);
-                else
-                    popeImg.setVisible(false);
-            }
-            // updating card slots
-            cardslots = otherPlayer.getCardSlot();
-            for(int i = 0; i < 3; i++){
-                for(int j = 0; j < 3; j++){
-                    ImageView devImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_cardslot_"+i+"_"+j);
-                    if(j < cardslots[i].size()){
-                        devImg.setImage(new Image("./images/developmentCardsFront/development" + cardslots[i].get(j) + ".png", 125, 237, true, true));
-                        devImg.setVisible(true);
-                    } else
-                        devImg.setVisible(false);
+                // updating leader depot resource
+                 leaderDepotResource = otherPlayer.getLeaderDepotResource();
+                 leaderDepotQuantity = otherPlayer.getLeaderDepotQuantity();
+                 activeLeaders = otherPlayer.getActiveLeaders();
+                 offset = 0;
+                if(activeLeaders != null) {
+                    for (int i = 0; i < 2; i++){
+                        if(i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("depots")){
+                            for(int j = 0; j < 2; j++ ) {
+                                ImageView resImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_leader_" + i + "_"+j);
+                                if(j < leaderDepotQuantity.get(offset)){
+                                    resImg.setImage(new Image("./images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png"));
+                                    resImg.setVisible(true);
+                                } else
+                                    resImg.setVisible(false);
+                            }
+                            offset++;
+                        }
+                    }
                 }
+
+                //updating active hand
+                for(int i = 0; i < 2; i++){
+                    ImageView leaderImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_leader_"+i);
+                    if(i < otherPlayer.getActiveLeaders().size()){
+                        leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + otherPlayer.getActiveLeaders().get(i) + ".png"));
+                        leaderImg.setVisible(true);
+                    } else
+                        leaderImg.setVisible(false);
+                }
+
+                //updating faith
+                for(int i = 1; i < 25; i++){
+                    ImageView cellImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_faith_"+i);
+                    if(i == otherPlayer.getFaithTrackMarker())
+                        cellImg.setVisible(true);
+                    else
+                        cellImg.setVisible(false);
+                }
+
+                // updating pope tiles
+                popes = otherPlayer.getPopeTiles();
+                for(int i = 0; i < 3; i++){
+                    ImageView popeImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_pope_"+i);
+                    if(popes[i])
+                        popeImg.setVisible(true);
+                    else
+                        popeImg.setVisible(false);
+                }
+
+                // updating card slots
+                cardslots = otherPlayer.getCardSlot();
+                for(int i = 0; i < 3; i++){
+                    for(int j = 0; j < 3; j++){
+                        ImageView devImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_cardslot_"+i+"_"+j);
+                        if(j < cardslots[i].size()){
+                            devImg.setImage(new Image("./images/developmentCardsFront/development" + cardslots[i].get(j) + ".png"));
+                            devImg.setVisible(true);
+                        } else
+                            devImg.setVisible(false);
+                    }
+                }
+                playerIndex++;
             }
-            playerIndex++;
         }
     }
 
@@ -250,7 +262,7 @@ public class GameController extends GUIController implements Initializable {
                 path = "discard2Purple";
             else if (token.contains("Yellow"))
                 path = "discard2Yellow";
-            tokenImg.setImage(new Image("./images/punchboard/" + path + ".png", 45, 45, true, true));
+            tokenImg.setImage(new Image("./images/punchboard/" + path + ".png"));
             tokenImg.setVisible(true);
         } else
             tokenImg.setVisible(false);
@@ -262,11 +274,11 @@ public class GameController extends GUIController implements Initializable {
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 4; j++){
                 ImageView marbleImg = (ImageView) pane.lookup("#marble_"+i+"_"+j);
-                marbleImg.setImage(new Image("./images/marbles/" + market[i][j].toLowerCase() + "Marble.png", 38, 34, true, true));
+                marbleImg.setImage(new Image("./images/marbles/" + market[i][j].toLowerCase() + "Marble.png"));
             }
         }
         ImageView marbleImg = (ImageView) pane.lookup("#freemarble");
-        marbleImg.setImage(new Image("./images/marbles/" + view.getMarketView().getFreeMarble().toLowerCase() + "Marble.png", 38, 34, true, true));
+        marbleImg.setImage(new Image("./images/marbles/" + view.getMarketView().getFreeMarble().toLowerCase() + "Marble.png"));
 
     }
 
@@ -274,16 +286,17 @@ public class GameController extends GUIController implements Initializable {
     public void visitInkwell(String nickname) {
 
         List<BoardView> otherPlayers = view.getOtherBoardsView();
-        int playerIndex = 0;
-        ImageView inkwellImg;
-
+            int playerIndex = 0;
+            ImageView inkwellImg;
         if (view.getNickname().equals(nickname)) {   //player gets inkwell
             inkwellImg = (ImageView) pane.lookup("#player_inkwell");
             inkwellImg.setVisible(true);
-            for (BoardView otherPlayer : otherPlayers) {
-                inkwellImg = (ImageView) pane.lookup("#otherplayer_" + playerIndex + "_inkwell");
-                inkwellImg.setVisible(false);
-                playerIndex++;
+            if(otherPlayers != null) {
+                for (BoardView otherPlayer : otherPlayers) {
+                    inkwellImg = (ImageView) pane.lookup("#otherplayer_" + playerIndex + "_inkwell");
+                    inkwellImg.setVisible(false);
+                    playerIndex++;
+                }
             }
         } else {                  //other player gets inkwell
             inkwellImg = (ImageView) pane.lookup("#player_inkwell");
@@ -334,12 +347,12 @@ public class GameController extends GUIController implements Initializable {
     public void visitGameStarted(String str) {
         if (view.getOtherBoardsView() != null) {
             for (int i = 0; i < view.getOtherBoardsView().size(); i++) {
-                StackPane otherPlayer = (StackPane) pane.lookup("#otherplayer_" + i);
-                otherPlayer.getChildren().removeAll();
-                otherPlayer.getChildren().add(new ImageView(new Image("./images/punchboard/boardFront.png", 372.0, 265.0, true, true)));
+                ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_" + i);
+                otherPlayer.setImage(new Image("./images/punchboard/boardFront.png"));
             }
         }
     }
+
     @Override
     public void visitInitialResource(int quantity) {
 

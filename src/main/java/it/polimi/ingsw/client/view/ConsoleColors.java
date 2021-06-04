@@ -17,6 +17,7 @@ public class ConsoleColors {
         put("PURPLE", "\033[0;35m");
         put("WHITE", "\033[0;37m");
         put("GREY", "\033[0;30m");
+        put("BLACK", "\033[0;30m");
     }}; //grey actually black
 
 
