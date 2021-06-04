@@ -22,8 +22,6 @@ public class CLI extends View{
 
     @Override
     public void showMessage(String str) {
-        //TODO move to visit method
-        buildCLI();
         if(str != null)
             System.out.println(str);
     }
@@ -85,6 +83,9 @@ public class CLI extends View{
                 personalMatrix[0] += "Your Board";
             else
                 personalMatrix[0] += playerView.getNickname()+"'s Board";
+
+            if(playerView.hasInkwell())
+                personalMatrix[0] += " Ӝ"; //16E4
 
             personalMatrix[1] += "Strongbox";
             //show resource in strongbox
@@ -198,7 +199,7 @@ public class CLI extends View{
             personalMatrix[i] = "      Faith Track: ";
             i++;
             for(int j = 0; j < playerView.getFaithTrackMarker(); j++)
-                personalMatrix[i] += ConsoleColors.colorMap.get("RED") + "+" + ConsoleColors.colorMap.get("RESET");
+                personalMatrix[i] += ConsoleColors.colorMap.get("RED") + ConsoleColors.resourceMap.get(Resource.FAITH) + ConsoleColors.colorMap.get("RESET");
             for(int j = playerView.getFaithTrackMarker(); j < 24; j++)
                 personalMatrix[i] += "░";
             supportMatrix[i] = 1;
@@ -620,7 +621,7 @@ public class CLI extends View{
         i++;
         matrix[i] = "    ";
         for(int j = 0; j < lorenzoView.getBlackCrossMarker(); j++)
-            matrix[i] += ConsoleColors.colorMap.get("BLACK") + "+" + ConsoleColors.colorMap.get("RESET");
+            matrix[i] += ConsoleColors.colorMap.get("BLACK") + ConsoleColors.resourceMap.get(Resource.FAITH) + ConsoleColors.colorMap.get("RESET");
 
         for(int j = lorenzoView.getBlackCrossMarker(); j < 24; j++)
             matrix[i] += "░";
@@ -654,54 +655,50 @@ public class CLI extends View{
         int lines = 55; //number of lines;
         int maxWidth = 32; //maxWidth of each line;
 
-        String[] personalMatrix;
-
-        if(this.personalBoardView != null)
+        if(this.personalBoardView != null) {
+            String[] personalMatrix;
             personalMatrix = buildPersonalBoardCLI(this.personalBoardView, lines, maxWidth);
-        else {
-            personalMatrix = new String[30];
-            Arrays.fill(personalMatrix, "");
-        }
 
-        int maxLines = personalMatrix.length;
-        String[][] otherMatrix = new String[3][];
-        int i = 0;
+            int maxLines = personalMatrix.length;
+            String[][] otherMatrix = new String[3][];
+            int i = 0;
 
-        String[] lorenzoMatrix = new String[maxLines];
-        Arrays.fill(lorenzoMatrix, "");
+            String[] lorenzoMatrix = new String[maxLines];
+            Arrays.fill(lorenzoMatrix, "");
 
-        if(otherBoardsView != null) {
-            for (BoardView otherPlayerView : otherBoardsView) {
-                if (otherPlayerView != null) {
-                    otherMatrix[i] = buildPersonalBoardCLI(otherPlayerView, lines, maxWidth);
-                    if(maxLines < otherMatrix[i].length)
-                        maxLines = otherMatrix[i].length;
-                    i++;
+            if (otherBoardsView != null) {
+                for (BoardView otherPlayerView : otherBoardsView) {
+                    if (otherPlayerView != null) {
+                        otherMatrix[i] = buildPersonalBoardCLI(otherPlayerView, lines, maxWidth);
+                        if (maxLines < otherMatrix[i].length)
+                            maxLines = otherMatrix[i].length;
+                        i++;
+                    }
                 }
+            } else if (lorenzoView != null)
+                lorenzoMatrix = buildLorenzoCLI(lorenzoView, lines);
+
+            String[] gameMatrix = buildGameCLI(lines);
+            //TO CLEAR CONSOLE?
+            //System.out.print("\033[H\033[2J");
+            //System.out.flush();
+
+            for (i = 0; i < maxLines; i++) {
+                String str = "";
+                if (personalMatrix.length > i)
+                    str += personalMatrix[i];
+                else
+                    str += " ".repeat(maxWidth);
+                str += gameMatrix[i] + lorenzoMatrix[i];
+                if (otherBoardsView != null)
+                    for (int j = 0; j < otherBoardsView.size(); j++) {
+                        if (otherMatrix[j].length > i)
+                            str += otherMatrix[j][i];
+                        else
+                            str += " ".repeat(maxWidth);
+                    }
+                System.out.println(str);
             }
-        }else if(lorenzoView != null)
-            lorenzoMatrix = buildLorenzoCLI(lorenzoView, lines);
-
-        String[] gameMatrix = buildGameCLI(lines);
-        //TO CLEAR CONSOLE?
-        //System.out.print("\033[H\033[2J");
-        //System.out.flush();
-
-        for (i = 0; i < maxLines; i++) {
-            String str = "";
-            if(personalMatrix.length > i)
-                str += personalMatrix[i];
-            else
-                str += " ".repeat(maxWidth);
-            str += gameMatrix[i]+lorenzoMatrix[i];
-            if(otherBoardsView != null)
-                for(int j = 0; j < otherBoardsView.size(); j++){
-                    if(otherMatrix[j].length > i)
-                        str += otherMatrix[j][i];
-                    else
-                        str += " ".repeat(maxWidth);
-                }
-            System.out.println(str);
         }
     }
 
@@ -715,12 +712,14 @@ public class CLI extends View{
 
             this.showMessage(this.otherBoardsView.toString());
         }
+        buildCLI();
     }
 
     @Override
     public void visitDevGridUpdate(String updatedGrid) {
         this.devGrid = gson.fromJson(updatedGrid, GridView.class);
         this.showMessage(this.devGrid.toString());
+        buildCLI();
     }
 
     @Override
@@ -736,12 +735,14 @@ public class CLI extends View{
     public void visitLorenzoUpdate(String updatedLorenzo) {
         this.lorenzoView = gson.fromJson(updatedLorenzo, LorenzoView.class);
         this.showMessage(lorenzoView.toString());
+        buildCLI();
     }
 
     @Override
     public void visitMarketUpdate(String updatedMarket) {
         this.marketView = gson.fromJson(updatedMarket, MarketView.class);
         this.showMessage(marketView.toString());
+        buildCLI();
     }
 
     @Override
