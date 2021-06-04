@@ -19,13 +19,13 @@ public abstract class GUIController {
         this.networkHandler = networkHandler;
     }
     //------------------updates of view internal state---------------------
-    public abstract void visitBoardsUpdate(GUI view);
+    public abstract void visitBoardsUpdate();
 
-    public abstract void visitLorenzoUpdate(GUI view);
+    public abstract void visitLorenzoUpdate();
 
-    public abstract void visitMarketUpdate(GUI view);
+    public abstract void visitMarketUpdate();
 
-    public abstract void visitDevGridUpdate(GUI view);
+    public abstract void visitDevGridUpdate();
 
     //--------------------- main menu updates---------------------------------
     public abstract void visitLobbyFull(String str);

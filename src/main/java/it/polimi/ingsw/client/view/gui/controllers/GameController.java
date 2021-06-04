@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view.gui.controllers;
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.client.view.BoardView;
 import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.client.view.GridView;
@@ -28,8 +29,6 @@ public class GameController extends GUIController implements Initializable {
         //TODO finalize
         int row=0;
         int col=0;
-        ImageView marble =(ImageView) market.lookup("#marble_"+row+"_"+col);
-        marble.setImage(new Image("./images/warehouse.png"));
 
         BackgroundImage backgroundImage = new BackgroundImage(new Image("./images/table_background.jpg",1490.0,810.0,false,true),BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
@@ -43,7 +42,7 @@ public class GameController extends GUIController implements Initializable {
 
         //otherPlayer.getChildren().removeAll();
         //otherPlayer.getChildren().add(new ImageView(new Image("./images/punchboard/boardFront.png", 372.0, 265.0, true, true)));
-        ImageView img = (ImageView)pane.lookup("#otherplayer_0_warehouse_0");
+        ImageView img = (ImageView)pane.lookup("#otherplayer_0_warehouse_0_0");
         img.setImage(new Image("./images/resources/stone.png",14.0,17.0,false,false));
 
 
@@ -53,7 +52,7 @@ public class GameController extends GUIController implements Initializable {
 
 
     @Override
-    public void visitBoardsUpdate(GUI view) {
+    public void visitBoardsUpdate() {
         //updating player board
         BoardView player = view.getPersonalBoardView();
         List<BoardView> otherPlayer = view.getOtherBoardsView();
@@ -82,7 +81,7 @@ public class GameController extends GUIController implements Initializable {
         for(int i = 0; i < 2; i++){
             ImageView leaderImg = (ImageView) pane.lookup("#player_hidden_"+i);
             if(i < player.getHiddenHand().size()){
-                leaderImg.setImage(new Image("./images/leaderCardsFront/" + player.getHiddenHand().get(i) + ".png", 126, 193, true, true));
+                leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getHiddenHand().get(i) + ".png", 126, 193, true, true));
                 leaderImg.setVisible(true);
             } else
                 leaderImg.setVisible(false);
@@ -91,7 +90,7 @@ public class GameController extends GUIController implements Initializable {
         for(int i = 0; i < 2; i++){
             ImageView leaderImg = (ImageView) pane.lookup("#player_leader_"+i);
             if(i < player.getActiveLeaders().size()){
-                leaderImg.setImage(new Image("./images/leaderCardsFront/" + player.getActiveLeaders().get(i) + ".png", 126, 193, true, true));
+                leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getActiveLeaders().get(i) + ".png", 126, 193, true, true));
                 leaderImg.setVisible(true);
             } else
                 leaderImg.setVisible(false);
@@ -119,7 +118,7 @@ public class GameController extends GUIController implements Initializable {
             for(int j = 0; j < 3; j++){
                 ImageView devImg = (ImageView) pane.lookup("#player_cardslot_"+i+"_"+j);
                 if(j < cardslots[i].size()){
-                    devImg.setImage(new Image("./images/developmentCardsFront/" + cardslots[i].get(j) + ".png", 125, 237, true, true));
+                    devImg.setImage(new Image("./images/developmentCardsFront/development" + cardslots[i].get(j) + ".png", 125, 237, true, true));
                     devImg.setVisible(true);
                 } else
                     devImg.setVisible(false);
@@ -129,7 +128,7 @@ public class GameController extends GUIController implements Initializable {
     }
 
     @Override
-    public void visitLorenzoUpdate(GUI view) {
+    public void visitLorenzoUpdate() {
         for(int i = 1; i < 25; i++){
             ImageView cellImg = (ImageView) pane.lookup("#lorenzo_faith_"+i);
             if(i == view.getLorenzoView().getBlackCrossMarker())
@@ -156,7 +155,7 @@ public class GameController extends GUIController implements Initializable {
     }
 
     @Override
-    public void visitMarketUpdate(GUI view) {
+    public void visitMarketUpdate() {
         String[][] market = view.getMarketView().getMarket();
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 4; j++){
@@ -170,7 +169,7 @@ public class GameController extends GUIController implements Initializable {
     }
 
     @Override
-    public void visitDevGridUpdate(GUI view) {
+    public void visitDevGridUpdate() {
 
     }
 

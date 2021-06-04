@@ -150,22 +150,22 @@ public class LoginController extends GUIController {
 
     //--------------------------------------------------------------------------------------------------------------
     @Override
-    public void visitBoardsUpdate(GUI view) {
+    public void visitBoardsUpdate() {
 
     }
 
     @Override
-    public void visitLorenzoUpdate(GUI view) {
+    public void visitLorenzoUpdate() {
 
     }
 
     @Override
-    public void visitMarketUpdate(GUI view) {
+    public void visitMarketUpdate() {
 
     }
 
     @Override
-    public void visitDevGridUpdate(GUI view) {
+    public void visitDevGridUpdate() {
 
     }
 

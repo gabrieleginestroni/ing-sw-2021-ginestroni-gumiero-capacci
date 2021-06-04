@@ -187,7 +187,7 @@
        </ImageView>
          <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="255.0">
             <children>
-               <ImageView fx:id="otherplayer_0_warehouse_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="-136.0" translateY="-10.0">
+               <ImageView fx:id="otherplayer_0_warehouse_0_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="-136.0" translateY="-10.0">
                   <image>
                      <Image url="@../images/resources/coin.png" />
                   </image></ImageView>
@@ -431,14 +431,14 @@
        </StackPane>
       <StackPane layoutX="500.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
          <children>
-            <ImageView fx:id="otherplayer_01" fitHeight="265.0" fitWidth="372.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="otherplayer_1" fitHeight="265.0" fitWidth="372.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/punchboard/boardFront.png" />
                </image>
             </ImageView>
             <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="255.0">
                <children>
-                  <ImageView fx:id="otherplayer_1_warehouse_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="-136.0" translateY="-10.0">
+                  <ImageView fx:id="otherplayer_1_warehouse_0_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="-136.0" translateY="-10.0">
                      <image>
                         <Image url="@../images/resources/coin.png" />
                      </image>
@@ -683,14 +683,14 @@
       </StackPane>
       <StackPane layoutX="990.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
          <children>
-            <ImageView fx:id="otherplayer_011" fitHeight="265.0" fitWidth="372.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="otherplayer_2" fitHeight="265.0" fitWidth="372.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/punchboard/boardFront.png" />
                </image>
             </ImageView>
             <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="255.0">
                <children>
-                  <ImageView fx:id="otherplayer_2_warehouse_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="-136.0" translateY="-10.0">
+                  <ImageView fx:id="otherplayer_2_warehouse_0_0" fitHeight="14.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateX="-136.0" translateY="-10.0">
                      <image>
                         <Image url="@../images/resources/coin.png" />
                      </image>
@@ -935,14 +935,14 @@
       </StackPane>
       <StackPane layoutX="388.0" layoutY="303.0" prefHeight="497.0" prefWidth="698.0" styleClass="board">
          <children>
-            <ImageView fx:id="otherplayer_012" fitHeight="497.0" fitWidth="698.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="player" fitHeight="497.0" fitWidth="698.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/punchboard/boardFront.png" />
                </image>
             </ImageView>
             <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="698.0">
                <children>
-                  <ImageView fx:id="player_warehouse_0" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="-255.0" translateY="-20.0">
+                  <ImageView fx:id="player_warehouse_0_0" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="-255.0" translateY="-20.0">
                      <image>
                         <Image url="@../images/resources/coin.png" />
                      </image>

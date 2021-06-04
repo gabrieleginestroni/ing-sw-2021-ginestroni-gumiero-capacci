@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view;
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.client.ClientGUI;
 import it.polimi.ingsw.client.NetworkHandler;
 import it.polimi.ingsw.client.view.gui.controllers.GUIController;
@@ -60,6 +61,8 @@ public class GUI extends View{
         stg.setScene(scene);
     }
 
+//---------------------LOGIN PHASE---------------------------------------------------------------
+
     @Override
     public void showMessage(String str) {
 
@@ -93,16 +96,46 @@ public class GUI extends View{
         Platform.runLater(() -> controllersMap.get(LOGIN).visitRequestLobbySize(str));
     }
 
-    //-----------------------------------------------------------------------------------------
+    //---------------------UPDATES-------------------------------------------------------------
+
     @Override
     public void visitBoardsUpdate(String personalBoard, List<String> otherBoards) {
-
+        this.personalBoardView = new Gson().fromJson(personalBoard, BoardView.class);
+        if(otherBoards.size() != 0) {
+            this.otherBoardsView = new ArrayList<>();
+            otherBoards.forEach(s -> otherBoardsView.add(new Gson().fromJson(s, BoardView.class)));
+        }
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitBoardsUpdate());
     }
 
     @Override
     public void visitDevGridUpdate(String updatedGrid) {
-
+        this.devGrid = new Gson().fromJson(updatedGrid, GridView.class);
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitDevGridUpdate());
     }
+
+    @Override
+    public void visitLorenzoUpdate(String updatedLorenzo) {
+        this.lorenzoView = new Gson().fromJson(updatedLorenzo, LorenzoView.class);
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitLorenzoUpdate());
+    }
+
+    @Override
+    public void visitMarketUpdate(String updatedMarket) {
+        this.marketView = new Gson().fromJson(updatedMarket, MarketView.class);
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitMarketUpdate());
+    }
+
+    @Override
+    public void visitInkwell(String nickname) {
+        if(this.personalBoardView.getNickname().equals(nickname))
+            this.personalBoardView.setInkwell();
+        else
+            this.otherBoardsView.stream().filter(p -> p.getNickname().equals(nickname)).forEach(BoardView::setInkwell);
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitInkwell(nickname));
+    }
+
+//--------------------GAME PHASE--------------------------------------------------------------------------
 
     @Override
     public void visitGameStarted(String str) {
@@ -122,27 +155,12 @@ public class GUI extends View{
     }
 
     @Override
-    public void visitInkwell(String nickname) {
-
-    }
-
-    @Override
     public void visitLeaderProposal(int[] proposedLeaderCards) {
         //TODO TEST SCENE
         Platform.runLater(() -> {
             changeScene(scenesMap.get(SETUP_LEADER));
             controllersMap.get(SETUP_LEADER).visitLeaderProposal(proposedLeaderCards);
         });
-    }
-
-    @Override
-    public void visitLorenzoUpdate(String updatedLorenzo) {
-
-    }
-
-    @Override
-    public void visitMarketUpdate(String updatedMarket) {
-
     }
 
     @Override

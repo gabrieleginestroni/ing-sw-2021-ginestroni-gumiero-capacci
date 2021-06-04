@@ -39,11 +39,12 @@ public class SetupLeaderController extends GUIController {
                 i++;
             }
             this.networkHandler.sendMessage(new ChosenLeaderMessage(arr));
-            //TODO testing
-            //view.changeScene(view.scenesMap.get(GUI.SETUP_RESOURCE));
-            view.stg.setX(30);
-            view.stg.setY(0);
-            view.changeScene(view.scenesMap.get(GUI.MAIN_GUI));
+            GUI.stg.setX(30);
+            GUI.stg.setY(0);
+            if(view.getOtherBoardsView() != null)
+                view.changeScene(view.scenesMap.get(GUI.SETUP_RESOURCE));
+            else
+                view.changeScene(view.scenesMap.get(GUI.MAIN_GUI));
         });
     }
 
@@ -87,22 +88,22 @@ public class SetupLeaderController extends GUIController {
 //-----------------------------------------------------------------------------------
 
     @Override
-    public void visitBoardsUpdate(GUI view) {
+    public void visitBoardsUpdate() {
 
     }
 
     @Override
-    public void visitLorenzoUpdate(GUI view) {
+    public void visitLorenzoUpdate() {
 
     }
 
     @Override
-    public void visitMarketUpdate(GUI view) {
+    public void visitMarketUpdate() {
 
     }
 
     @Override
-    public void visitDevGridUpdate(GUI view) {
+    public void visitDevGridUpdate() {
 
     }
 //-------------------------------------------------------------------------------------
