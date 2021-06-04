@@ -33,7 +33,6 @@
                         <Font name="Gabriola" size="24.0" />
                     </font>
                 </Label>
-                <Button disable="true" layoutX="116.0" layoutY="405.0" mnemonicParsing="false" styleClass="button_custom" text="Send" />
                 <Label fx:id="leaderText" layoutX="119.0" layoutY="373.0">
                     <font>
                         <Font name="Gabriola" size="12.0" />
@@ -56,7 +55,64 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <StackPane fx:id="popUp" layoutX="36.0" layoutY="204.0" prefHeight="180.0" prefWidth="350.0" visible="false" />
+      <ImageView fx:id="depotImg0" fitHeight="40.0" fitWidth="40.0" layoutX="212.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+      <ImageView fx:id="depotImg1" fitHeight="40.0" fitWidth="40.0" layoutX="180.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+      <ImageView fx:id="depotImg2" fitHeight="40.0" fitWidth="40.0" layoutX="150.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+      <Rectangle fx:id="popUpEffect" arcHeight="5.0" arcWidth="5.0" height="588.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" visible="false" width="700.0" />
+      <StackPane fx:id="popUp" layoutX="74.0" layoutY="216.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="275.0" styleClass="image" visible="false">
+         <children>
+            <ImageView fitHeight="270.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
+               <image>
+                  <Image url="@../images/login_background.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="popUpMessage" graphicTextGap="0.0" prefHeight="62.0" prefWidth="238.0" text="Choose the resource you want to put in the selected depot" textAlignment="CENTER" textOverrun="CLIP" translateY="-40.0" wrapText="true">
+               <font>
+                  <Font name="Gabriola" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" translateX="-75.0" translateY="30.0">
+               <image>
+                  <Image url="@../images/resources/coin.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="128.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" translateX="-25.0" translateY="30.0">
+               <image>
+                  <Image url="@../images/resources/servant.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="128.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" translateX="25.0" translateY="30.0">
+               <image>
+                  <Image url="@../images/resources/shield.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="128.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" translateX="75.0" translateY="30.0">
+               <image>
+                  <Image url="@../images/resources/stone.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="coinButton" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="40.0" text="Button" translateX="-75.0" translateY="30.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="servantButton" layoutX="128.0" layoutY="76.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="40.0" text="Button" translateX="-25.0" translateY="30.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="stoneButton" layoutX="128.0" layoutY="76.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="40.0" text="Button" translateX="25.0" translateY="30.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="shieldButton" layoutX="128.0" layoutY="76.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="40.0" text="Button" translateX="75.0" translateY="30.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </StackPane>
     </children>
     <cursor>
         <Cursor fx:constant="DEFAULT" />
