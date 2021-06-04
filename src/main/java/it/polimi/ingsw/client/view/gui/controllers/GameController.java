@@ -1,10 +1,5 @@
 package it.polimi.ingsw.client.view.gui.controllers;
-
-import com.google.gson.Gson;
 import it.polimi.ingsw.client.view.BoardView;
-import it.polimi.ingsw.client.view.GUI;
-import it.polimi.ingsw.client.view.GridView;
-import it.polimi.ingsw.client.view.MarketView;
 import it.polimi.ingsw.server.model.Resource;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,7 +50,6 @@ public class GameController extends GUIController implements Initializable {
     public void visitBoardsUpdate() {
         //updating player board
         BoardView player = view.getPersonalBoardView();
-        List<BoardView> otherPlayer = view.getOtherBoardsView();
         //updating strongbox
         for(Map.Entry<String,Integer> strongbox: player.getStrongBox().entrySet()){
             Label label = (Label)pane.lookup("#player_"+strongbox.getKey().toLowerCase());
@@ -75,7 +69,27 @@ public class GameController extends GUIController implements Initializable {
             }
         }
 
-        //TODO leader depots
+        // updating leader depot resource
+        List<String> leaderDepotResource = player.getLeaderDepotResource();
+        List<Integer> leaderDepotQuantity = player.getLeaderDepotQuantity();
+        List<Integer> activeLeaders = player.getActiveLeaders();
+        int offset = 0;
+        if(activeLeaders != null) {
+            for (int i = 0; i < 2; i++){
+                if(i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("depots")){
+                    for(int j = 0; j < 2; j++ ) {
+                        ImageView resImg = (ImageView) pane.lookup("#player_leader_" + i + "_"+j);
+                        if(j < leaderDepotQuantity.get(offset)){
+                            resImg.setImage(new Image("./images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png", 32, 26, true, true));
+                            resImg.setVisible(true);
+                        } else
+                            resImg.setVisible(false);
+                    }
+                    offset++;
+                }
+            }
+        }
+
 
         //updating hidden hand
         for(int i = 0; i < 2; i++){
@@ -124,7 +138,92 @@ public class GameController extends GUIController implements Initializable {
                     devImg.setVisible(false);
            }
         }
-        //TODO other boards
+
+        //updating other boards
+        List<BoardView> otherPlayers = view.getOtherBoardsView();
+        int playerIndex = 0;
+
+        for(BoardView otherPlayer:otherPlayers){
+            //updating strongbox
+            for(Map.Entry<String,Integer> strongbox: otherPlayer.getStrongBox().entrySet()){
+                Label label = (Label)pane.lookup("#otherplayer_"+playerIndex+"_"+strongbox.getKey().toLowerCase());
+                label.setText(strongbox.getValue().toString());
+            }
+            //updating warehouse
+            warehouseDepotResource = otherPlayer.getWarehouseDepotResource();
+            warehouseDepotQuantity = otherPlayer.getWarehouseDepotQuantity();
+            for(int i = 0; i < 3; i++) {
+                for(int j = 0 ; j <= i; j++){
+                    ImageView resImg =(ImageView) pane.lookup("#otherplayer_"+playerIndex+"_warehouse_"+i+"_"+j);
+                    if(j < warehouseDepotQuantity.get(i)) {
+                        resImg.setImage(new Image("./images/resources/" + warehouseDepotResource.get(i).toLowerCase() + ".png", 32, 26, true, true));
+                        resImg.setVisible(true);
+                    } else
+                        resImg.setVisible(false);
+                }
+            }
+
+            // updating leader depot resource
+             leaderDepotResource = otherPlayer.getLeaderDepotResource();
+             leaderDepotQuantity = otherPlayer.getLeaderDepotQuantity();
+             activeLeaders = otherPlayer.getActiveLeaders();
+             offset = 0;
+            if(activeLeaders != null) {
+                for (int i = 0; i < 2; i++){
+                    if(i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("depots")){
+                        for(int j = 0; j < 2; j++ ) {
+                            ImageView resImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_leader_" + i + "_"+j);
+                            if(j < leaderDepotQuantity.get(offset)){
+                                resImg.setImage(new Image("./images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png", 32, 26, true, true));
+                                resImg.setVisible(true);
+                            } else
+                                resImg.setVisible(false);
+                        }
+                        offset++;
+                    }
+                }
+            }
+
+            //updating active hand
+            for(int i = 0; i < 2; i++){
+                ImageView leaderImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_leader_"+i);
+                if(i < otherPlayer.getActiveLeaders().size()){
+                    leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + otherPlayer.getActiveLeaders().get(i) + ".png", 126, 193, false, true));
+                    leaderImg.setVisible(true);
+                } else
+                    leaderImg.setVisible(false);
+            }
+            //updating faith
+            for(int i = 1; i < 25; i++){
+                ImageView cellImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_faith_"+i);
+                if(i == otherPlayer.getFaithTrackMarker())
+                    cellImg.setVisible(true);
+                else
+                    cellImg.setVisible(false);
+            }
+            // updating pope tiles
+            popes = otherPlayer.getPopeTiles();
+            for(int i = 0; i < 3; i++){
+                ImageView popeImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_pope_"+i);
+                if(popes[i])
+                    popeImg.setVisible(true);
+                else
+                    popeImg.setVisible(false);
+            }
+            // updating card slots
+            cardslots = otherPlayer.getCardSlot();
+            for(int i = 0; i < 3; i++){
+                for(int j = 0; j < 3; j++){
+                    ImageView devImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_cardslot_"+i+"_"+j);
+                    if(j < cardslots[i].size()){
+                        devImg.setImage(new Image("./images/developmentCardsFront/development" + cardslots[i].get(j) + ".png", 125, 237, true, true));
+                        devImg.setVisible(true);
+                    } else
+                        devImg.setVisible(false);
+                }
+            }
+            playerIndex++;
+        }
     }
 
     @Override
@@ -172,14 +271,39 @@ public class GameController extends GUIController implements Initializable {
     }
 
     @Override
+    public void visitInkwell(String nickname) {
+
+        List<BoardView> otherPlayers = view.getOtherBoardsView();
+        int playerIndex = 0;
+        ImageView inkwellImg;
+
+        if (view.getNickname().equals(nickname)) {   //player gets inkwell
+            inkwellImg = (ImageView) pane.lookup("#player_inkwell");
+            inkwellImg.setVisible(true);
+            for (BoardView otherPlayer : otherPlayers) {
+                inkwellImg = (ImageView) pane.lookup("#otherplayer_" + playerIndex + "_inkwell");
+                inkwellImg.setVisible(false);
+                playerIndex++;
+            }
+        } else {                  //other player gets inkwell
+            inkwellImg = (ImageView) pane.lookup("#player_inkwell");
+            inkwellImg.setVisible(false);
+            for (BoardView otherPlayer : otherPlayers) {
+                inkwellImg = (ImageView) pane.lookup("#otherplayer_" + playerIndex + "_inkwell");
+                if (otherPlayer.getNickname().equals(nickname))
+                    inkwellImg.setVisible(true);
+                else
+                    inkwellImg.setVisible(false);
+                playerIndex++;
+            }
+        }
+    }
+
+    @Override
     public void visitDevGridUpdate() {
 
     }
 
-    @Override
-    public void visitInkwell(String nickname) {
-
-    }
 
     @Override
     public void visitLobbyFull(String str) {
