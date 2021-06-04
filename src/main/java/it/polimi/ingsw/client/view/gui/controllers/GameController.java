@@ -81,7 +81,7 @@ public class GameController extends GUIController implements Initializable {
         for(int i = 0; i < 2; i++){
             ImageView leaderImg = (ImageView) pane.lookup("#player_hidden_"+i);
             if(i < player.getHiddenHand().size()){
-                leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getHiddenHand().get(i) + ".png", 126, 193, true, true));
+                leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getHiddenHand().get(i) + ".png", 126, 193, false, true));
                 leaderImg.setVisible(true);
             } else
                 leaderImg.setVisible(false);
@@ -90,7 +90,7 @@ public class GameController extends GUIController implements Initializable {
         for(int i = 0; i < 2; i++){
             ImageView leaderImg = (ImageView) pane.lookup("#player_leader_"+i);
             if(i < player.getActiveLeaders().size()){
-                leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getActiveLeaders().get(i) + ".png", 126, 193, true, true));
+                leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getActiveLeaders().get(i) + ".png", 126, 193, false, true));
                 leaderImg.setVisible(true);
             } else
                 leaderImg.setVisible(false);
@@ -137,21 +137,24 @@ public class GameController extends GUIController implements Initializable {
                 cellImg.setVisible(false);
         }
         String token = view.getLorenzoView().getLastDrawnActionToken();
-        String path = "shuffleActionToken";
-
         ImageView tokenImg = (ImageView) pane.lookup("#lorenzo_token");
-        if(token.contains("Added"))
-            path = "add2BlackCross";
-        else if(token.contains("Blue"))
-            path = "discard2Blue";
-        else if(token.contains("Green"))
-            path = "discard2Green";
-        else if(token.contains("Purple"))
-            path = "discard2Purple";
-        else if(token.contains("Yellow"))
-            path = "discard2Yellow";
-        tokenImg.setImage(new Image("./images/punchboard/" + path + ".png", 45, 45, true, true));
+        if(token != null) {
+            String path = "shuffleActionToken";
 
+            if (token.contains("Added"))
+                path = "add2BlackCross";
+            else if (token.contains("Blue"))
+                path = "discard2Blue";
+            else if (token.contains("Green"))
+                path = "discard2Green";
+            else if (token.contains("Purple"))
+                path = "discard2Purple";
+            else if (token.contains("Yellow"))
+                path = "discard2Yellow";
+            tokenImg.setImage(new Image("./images/punchboard/" + path + ".png", 45, 45, true, true));
+            tokenImg.setVisible(true);
+        } else
+            tokenImg.setVisible(false);
     }
 
     @Override
