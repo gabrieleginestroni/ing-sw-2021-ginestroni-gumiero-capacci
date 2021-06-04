@@ -1,10 +1,8 @@
 package it.polimi.ingsw.client.view.gui.controllers;
 
-import com.google.gson.Gson;
 import it.polimi.ingsw.server.messages.client_server.ChosenInitialResourcesMessage;
 import it.polimi.ingsw.server.model.Resource;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -50,9 +48,13 @@ public class SetupResourceController extends GUIController implements Initializa
     @FXML
     private ImageView depotImg0;
     @FXML
-    private ImageView depotImg1;
+    private ImageView depotImg1_0;
     @FXML
-    private ImageView depotImg2;
+    private ImageView depotImg1_1;
+    @FXML
+    private ImageView depotImg2_0;
+    @FXML
+    private ImageView depotImg2_1;
 
     private int requestedQty;
     private int chosenQty;
@@ -71,35 +73,37 @@ public class SetupResourceController extends GUIController implements Initializa
     public void chooseResource(int res){
         if(chosenQty == 0) {
             resMap.put(res, chosenDepot);
-            this.setChosenRes(res, chosenDepot);
+            this.setChosenRes(res, chosenDepot, 0);
             chosenQty++;
         }
         else{
-            Integer prevDepot = resMap.get(res);
-            if(prevDepot != null){
-                if(prevDepot != chosenDepot){
-                    popUpMessage.setTextFill(new Color(1, 0, 0, 1));
-                    popUpMessage.setText("Wrong choice, please retry");
-                }else {
-                    if(prevDepot == 0){
-                        popUpMessage.setTextFill(new Color(1, 0, 0, 1));
-                        popUpMessage.setText("Wrong choice, please retry");
-                    }else
-                        chosenQty++;
+            for(Map.Entry<Integer,Integer> entry : resMap.entrySet()){
+                if(entry.getKey() == res && entry.getValue() == chosenDepot && (chosenDepot == 1 || chosenDepot == 2)) {
+                    this.setChosenRes(res, chosenDepot, 1);
+                    chosenQty++;
                 }
-            }else {
-                resMap.put(res, chosenDepot);
-                chosenQty++;
+                else if(entry.getKey() != res && chosenDepot != entry.getValue()){
+                    resMap.put(res,chosenDepot);
+                    this.setChosenRes(res, chosenDepot, 0);
+                    chosenQty++;
+                }
             }
         }
 
-        if(chosenQty == requestedQty)
+        this.disablePopUp();
+
+        if(chosenQty == requestedQty) {
+            message.setTextFill(new Color(0, 0, 0, 1));
+            message.setText("Please wait for other players");
             networkHandler.sendMessage(new ChosenInitialResourcesMessage(resMap));
-        else
-            this.disablePopUp();
+        }else{
+            String s = requestedQty > 1? "s" : "";
+            message.setTextFill(new Color(0, 0, 0, 1));
+            message.setText("Choose "+ requestedQty +" resource" + s + " and the depot where to store it");
+        }
     }
 
-    private void setChosenRes(int res, int dep){
+    private void setChosenRes(int res, int dep, int col){
         String str = "";
         switch(res){
             case 0:
@@ -122,19 +126,27 @@ public class SetupResourceController extends GUIController implements Initializa
                 depotImg0.setVisible(true);
                 break;
             case 1:
-                depotImg1.setImage(new Image("./images/resources/" + str + ".png"));
-                depotImg1.setVisible(true);
+                if(col == 0){
+                    depotImg1_0.setImage(new Image("./images/resources/" + str + ".png"));
+                    depotImg1_0.setVisible(true);
+                }else{
+                    depotImg1_1.setImage(new Image("./images/resources/" + str + ".png"));
+                    depotImg1_1.setVisible(true);
+                }
                 break;
             case 2:
-                depotImg2.setImage(new Image("./images/resources/" + str + ".png"));
-                depotImg2.setVisible(true);
+                if(col == 0){
+                    depotImg2_0.setImage(new Image("./images/resources/" + str + ".png"));
+                    depotImg2_0.setVisible(true);
+                }else{
+                    depotImg2_1.setImage(new Image("./images/resources/" + str + ".png"));
+                    depotImg2_1.setVisible(true);
+                }
                 break;
         }
-
     }
 
     private void disablePopUp(){
-        popUpMessage.setTextFill(new Color(0, 0, 0, 1));
         popUpEffect.setVisible(false);
         popUp.setVisible(false);
     }
@@ -164,10 +176,10 @@ public class SetupResourceController extends GUIController implements Initializa
 
     @Override
     public void visitInitialResource(int quantity) {
-        String s = quantity > 1? "s" : "";
-        message.setText("Choose "+ quantity +" resource" + s + " and the depot where to store it");
-
         requestedQty = quantity;
+
+        String s = requestedQty > 1? "s" : "";
+        message.setText("Choose "+ requestedQty +" resource" + s + " and the depot where to store it");
 
         depot0.setOnAction(ActionEvent -> Platform.runLater(()-> chooseDepot(0)));
         depot1.setOnAction(ActionEvent -> Platform.runLater(()-> chooseDepot(1)));
