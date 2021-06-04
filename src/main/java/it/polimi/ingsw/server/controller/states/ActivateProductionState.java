@@ -22,9 +22,15 @@ public class ActivateProductionState implements MultiplayerState {
             if(productionIndex != 6) {
                 controller.getVirtualView().productionAction(controller.getCurrentPlayer().getNickname(), null);
             }else {
-                if (!controller.getMediator().isMainActionDone()) {
-                    controller.setCurrentState(controller.getMainActionState());
-                    controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), "Please do a main action");
+                if (!controller.getMediator().isMainActionDone()) { //this means that no production has been correctly activated
+                    if(controller.getMediator().isLeaderActionDone()) {
+                        controller.setCurrentState(controller.getMainActionState());
+                        controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), "Please do a main action");
+                    } else {
+                        controller.setCurrentState(controller.getStartTurnState());
+                        controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(),null);
+                    }
+
                 } else {
                     if (!controller.getMediator().isLeaderActionDone()) {
                         controller.setCurrentState(controller.getMiddleTurnState());

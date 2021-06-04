@@ -15,8 +15,13 @@ public class SoloActivateProductionState extends ActivateProductionState impleme
                 controller.getVirtualView().productionAction(controller.getCurrentPlayer().getNickname(), null);
             }else {
                 if (!controller.getMediator().isMainActionDone()) {
-                    controller.setCurrentState(controller.getMainActionState());
-                    controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), "Please do a main action");
+                    if(controller.getMediator().isLeaderActionDone()) {
+                        controller.setCurrentState(controller.getMainActionState());
+                        controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), "Please do a main action");
+                    } else {
+                        controller.setCurrentState(controller.getStartTurnState());
+                        controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(),null);
+                    }
                 } else {
                     if (controller.isGameOver()) {
                         controller.setCurrentState(controller.getEndGameState());

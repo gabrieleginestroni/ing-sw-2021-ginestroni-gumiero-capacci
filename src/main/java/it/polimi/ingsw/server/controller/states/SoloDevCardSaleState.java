@@ -31,8 +31,13 @@ public class SoloDevCardSaleState extends DevCardSaleState implements SoloState 
             }
         } catch(invalidMoveException e) {
             System.out.println(controller.getCurrentPlayer().getNickname() + " " + e.getErrorMessage());
-            controller.setCurrentState(controller.getMainActionState());
-            controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(),e.getErrorMessage());
+            if(controller.getMediator().isLeaderActionDone()) {
+                controller.setCurrentState(controller.getMainActionState());
+                controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), e.getErrorMessage()+"\nPlease do a main action");
+            } else {
+                controller.setCurrentState(controller.getStartTurnState());
+                controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(),e.getErrorMessage());
+            }
         }
     }
 }

@@ -43,8 +43,13 @@ public class DevCardSaleState implements MultiplayerState {
             }
         } catch(invalidMoveException e) {
             System.out.println(controller.getCurrentPlayer().getNickname() + " " + e.getErrorMessage());
-            controller.setCurrentState(controller.getMainActionState());
-            controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(),e.getErrorMessage());
+            if(controller.getMediator().isLeaderActionDone()) {
+                controller.setCurrentState(controller.getMainActionState());
+                controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), e.getErrorMessage()+"\nPlease do a main action");
+            } else {
+                controller.setCurrentState(controller.getStartTurnState());
+                controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(),e.getErrorMessage());
+            }
         }
     }
 
@@ -70,7 +75,7 @@ public class DevCardSaleState implements MultiplayerState {
         } catch (emptyDevCardGridSlotSelectedException e) {
             throw new invalidMoveException("The selected grid slot is empty");
         }catch (ArrayIndexOutOfBoundsException e) {
-            throw new invalidMoveException("Please do a main action");
+            throw new invalidMoveException("");
         }
 
         Map<Resource,Integer> cost = card.getCost();
