@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1490.0" stylesheets="@/stylesheets/developmentStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.DevelopmentController">
    <center>
@@ -139,6 +143,23 @@
       <Button fx:id="buyButton" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" styleClass="button_custom" text="Select Card" translateX="-200.0" BorderPane.alignment="CENTER" />
    </right>
    <left>
-      <Button fx:id="changeSceneButton" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" styleClass="button_custom" text="Back" translateX="200.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="222.0" fitWidth="178.0" layoutX="-54.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" translateX="280.0">
+               <image>
+                  <Image url="@../images/wooden_sign_reversed.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="293.0" layoutY="354.0" text="BACK" translateX="-3.0">
+               <font>
+                  <Font name="Cambria Bold" size="21.0" />
+               </font></Label>
+            <Button fx:id="changeSceneButton" layoutX="229.0" layoutY="339.0" mnemonicParsing="false" opacity="0.0" prefHeight="56.0" prefWidth="164.0" text="Button">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </Pane>
    </left>
 </BorderPane>

@@ -35,7 +35,7 @@ public class GameController extends GUIController implements Initializable {
             otherPlayer.setImage(new Image("./images/punchboard/boardBack.png"));
         }
 
-        changeSceneButton.setOnMouseClicked(actionEvent -> Platform.runLater(()-> view.changeScene(view.scenesMap.get(GUI.DEVELOPMENT))));
+        changeSceneButton.setOnAction(actionEvent -> Platform.runLater(()-> view.changeScene(view.scenesMap.get(GUI.DEVELOPMENT))));
 
 
     }

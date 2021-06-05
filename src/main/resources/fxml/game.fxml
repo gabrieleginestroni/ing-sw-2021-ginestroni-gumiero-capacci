@@ -1405,9 +1405,9 @@
             <Image url="@../images/wooden_sign.png" />
          </image>
       </ImageView>
-      <Label layoutX="14.0" layoutY="658.0" text="DEVELOPMENT GRID" translateX="3.0">
+      <Label layoutX="14.0" layoutY="658.0" text="DEVELOPMENT GRID" translateX="2.0">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="Cambria Bold" size="13.0" />
          </font>
       </Label>
       <Button fx:id="changeSceneButton" layoutX="10.0" layoutY="645.0" mnemonicParsing="false" opacity="0.0" prefHeight="47.0" prefWidth="132.0" text="Button">
