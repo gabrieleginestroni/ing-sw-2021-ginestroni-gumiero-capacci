@@ -19,14 +19,16 @@ public class SwapState implements MultiplayerState,SoloState {
                     if(dep1 == dep2)
                         throw new invalidMoveException("Cannot swap same depot");
                     controller.getCurrentPlayer().getBoard().swapDepot(dep1, dep2);
-                    controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(),null);
+                    String nextRes = null;
+                    if(!controller.getMediator().getMarketResources().isEmpty())
+                        nextRes = "(Picked resource: "+ controller.getMediator().getMarketResources().entrySet().iterator().next().getKey()+")";
+                    controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(),nextRes);
                 } catch (invalidSwapException e) {
                     throw new invalidMoveException("Cannot swap warehouse depot " + dep1 + " with warehouse depot " + dep2);
                 }
             } else {
                 controller.setCurrentState(controller.getResourceManagementState());
                 controller.getResourceManagementState().visitResourceManagementState(null,controller);
-
             }
         } catch(invalidMoveException e) {
             controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(),e.getErrorMessage());

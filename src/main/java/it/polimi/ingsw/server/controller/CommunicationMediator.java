@@ -33,7 +33,7 @@ public class CommunicationMediator {
         marketResources = new HashMap<>();
         productionHistory = new ArrayList<>();
         this.playerWon = false;
-        this.chosenDepot = -2;
+        this.chosenDepot = -3;
         this.marketStateEnded = false;
     }
 
@@ -68,7 +68,7 @@ public class CommunicationMediator {
         marketResources = new HashMap<>();
         productionHistory = new ArrayList<>();
         this.playerWon = false;
-        this.chosenDepot = -2;
+        this.chosenDepot = -3;
         this.marketStateEnded = false;
     }
 
@@ -94,6 +94,7 @@ public class CommunicationMediator {
     public void discardWhiteMarbles(){
         marketResources.remove(Resource.WHITE);
     }
+
     public void substitute1WhiteMarble(Resource res){
         if(marketResources.containsKey(Resource.WHITE)){
             int oldWhiteMarble = marketResources.get(Resource.WHITE);

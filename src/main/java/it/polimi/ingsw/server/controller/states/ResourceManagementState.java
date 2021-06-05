@@ -18,34 +18,37 @@ public class ResourceManagementState implements MultiplayerState {
         try{
             commonVisit(errorMessage,controller);
             int chosenDepot = controller.getMediator().getChosenDepot();
-            if(chosenDepot == -1){ //discard
-                controller.othersPlayers().stream().forEach(p -> {
-                    int activatedSection = p.getBoard().giveFaithPoints(1);
-                    if(activatedSection != -1)
-                        controller.getModel().vaticanReport(activatedSection);
-                });
-            }
-            if(controller.getMediator().isMarketStateEnded()) { //market action not ended
-                if(!controller.getMediator().isLeaderActionDone()){ //player can do a leader action
-                    controller.setCurrentState(controller.getMiddleTurnState());
-                    controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(),null);
-                } else { //player can't do a leader action
-                    controller.setCurrentState(controller.getEndTurnState());
-                    controller.getEndTurnState().visitEndTurnState(controller);
-                }
-            } else { //market action not ended
-                controller.getMediator().setChosenDepot(-2);
+            if(chosenDepot == -2){ //swap depot
                 controller.setCurrentState(controller.getSwapState());
                 String nextRes = null;
                 if(!controller.getMediator().getMarketResources().isEmpty())
-                    nextRes = "(Next resource: "+ controller.getMediator().getMarketResources().entrySet().iterator().next().getKey()+")";
+                    nextRes = "(Picked resource: "+ controller.getMediator().getMarketResources().entrySet().iterator().next().getKey()+")";
                 controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(),nextRes );
+            }else {
+                if (chosenDepot == -1) { //discard
+                    controller.othersPlayers().stream().forEach(p -> {
+                        int activatedSection = p.getBoard().giveFaithPoints(1);
+                        if (activatedSection != -1)
+                            controller.getModel().vaticanReport(activatedSection);
+                    });
+                }
+                if (controller.getMediator().isMarketStateEnded()) { //market action not ended
+                    if (!controller.getMediator().isLeaderActionDone()) { //player can do a leader action
+                        controller.setCurrentState(controller.getMiddleTurnState());
+                        controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
+                    } else { //player can't do a leader action
+                        controller.setCurrentState(controller.getEndTurnState());
+                        controller.getEndTurnState().visitEndTurnState(controller);
+                    }
+                } else {//market action not ended
+                    controller.getMediator().setChosenDepot(-3);
+                    controller.setCurrentState(controller.getResourceManagementState());
+                    controller.getResourceManagementState().visitResourceManagementState(null, controller);
+                }
             }
-
         } catch (invalidMoveException e) {
             controller.getResourceManagementState().visitResourceManagementState(e.getErrorMessage(),controller);
         }
-
     }
 
 
@@ -58,37 +61,38 @@ public class ResourceManagementState implements MultiplayerState {
             res = resMap.entrySet().iterator().next().getKey();
             int chosenDepot = controller.getVirtualView().proposeMarketResource(res,controller.getCurrentPlayer(),errorMessage);
             mediator.setChosenDepot(chosenDepot);
-            if(chosenDepot >= 0 && chosenDepot <= 4) {
-                if(chosenDepot <= 2){
-                    Resource resDepot = controller.getCurrentPlayer().getBoard().getWarehouseDepotResourceType(chosenDepot);
-                    if(resDepot != null && resDepot != res)
-                        throw new invalidMoveException("Cannot place resource "+res+" in warehouse depot containing "+resDepot);
-                    try {
-                        board.addWarehouseDepotResource(res,1,chosenDepot);
-
-                    } catch (addResourceLimitExceededException | duplicatedWarehouseTypeException | invalidResourceTypeException e) {
-                        throw new invalidMoveException("Invalid resource warehouse placement");
-                    }
-
-                }
-                if (chosenDepot == 3 || chosenDepot == 4) {
-                    try {
-                        Resource resDepot = controller.getCurrentPlayer().getBoard().getLeaderDepotResourceType(chosenDepot - 3);
-                        if (resDepot != res)
-                            throw new invalidMoveException("Wrong depot resource type, trying to place " + res + " into a " + resDepot + " depot");
+            if(chosenDepot > -2) {
+                if (chosenDepot >= 0 && chosenDepot <= 4) {
+                    if (chosenDepot <= 2) {
+                        Resource resDepot = controller.getCurrentPlayer().getBoard().getWarehouseDepotResourceType(chosenDepot);
+                        if (resDepot != null && resDepot != res)
+                            throw new invalidMoveException("Cannot place resource " + res + " in warehouse depot containing " + resDepot);
                         try {
-                            board.addLeaderDepotResource(res, 1, chosenDepot - 3);
+                            board.addWarehouseDepotResource(res, 1, chosenDepot);
 
-                        } catch (addResourceLimitExceededException | invalidResourceTypeException e) {
-                            throw new invalidMoveException("Invalid resource leader placement");
+                        } catch (addResourceLimitExceededException | duplicatedWarehouseTypeException | invalidResourceTypeException e) {
+                            throw new invalidMoveException("Invalid resource warehouse placement");
                         }
-                    } catch (IndexOutOfBoundsException e) {
-                        throw new invalidMoveException("Cannot place resource into a non-existing leader depot!");
+
+                    }
+                    if (chosenDepot == 3 || chosenDepot == 4) {
+                        try {
+                            Resource resDepot = controller.getCurrentPlayer().getBoard().getLeaderDepotResourceType(chosenDepot - 3);
+                            if (resDepot != res)
+                                throw new invalidMoveException("Wrong depot resource type, trying to place " + res + " into a " + resDepot + " depot");
+                            try {
+                                board.addLeaderDepotResource(res, 1, chosenDepot - 3);
+
+                            } catch (addResourceLimitExceededException | invalidResourceTypeException e) {
+                                throw new invalidMoveException("Invalid resource leader placement");
+                            }
+                        } catch (IndexOutOfBoundsException e) {
+                            throw new invalidMoveException("Cannot place resource into a non-existing leader depot!");
+                        }
                     }
                 }
+                mediator.remove1Resource(res);
             }
-
-            mediator.remove1Resource(res);
         } else {
             mediator.setMainActionDone();
             mediator.setMarketStateEnded();

@@ -1340,9 +1340,9 @@ public class CLI extends View{
             int depotIndex = -1;
             boolean success = false;
             while(!success){
-                showMessage("Choose depot to place "+res+" (-1 to discard, 0, 1, 2 for warehouse depots, 3, 4 for leader depots) ");
+                showMessage("Choose depot to place "+ res +" (-2 to swap depots, -1 to discard, 0 -> 2 for warehouse depots, 3 -> 4 for leader depots) ");
                 depotIndex = Integer.parseInt(scanner.nextLine().trim());
-                if(depotIndex >= -1 && depotIndex <= 4)
+                if(depotIndex >= -2 && depotIndex <= 4)
                     success = true;
             }
 
