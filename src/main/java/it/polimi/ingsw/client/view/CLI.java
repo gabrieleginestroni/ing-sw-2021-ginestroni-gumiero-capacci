@@ -899,15 +899,20 @@ public class CLI extends View{
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
         super.currentPlayer = currentPlayerNickname;
-        showMessage(errorMessage);
+
         if(this.nickname.equals(currentPlayerNickname)){
+            showMessage(errorMessage);
             int move = -1;
-            boolean success = false;
-            while(!success){
-                this.showMessage("Choose next action (0 -> main action, 1 -> leader action) ");
-                move = Integer.parseInt(scanner.nextLine().trim());
-                if(move >= 0 && move <= 1)
-                    success = true;
+            if(personalBoardView.getHiddenHand().isEmpty())
+                move = 0;
+            else {
+                boolean success = false;
+                while (!success) {
+                    this.showMessage("Choose next action (0 -> main action, 1 -> leader action) ");
+                    move = Integer.parseInt(scanner.nextLine().trim());
+                    if (move >= 0 && move <= 1)
+                        success = true;
+                }
             }
             this.networkHandler.sendMessage(new ChosenFirstMoveMessage(move));
 
@@ -1017,12 +1022,16 @@ public class CLI extends View{
         if(this.nickname.equals(currentPlayerNickname)){
             showMessage(errorMessage);
             int move = -1;
-            boolean success = false;
-            while(!success){
-                showMessage("Choose next action (0 -> skip leader action, 1 -> leader action ) ");
-                move = Integer.parseInt(scanner.nextLine().trim());
-                if(move >= 0 && move <= 1)
-                    success = true;
+            if(personalBoardView.getHiddenHand().isEmpty())
+                move = 0;
+            else {
+                boolean success = false;
+                while (!success) {
+                    showMessage("Choose next action (0 -> skip leader action, 1 -> leader action ) ");
+                    move = Integer.parseInt(scanner.nextLine().trim());
+                    if (move >= 0 && move <= 1)
+                        success = true;
+                }
             }
             this.networkHandler.sendMessage(new ChosenMiddleMoveMessage(move));
 
