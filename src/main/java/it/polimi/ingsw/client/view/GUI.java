@@ -20,6 +20,7 @@ public class GUI extends View{
     public static final String SETUP_RESOURCE = "setupResource.fxml";
     public static final String MAIN_GUI = "game.fxml";
     public static final String END_GAME = "endGame.fxml";
+    public static final String DEVELOPMENT = "development.fxml";
 
     public static Stage stg;
     public final Map<String, GUIController> controllersMap = new HashMap<>();
@@ -27,7 +28,7 @@ public class GUI extends View{
 
 
     public GUI() {
-        List<String> fxml = new ArrayList<>(Arrays.asList(SETUP_LEADER, SETUP_RESOURCE, MAIN_GUI, END_GAME));
+        List<String> fxml = new ArrayList<>(Arrays.asList(SETUP_LEADER, SETUP_RESOURCE, MAIN_GUI, END_GAME,DEVELOPMENT));
         try {
             for (String path : fxml) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + path));
