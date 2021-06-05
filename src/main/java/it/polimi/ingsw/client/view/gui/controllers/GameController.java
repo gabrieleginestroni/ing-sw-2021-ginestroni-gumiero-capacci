@@ -62,7 +62,7 @@ public class GameController extends GUIController implements Initializable {
                     resImg.setImage(new Image("./images/resources/" + warehouseDepotResource.get(i).toLowerCase() + ".png"));
                     resImg.setVisible(true);
                 } else
-                    resImg.setVisible(false);
+                    resImg.setImage(null);
             }
         }
 
@@ -80,7 +80,7 @@ public class GameController extends GUIController implements Initializable {
                             resImg.setImage(new Image("./images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png"));
                             resImg.setVisible(true);
                         } else
-                            resImg.setVisible(false);
+                            resImg.setImage(null);
                     }
                     offset++;
                 }
@@ -95,7 +95,7 @@ public class GameController extends GUIController implements Initializable {
                 leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getHiddenHand().get(i) + ".png"));
                 leaderImg.setVisible(true);
             } else
-                leaderImg.setVisible(false);
+                leaderImg.setImage(null);
         }
 
         //updating active hand
@@ -105,16 +105,18 @@ public class GameController extends GUIController implements Initializable {
                 leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getActiveLeaders().get(i) + ".png"));
                 leaderImg.setVisible(true);
             } else
-                leaderImg.setVisible(false);
+                leaderImg.setImage(null);
         }
 
         //updating faith
         for(int i = 1; i < 25; i++){
             ImageView cellImg = (ImageView) pane.lookup("#player_faith_"+i);
-            if(i == player.getFaithTrackMarker())
+            if(i == player.getFaithTrackMarker()) {
+                cellImg.setImage(new Image("./images/resources/faith.png"));
                 cellImg.setVisible(true);
+            }
             else
-                cellImg.setVisible(false);
+                cellImg.setImage(null);
         }
 
         // updating pope tiles
@@ -136,7 +138,7 @@ public class GameController extends GUIController implements Initializable {
                     devImg.setImage(new Image("./images/developmentCardsFront/development" + cardslots[i].get(j) + ".png"));
                     devImg.setVisible(true);
                 } else
-                    devImg.setVisible(false);
+                    devImg.setImage(null);
            }
         }
 
@@ -162,7 +164,7 @@ public class GameController extends GUIController implements Initializable {
                             resImg.setImage(new Image("./images/resources/" + warehouseDepotResource.get(i).toLowerCase() + ".png"));
                             resImg.setVisible(true);
                         } else
-                            resImg.setVisible(false);
+                            resImg.setImage(null);
                     }
                 }
 
@@ -180,7 +182,7 @@ public class GameController extends GUIController implements Initializable {
                                     resImg.setImage(new Image("./images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png"));
                                     resImg.setVisible(true);
                                 } else
-                                    resImg.setVisible(false);
+                                    resImg.setImage(null);
                             }
                             offset++;
                         }
@@ -194,16 +196,17 @@ public class GameController extends GUIController implements Initializable {
                         leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + otherPlayer.getActiveLeaders().get(i) + ".png"));
                         leaderImg.setVisible(true);
                     } else
-                        leaderImg.setVisible(false);
+                        leaderImg.setImage(null);
                 }
 
                 //updating faith
                 for(int i = 1; i < 25; i++){
                     ImageView cellImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_faith_"+i);
-                    if(i == otherPlayer.getFaithTrackMarker())
+                    if(i == otherPlayer.getFaithTrackMarker()) {
+                        cellImg.setImage(new Image("./images/resources/faith.png"));
                         cellImg.setVisible(true);
-                    else
-                        cellImg.setVisible(false);
+                    } else
+                        cellImg.setImage(null);
                 }
 
                 // updating pope tiles
@@ -225,7 +228,7 @@ public class GameController extends GUIController implements Initializable {
                             devImg.setImage(new Image("./images/developmentCardsFront/development" + cardslots[i].get(j) + ".png"));
                             devImg.setVisible(true);
                         } else
-                            devImg.setVisible(false);
+                            devImg.setImage(null);
                     }
                 }
                 playerIndex++;
@@ -237,10 +240,11 @@ public class GameController extends GUIController implements Initializable {
     public void visitLorenzoUpdate() {
         for(int i = 1; i < 25; i++){
             ImageView cellImg = (ImageView) pane.lookup("#lorenzo_faith_"+i);
-            if(i == view.getLorenzoView().getBlackCrossMarker())
+            if(i == view.getLorenzoView().getBlackCrossMarker()) {
+                cellImg.setImage(new Image("./images/punchboard/blackCross.png"));
                 cellImg.setVisible(true);
-            else
-                cellImg.setVisible(false);
+            } else
+                cellImg.setImage(null);
         }
         String token = view.getLorenzoView().getLastDrawnActionToken();
         ImageView tokenImg = (ImageView) pane.lookup("#lorenzo_token");
@@ -260,7 +264,7 @@ public class GameController extends GUIController implements Initializable {
             tokenImg.setImage(new Image("./images/punchboard/" + path + ".png"));
             tokenImg.setVisible(true);
         } else
-            tokenImg.setVisible(false);
+            tokenImg.setImage(null);
     }
 
     @Override

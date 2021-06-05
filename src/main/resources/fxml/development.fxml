@@ -30,110 +30,62 @@
          <children>
             <StackPane fx:id="dev_0_0" styleClass="image">
                <children>
-                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/developmentCardsFront/development1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
             <StackPane fx:id="dev_0_1" styleClass="image" GridPane.columnIndex="1">
                <children>
-                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/developmentCardsFront/development1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
             <StackPane fx:id="dev_0_2" styleClass="image" GridPane.columnIndex="2">
                <children>
-                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/developmentCardsFront/development1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
             <StackPane fx:id="dev_0_3" styleClass="image" GridPane.columnIndex="3">
                <children>
-                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/developmentCardsFront/development1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
             <StackPane fx:id="dev_1_0" styleClass="image" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/developmentCardsFront/development1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
             <StackPane fx:id="dev_1_1" styleClass="image" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/developmentCardsFront/development1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
             <StackPane fx:id="dev_1_2" styleClass="image" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/developmentCardsFront/development1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
             <StackPane fx:id="dev_1_3" styleClass="image" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
-                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/developmentCardsFront/development1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
             <StackPane fx:id="dev_2_0" styleClass="image" GridPane.rowIndex="2">
                <children>
-                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/developmentCardsFront/development1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
             <StackPane fx:id="dev_2_1" styleClass="image" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/developmentCardsFront/development1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
             <StackPane fx:id="dev_2_2" styleClass="image" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
-                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/developmentCardsFront/development1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
             <StackPane fx:id="dev_2_3" styleClass="image" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
-                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/developmentCardsFront/development1.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </StackPane>
          </children>
