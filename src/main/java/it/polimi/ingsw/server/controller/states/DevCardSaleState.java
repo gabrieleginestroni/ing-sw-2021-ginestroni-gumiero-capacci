@@ -116,46 +116,51 @@ public class DevCardSaleState implements MultiplayerState {
 
         //check if each resource to remove is inside the depot chosen
         for(Map.Entry<Integer, Map<Resource,Integer>> entry:resToRemove.entrySet()) {
-            Resource resourceToRemove = entry.getValue().keySet().stream().findFirst().orElseGet(null);
-            int quantityToRemove = entry.getValue().get(resourceToRemove);
-            if(entry.getKey() < 3) {
-                //warehouse depots
-                Resource resourceInDepot = board.getWarehouseDepotResourceType(entry.getKey());
-                if(resourceInDepot != resourceToRemove) {
-                    strError = "Error warehouse depot "+entry.getKey()+" of " + resourceInDepot + " not " + resourceToRemove;
-                    throw new invalidMoveException(strError);
-                }else{
-                    int quantityInDepot = board.getWarehouseDepotResourceNumber(entry.getKey());
-                    if(quantityInDepot < quantityToRemove) {
-                        strError = "Error quantity  " + quantityInDepot + " in warehouse depot "+entry.getKey()+", at least " + quantityToRemove;
+            //Resource resourceToRemove = entry.getValue().keySet().stream().findFirst().orElseGet(null);
+            //int quantityToRemove = entry.getValue().get(resourceToRemove);
+            for (Map.Entry<Resource, Integer> resEntry : entry.getValue().entrySet()){
+                int quantityToRemove = resEntry.getValue();
+                Resource resourceToRemove = resEntry.getKey();
+
+                if (entry.getKey() < 3) {
+                    //warehouse depots
+                    Resource resourceInDepot = board.getWarehouseDepotResourceType(entry.getKey());
+                    if (resourceInDepot != resourceToRemove) {
+                        strError = "Error warehouse depot " + entry.getKey() + " of " + resourceInDepot + " not " + resourceToRemove;
+                        throw new invalidMoveException(strError);
+                    } else {
+                        int quantityInDepot = board.getWarehouseDepotResourceNumber(entry.getKey());
+                        if (quantityInDepot < quantityToRemove) {
+                            strError = "Error quantity  " + quantityInDepot + " in warehouse depot " + entry.getKey() + ", at least " + quantityToRemove;
+                            throw new invalidMoveException(strError);
+                        }
+                    }
+                } else if (entry.getKey() < 5) {
+                    //leader depots
+                    Resource resourceInDepot;
+                    try {
+                        resourceInDepot = board.getLeaderDepotResourceType(entry.getKey() - 3);
+                    } catch (IndexOutOfBoundsException e) {
+                        strError = "Leader depot does not exist yet";
                         throw new invalidMoveException(strError);
                     }
-                }
-            }else if(entry.getKey() < 5){
-                //leader depots
-                Resource resourceInDepot;
-                try {
-                    resourceInDepot = board.getLeaderDepotResourceType(entry.getKey() - 3);
-                } catch (IndexOutOfBoundsException e){
-                    strError = "Leader depot does not exist yet";
-                    throw new invalidMoveException(strError);
-                }
-                if(resourceInDepot != resourceToRemove) {
-                    strError = "Error leader depot "+(entry.getKey()-3)+" of "+ resourceInDepot + " not " + resourceToRemove;
-                    throw new invalidMoveException(strError);
-                }else{
-                    int quantityInDepot = board.getLeaderDepotResourceNumber(entry.getKey()-3);
-                    if(quantityInDepot < quantityToRemove) {
-                        strError = "Error quantity  " + quantityInDepot + " in leader depot "+(entry.getKey()-3)+", at least " + quantityToRemove;
+                    if (resourceInDepot != resourceToRemove) {
+                        strError = "Error leader depot " + (entry.getKey() - 3) + " of " + resourceInDepot + " not " + resourceToRemove;
+                        throw new invalidMoveException(strError);
+                    } else {
+                        int quantityInDepot = board.getLeaderDepotResourceNumber(entry.getKey() - 3);
+                        if (quantityInDepot < quantityToRemove) {
+                            strError = "Error quantity  " + quantityInDepot + " in leader depot " + (entry.getKey() - 3) + ", at least " + quantityToRemove;
+                            throw new invalidMoveException(strError);
+                        }
+                    }
+                } else {
+                    //strongbox
+                    int quantityInStrongbox = board.getStrongBoxResource(resourceToRemove);
+                    if (quantityInStrongbox < quantityToRemove) {
+                        strError = "Error quantity  " + quantityInStrongbox + " in strongbox, at least " + quantityToRemove;
                         throw new invalidMoveException(strError);
                     }
-                }
-            }else{
-                //strongbox
-                int quantityInStrongbox = board.getStrongBoxResource(resourceToRemove);
-                if(quantityInStrongbox < quantityToRemove){
-                    strError = "Error quantity  " + quantityInStrongbox + " in strongbox, at least " + quantityToRemove;
-                    throw new invalidMoveException(strError);
                 }
             }
         }
@@ -163,14 +168,17 @@ public class DevCardSaleState implements MultiplayerState {
 
         try {
             for(Map.Entry<Integer, Map<Resource,Integer>> entry:resToRemove.entrySet()) {
-                Resource resourceToRemove = entry.getValue().keySet().stream().findFirst().orElseGet(null);
-                int quantityToRemove = entry.getValue().get(resourceToRemove);
-                if(entry.getKey() < 3)
-                    board.removeWarehouseDepotResource(resourceToRemove, quantityToRemove, entry.getKey());
-                else if(entry.getKey() < 5)
-                    board.removeLeaderDepotResource(resourceToRemove, quantityToRemove, entry.getKey()-3);
-                else
-                    board.removeStrongboxResource(resourceToRemove, quantityToRemove);
+                //Resource resourceToRemove = entry.getValue().keySet().stream().findFirst().orElseGet(null);
+                for(Map.Entry<Resource,Integer> resEntry:entry.getValue().entrySet()) {
+                    int quantityToRemove = resEntry.getValue();
+                    Resource resourceToRemove = resEntry.getKey();
+                    if (entry.getKey() < 3)
+                        board.removeWarehouseDepotResource(resourceToRemove, quantityToRemove, entry.getKey());
+                    else if (entry.getKey() < 5)
+                        board.removeLeaderDepotResource(resourceToRemove, quantityToRemove, entry.getKey() - 3);
+                    else
+                        board.removeStrongboxResource(resourceToRemove, quantityToRemove);
+                }
             }
 
             board.addDevelopmentCard(card, cardSlot);
