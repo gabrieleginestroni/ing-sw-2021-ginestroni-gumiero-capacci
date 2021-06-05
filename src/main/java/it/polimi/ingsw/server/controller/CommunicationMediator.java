@@ -3,7 +3,9 @@ package it.polimi.ingsw.server.controller;
 import com.google.gson.Gson;
 import it.polimi.ingsw.server.model.Resource;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CommunicationMediator {
@@ -14,6 +16,7 @@ public class CommunicationMediator {
     private boolean playerWon;
     private int chosenDepot;
     private boolean marketStateEnded;
+    private List<Integer> productionHistory;
 
     public boolean hasPlayerWon() {
         return playerWon;
@@ -28,9 +31,14 @@ public class CommunicationMediator {
         this.leaderActionDone = false;
         productionOutputs = new HashMap<>();
         marketResources = new HashMap<>();
+        productionHistory = new ArrayList<>();
         this.playerWon = false;
         this.chosenDepot = -2;
         this.marketStateEnded = false;
+    }
+
+    public List<Integer> getProductionHistory() {
+        return productionHistory;
     }
 
     public Map<Resource, Integer> getProductionOutputs() {
@@ -58,6 +66,7 @@ public class CommunicationMediator {
         this.leaderActionDone = false;
         productionOutputs = new HashMap<>();
         marketResources = new HashMap<>();
+        productionHistory = new ArrayList<>();
         this.playerWon = false;
         this.chosenDepot = -2;
         this.marketStateEnded = false;

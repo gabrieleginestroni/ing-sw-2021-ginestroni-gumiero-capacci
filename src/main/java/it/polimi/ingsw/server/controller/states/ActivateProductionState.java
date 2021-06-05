@@ -50,6 +50,9 @@ public class ActivateProductionState implements MultiplayerState {
         Player currentPlayer = controller.getCurrentPlayer();
         Board board = currentPlayer.getBoard();
 
+        if(controller.getMediator().getProductionHistory().contains(productionIndex))
+            throw new invalidMoveException("Cannot activate a production twice in the same turn!");
+
         if(chosenResource != null && chosenResource.equals(Resource.FAITH))
             throw new invalidMoveException("Cannot produce Faith Points!");
 
@@ -139,6 +142,7 @@ public class ActivateProductionState implements MultiplayerState {
 
                 controller.getMediator().addProductionOutputs(card.getProductionOutput());
                 controller.getMediator().setMainActionDone();
+                controller.getMediator().getProductionHistory().add(productionIndex);
             }
 
         }
@@ -205,6 +209,7 @@ public class ActivateProductionState implements MultiplayerState {
 
             controller.getMediator().addProductionOutputs(resMap);
             controller.getMediator().setMainActionDone();
+            controller.getMediator().getProductionHistory().add(productionIndex);
         }
 
         if(productionIndex == 5){
@@ -260,6 +265,7 @@ public class ActivateProductionState implements MultiplayerState {
 
             controller.getMediator().addProductionOutputs(resMap);
             controller.getMediator().setMainActionDone();
+            controller.getMediator().getProductionHistory().add(productionIndex);
         }
 
         if(productionIndex == 6){
