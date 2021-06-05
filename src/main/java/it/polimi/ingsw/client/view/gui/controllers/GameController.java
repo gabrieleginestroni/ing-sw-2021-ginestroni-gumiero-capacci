@@ -1,8 +1,11 @@
 package it.polimi.ingsw.client.view.gui.controllers;
 import it.polimi.ingsw.client.view.BoardView;
+import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.server.model.Resource;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +20,8 @@ public class GameController extends GUIController implements Initializable {
     private GridPane market;
     @FXML
     private Pane pane;
+    @FXML
+    private Button changeSceneButton;
 
 
     @Override
@@ -29,6 +34,8 @@ public class GameController extends GUIController implements Initializable {
             ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_"+i);
             otherPlayer.setImage(new Image("./images/punchboard/boardBack.png"));
         }
+
+        changeSceneButton.setOnMouseClicked(actionEvent -> Platform.runLater(()-> view.changeScene(view.scenesMap.get(GUI.DEVELOPMENT))));
 
 
     }

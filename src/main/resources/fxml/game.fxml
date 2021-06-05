@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -1398,5 +1400,19 @@
             <Image url="@../images/marbles/blueMarble.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="189.0" fitWidth="132.0" layoutX="14.0" layoutY="613.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/wooden_sign.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="14.0" layoutY="658.0" text="DEVELOPMENT GRID" translateX="3.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Button fx:id="changeSceneButton" layoutX="10.0" layoutY="645.0" mnemonicParsing="false" opacity="0.0" prefHeight="47.0" prefWidth="132.0" text="Button">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
    </children>
 </Pane>

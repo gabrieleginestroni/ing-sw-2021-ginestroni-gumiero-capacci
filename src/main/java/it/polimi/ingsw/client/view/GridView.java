@@ -24,4 +24,8 @@ public class GridView {
                 "grid=" + str +
                 '}';
     }
+
+    public int[][] getGrid() {
+        return grid;
+    }
 }

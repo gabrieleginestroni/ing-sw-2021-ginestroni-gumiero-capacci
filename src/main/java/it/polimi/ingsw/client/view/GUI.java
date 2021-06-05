@@ -112,7 +112,7 @@ public class GUI extends View{
     @Override
     public void visitDevGridUpdate(String updatedGrid) {
         this.devGrid = new Gson().fromJson(updatedGrid, GridView.class);
-        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitDevGridUpdate());
+        Platform.runLater(() -> controllersMap.get(DEVELOPMENT).visitDevGridUpdate());
     }
 
     @Override

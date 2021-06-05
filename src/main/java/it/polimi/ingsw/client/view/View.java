@@ -58,6 +58,7 @@ public abstract class View {
     public List<BoardView> getOtherBoardsView(){ return this.otherBoardsView;}
     public BoardView getPersonalBoardView(){ return this.personalBoardView;}
     public LorenzoView getLorenzoView(){ return this.lorenzoView;}
+    public GridView getDevGridView(){return this.devGrid;}
 
     public MarketView getMarketView() {
         return marketView;

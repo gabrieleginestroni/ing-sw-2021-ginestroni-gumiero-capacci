@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1490.0" stylesheets="@/stylesheets/developmentStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1490.0" stylesheets="@/stylesheets/developmentStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.DevelopmentController">
    <center>
       <GridPane maxHeight="701.0" maxWidth="625.0" minHeight="701.0" minWidth="625.0" prefHeight="701.0" prefWidth="625.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -33,7 +33,7 @@
                   </ImageView>
                </children>
             </StackPane>
-            <StackPane fx:id="dev_0_1" GridPane.columnIndex="1">
+            <StackPane fx:id="dev_0_1" styleClass="image" GridPane.columnIndex="1">
                <children>
                   <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -123,7 +123,7 @@
                   </ImageView>
                </children>
             </StackPane>
-            <StackPane fx:id="dev_2_4" styleClass="image" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <StackPane fx:id="dev_2_3" styleClass="image" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
                   <ImageView fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -136,9 +136,9 @@
       </GridPane>
    </center>
    <right>
-      <Button fx:id="buyButton" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" styleClass="button_custom2" text="Buy card" translateX="-200.0" BorderPane.alignment="CENTER" />
+      <Button fx:id="buyButton" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" styleClass="button_custom" text="Select Card" translateX="-200.0" BorderPane.alignment="CENTER" />
    </right>
    <left>
-      <Button fx:id="changeSceneButton" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" styleClass="button_custom1" text="Back" translateX="200.0" BorderPane.alignment="CENTER" />
+      <Button fx:id="changeSceneButton" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" styleClass="button_custom" text="Back" translateX="200.0" BorderPane.alignment="CENTER" />
    </left>
 </BorderPane>
