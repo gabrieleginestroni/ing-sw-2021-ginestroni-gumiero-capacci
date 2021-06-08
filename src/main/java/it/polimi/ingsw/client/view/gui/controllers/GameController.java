@@ -1,6 +1,8 @@
 package it.polimi.ingsw.client.view.gui.controllers;
 import it.polimi.ingsw.client.view.BoardView;
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.server.messages.client_server.ChosenFirstMoveMessage;
+import it.polimi.ingsw.server.messages.client_server.ChosenMainMoveMessage;
 import it.polimi.ingsw.server.model.Resource;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -27,6 +29,15 @@ public class GameController extends GUIController implements Initializable {
     private Rectangle popUpEffect;
     @FXML
     private StackPane popUp;
+    @FXML
+    private Button leftButton;
+    @FXML
+    private Button centerButton;
+    @FXML
+    private Button rightButton;
+    @FXML
+    private Label textMessage;
+
 
 
     @Override
@@ -34,7 +45,11 @@ public class GameController extends GUIController implements Initializable {
 
         BackgroundImage backgroundImage = new BackgroundImage(new Image("./images/table_background.jpg",1490.0,810.0,false,true),BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
+        BackgroundImage popupImage = new BackgroundImage(new Image("./images/login_background.png",390.0,240.0,false,true),BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
         pane.setBackground(new Background(backgroundImage));
+        popUp.setBackground(new Background(popupImage));
+
         for(int i = 0; i < 3; i++) {
             ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_"+i);
             otherPlayer.setImage(new Image("./images/punchboard/boardBack.png"));
@@ -338,9 +353,18 @@ public class GameController extends GUIController implements Initializable {
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
-            System.out.println("OK");
             popUpEffect.setVisible(true);
+
+            leftButton.setText("Main");
+            leftButton.setVisible(true);
+            leftButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenFirstMoveMessage(0)));
+            centerButton.setVisible(false);
+            rightButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenFirstMoveMessage(1)));
+            rightButton.setVisible(true);
             popUp.setVisible(true);
+
+        } else {
+            textMessage.setText(currentPlayerNickname+" is choosing starting turn");
         }
     }
 
@@ -424,7 +448,25 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
+        if(currentPlayerNickname.equals(view.getNickname())) {
+            popUpEffect.setVisible(true);
 
+            leftButton.setText("Market");
+            leftButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMainMoveMessage(0)));
+            leftButton.setVisible(true);
+
+            centerButton.setText("Purchase Card");
+            centerButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMainMoveMessage(1)));
+            centerButton.setVisible(true);
+
+            rightButton.setText("Production");
+            rightButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMainMoveMessage(2)));
+            rightButton.setVisible(true);
+
+            popUp.setVisible(true);
+        } else{
+            textMessage.setText(currentPlayerNickname+" is choosing main action");
+        }
     }
 
     @Override

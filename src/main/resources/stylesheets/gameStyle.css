@@ -28,10 +28,10 @@
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
     -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #5ce91d 0%, #349808 100%),
-            #50cc19,
+            linear-gradient(from 0% 93% to 0% 100%, #38a907 0%, #266809 100%),
+            #399810,
             #72fc35,
-            radial-gradient(center 50% 50%, radius 100%, #72fc35, #44a21b);
+            radial-gradient(center 50% 50%, radius 100%, #61D72D, #347B14);
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
@@ -39,10 +39,10 @@
 }
 .button_custom_0:hover {
     -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #5ce91d  0%, #349808 100%),
-            #50cc19,
+            linear-gradient(from 0% 93% to 0% 100%, #38a907  0%, #266809 100%),
+            #399810,
             #72fc35,
-            radial-gradient(center 50% 50%, radius 100%, #48e005 , #44a21b);
+            radial-gradient(center 50% 50%, radius 100%, #69ED2F , #347B14);
 }
 .button_custom_0:pressed {
     -fx-padding: 10 15 13 15;
@@ -53,10 +53,10 @@
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
     -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-            #9d4024,
-            #d86e3a,
-            radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+            linear-gradient(from 0% 93% to 0% 100%, #459CCE 0%, #0A689E 100%),
+            #1484C4,
+            #5BB8ED,
+            radial-gradient(center 50% 50%, radius 100%, #4DB4EF, #0A689E);
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
@@ -64,10 +64,10 @@
 }
 .button_custom_1:hover {
     -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #a3431 0%, #903b12 100%),
-            #9d4024,
-            #d86e3a,
-            radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
+            linear-gradient(from 0% 93% to 0% 100%, #459CCE 0%, #0A689E 100%),
+            #1484C4,
+            #5BB8ED,
+            radial-gradient(center 50% 50%, radius 100%, #66C6FD, #0A689E);
 }
 .button_custom_1:pressed {
     -fx-padding: 10 15 13 15;
@@ -102,5 +102,9 @@
 .board{
     -fx-background-color: #000000;
     -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 4, 4);
+}
+.image{
+    -fx-background-radius: 10;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 4, 4);
 }

@@ -901,12 +901,18 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Rectangle fx:id="popUpEffect" arcHeight="5.0" arcWidth="5.0" height="810.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" visible="false" width="1490.0" />
-      <StackPane fx:id="popUp" layoutX="545.0" layoutY="255.0" prefHeight="300.0" prefWidth="400.0" visible="false">
+      <StackPane layoutX="160.0" layoutY="592.0" styleClass="image">
          <children>
-            <Button fx:id="leftButton" mnemonicParsing="false" styleClass="button_custom_0" text="Button" translateX="-100.0" translateY="50.0" />
-            <Button fx:id="centerButton" layoutX="184.0" layoutY="148.0" mnemonicParsing="false" styleClass="button_custom_1" text="Button" translateY="50.0" />
-            <Button fx:id="rightButton" layoutX="184.0" layoutY="148.0" mnemonicParsing="false" styleClass="button_custom_2" text="Button" translateX="100.0" translateY="50.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffba1f" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+            <Label fx:id="textMessage" prefHeight="170.0" prefWidth="176.0" text="Label" textAlignment="CENTER" visible="false" wrapText="true" />
+         </children>
+      </StackPane>
+      <Rectangle fx:id="popUpEffect" arcHeight="5.0" arcWidth="5.0" height="810.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" visible="false" width="1490.0" />
+      <StackPane fx:id="popUp" layoutX="545.0" layoutY="255.0" prefHeight="250.0" prefWidth="400.0" styleClass="image" visible="false">
+         <children>
+            <Button fx:id="leftButton" mnemonicParsing="false" styleClass="button_custom_0" text="Button" translateX="-130.0" translateY="50.0" />
+            <Button fx:id="centerButton" layoutX="184.0" layoutY="148.0" mnemonicParsing="false" styleClass="button_custom_1" text="Button" translateX="-5.0" translateY="50.0" />
+            <Button fx:id="rightButton" layoutX="184.0" layoutY="148.0" mnemonicParsing="false" styleClass="button_custom_2" text="Button" translateX="130.0" translateY="50.0" />
          </children>
       </StackPane>
    </children>

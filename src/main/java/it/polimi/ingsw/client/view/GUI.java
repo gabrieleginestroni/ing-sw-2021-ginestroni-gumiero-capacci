@@ -188,12 +188,13 @@ public class GUI extends View{
 
     @Override
     public void visitLeaderAction(String currentPlayerNickname) {
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitLeaderAction(currentPlayerNickname));
 
     }
 
     @Override
     public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
-
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitMainActionState(currentPlayerNickname, errorMessage));
     }
 
     @Override
