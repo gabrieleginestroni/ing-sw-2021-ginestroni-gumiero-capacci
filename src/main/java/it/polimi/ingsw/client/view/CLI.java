@@ -376,16 +376,14 @@ public class CLI extends View{
 
         try {
             if (this.devGrid != null) {
-                //filter string to get only card ids from every line, separated by a space each
-                String[] tmp = this.devGrid.toString().replaceAll("[^0-9 \n]", "").trim().replaceAll(" +", " ").split("\n");
-                for (String row : tmp) {
-                    String[] cardIds = row.trim().split(" ");
+                int[][] cardGrid = this.devGrid.getGrid();
+                for (int[] row : cardGrid) {
                     int iStart = i; //line where to start building the card(same for all the cards of same level)
-                    for(String id : cardIds){
+                    for(int id : row){
                         i = iStart;
                         int[] max = new int[50]; //support array to count length of line
                         Arrays.fill(max, 0);
-                        DevelopmentCard card = this.getDevelopmentCardByID(Integer.parseInt(id));
+                        DevelopmentCard card = this.getDevelopmentCardByID(id);
                         if(card != null) {
                             String cardTypeColor = "   " + ConsoleColors.colorMap.get(card.getType().toString()) + "█" + ConsoleColors.colorMap.get("RESET");
 
@@ -400,8 +398,9 @@ public class CLI extends View{
                                 gameMatrix[i] += " ";
                             //gameMatrix[i] += "  ";
                             gameMatrix[i] += " N." + id; //debug
-                            max[i] += id.length() + 1;
-                            max[i] += 7;
+                            if(id >= 10)
+                                max[i]++;
+                            max[i] += 9;
 
                             //second row, card cost
                             i++;
@@ -484,6 +483,63 @@ public class CLI extends View{
                 for(int j = 0; j < maxSize + 8; j++)
                     gameMatrix[i] += " ";
 
+                String[][] market = this.marketView.getMarket();
+                int dimMax = 2;
+                String dot;
+                for (int a = 0; a < market.length; a++) { //every market row
+
+                    //padding start of every row
+                    for(int c = 0; c <= 2 * dimMax; c++){
+                        if(c < dimMax)
+                            gameMatrix[i + c] = " ".repeat(10 + dimMax - c);
+                        else
+                            gameMatrix[i + c] = " ".repeat(10 + c - dimMax);
+                    }
+
+                    for (int b = 0; b < market[a].length; b++) { //every market column
+                        dot = ConsoleColors.colorMap.get(market[a][b].toUpperCase()) + "█" + ConsoleColors.colorMap.get("RESET");
+                        /*
+                        *  Marble example, add 2 █ every line until middle then decrease
+                        *    ██
+                        *   ████
+                        *  ██████
+                        *   ████
+                        *    ██
+                        */
+                        for(int c = 0; c <= 2 * dimMax; c++) {
+                            if(c < dimMax)
+                                gameMatrix[i + c] += dot.repeat(2 * (c + 1)) + " ".repeat(5 + 2 * (dimMax - c));
+                            else
+                                gameMatrix[i + c] += dot.repeat(2 * (2 * dimMax - c + 1)) + " ".repeat(5 + 2 * (c - dimMax));
+                        }
+                    }
+
+                    //padding end of every row, add free marble in middle row
+                    dot = ConsoleColors.colorMap.get(this.marketView.getFreeMarble().toUpperCase()) + "█" + ConsoleColors.colorMap.get("RESET");
+                    for(int c = 0; c <= 2 * dimMax; c++){
+                        if(a != 1) {
+                            if (c < dimMax)
+                                gameMatrix[i + c] += " ".repeat(20 + c);
+                            else
+                                gameMatrix[i + c] += " ".repeat(20 + (dimMax * 2 - c));
+                        }else {
+                            if (c < dimMax){
+                                gameMatrix[i + c] += " ".repeat(14);
+                                gameMatrix[i + c] += dot.repeat(2 * (c + 1)) + " ".repeat(2 * (dimMax - c));
+                                gameMatrix[i + c] += " ".repeat(c);
+                            }else {
+                                gameMatrix[i + c] += " ".repeat(14);
+                                gameMatrix[i + c] += dot.repeat(2 * (2 * dimMax - c + 1))+ " ".repeat(2 * (c - dimMax));
+                                gameMatrix[i + c] += " ".repeat(dimMax * 2 - c);
+                            }
+                        }
+                    }
+                    i += dimMax*2 +1;
+                    gameMatrix[i] = " ".repeat(67); //blank line
+                    i++;
+                }
+
+/* OLD MARKET VERSION
                 //parsing market to have a list of color for every row separated by a space
                 tmp = this.marketView.toString().toUpperCase().replaceAll(" +", " ").split("\n");
                 int a = 0; //counter to avoid writing first line
@@ -499,6 +555,7 @@ public class CLI extends View{
                     }
                     a++;
                 }
+*/
             }
         }catch (Exception e){
             //OK
@@ -689,7 +746,7 @@ public class CLI extends View{
                     str += personalMatrix[i];
                 else
                     str += " ".repeat(maxWidth);
-                str += gameMatrix[i] + lorenzoMatrix[i];
+                str += gameMatrix[i] +lorenzoMatrix[i];
                 if (otherBoardsView != null)
                     for (int j = 0; j < otherBoardsView.size(); j++) {
                         if (otherMatrix[j].length > i)
