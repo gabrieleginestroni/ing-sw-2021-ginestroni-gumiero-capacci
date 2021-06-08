@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.util.*;
@@ -22,6 +23,10 @@ public class GameController extends GUIController implements Initializable {
     private Pane pane;
     @FXML
     private Button changeSceneButton;
+    @FXML
+    private Rectangle popUpEffect;
+    @FXML
+    private StackPane popUp;
 
 
     @Override
@@ -40,7 +45,7 @@ public class GameController extends GUIController implements Initializable {
 
     }
 
-
+//----------------------------------UPDATE---------------------------------------------------------------------
     @Override
     public void visitBoardsUpdate() {
 
@@ -316,6 +321,50 @@ public class GameController extends GUIController implements Initializable {
 
     }
 
+//--------------------------GAME PHASE-----------------------------------------------------------------------------
+    @Override
+    public void visitGameStarted(String str) {
+        if (view.getOtherBoardsView() != null) {
+            for (int i = 0; i < view.getOtherBoardsView().size(); i++) {
+                ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_" + i);
+                otherPlayer.setImage(new Image("./images/punchboard/boardFront.png"));
+                StackPane otherPlayerPane = (StackPane) pane.lookup("#otherplayer_pane_" + i);
+                otherPlayerPane.setVisible(true); //enabling other players images overlay
+
+            }
+        }
+    }
+
+    @Override
+    public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
+        if(currentPlayerNickname.equals(view.getCurrentPlayer())) {
+            System.out.println("OK");
+            popUpEffect.setVisible(true);
+            popUp.setVisible(true);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void visitLobbyFull(String str) {
@@ -343,19 +392,6 @@ public class GameController extends GUIController implements Initializable {
     }
 
     @Override
-    public void visitGameStarted(String str) {
-        if (view.getOtherBoardsView() != null) {
-            for (int i = 0; i < view.getOtherBoardsView().size(); i++) {
-                ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_" + i);
-                otherPlayer.setImage(new Image("./images/punchboard/boardFront.png"));
-                StackPane otherPlayerPane = (StackPane) pane.lookup("#otherplayer_pane_" + i);
-                otherPlayerPane.setVisible(true); //enabling other players images overlay
-
-            }
-        }
-    }
-
-    @Override
     public void visitInitialResource(int quantity) {
 
     }
@@ -368,11 +404,6 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitWhiteMarbleProposal(Resource res1, Resource res2) {
-
-    }
-
-    @Override
-    public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
 
     }
 

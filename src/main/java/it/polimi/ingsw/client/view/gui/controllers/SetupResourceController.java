@@ -96,6 +96,8 @@ public class SetupResourceController extends GUIController implements Initializa
             message.setTextFill(new Color(0, 0, 0, 1));
             message.setText("Please wait for other players");
             networkHandler.sendMessage(new ChosenInitialResourcesMessage(resMap));
+            this.disableDepotButtons();
+
         }else{
             String s = requestedQty > 1? "s" : "";
             message.setTextFill(new Color(0, 0, 0, 1));
@@ -149,6 +151,12 @@ public class SetupResourceController extends GUIController implements Initializa
     private void disablePopUp(){
         popUpEffect.setVisible(false);
         popUp.setVisible(false);
+    }
+
+    private void disableDepotButtons(){
+        depot0.setDisable(false);
+        depot1.setDisable(false);
+        depot2.setDisable(false);
     }
 
     @Override

@@ -171,7 +171,7 @@ public class GUI extends View{
 
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
-
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitStartTurn(currentPlayerNickname, errorMessage));
     }
 
     @Override

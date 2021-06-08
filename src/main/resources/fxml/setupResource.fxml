@@ -28,7 +28,7 @@
                         <Image url="@../images/login_background.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="186.0" prefHeight="160.0" prefWidth="223.0" text="    You are the first player.    Wait until other players choose initial resources." textAlignment="CENTER" wrapText="true">
+                <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" layoutY="186.0" prefHeight="160.0" prefWidth="223.0" text="Please wait for other players" textAlignment="CENTER" wrapText="true">
                     <font>
                         <Font name="Gabriola" size="24.0" />
                     </font>
