@@ -337,7 +337,7 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
-        if(currentPlayerNickname.equals(view.getCurrentPlayer())) {
+        if(currentPlayerNickname.equals(view.getNickname())) {
             System.out.println("OK");
             popUpEffect.setVisible(true);
             popUp.setVisible(true);
