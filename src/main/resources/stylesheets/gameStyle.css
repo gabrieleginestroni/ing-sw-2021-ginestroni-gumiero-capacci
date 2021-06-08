@@ -28,10 +28,10 @@
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
     -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #5CE91D 0%, #349808 100%),
-            #50CC19,
-            #72FC35,
-            radial-gradient(center 50% 50%, radius 100%, #72FC35, #44A21B);
+            linear-gradient(from 0% 93% to 0% 100%, #5ce91d 0%, #349808 100%),
+            #50cc19,
+            #72fc35,
+            radial-gradient(center 50% 50%, radius 100%, #72fc35, #44a21b);
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
@@ -39,10 +39,10 @@
 }
 .button_custom_0:hover {
     -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #5CE91D  0%, #349808 100%),
-            #50CC19,
-            #72FC35,
-            radial-gradient(center 50% 50%, radius 100%, #48E005 , #44A21B);
+            linear-gradient(from 0% 93% to 0% 100%, #5ce91d  0%, #349808 100%),
+            #50cc19,
+            #72fc35,
+            radial-gradient(center 50% 50%, radius 100%, #48e005 , #44a21b);
 }
 .button_custom_0:pressed {
     -fx-padding: 10 15 13 15;
