@@ -1,10 +1,7 @@
 package it.polimi.ingsw.client.view.gui.controllers;
 import it.polimi.ingsw.client.view.BoardView;
 import it.polimi.ingsw.client.view.GUI;
-import it.polimi.ingsw.server.messages.client_server.ChosenFirstMoveMessage;
-import it.polimi.ingsw.server.messages.client_server.ChosenLeaderActionMessage;
-import it.polimi.ingsw.server.messages.client_server.ChosenMainMoveMessage;
-import it.polimi.ingsw.server.messages.client_server.ChosenMarketMoveMessage;
+import it.polimi.ingsw.server.messages.client_server.*;
 import it.polimi.ingsw.server.model.Resource;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -47,6 +44,14 @@ public class GameController extends GUIController implements Initializable {
     private Label leaderAction_0;
     @FXML
     private Label leaderAction_1;
+    @FXML
+    private ImageView res0;
+    @FXML
+    private ImageView res1;
+    @FXML
+    private Button res0Button;
+    @FXML
+    private Button res1Button;
 
     private final Map<Integer, Integer> leaderMap = new HashMap<>();
 
@@ -532,6 +537,34 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitWhiteMarbleProposal(Resource res1, Resource res2) {
+
+            popUpEffect.setVisible(true);
+
+            String str = "";
+            popUpTextMessage.setText(str + "Choose which white marble power you want to use");
+
+            leftButton.setVisible(false);
+            centerButton.setVisible(false);
+            rightButton.setVisible(false);
+
+            res0Button.setOnAction(actionEvent -> {
+                networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res1));
+                this.res0.setVisible(false);
+                this.res0Button.setDisable(true);
+            });
+            res1Button.setOnAction(actionEvent -> {
+                networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res2));
+                this.res1.setVisible(false);
+                this.res1Button.setDisable(true);
+            });
+            res0Button.setDisable(false);
+            res1Button.setDisable(false);
+            this.res0.setImage(new Image("./images/resources/" + res1.toString().toLowerCase() + ".png"));
+            this.res1.setImage(new Image("./images/resources/" + res2.toString().toLowerCase() + ".png"));
+            this.res0.setVisible(true);
+            this.res1.setVisible(true);
+
+            popUp.setVisible(true);
 
     }
 

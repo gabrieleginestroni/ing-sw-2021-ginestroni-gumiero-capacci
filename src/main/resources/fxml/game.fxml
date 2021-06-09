@@ -997,7 +997,7 @@
          </font>
       </Label>
       <Rectangle fx:id="popUpEffect" arcHeight="5.0" arcWidth="5.0" height="810.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" visible="false" width="1490.0" />
-      <StackPane fx:id="popUp" layoutX="549.0" layoutY="259.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="252.0" prefWidth="402.0" styleClass="image2" visible="false">
+      <StackPane fx:id="popUp" layoutX="549.0" layoutY="259.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="252.0" prefWidth="402.0" styleClass="image2">
          <children>
             <ImageView fx:id="popupBackground" fitHeight="467.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
                <image>
@@ -1021,6 +1021,26 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
+            <ImageView fx:id="res0" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="-65.0" translateY="50.0" visible="false">
+               <image>
+                  <Image url="@../images/resources/servant.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="res1" fitHeight="26.0" fitWidth="32.0" layoutX="196.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" translateX="65.0" translateY="50.0" visible="false">
+               <image>
+                  <Image url="@../images/resources/servant.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="res0Button" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="-65.0" translateY="50.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="res1Button" disable="true" layoutX="194.0" layoutY="120.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="65.0" translateY="50.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </StackPane>
    </children>
