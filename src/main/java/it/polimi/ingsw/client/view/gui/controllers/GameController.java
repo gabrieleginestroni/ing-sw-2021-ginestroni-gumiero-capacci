@@ -2,11 +2,11 @@ package it.polimi.ingsw.client.view.gui.controllers;
 import it.polimi.ingsw.client.view.BoardView;
 import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.server.messages.client_server.ChosenFirstMoveMessage;
+import it.polimi.ingsw.server.messages.client_server.ChosenLeaderActionMessage;
 import it.polimi.ingsw.server.messages.client_server.ChosenMainMoveMessage;
 import it.polimi.ingsw.server.messages.client_server.ChosenMarketMoveMessage;
 import it.polimi.ingsw.server.model.Resource;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -41,6 +41,14 @@ public class GameController extends GUIController implements Initializable {
     private Label textMessage;
     @FXML
     private Label popUpTextMessage;
+    @FXML
+    private Button sendButton;
+    @FXML
+    private Label leaderAction_0;
+    @FXML
+    private Label leaderAction_1;
+
+    private final Map<Integer, Integer> leaderMap = new HashMap<>();
 
     private void sendMarketMessage(int move, int index){
         networkHandler.sendMessage(new ChosenMarketMoveMessage(move,index));
@@ -51,6 +59,15 @@ public class GameController extends GUIController implements Initializable {
         for(int i = 0; i <= 1; i++)
             for(int j = 0; j <= (i == 0 ? 2 : 3); j++)
                 ((Button) pane.lookup("#market_" + i + "_" + j)).setDisable(true);
+    }
+
+    private void setLeaderAction(int index, int move){
+        leaderMap.put(index, move);
+        if(move == 1)
+            ((Label) pane.lookup("#leaderAction_" + index)).setText("Activate");
+        else
+            ((Label) pane.lookup("#leaderAction_" + index)).setText("Discard");
+
     }
 
     @Override
@@ -70,6 +87,12 @@ public class GameController extends GUIController implements Initializable {
                 int index = j;
                 ((Button) pane.lookup("#market_" + i + "_" + j)).setOnAction(actionEvent -> sendMarketMessage(move, index) );
             }
+        }
+
+        for(int i = 0; i <= 1; i++){
+            int index = i;
+            ((Button) pane.lookup("#discard_" + i)).setOnAction(actionEvent -> setLeaderAction(index, 2));
+            ((Button) pane.lookup("#activate_" + i)).setOnAction(actionEvent -> setLeaderAction(index, 1));
         }
 
         for(int i = 0; i < 3; i++) {
@@ -374,6 +397,10 @@ public class GameController extends GUIController implements Initializable {
             popUpEffect.setVisible(true);
             textMessage.setText("");
 
+            //TODO check if works
+            leaderMap.put(0, 0);
+            leaderMap.put(1, 0);
+
             String str = errorMessage == null? "" : errorMessage + "\n";
             popUpTextMessage.setText(str + "Choose an action");
 
@@ -386,9 +413,8 @@ public class GameController extends GUIController implements Initializable {
             rightButton.setVisible(true);
             popUp.setVisible(true);
 
-        } else {
-            textMessage.setText(currentPlayerNickname+" is choosing an action");
-        }
+        } else
+            textMessage.setText(currentPlayerNickname + " is choosing an action");
     }
 
     @Override
@@ -412,14 +438,13 @@ public class GameController extends GUIController implements Initializable {
             rightButton.setVisible(true);
 
             popUp.setVisible(true);
-        } else{
-            textMessage.setText(currentPlayerNickname+" is choosing main action");
-        }
+        } else
+            textMessage.setText(currentPlayerNickname + " is choosing main action");
     }
 
     @Override
     public void visitMarketState(String currentPlayerNickname, String errorMessage) {
-        if(currentPlayerNickname.equals(view.getNickname())) {
+        if(currentPlayerNickname.equals(view.getNickname())){
             popUpEffect.setVisible(false);
             popUp.setVisible(false);
 
@@ -428,11 +453,45 @@ public class GameController extends GUIController implements Initializable {
 
             for (int i = 0; i <= 1; i++)
                 for (int j = 0; j <= (i == 0 ? 2 : 3); j++)
-                    ((Button) pane.lookup("#market_" + i + "_" + j)).setDisable(false);
+                    pane.lookup("#market_" + i + "_" + j).setDisable(false);
 
-        }else{
-            textMessage.setText(currentPlayerNickname+" is choosing a market move");
-        }
+        }else
+            textMessage.setText(currentPlayerNickname + " is choosing a market move");
+    }
+
+    @Override
+    public void visitLeaderAction(String currentPlayerNickname) {
+        if(currentPlayerNickname.equals(view.getNickname())){
+            List<Integer> hiddenHand = view.getPersonalBoardView().getHiddenHand();
+
+            popUpEffect.setVisible(false);
+            popUp.setVisible(false);
+
+            sendButton.setDisable(false);
+            sendButton.setOnAction(actionEvent -> {
+                networkHandler.sendMessage(new ChosenLeaderActionMessage(leaderMap));
+
+                int i = 0;
+                for(Integer cardId : hiddenHand){
+                    pane.lookup("#discard_" + i).setVisible(false);
+                    pane.lookup("#activate_" + i).setVisible(false);
+                    i++;
+                }
+
+                leaderAction_0.setText("");
+                leaderAction_1.setText("");
+
+                sendButton.setDisable(true);
+            });
+
+            int i = 0;
+            for(Integer cardId : hiddenHand){
+                pane.lookup("#discard_" + i).setVisible(true);
+                pane.lookup("#activate_" + i).setVisible(true);
+                i++;
+            }
+        }else
+            textMessage.setText(currentPlayerNickname + " is doing a leader action");
     }
 
     @Override
@@ -483,11 +542,6 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitMiddleTurn(String currentPlayerNickname, String errorMessage) {
-
-    }
-
-    @Override
-    public void visitLeaderAction(String currentPlayerNickname) {
 
     }
 
