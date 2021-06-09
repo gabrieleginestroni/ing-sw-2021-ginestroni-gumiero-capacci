@@ -37,6 +37,8 @@ public class GameController extends GUIController implements Initializable {
     private Button rightButton;
     @FXML
     private Label textMessage;
+    @FXML
+    private Label popUpTextMessage;
 
 
 
@@ -45,10 +47,9 @@ public class GameController extends GUIController implements Initializable {
 
         BackgroundImage backgroundImage = new BackgroundImage(new Image("./images/table_background.jpg",1490.0,810.0,false,true),BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-        BackgroundImage popupImage = new BackgroundImage(new Image("./images/login_background.png",390.0,240.0,false,true),BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
+
         pane.setBackground(new Background(backgroundImage));
-        popUp.setBackground(new Background(popupImage));
+
 
         for(int i = 0; i < 3; i++) {
             ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_"+i);
@@ -354,40 +355,49 @@ public class GameController extends GUIController implements Initializable {
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
             popUpEffect.setVisible(true);
+            textMessage.setText("");
+
+            String str = errorMessage == null? "" : errorMessage + "\n";
+            popUpTextMessage.setText(str + "Choose an action");
 
             leftButton.setText("Main");
             leftButton.setVisible(true);
             leftButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenFirstMoveMessage(0)));
             centerButton.setVisible(false);
+            rightButton.setText("Leader");
             rightButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenFirstMoveMessage(1)));
             rightButton.setVisible(true);
             popUp.setVisible(true);
 
         } else {
-            textMessage.setText(currentPlayerNickname+" is choosing starting turn");
+            textMessage.setText(currentPlayerNickname+" is choosing an action");
         }
     }
+    @Override
+    public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
+        if(currentPlayerNickname.equals(view.getNickname())) {
+            popUpEffect.setVisible(true);
 
+            String str = errorMessage == null? "" : errorMessage + "\n";
+            popUpTextMessage.setText(str + "Choose a main action");
 
+            leftButton.setText("Market");
+            leftButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMainMoveMessage(0)));
+            leftButton.setVisible(true);
 
+            centerButton.setText("Purchase Card");
+            centerButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMainMoveMessage(1)));
+            centerButton.setVisible(true);
 
+            rightButton.setText("Production");
+            rightButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMainMoveMessage(2)));
+            rightButton.setVisible(true);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            popUp.setVisible(true);
+        } else{
+            textMessage.setText(currentPlayerNickname+" is choosing main action");
+        }
+    }
 
 
     @Override
@@ -446,28 +456,7 @@ public class GameController extends GUIController implements Initializable {
 
     }
 
-    @Override
-    public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
-        if(currentPlayerNickname.equals(view.getNickname())) {
-            popUpEffect.setVisible(true);
 
-            leftButton.setText("Market");
-            leftButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMainMoveMessage(0)));
-            leftButton.setVisible(true);
-
-            centerButton.setText("Purchase Card");
-            centerButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMainMoveMessage(1)));
-            centerButton.setVisible(true);
-
-            rightButton.setText("Production");
-            rightButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMainMoveMessage(2)));
-            rightButton.setVisible(true);
-
-            popUp.setVisible(true);
-        } else{
-            textMessage.setText(currentPlayerNickname+" is choosing main action");
-        }
-    }
 
     @Override
     public void visitProductionState(String currentPlayerNickname, String errorMessage) {
