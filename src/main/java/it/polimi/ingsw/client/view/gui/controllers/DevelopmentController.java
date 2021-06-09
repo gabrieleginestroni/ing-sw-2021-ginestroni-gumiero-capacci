@@ -45,9 +45,9 @@ public class DevelopmentController extends GUIController implements Initializabl
                  devPane = (StackPane) pane.lookup("#dev_"+i+"_"+j);
                  devImg = (ImageView) devPane.getChildren().get(0);
                  if(devGrid[i][j] != 0){  //0 means that no cards a remaining in that slot
-                     devImg.setImage(new Image("./images/developmentCardsFront/development"+devGrid[i][j]+".png"));
+                     devImg.setImage(GUI.developmentCardImg[devGrid[i][j]]);
                  } else
-                     devImg.setImage(new Image("./images/devGridEmptySlot.png"));
+                     devImg.setImage(GUI.developmentCardImg[0]);
             }
         }
     }

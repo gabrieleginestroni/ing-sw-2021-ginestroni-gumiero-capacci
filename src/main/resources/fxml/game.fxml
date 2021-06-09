@@ -912,9 +912,18 @@
                      <font>
                         <Font size="20.0" />
                      </font></Label>
-                  <Label fx:id="player_servant" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-218.0" translateY="140.0" />
-                  <Label fx:id="player_shield" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-218.0" translateY="180.0" />
-                  <Label fx:id="player_stone" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-280.0" translateY="180.0" />
+                  <Label fx:id="player_servant" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-218.0" translateY="140.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
+                  <Label fx:id="player_shield" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-218.0" translateY="180.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
+                  <Label fx:id="player_stone" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-280.0" translateY="180.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
                   <ImageView fx:id="lorenzo_token" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="315.0" translateY="-150.0" visible="false" />
                </children>
             </StackPane>

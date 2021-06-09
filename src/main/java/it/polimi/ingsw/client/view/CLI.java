@@ -484,7 +484,7 @@ public class CLI extends View{
                     gameMatrix[i] += " ";
 
                 String[][] market = this.marketView.getMarket();
-                int dimMax = 2;
+                int dimMax = 1;
                 String dot;
                 for (int a = 0; a < market.length; a++) { //every market row
 

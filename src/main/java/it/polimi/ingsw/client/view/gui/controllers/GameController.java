@@ -97,7 +97,7 @@ public class GameController extends GUIController implements Initializable {
 
         for(int i = 0; i < 3; i++) {
             ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_"+i);
-            otherPlayer.setImage(new Image("./images/punchboard/boardBack.png"));
+            otherPlayer.setImage(GUI.punchBoardImg.get("boardBack"));
         }
 
         changeSceneButton.setOnAction(actionEvent -> Platform.runLater(()-> view.changeScene(view.scenesMap.get(GUI.DEVELOPMENT))));
@@ -156,7 +156,7 @@ public class GameController extends GUIController implements Initializable {
         for(int i = 0; i < 2; i++){
             ImageView leaderImg = (ImageView) pane.lookup("#player_hidden_"+i);
             if(i < player.getHiddenHand().size()){
-                leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getHiddenHand().get(i) + ".png"));
+                leaderImg.setImage(GUI.leaderCardImg[player.getHiddenHand().get(i)]);
                 leaderImg.setVisible(true);
             } else
                 leaderImg.setImage(null);
@@ -166,7 +166,7 @@ public class GameController extends GUIController implements Initializable {
         for(int i = 0; i < 2; i++){
             ImageView leaderImg = (ImageView) pane.lookup("#player_leader_"+i);
             if(i < player.getActiveLeaders().size()){
-                leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + player.getActiveLeaders().get(i) + ".png"));
+                leaderImg.setImage(GUI.leaderCardImg[player.getActiveLeaders().get(i)]);
                 leaderImg.setVisible(true);
             } else
                 leaderImg.setImage(null);
@@ -176,7 +176,7 @@ public class GameController extends GUIController implements Initializable {
         for(int i = 1; i < 25; i++){
             ImageView cellImg = (ImageView) pane.lookup("#player_faith_"+i);
             if(i == player.getFaithTrackMarker()) {
-                cellImg.setImage(new Image("./images/resources/faith.png"));
+                cellImg.setImage(GUI.punchBoardImg.get("faith"));
                 cellImg.setVisible(true);
             }
             else
@@ -196,7 +196,7 @@ public class GameController extends GUIController implements Initializable {
             for(int j = 0; j < 3; j++){
                 ImageView devImg = (ImageView) pane.lookup("#player_cardslot_"+i+"_"+j);
                 if(j < cardslots[i].size()){
-                    devImg.setImage(new Image("./images/developmentCardsFront/development" + cardslots[i].get(j) + ".png"));
+                    devImg.setImage(GUI.developmentCardImg[cardslots[i].get(j)]);
                     devImg.setVisible(true);
                 } else
                     devImg.setImage(null);
@@ -254,7 +254,7 @@ public class GameController extends GUIController implements Initializable {
                 for(int i = 0; i < 2; i++){
                     ImageView leaderImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_leader_"+i);
                     if(i < otherPlayer.getActiveLeaders().size()){
-                        leaderImg.setImage(new Image("./images/leaderCardsFront/leader" + otherPlayer.getActiveLeaders().get(i) + ".png"));
+                        leaderImg.setImage(GUI.leaderCardImg[otherPlayer.getActiveLeaders().get(i)]);
                         leaderImg.setVisible(true);
                     } else
                         leaderImg.setImage(null);
@@ -264,7 +264,7 @@ public class GameController extends GUIController implements Initializable {
                 for(int i = 1; i < 25; i++){
                     ImageView cellImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_faith_"+i);
                     if(i == otherPlayer.getFaithTrackMarker()) {
-                        cellImg.setImage(new Image("./images/resources/faith.png"));
+                        cellImg.setImage(GUI.punchBoardImg.get("faith"));
                         cellImg.setVisible(true);
                     } else
                         cellImg.setImage(null);
@@ -286,7 +286,7 @@ public class GameController extends GUIController implements Initializable {
                     for(int j = 0; j < 3; j++){
                         ImageView devImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_cardslot_"+i+"_"+j);
                         if(j < cardslots[i].size()){
-                            devImg.setImage(new Image("./images/developmentCardsFront/development" + cardslots[i].get(j) + ".png"));
+                            devImg.setImage(GUI.developmentCardImg[cardslots[i].get(j)]);
                             devImg.setVisible(true);
                         } else
                             devImg.setImage(null);
@@ -302,7 +302,7 @@ public class GameController extends GUIController implements Initializable {
         for(int i = 1; i < 25; i++){
             ImageView cellImg = (ImageView) pane.lookup("#lorenzo_faith_"+i);
             if(i == view.getLorenzoView().getBlackCrossMarker()) {
-                cellImg.setImage(new Image("./images/punchboard/blackCross.png"));
+                cellImg.setImage(GUI.punchBoardImg.get("blackCross"));
                 cellImg.setVisible(true);
             } else
                 cellImg.setImage(null);
@@ -310,19 +310,19 @@ public class GameController extends GUIController implements Initializable {
         String token = view.getLorenzoView().getLastDrawnActionToken();
         ImageView tokenImg = (ImageView) pane.lookup("#lorenzo_token");
         if(token != null) {
-            String path = "shuffleActionToken";
+            String action = "shuffleActionToken";
 
             if (token.contains("Added"))
-                path = "add2BlackCross";
+                action = "add2BlackCross";
             else if (token.contains("Blue"))
-                path = "discard2Blue";
+                action = "discard2Blue";
             else if (token.contains("Green"))
-                path = "discard2Green";
+                action = "discard2Green";
             else if (token.contains("Purple"))
-                path = "discard2Purple";
+                action = "discard2Purple";
             else if (token.contains("Yellow"))
-                path = "discard2Yellow";
-            tokenImg.setImage(new Image("./images/punchboard/" + path + ".png"));
+                action = "discard2Yellow";
+            tokenImg.setImage(GUI.punchBoardImg.get(action));
             tokenImg.setVisible(true);
         } else
             tokenImg.setImage(null);
@@ -383,7 +383,7 @@ public class GameController extends GUIController implements Initializable {
         if (view.getOtherBoardsView() != null) {
             for (int i = 0; i < view.getOtherBoardsView().size(); i++) {
                 ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_" + i);
-                otherPlayer.setImage(new Image("./images/punchboard/boardFront.png"));
+                otherPlayer.setImage(GUI.punchBoardImg.get("boardFront"));
                 StackPane otherPlayerPane = (StackPane) pane.lookup("#otherplayer_pane_" + i);
                 otherPlayerPane.setVisible(true); //enabling other players images overlay
 

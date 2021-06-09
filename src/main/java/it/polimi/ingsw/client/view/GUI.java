@@ -5,10 +5,13 @@ import it.polimi.ingsw.client.ClientGUI;
 import it.polimi.ingsw.client.NetworkHandler;
 import it.polimi.ingsw.client.view.gui.controllers.GUIController;
 import it.polimi.ingsw.server.model.Resource;
+import it.polimi.ingsw.server.model.cards.DevelopmentCard;
+import it.polimi.ingsw.server.model.cards.LeaderCard;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,6 +24,9 @@ public class GUI extends View{
     public static final String MAIN_GUI = "game.fxml";
     public static final String END_GAME = "endGame.fxml";
     public static final String DEVELOPMENT = "development.fxml";
+    public static  Image[] leaderCardImg;
+    public static  Image[] developmentCardImg;
+    public static Map<String,Image> punchBoardImg = new HashMap<>();
 
     public static Stage stg;
     public final Map<String, GUIController> controllersMap = new HashMap<>();
@@ -28,6 +34,23 @@ public class GUI extends View{
 
 
     public GUI() {
+        super();
+
+        leaderCardImg = new Image[super.leaderCards.length + 1];
+        developmentCardImg = new Image[super.developmentCards.length + 1];
+
+        for(int index = 1; index <= super.leaderCards.length; index++ )
+            leaderCardImg[index] = new Image("./images/leaderCardsFront/leader" + index + ".png");
+
+        developmentCardImg[0] = new Image("./images/devGridEmptySlot.png");
+        for(int index = 1; index <= super.developmentCards.length; index++ )
+            developmentCardImg[index] = new Image("./images/developmentCardsFront/development" + index + ".png");
+
+        String[] tmpImgName = new String[] {"add2BlackCross","blackCross","boardBack","boardFront","discard2Blue",
+        "discard2Green","discard2Purple","discard2Yellow","shuffleActionToken"};
+        Arrays.stream(tmpImgName).forEach(s -> punchBoardImg.put(s,new Image("./images/punchboard/" + s + ".png")));
+
+
         List<String> fxml = new ArrayList<>(Arrays.asList(SETUP_LEADER, SETUP_RESOURCE, MAIN_GUI, END_GAME,DEVELOPMENT));
         try {
             for (String path : fxml) {
