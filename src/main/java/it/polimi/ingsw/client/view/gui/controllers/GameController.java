@@ -79,7 +79,6 @@ public class GameController extends GUIController implements Initializable {
 
         changeSceneButton.setOnAction(actionEvent -> Platform.runLater(()-> view.changeScene(view.scenesMap.get(GUI.DEVELOPMENT))));
 
-
     }
 
 //----------------------------------UPDATE---------------------------------------------------------------------
@@ -165,10 +164,7 @@ public class GameController extends GUIController implements Initializable {
         boolean[] popes = player.getPopeTiles();
         for(int i = 0; i < 3; i++){
             ImageView popeImg = (ImageView) pane.lookup("#player_pope_"+i);
-            if(popes[i])
-                popeImg.setVisible(true);
-            else
-                popeImg.setVisible(false);
+            popeImg.setVisible(popes[i]);
         }
 
         // updating card slots

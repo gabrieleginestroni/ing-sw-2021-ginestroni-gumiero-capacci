@@ -140,8 +140,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="player_hidden_0" fitHeight="200.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" translateX="-15.0" />
-            <ImageView fx:id="player_hidden_1" fitHeight="200.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <ImageView fx:id="player_hidden_0" fitHeight="200.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" translateX="-15.0">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader2.png" />
+               </image></ImageView>
+            <ImageView fx:id="player_hidden_1" fitHeight="200.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@../images/leaderCardsFront/leader8.png" />
+               </image></ImageView>
          </children>
       </GridPane>
       <GridPane layoutX="1120.0" layoutY="555.0" prefHeight="240.0" prefWidth="260.0">
@@ -971,5 +977,25 @@
                </cursor></Button>
          </children>
       </StackPane>
+      <Button fx:id="discard_0" layoutX="1130.0" layoutY="353.0" mnemonicParsing="false" scaleY="0.9" styleClass="button_custom" text="Discard ">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="activate_0" layoutX="1130.0" layoutY="393.0" mnemonicParsing="false" scaleY="0.9" styleClass="button_custom_0" text="Activate">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="discard_1" layoutX="1276.0" layoutY="353.0" mnemonicParsing="false" scaleY="0.9" styleClass="button_custom" text="Discard ">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="activate_1" layoutX="1276.0" layoutY="393.0" mnemonicParsing="false" scaleY="0.9" styleClass="button_custom_0" text="Activate">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
