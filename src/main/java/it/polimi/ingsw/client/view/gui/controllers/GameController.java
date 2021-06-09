@@ -3,8 +3,10 @@ import it.polimi.ingsw.client.view.BoardView;
 import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.server.messages.client_server.ChosenFirstMoveMessage;
 import it.polimi.ingsw.server.messages.client_server.ChosenMainMoveMessage;
+import it.polimi.ingsw.server.messages.client_server.ChosenMarketMoveMessage;
 import it.polimi.ingsw.server.model.Resource;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -40,7 +42,16 @@ public class GameController extends GUIController implements Initializable {
     @FXML
     private Label popUpTextMessage;
 
+    private void sendMarketMessage(int move, int index){
+        networkHandler.sendMessage(new ChosenMarketMoveMessage(move,index));
+        this.disableMarketButtons();
+    }
 
+    private void disableMarketButtons(){
+        for(int i = 0; i <= 1; i++)
+            for(int j = 0; j <= (i == 0 ? 2 : 3); j++)
+                ((Button) pane.lookup("#market_" + i + "_" + j)).setDisable(true);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,6 +61,16 @@ public class GameController extends GUIController implements Initializable {
 
         pane.setBackground(new Background(backgroundImage));
 
+        textMessage.setLineSpacing(-10);
+        popUpTextMessage.setLineSpacing(-10);
+
+        for(int i = 0; i <= 1; i++){
+            for(int j = 0; j <= (i == 0 ? 2 : 3); j++){
+                int move = i;
+                int index = j;
+                ((Button) pane.lookup("#market_" + i + "_" + j)).setOnAction(actionEvent -> sendMarketMessage(move, index) );
+            }
+        }
 
         for(int i = 0; i < 3; i++) {
             ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_"+i);
@@ -337,7 +358,7 @@ public class GameController extends GUIController implements Initializable {
 
     }
 
-//--------------------------GAME PHASE-----------------------------------------------------------------------------
+//--------------------------GAME PHASES-----------------------------------------------------------------------------
     @Override
     public void visitGameStarted(String str) {
         if (view.getOtherBoardsView() != null) {
@@ -373,6 +394,7 @@ public class GameController extends GUIController implements Initializable {
             textMessage.setText(currentPlayerNickname+" is choosing an action");
         }
     }
+
     @Override
     public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
@@ -399,6 +421,23 @@ public class GameController extends GUIController implements Initializable {
         }
     }
 
+    @Override
+    public void visitMarketState(String currentPlayerNickname, String errorMessage) {
+        if(currentPlayerNickname.equals(view.getNickname())) {
+            popUpEffect.setVisible(false);
+            popUp.setVisible(false);
+
+            String str = errorMessage == null? "" : errorMessage + "\n";
+            textMessage.setText(str + "Please choose a market move");
+
+            for (int i = 0; i <= 1; i++)
+                for (int j = 0; j <= (i == 0 ? 2 : 3); j++)
+                    ((Button) pane.lookup("#market_" + i + "_" + j)).setDisable(false);
+
+        }else{
+            textMessage.setText(currentPlayerNickname+" is choosing a market move");
+        }
+    }
 
     @Override
     public void visitLobbyFull(String str) {
@@ -456,8 +495,6 @@ public class GameController extends GUIController implements Initializable {
 
     }
 
-
-
     @Override
     public void visitProductionState(String currentPlayerNickname, String errorMessage) {
 
@@ -465,11 +502,6 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
-
-    }
-
-    @Override
-    public void visitMarketState(String currentPlayerNickname, String errorMessage) {
 
     }
 

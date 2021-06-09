@@ -20,6 +20,39 @@
             <Image url="@../images/punchboard/market_square.png" />
          </image>
       </ImageView>
+      <Button fx:id="market_1_0" disable="true" layoutX="129.0" layoutY="505.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="47.0" prefWidth="25.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="market_1_1" disable="true" layoutX="160.0" layoutY="505.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="47.0" prefWidth="25.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="market_1_2" disable="true" layoutX="191.0" layoutY="505.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="47.0" prefWidth="25.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="market_1_3" disable="true" layoutX="222.0" layoutY="505.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" opacity="0.0" prefHeight="47.0" prefWidth="25.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="market_0_0" disable="true" layoutX="286.0" layoutY="385.0" mnemonicParsing="false" opacity="0.0" prefHeight="25.0" prefWidth="38.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="market_0_1" disable="true" layoutX="286.0" layoutY="415.0" mnemonicParsing="false" opacity="0.0" prefHeight="25.0" prefWidth="38.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="market_0_2" disable="true" layoutX="286.0" layoutY="445.0" mnemonicParsing="false" opacity="0.0" prefHeight="25.0" prefWidth="38.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <GridPane fx:id="market" layoutX="128.0" layoutY="385.0" prefHeight="87.0" prefWidth="120.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="20.0" prefWidth="20.0" />
@@ -337,6 +370,7 @@
 
             </children>
          </StackPane>
+         <ImageView fx:id="otherplayer_01" fitHeight="265.0" fitWidth="372.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
        </StackPane>
       <StackPane layoutX="500.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
          <children>
@@ -911,7 +945,7 @@
          </children>
       </StackPane>
       <Rectangle fx:id="popUpEffect" arcHeight="5.0" arcWidth="5.0" height="810.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" visible="false" width="1490.0" />
-      <StackPane fx:id="popUp" layoutX="549.0" layoutY="190.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="252.0" prefWidth="402.0" styleClass="image2" visible="false">
+      <StackPane fx:id="popUp" layoutX="549.0" layoutY="259.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="252.0" prefWidth="402.0" styleClass="image2" visible="false">
          <children>
             <ImageView fx:id="popupBackground" fitHeight="467.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
                <image>
@@ -923,9 +957,18 @@
                   <Font name="Gabriola" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="leftButton" mnemonicParsing="false" styleClass="button_custom_0" text="Button" translateX="-130.0" translateY="50.0" />
-            <Button fx:id="centerButton" layoutX="184.0" layoutY="148.0" mnemonicParsing="false" styleClass="button_custom_1" text="Button" translateX="-5.0" translateY="50.0" />
-            <Button fx:id="rightButton" layoutX="184.0" layoutY="148.0" mnemonicParsing="false" styleClass="button_custom_2" text="Button" translateX="130.0" translateY="50.0" />
+            <Button fx:id="leftButton" mnemonicParsing="false" styleClass="button_custom_0" text="Button" translateX="-130.0" translateY="50.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="centerButton" layoutX="184.0" layoutY="148.0" mnemonicParsing="false" styleClass="button_custom_1" text="Button" translateX="-5.0" translateY="50.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="rightButton" layoutX="184.0" layoutY="148.0" mnemonicParsing="false" styleClass="button_custom_2" text="Button" translateX="130.0" translateY="50.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
       </StackPane>
    </children>

@@ -176,10 +176,10 @@ public class SetupResourceController extends GUIController implements Initializa
         rectangle.setEffect(new DropShadow(20, Color.BLACK));
         rectangle.setVisible(true);
 
-        coinButton.setOnAction(ActionEvent -> Platform.runLater(() -> chooseResource(0)));
-        servantButton.setOnAction(ActionEvent -> Platform.runLater(() -> chooseResource(1)));
-        stoneButton.setOnAction(ActionEvent -> Platform.runLater(() -> chooseResource(2)));
-        shieldButton.setOnAction(ActionEvent -> Platform.runLater(() -> chooseResource(3)));
+        coinButton.setOnAction(ActionEvent -> chooseResource(0));
+        servantButton.setOnAction(ActionEvent -> chooseResource(1));
+        stoneButton.setOnAction(ActionEvent -> chooseResource(2));
+        shieldButton.setOnAction(ActionEvent -> chooseResource(3));
     }
 
     @Override
@@ -189,9 +189,13 @@ public class SetupResourceController extends GUIController implements Initializa
         String s = requestedQty > 1? "s" : "";
         message.setText("Choose "+ requestedQty +" resource" + s + " and the depot where to store it");
 
-        depot0.setOnAction(ActionEvent -> Platform.runLater(()-> chooseDepot(0)));
-        depot1.setOnAction(ActionEvent -> Platform.runLater(()-> chooseDepot(1)));
-        depot2.setOnAction(ActionEvent -> Platform.runLater(()-> chooseDepot(2)));
+        depot0.setOnAction(ActionEvent -> chooseDepot(0));
+        depot1.setOnAction(ActionEvent -> chooseDepot(1));
+        depot2.setOnAction(ActionEvent -> chooseDepot(2));
+
+        depot0.setDisable(false);
+        depot1.setDisable(false);
+        depot2.setDisable(false);
     }
 
 //-----------------------------------------------------------------

@@ -40,17 +40,17 @@
             </children>
         </Pane>
       <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="360.0" layoutX="36.0" layoutY="114.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="350.0" />
-      <Button fx:id="depot0" layoutX="208.0" layoutY="220.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="46.0">
+      <Button fx:id="depot0" disable="true" layoutX="208.0" layoutY="220.0" mnemonicParsing="false" opacity="0.0" prefHeight="40.0" prefWidth="46.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="depot1" layoutX="177.0" layoutY="307.0" mnemonicParsing="false" opacity="0.0" prefHeight="46.0" prefWidth="99.0">
+      <Button fx:id="depot1" disable="true" layoutX="177.0" layoutY="307.0" mnemonicParsing="false" opacity="0.0" prefHeight="46.0" prefWidth="99.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="depot2" layoutX="147.0" layoutY="395.0" mnemonicParsing="false" opacity="0.0" prefHeight="46.0" prefWidth="152.0">
+      <Button fx:id="depot2" disable="true" layoutX="147.0" layoutY="395.0" mnemonicParsing="false" opacity="0.0" prefHeight="46.0" prefWidth="152.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

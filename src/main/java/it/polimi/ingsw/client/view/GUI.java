@@ -142,6 +142,8 @@ public class GUI extends View{
     public void visitGameStarted(String str) {
         Platform.runLater(() -> {
             changeScene(scenesMap.get(MAIN_GUI));
+            stg.setX(30);
+            stg.setY(0);
             controllersMap.get(MAIN_GUI).visitGameStarted(str);
         });
     }
@@ -157,7 +159,6 @@ public class GUI extends View{
 
     @Override
     public void visitLeaderProposal(int[] proposedLeaderCards) {
-        //TODO TEST SCENE
         Platform.runLater(() -> {
             changeScene(scenesMap.get(SETUP_LEADER));
             controllersMap.get(SETUP_LEADER).visitLeaderProposal(proposedLeaderCards);
@@ -209,7 +210,7 @@ public class GUI extends View{
 
     @Override
     public void visitMarketState(String currentPlayerNickname, String errorMessage) {
-
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitMarketState(currentPlayerNickname, errorMessage));
     }
 
     @Override

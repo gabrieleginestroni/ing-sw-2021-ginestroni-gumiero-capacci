@@ -39,8 +39,6 @@ public class SetupLeaderController extends GUIController {
                 i++;
             }
             this.networkHandler.sendMessage(new ChosenLeaderMessage(arr));
-            GUI.stg.setX(30);
-            GUI.stg.setY(0);
             if(view.getOtherBoardsView() != null)
                 view.changeScene(view.scenesMap.get(GUI.SETUP_RESOURCE));
             else
@@ -56,10 +54,10 @@ public class SetupLeaderController extends GUIController {
         setLeaderImage(proposedLeaderCards[2], leader2);
         setLeaderImage(proposedLeaderCards[3], leader3);
 
-        leader0.setOnMouseClicked(ActionEvent -> Platform.runLater(()-> setChosenLeader(0)));
-        leader1.setOnMouseClicked(ActionEvent -> Platform.runLater(()-> setChosenLeader(1)));
-        leader2.setOnMouseClicked(ActionEvent -> Platform.runLater(()-> setChosenLeader(2)));
-        leader3.setOnMouseClicked(ActionEvent -> Platform.runLater(()-> setChosenLeader(3)));
+        leader0.setOnMouseClicked(ActionEvent -> setChosenLeader(0));
+        leader1.setOnMouseClicked(ActionEvent -> setChosenLeader(1));
+        leader2.setOnMouseClicked(ActionEvent -> setChosenLeader(2));
+        leader3.setOnMouseClicked(ActionEvent -> setChosenLeader(3));
 
     }
 
