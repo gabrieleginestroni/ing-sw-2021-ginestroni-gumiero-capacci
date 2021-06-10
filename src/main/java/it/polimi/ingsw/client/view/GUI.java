@@ -190,6 +190,7 @@ public class GUI extends View{
 
     @Override
     public void visitWhiteMarbleProposal(Resource res1, Resource res2) {
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitWhiteMarbleProposal(res1, res2));
 
     }
 
@@ -238,11 +239,11 @@ public class GUI extends View{
 
     @Override
     public void visitSwapState(String currentPlayerNickname, String errorMessage) {
-
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitSwapState(currentPlayerNickname, errorMessage));
     }
 
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
-
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitResourceManagementState(res,currentPlayerNickname, errorMessage));
     }
 }

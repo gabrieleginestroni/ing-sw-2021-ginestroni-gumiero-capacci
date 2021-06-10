@@ -52,7 +52,28 @@ public class GameController extends GUIController implements Initializable {
     private Button res0Button;
     @FXML
     private Button res1Button;
+    @FXML
+    private Button leaderButton_0;
+    @FXML
+    private Button leaderButton_1;
+    @FXML
+    private Button warehouseButton_0;
+    @FXML
+    private Button warehouseButton_1;
+    @FXML
+    private Button warehouseButton_2;
+    @FXML
+    private Button strongboxButton_coin;
+    @FXML
+    private Button strongboxButton_servant;
+    @FXML
+    private Button strongboxButton_shield;
+    @FXML
+    private Button strongboxButton_stone;
+    @FXML
+    private Button strongboxButton;
 
+    private final List<Integer> depotToSwap = new ArrayList<>();
     private final Map<Integer, Integer> leaderMap = new HashMap<>();
 
     private void sendMarketMessage(int move, int index){
@@ -402,9 +423,6 @@ public class GameController extends GUIController implements Initializable {
             popUpEffect.setVisible(true);
             textMessage.setText("");
 
-            //TODO check if works
-            leaderMap.put(0, 0);
-            leaderMap.put(1, 0);
 
             String str = errorMessage == null? "" : errorMessage + "\n";
             popUpTextMessage.setText(str + "Choose an action");
@@ -468,6 +486,10 @@ public class GameController extends GUIController implements Initializable {
     public void visitLeaderAction(String currentPlayerNickname) {
         if(currentPlayerNickname.equals(view.getNickname())){
             List<Integer> hiddenHand = view.getPersonalBoardView().getHiddenHand();
+
+            //TODO check if works
+            leaderMap.put(0, 0);
+            leaderMap.put(1, 0);
 
             popUpEffect.setVisible(false);
             popUp.setVisible(false);
@@ -590,12 +612,108 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitSwapState(String currentPlayerNickname, String errorMessage) {
+        if(currentPlayerNickname.equals(view.getNickname())) {
+            String str = errorMessage == null? "" : errorMessage + "\n";
+            textMessage.setText(str + "Swap depots");
+
+            Button button;
+            for(int i = 0; i < 3; i++) {
+                button = (Button) pane.lookup("#warehouseButton_" + i);
+                int j = i;
+                button.setOnAction(actionEvent -> {
+                    if(depotToSwap.size() == 2)
+                        depotToSwap.remove(0);
+                    depotToSwap.add(j);
+
+                    StringBuilder txt = new StringBuilder("You chose: \n ");
+                    for(Integer depot: depotToSwap){
+                        txt.append(depot);
+                        txt.append(" ");
+                    }
+                    textMessage.setText(String.valueOf(txt));
+
+                    if(depotToSwap.size() == 2) {
+                        sendButton.setOnAction(newActionEvent -> {
+                            disableAllDepotButtons();
+                            this.networkHandler.sendMessage(new ChosenSwapDepotMessage(depotToSwap.get(0), depotToSwap.get(1)));
+                        });
+                        sendButton.setDisable(false);
+                    }
+
+                } );
+                button.setDisable(false);
+            }
+            //TODO add a button to exit swap
+
+        } else
+            textMessage.setText(currentPlayerNickname + " is choosing an action");
 
     }
 
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
+        if(currentPlayerNickname.equals(view.getNickname())) {
+            popUpEffect.setVisible(true);
+            textMessage.setText("");
 
+
+            String str = errorMessage == null? "" : errorMessage + "\n";
+            popUpTextMessage.setText(str + "Choose an action for "+res.toString());
+
+            leftButton.setText("Discard");
+            leftButton.setVisible(true);
+            leftButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMarketDepotMessage(-1)));
+
+            centerButton.setText("Swap");
+            centerButton.setVisible(true);
+            centerButton.setOnAction(actionEvent -> {
+
+                popUpEffect.setVisible(false);
+                popUp.setVisible(false);
+
+                this.networkHandler.sendMessage(new ChosenMarketDepotMessage(-2));
+
+            });
+
+            rightButton.setText("Place");
+            rightButton.setVisible(true);
+            rightButton.setOnAction(actionEvent -> {
+                popUpEffect.setVisible(false);
+                popUp.setVisible(false);
+
+                Button button;
+                for(int i = 0; i < 3; i++) {
+                    button = (Button) pane.lookup("#warehouseButton_" + i);
+                    int j = i;
+                    button.setOnAction(newActionEvent -> {
+                        this.networkHandler.sendMessage(new ChosenMarketDepotMessage(j));
+                        disableAllDepotButtons();
+                    });
+                    button.setDisable(false);
+                }
+                leaderButton_0.setOnAction(newActionEvent -> {
+                    this.networkHandler.sendMessage(new ChosenMarketDepotMessage(3));
+                    disableAllDepotButtons();
+                });
+                leaderButton_1.setOnAction(newActionEvent -> {
+                    this.networkHandler.sendMessage(new ChosenMarketDepotMessage(4));
+                    disableAllDepotButtons();
+                });
+                leaderButton_0.setDisable(false);
+                leaderButton_1.setDisable(false);
+            });
+            popUp.setVisible(true);
+
+        } else
+            textMessage.setText(currentPlayerNickname + " is doing a market action");
+    }
+
+    private void disableAllDepotButtons(){
+        warehouseButton_0.setDisable(true);
+        warehouseButton_1.setDisable(true);
+        warehouseButton_2.setDisable(true);
+        leaderButton_0.setDisable(true);
+        leaderButton_1.setDisable(true);
     }
 
 

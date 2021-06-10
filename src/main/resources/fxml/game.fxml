@@ -159,6 +159,16 @@
             <ImageView fx:id="player_leader_0_1" fitHeight="26.0" fitWidth="32.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" translateX="61.5" translateY="75.0" visible="false" />
             <ImageView fx:id="player_leader_1_0" fitHeight="26.0" fitWidth="32.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" translateX="157.0" translateY="75.0" visible="false" />
             <ImageView fx:id="player_leader_1_1" fitHeight="26.0" fitWidth="32.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" translateX="207.0" translateY="75.0" visible="false" />
+            <Button fx:id="leaderButton_0" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="34.0" prefWidth="86.0" translateX="9.0" translateY="73.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="leaderButton_1" disable="true" layoutX="10.0" layoutY="112.0" mnemonicParsing="false" opacity="0.0" prefHeight="34.0" prefWidth="86.0" translateX="154.0" translateY="73.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </GridPane>
       <StackPane layoutX="10.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
@@ -925,6 +935,46 @@
                         <Font size="20.0" />
                      </font></Label>
                   <ImageView fx:id="lorenzo_token" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" translateX="315.0" translateY="-150.0" visible="false" />
+                  <Button fx:id="warehouseButton_0" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="26.0" prefWidth="41.0" translateX="-256.0" translateY="-23.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="warehouseButton_1" disable="true" layoutX="339.0" layoutY="246.0" mnemonicParsing="false" opacity="0.0" prefHeight="34.0" prefWidth="70.0" translateX="-257.0" translateY="21.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="warehouseButton_2" disable="true" layoutX="324.0" layoutY="242.0" mnemonicParsing="false" opacity="0.0" prefHeight="38.0" prefWidth="92.0" translateX="-257.0" translateY="65.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="strongboxButton" disable="true" layoutX="313.0" layoutY="240.0" mnemonicParsing="false" opacity="0.0" prefHeight="78.0" prefWidth="131.0" translateX="-265.0" translateY="159.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="strongboxButton_coin" disable="true" layoutX="324.0" layoutY="242.0" mnemonicParsing="false" opacity="0.0" prefHeight="26.0" prefWidth="60.0" translateX="-298.0" translateY="140.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="strongboxButton_servant" disable="true" layoutX="329.0" layoutY="246.0" mnemonicParsing="false" opacity="0.0" prefHeight="26.0" prefWidth="60.0" translateX="-233.0" translateY="140.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="strongboxButton_shield" disable="true" layoutX="329.0" layoutY="246.0" mnemonicParsing="false" opacity="0.0" prefHeight="26.0" prefWidth="60.0" translateX="-233.0" translateY="179.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="strongboxButton_stone" disable="true" layoutX="329.0" layoutY="246.0" mnemonicParsing="false" opacity="0.0" prefHeight="26.0" prefWidth="60.0" translateX="-298.0" translateY="179.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </StackPane>
          </children>
@@ -997,7 +1047,7 @@
          </font>
       </Label>
       <Rectangle fx:id="popUpEffect" arcHeight="5.0" arcWidth="5.0" height="810.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" visible="false" width="1490.0" />
-      <StackPane fx:id="popUp" layoutX="549.0" layoutY="259.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="252.0" prefWidth="402.0" styleClass="image2">
+      <StackPane fx:id="popUp" layoutX="549.0" layoutY="259.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="252.0" prefWidth="402.0" styleClass="image2" visible="false">
          <children>
             <ImageView fx:id="popupBackground" fitHeight="467.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
                <image>
