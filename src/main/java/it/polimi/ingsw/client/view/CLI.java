@@ -519,16 +519,16 @@ public class CLI extends View{
                     for(int c = 0; c <= 2 * dimMax; c++){
                         if(a != 1) {
                             if (c < dimMax)
-                                gameMatrix[i + c] += " ".repeat(20 + c);
+                                gameMatrix[i + c] += " ".repeat(29 + c);
                             else
-                                gameMatrix[i + c] += " ".repeat(20 + (dimMax * 2 - c));
+                                gameMatrix[i + c] += " ".repeat(29 + (dimMax * 2 - c));
                         }else {
                             if (c < dimMax){
-                                gameMatrix[i + c] += " ".repeat(14);
+                                gameMatrix[i + c] += " ".repeat(25);
                                 gameMatrix[i + c] += dot.repeat(2 * (c + 1)) + " ".repeat(2 * (dimMax - c));
                                 gameMatrix[i + c] += " ".repeat(c);
                             }else {
-                                gameMatrix[i + c] += " ".repeat(14);
+                                gameMatrix[i + c] += " ".repeat(25);
                                 gameMatrix[i + c] += dot.repeat(2 * (2 * dimMax - c + 1))+ " ".repeat(2 * (c - dimMax));
                                 gameMatrix[i + c] += " ".repeat(dimMax * 2 - c);
                             }

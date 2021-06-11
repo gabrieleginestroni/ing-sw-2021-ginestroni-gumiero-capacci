@@ -1035,7 +1035,14 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="sendButton" disable="true" layoutX="1415.0" layoutY="535.0" mnemonicParsing="false" styleClass="button_custom" text="Send" />
+      <Button fx:id="sendButton" disable="true" layoutX="1415.0" layoutY="535.0" mnemonicParsing="false" styleClass="button_custom_0" text="Send">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="exitButton" disable="true" layoutX="1425.0" layoutY="545.0" mnemonicParsing="false" styleClass="button_custom_2" text="Exit" translateX="-6.0" translateY="40.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Label fx:id="leaderAction_0" layoutX="1155.0" layoutY="530.0" textFill="WHITE">
          <font>
             <Font name="Gabriola" size="18.0" />

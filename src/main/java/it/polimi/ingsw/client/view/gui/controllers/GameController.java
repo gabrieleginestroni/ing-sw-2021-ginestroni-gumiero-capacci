@@ -1,4 +1,5 @@
 package it.polimi.ingsw.client.view.gui.controllers;
+import com.google.gson.Gson;
 import it.polimi.ingsw.client.view.BoardView;
 import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.server.messages.client_server.*;
@@ -72,9 +73,11 @@ public class GameController extends GUIController implements Initializable {
     private Button strongboxButton_stone;
     @FXML
     private Button strongboxButton;
+    @FXML
+    private Button exitButton;
 
-    private final List<Integer> depotToSwap = new ArrayList<>();
-    private final Map<Integer, Integer> leaderMap = new HashMap<>();
+    private List<Integer> depotToSwap = new ArrayList<>();
+    private Map<Integer, Integer> leaderMap;
 
     private void sendMarketMessage(int move, int index){
         networkHandler.sendMessage(new ChosenMarketMoveMessage(move,index));
@@ -89,6 +92,7 @@ public class GameController extends GUIController implements Initializable {
 
     private void setLeaderAction(int index, int move){
         leaderMap.put(index, move);
+
         if(move == 1)
             ((Label) pane.lookup("#leaderAction_" + index)).setText("Activate");
         else
@@ -488,6 +492,7 @@ public class GameController extends GUIController implements Initializable {
             List<Integer> hiddenHand = view.getPersonalBoardView().getHiddenHand();
 
             //TODO check if works
+            leaderMap = new HashMap<>();
             leaderMap.put(0, 0);
             leaderMap.put(1, 0);
 
@@ -496,6 +501,7 @@ public class GameController extends GUIController implements Initializable {
 
             sendButton.setDisable(false);
             sendButton.setOnAction(actionEvent -> {
+                System.out.println(new Gson().toJson(leaderMap));
                 networkHandler.sendMessage(new ChosenLeaderActionMessage(leaderMap));
 
                 int i = 0;
@@ -597,7 +603,23 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitMiddleTurn(String currentPlayerNickname, String errorMessage) {
+        if(currentPlayerNickname.equals(view.getNickname())) {
+            popUpEffect.setVisible(true);
+            textMessage.setText("");
+            String str = errorMessage == null? "" : errorMessage + "\n";
+            popUpTextMessage.setText(str + "Choose an action");
 
+            leftButton.setText("Skip leader");
+            leftButton.setVisible(true);
+            leftButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMiddleMoveMessage(0)));
+            centerButton.setVisible(false);
+            rightButton.setText("Leader action");
+            rightButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMiddleMoveMessage(1)));
+            rightButton.setVisible(true);
+            popUp.setVisible(true);
+
+        } else
+            textMessage.setText(currentPlayerNickname + " is in middle turn");
     }
 
     @Override
@@ -613,6 +635,8 @@ public class GameController extends GUIController implements Initializable {
     @Override
     public void visitSwapState(String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
+            depotToSwap = new ArrayList<>();
+            sendButton.setDisable(true);
             String str = errorMessage == null? "" : errorMessage + "\n";
             textMessage.setText(str + "Swap depots");
 
@@ -643,7 +667,12 @@ public class GameController extends GUIController implements Initializable {
                 } );
                 button.setDisable(false);
             }
-            //TODO add a button to exit swap
+            exitButton.setOnAction(actionEvent -> {
+                exitButton.setDisable(true);
+                disableAllDepotButtons();
+                this.networkHandler.sendMessage(new ChosenSwapDepotMessage(-1,-1));
+            });
+            exitButton.setDisable(false);
 
         } else
             textMessage.setText(currentPlayerNickname + " is choosing an action");
@@ -653,6 +682,7 @@ public class GameController extends GUIController implements Initializable {
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
+            sendButton.setDisable(true);
             popUpEffect.setVisible(true);
             textMessage.setText("");
 

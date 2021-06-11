@@ -49,7 +49,7 @@ public class GUI extends View{
         String[] tmpImgName = new String[] {"add2BlackCross","blackCross","boardBack","boardFront","discard2Blue",
         "discard2Green","discard2Purple","discard2Yellow","shuffleActionToken"};
         Arrays.stream(tmpImgName).forEach(s -> punchBoardImg.put(s,new Image("./images/punchboard/" + s + ".png")));
-
+        punchBoardImg.put("faith",new Image("./images/resources/faith.png"));
 
         List<String> fxml = new ArrayList<>(Arrays.asList(SETUP_LEADER, SETUP_RESOURCE, MAIN_GUI, END_GAME,DEVELOPMENT));
         try {
@@ -208,7 +208,7 @@ public class GUI extends View{
 
     @Override
     public void visitMiddleTurn(String currentPlayerNickname, String errorMessage) {
-
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitMiddleTurn(currentPlayerNickname,errorMessage));
     }
 
     @Override
