@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.controller.states.*;
 
 import it.polimi.ingsw.server.messages.client_server.Message;
@@ -35,8 +36,8 @@ public class SoloController extends Controller{
 
 
     //TODO
-    public SoloController(Player player) {
-        super(new VirtualView());
+    public SoloController(Player player,String gameID) {
+        super(new VirtualView(),gameID);
         this.player = player;
 
         model = new SoloGame(this.player,this.virtualView);
@@ -58,6 +59,11 @@ public class SoloController extends Controller{
     }
 
     @Override
+    public void notifyPlayerDisconnection(Player player) {
+        Server.lobbies.remove(gameID);
+    }
+
+    @Override
     public void handleMessage(Message message) {
         message.handleMessage(this.currentState,this);
     }
@@ -69,7 +75,7 @@ public class SoloController extends Controller{
 
     @Override
     public boolean isRoundOver() {
-        return false;
+        return true;
     }
 
     @Override

@@ -5,12 +5,14 @@ import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
 import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
 import it.polimi.ingsw.server.messages.client_server.Message;
+import it.polimi.ingsw.server.messages.client_server.Pong;
 import it.polimi.ingsw.server.messages.server_client.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -39,15 +41,33 @@ public class ClientHandler implements Runnable {
     public void run() {
         try {
             loginPhase();
+
             while(!this.gameLobby.isGameStarted()){
                 TimeUnit.SECONDS.sleep(1);
                 //sleep
             }
+            this.clientSocket.setSoTimeout(10000);
+            new Thread(()->{
+                try {
+                    Controller controller= this.gameLobby.getController();
+                    while (!(controller.isGameOver() && controller.isRoundOver())) {
+                        this.sendAnswerMessage(new Ping());
+                        TimeUnit.SECONDS.sleep(5);
+                    }
+                } catch (InterruptedException e) {
+                    return;
+                }
+            }).start();
+
             gamePhase();
 
-        } catch (ClassNotFoundException e){ System.out.println("Invalid stream from client"); }
-        catch(IOException e) {
-            System.out.println("Client unreachable");
+        } catch (SocketTimeoutException e){
+            gameLobby.notifyClientDisconnection(this);
+        }
+        catch (ClassNotFoundException e){
+            System.out.println("Invalid stream from client");
+        } catch(IOException e) {
+            System.out.println("Client stopped his execution");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -115,31 +135,32 @@ public class ClientHandler implements Runnable {
     private void gamePhase() throws IOException, ClassNotFoundException {
         Controller controller= this.gameLobby.getController();
 
-        while(1 == 1){
+        while(!(controller.isGameOver() && controller.isRoundOver())){
             Message msg = waitMessage();
             controller.handleMessage(msg);
         }
-
+        clientSocket.close();
     }
 
     public void sendAnswerToAllPlayers(AnswerMessage message){
         List<Player> players = gameLobby.getPlayers();
 
-        players.stream().forEach(p -> {
-            try{
-                p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
-            }
-        });
+        players.stream().forEach(p ->  p.getClientHandler().sendAnswerMessage(message));
     }
 
-    public void sendAnswerMessage(AnswerMessage message) throws IOException {
-        output.writeObject(message);
+    public void sendAnswerMessage(AnswerMessage message) {
+        try {
+            output.writeObject(message);
+        } catch (IOException e) {
+            //TODO
+        }
     }
 
     public Message waitMessage() throws IOException, ClassNotFoundException {
         return (Message)input.readObject();
+    }
+
+    public Socket getClientSocket() {
+        return clientSocket;
     }
 }

@@ -11,10 +11,15 @@ import java.util.List;
 
 public abstract class Controller {
 
+    String gameID;
+
     VirtualView virtualView;
 
-    public Controller(VirtualView virtualView) {
+    public abstract void notifyPlayerDisconnection(Player player);
+
+    public Controller(VirtualView virtualView,String gameID) {
         this.virtualView = virtualView;
+        this.gameID = gameID;
     }
 
     public abstract void handleMessage(Message message);

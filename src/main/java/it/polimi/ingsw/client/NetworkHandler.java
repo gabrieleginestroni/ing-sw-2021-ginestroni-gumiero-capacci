@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class NetworkHandler implements Runnable {
     private final View view;
@@ -33,8 +36,21 @@ public class NetworkHandler implements Runnable {
         try {
             AnswerMessage message;
             boolean success;
+            new Thread(()->{
+                try {
+                    while (!view.isGameOver()) {
+                        this.sendMessage(new Pong());
+                        TimeUnit.SECONDS.sleep(5);
+                    }
+                } catch (InterruptedException e) {
+                    return;
+                }
+            }).start();
+
             while(!view.isGameOver()){
                 message = (AnswerMessage) input.readObject();
+                if(message instanceof GameStartedMessage)
+                    this.socket.setSoTimeout(10000);
                 success = false;
                 while(!success){
                     try {
@@ -49,10 +65,16 @@ public class NetworkHandler implements Runnable {
                     }
                 }
             }
-
             socket.close();
+            System.out.println("Match ended, press enter to exit");
+            Scanner scanner = new Scanner(System.in);
+            scanner.next();
+            System.exit(0);
+
+        }  catch(SocketTimeoutException e) {
+            view.showMessage("Connection lost");
         } catch(IOException e) {
-            view.showMessage("Server unreachable");
+            view.showMessage("Server stopped his execution");
         }catch (ClassNotFoundException e) {
             view.showMessage("Invalid stream");
         }

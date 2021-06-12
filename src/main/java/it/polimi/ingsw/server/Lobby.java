@@ -6,22 +6,33 @@ import it.polimi.ingsw.server.controller.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Lobby {
     private final String gameID;
     private final List<Player> players;
+    private final List<Player> disconnectedPlayers;
     private int size;
     private Controller controller;
     private boolean gameStarted;
 
     public Lobby(String gameID) {
         this.players = new ArrayList<>();
+        this.disconnectedPlayers = new ArrayList<>();
         this.size = 0;
         this.gameID = gameID;
         this.controller = null;
         this.gameStarted = false;
     }
-
+    public void notifyClientDisconnection(ClientHandler clientHandler){
+        Optional<Player> disconnectedPlayer = players.stream().filter(p -> p.getClientHandler().equals(clientHandler)).findFirst();
+        disconnectedPlayer.ifPresent(this::disconnectPlayer);
+    }
+    private void disconnectPlayer(Player player){
+        players.remove(player);
+        disconnectedPlayers.add(player);
+        controller.notifyPlayerDisconnection(player);
+    }
     public List<Player> getPlayers() {
         return players;
     }
@@ -48,7 +59,7 @@ public class Lobby {
 
     public void startGame(){ //this method was synchronized before
 
-        controller = ControllerFactory.getController(players);
+        controller = ControllerFactory.getController(players,gameID);
         gameStarted = true;
 
     }

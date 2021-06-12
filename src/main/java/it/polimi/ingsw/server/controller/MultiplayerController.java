@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller;
 
+import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.controller.states.*;
 
 import it.polimi.ingsw.server.exceptions.addResourceLimitExceededException;
@@ -8,6 +9,7 @@ import it.polimi.ingsw.server.exceptions.invalidResourceTypeException;
 
 import it.polimi.ingsw.server.messages.client_server.Message;
 
+import it.polimi.ingsw.server.messages.server_client.GameAbortedMessage;
 import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.games.Game;
@@ -15,6 +17,7 @@ import it.polimi.ingsw.server.model.games.MultiplayerGame;
 
 import it.polimi.ingsw.server.virtual_view.VirtualView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,9 +47,9 @@ public class MultiplayerController extends Controller{
 
 
     //TODO
-    public MultiplayerController(List<Player> players) {
+    public MultiplayerController(List<Player> players,String gameID) {
 
-        super(new VirtualView());
+        super(new VirtualView(),gameID);
 
 
         this.players = players;
@@ -146,6 +149,22 @@ public class MultiplayerController extends Controller{
     }
 
     @Override
+    public void notifyPlayerDisconnection(Player player) {
+        if(turnHandler.getConnectedPlayersNumber() == 2) {
+            Server.lobbies.remove(gameID);
+            List<Player> playersList = turnHandler.getPlayers();
+            playersList.remove(player);
+            try {
+                playersList.get(0).getClientHandler().sendAnswerMessage(new GameAbortedMessage());
+                playersList.get(0).getClientHandler().getClientSocket().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else turnHandler.notifyPlayerDisconnection(player);
+    }
+
+    @Override
     public void handleMessage(Message message) {
 
         message.handleMessage(this.currentState,this);
@@ -161,7 +180,10 @@ public class MultiplayerController extends Controller{
 
     @Override
     public boolean isRoundOver() {
-        return turnHandler.isRoundOver();
+        if(currentState instanceof EndTurnState)
+            return turnHandler.isRoundOver();
+        else
+            return false;
     }
 
     @Override

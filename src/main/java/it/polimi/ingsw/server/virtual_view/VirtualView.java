@@ -47,7 +47,7 @@ public class VirtualView {
             });
             try {
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }
@@ -62,7 +62,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
 
@@ -75,7 +75,7 @@ public class VirtualView {
         LorenzoUpdateMessage message = new LorenzoUpdateMessage(lorenzoJSON);
         try {
             players.get(0).getClientHandler().sendAnswerMessage(message);
-        } catch (IOException | NullPointerException e) {
+        } catch (NullPointerException e) {
             //TODO
             //p.getClientHandler().sendErrorMessage();
 
@@ -90,7 +90,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
 
@@ -133,7 +133,7 @@ public class VirtualView {
 
             try {
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }
@@ -145,7 +145,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
             //TODO
             //p.getClientHandler().sendErrorMessage();
             }
@@ -184,7 +184,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }
@@ -198,7 +198,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }
@@ -212,7 +212,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }
@@ -226,7 +226,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }
@@ -240,7 +240,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }
@@ -254,7 +254,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }
@@ -267,7 +267,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }
@@ -281,7 +281,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }
@@ -295,7 +295,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }
@@ -327,7 +327,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }
@@ -340,7 +340,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (IOException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //TODO
                 //p.getClientHandler().sendErrorMessage();
             }

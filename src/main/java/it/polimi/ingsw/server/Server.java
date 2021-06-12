@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
-    private static final ConcurrentHashMap<String,Lobby> lobbies = new ConcurrentHashMap<>();
+    public static final ConcurrentHashMap<String,Lobby> lobbies = new ConcurrentHashMap<>();
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
