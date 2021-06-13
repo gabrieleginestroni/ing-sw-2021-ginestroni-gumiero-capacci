@@ -26,6 +26,21 @@ public class CLI extends View{
             System.out.println(str);
     }
 
+    @Override
+    public void visitGameAbort() {
+        this.showMessage("Insufficient players number to continue the match");
+    }
+
+    @Override
+    public void visitPlayerDisconnection(String nickname) {
+        this.showMessage(nickname + " disconnected!");
+    }
+
+    @Override
+    public void visitPlayerReconnection(String nickname) {
+        this.showMessage(nickname + " reconnected!");
+    }
+
     //get depot where resource is available
     private Map.Entry<Integer, Integer> getDepotResource(List<String> depot, List<Integer> quantity, Resource resource, int i){
         int offset = i;

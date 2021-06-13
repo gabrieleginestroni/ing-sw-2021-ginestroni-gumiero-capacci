@@ -7,6 +7,7 @@ import it.polimi.ingsw.server.controller.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Lobby {
     private final String gameID;
@@ -24,15 +25,30 @@ public class Lobby {
         this.controller = null;
         this.gameStarted = false;
     }
+
     public void notifyClientDisconnection(ClientHandler clientHandler){
         Optional<Player> disconnectedPlayer = players.stream().filter(p -> p.getClientHandler().equals(clientHandler)).findFirst();
         disconnectedPlayer.ifPresent(this::disconnectPlayer);
     }
+
     private void disconnectPlayer(Player player){
         players.remove(player);
         disconnectedPlayers.add(player);
         controller.notifyPlayerDisconnection(player);
     }
+
+    public boolean isPlayerDisconnected(String nickname){
+        return disconnectedPlayers.stream().anyMatch(p -> p.getNickname().equals(nickname));
+    }
+
+    public void reconnectClient(String nickname, ClientHandler newClientHandler){
+        Optional<Player> reconnectedPlayer = disconnectedPlayers.stream().filter(p -> p.getNickname().equals(nickname)).findFirst();
+        reconnectedPlayer.ifPresent(p -> {
+            p.refreshClientHandler(newClientHandler);
+            controller.notifyPlayerReconnection(p);
+        });
+    }
+
     public List<Player> getPlayers() {
         return players;
     }

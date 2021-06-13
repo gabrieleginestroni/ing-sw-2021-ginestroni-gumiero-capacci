@@ -36,21 +36,23 @@ public class NetworkHandler implements Runnable {
         try {
             AnswerMessage message;
             boolean success;
-            new Thread(()->{
-                try {
-                    while (!view.isGameOver()) {
-                        this.sendMessage(new Pong());
-                        TimeUnit.SECONDS.sleep(5);
-                    }
-                } catch (InterruptedException e) {
-                    return;
-                }
-            }).start();
-
             while(!view.isGameOver()){
                 message = (AnswerMessage) input.readObject();
-                if(message instanceof GameStartedMessage)
+                /*
+                if(message instanceof GameStartedMessage) {
                     this.socket.setSoTimeout(10000);
+                    new Thread(()->{
+                        try {
+                            while (!view.isGameOver()) {
+                                this.sendMessage(new Pong());
+                                TimeUnit.SECONDS.sleep(5);
+                            }
+                        } catch (InterruptedException e) {
+                            return;
+                        }
+                    }).start();
+                }
+                 */
                 success = false;
                 while(!success){
                     try {
@@ -65,6 +67,7 @@ public class NetworkHandler implements Runnable {
                     }
                 }
             }
+
             socket.close();
             System.out.println("Match ended, press enter to exit");
             Scanner scanner = new Scanner(System.in);

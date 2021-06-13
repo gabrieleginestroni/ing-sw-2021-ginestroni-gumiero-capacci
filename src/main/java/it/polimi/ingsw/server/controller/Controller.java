@@ -12,15 +12,16 @@ import java.util.List;
 public abstract class Controller {
 
     String gameID;
-
     VirtualView virtualView;
-
-    public abstract void notifyPlayerDisconnection(Player player);
 
     public Controller(VirtualView virtualView,String gameID) {
         this.virtualView = virtualView;
         this.gameID = gameID;
     }
+
+    public abstract void notifyPlayerDisconnection(Player player);
+
+    public abstract void notifyPlayerReconnection(Player player);
 
     public abstract void handleMessage(Message message);
 
@@ -58,5 +59,7 @@ public abstract class Controller {
     public abstract State getMainActionState();
     public abstract State getEndGameState();
 
-
+    public String getGameID() {
+        return gameID;
+    }
 }

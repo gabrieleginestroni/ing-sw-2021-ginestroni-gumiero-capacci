@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -39,37 +40,48 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
+
+        Thread t = new Thread(()->{
+            try {
+                Controller controller= this.gameLobby.getController();
+                while (!(controller.isGameOver() && controller.isRoundOver())) {
+                    this.sendAnswerMessage(new Ping());
+                    TimeUnit.SECONDS.sleep(5);
+                }
+            } catch (InterruptedException e) {
+                return;
+            }
+        });
+
         try {
             loginPhase();
 
-            while(!this.gameLobby.isGameStarted()){
+            while(!this.gameLobby.isGameStarted())
                 TimeUnit.SECONDS.sleep(1);
-                //sleep
-            }
-            this.clientSocket.setSoTimeout(10000);
-            new Thread(()->{
-                try {
-                    Controller controller= this.gameLobby.getController();
-                    while (!(controller.isGameOver() && controller.isRoundOver())) {
-                        this.sendAnswerMessage(new Ping());
-                        TimeUnit.SECONDS.sleep(5);
-                    }
-                } catch (InterruptedException e) {
-                    return;
-                }
-            }).start();
+
+            //this.clientSocket.setSoTimeout(10000);
+            //t.start();
 
             gamePhase();
 
         } catch (SocketTimeoutException e){
-            gameLobby.notifyClientDisconnection(this);
-        }
-        catch (ClassNotFoundException e){
+            //gameLobby.notifyClientDisconnection(this);
+        } catch (ClassNotFoundException e){
             System.out.println("Invalid stream from client");
-        } catch(IOException e) {
-            System.out.println("Client stopped his execution");
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch(IOException e) {
+            t.interrupt();
+
+            if(gameLobby != null && lobbies.contains(gameLobby))
+                gameLobby.notifyClientDisconnection(this);
+            //System.out.println("Client stopped his execution");
+        } finally{
+            try {
+                clientSocket.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
 
@@ -90,23 +102,31 @@ public class ClientHandler implements Runnable {
 
                 Lobby lobby = lobbies.get(gameID);
                 if (lobby != null) {
-                    if (lobby.isFull()) {
-                        if (lobby.getSize() != 0)
-                            sendAnswerMessage(new LobbyFullMessage());
-                        else
-                            sendAnswerMessage(new LobbyNotReadyMessage());
-                    } else {
-                        if(lobby.isNicknameUsed(nickname))
-                            sendAnswerMessage(new NicknameAlreadyUsedMessage(gameID));
-                        else {
-                            lobby.addPlayer(nickname, this);
-                            this.gameLobby = lobby;
-                            sendAnswerToAllPlayers(new LoginSuccessMessage(gameLobby.getPlayers()));
-                            loginStatus = false;
+                    if(lobby.isPlayerDisconnected(nickname)){
+                        lobby.reconnectClient(nickname, this);
+                    }else {
+                        if (lobby.isFull()) {
+                            if (lobby.getSize() != 0)
+                                sendAnswerMessage(new LobbyFullMessage());
+                            else
+                                sendAnswerMessage(new LobbyNotReadyMessage());
+                        } else {
+                            if(lobby.isGameStarted())
+                                sendAnswerMessage(new LobbyFullMessage());
+                            else{
+                                if (lobby.isNicknameUsed(nickname))
+                                    sendAnswerMessage(new NicknameAlreadyUsedMessage(gameID));
+                                else {
+                                    lobby.addPlayer(nickname, this);
+                                    this.gameLobby = lobby;
+                                    sendAnswerToAllPlayers(new LoginSuccessMessage(gameLobby.getPlayers()));
+                                    loginStatus = false;
 
-                            if(lobby.isFull())
-                                (new Thread(()->gameLobby.startGame())).start();
+                                    if (lobby.isFull())
+                                        (new Thread(() -> gameLobby.startGame())).start();
+                                }
                             }
+                        }
                     }
                 } else {
                     lobby = new Lobby(gameID);
@@ -139,7 +159,6 @@ public class ClientHandler implements Runnable {
             Message msg = waitMessage();
             controller.handleMessage(msg);
         }
-        clientSocket.close();
     }
 
     public void sendAnswerToAllPlayers(AnswerMessage message){
@@ -152,7 +171,7 @@ public class ClientHandler implements Runnable {
         try {
             output.writeObject(message);
         } catch (IOException e) {
-            //TODO
+            System.out.println("SEND MESSAGE");
         }
     }
 

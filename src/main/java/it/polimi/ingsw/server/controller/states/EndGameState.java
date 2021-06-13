@@ -1,11 +1,15 @@
 package it.polimi.ingsw.server.controller.states;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.model.Resource;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class EndGameState implements MultiplayerState{
@@ -73,5 +77,15 @@ public class EndGameState implements MultiplayerState{
             tmpMap.put(p.getNickname(), p.getBoard().computeVictoryPoints());
         tmpMap.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())) .forEachOrdered(p -> playersVictoryPoints.put(p.getKey(), p.getValue()));
         controller.getVirtualView().showResult(playersVictoryPoints.entrySet().iterator().next().getKey(), playersVictoryPoints);
+
+        Server.lobbies.remove(controller.getGameID());
+        try {
+            controller.getCurrentPlayer().getClientHandler().getClientSocket().close();
+            List<Socket> socketList = controller.othersPlayers().stream().map(p -> p.getClientHandler().getClientSocket()).collect(Collectors.toList());
+            for(Socket socket : socketList)
+                socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

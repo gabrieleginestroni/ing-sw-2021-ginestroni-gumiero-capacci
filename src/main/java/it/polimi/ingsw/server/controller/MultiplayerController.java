@@ -156,21 +156,33 @@ public class MultiplayerController extends Controller{
             playersList.remove(player);
             try {
                 playersList.get(0).getClientHandler().sendAnswerMessage(new GameAbortedMessage());
-                playersList.get(0).getClientHandler().getClientSocket().close();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        else turnHandler.notifyPlayerDisconnection(player);
+        else {
+            Player exCurrentPlayer = this.getCurrentPlayer();
+            turnHandler.notifyPlayerDisconnection(player);
+            virtualView.setPlayers(turnHandler.getPlayers());
+
+            if(exCurrentPlayer.equals(player)) {
+                this.setCurrentState(this.getStartTurnState());
+                virtualView.notifyPlayerDisconnection(player.getNickname());
+                virtualView.startTurn(getCurrentPlayer().getNickname(), null);
+            }
+        }
+    }
+
+    @Override
+    public void notifyPlayerReconnection(Player player) {
+        turnHandler.notifyPlayerReconnection(player);
+        virtualView.setPlayers(turnHandler.getPlayers());
+        virtualView.forcedReconnectionUpdate(player);
     }
 
     @Override
     public void handleMessage(Message message) {
-
         message.handleMessage(this.currentState,this);
-
-        //this.currentState.handleInput(message,this);
-
     }
 
     @Override
@@ -190,7 +202,6 @@ public class MultiplayerController extends Controller{
     public Player getCurrentPlayer() {
         return this.turnHandler.getCurrentPlayer();
     }
-
 
     public CommunicationMediator getMediator() {
         return mediator;

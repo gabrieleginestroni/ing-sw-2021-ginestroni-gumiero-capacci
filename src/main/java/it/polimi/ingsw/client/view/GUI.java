@@ -77,6 +77,21 @@ public class GUI extends View{
             entry.getValue().setNetworkHandler(networkHandler);
     }
 
+    @Override
+    public void visitGameAbort() {
+        //TODO
+    }
+
+    @Override
+    public void visitPlayerDisconnection(String nickname) {
+        //TODO
+    }
+
+    @Override
+    public void visitPlayerReconnection(String nickname) {
+        //TODO
+    }
+
     public static void setStg(Stage stg) {
         GUI.stg = stg;
     }
@@ -86,7 +101,6 @@ public class GUI extends View{
     }
 
 //---------------------LOGIN PHASE---------------------------------------------------------------
-
     @Override
     public void showMessage(String str) {
 

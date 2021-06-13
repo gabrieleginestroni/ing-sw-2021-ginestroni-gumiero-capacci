@@ -11,7 +11,7 @@ public class Server {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Insert server port number:");
+        System.out.println(Thread.currentThread().getName() + ": Insert server port number:");
         int port = scanner.nextInt();
         System.out.println(port);
         ServerSocket serverSocket;

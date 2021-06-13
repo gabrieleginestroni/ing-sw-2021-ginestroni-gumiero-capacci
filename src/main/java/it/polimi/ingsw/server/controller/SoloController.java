@@ -64,6 +64,11 @@ public class SoloController extends Controller{
     }
 
     @Override
+    public void notifyPlayerReconnection(Player player) {
+
+    }
+
+    @Override
     public void handleMessage(Message message) {
         message.handleMessage(this.currentState,this);
     }

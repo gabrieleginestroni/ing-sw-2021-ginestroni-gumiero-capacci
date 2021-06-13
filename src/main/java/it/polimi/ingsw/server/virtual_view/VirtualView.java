@@ -33,10 +33,31 @@ public class VirtualView {
     public void setMarketObserver(MarketObserver marketObserver){
         this.marketObserver = marketObserver;
     }
-
     public void setLorenzoObserver(LorenzoObserver lorenzoObserver){ this.lorenzoObserver = lorenzoObserver; }
     public void setGridObserver(GridObserver gridObserver){ this.gridObserver = gridObserver;}
     public void setPlayers(List<Player> players){ this.players = players;}
+
+    public void notifyPlayerDisconnection(String nickname){
+        players.stream().forEach(p -> p.getClientHandler().sendAnswerMessage(new PlayerDisconnectionMessage(nickname)));
+    }
+
+    public void forcedReconnectionUpdate(Player player){
+        ClientHandler handler = player.getClientHandler();
+        handler.sendAnswerMessage(new MarketUpdateMessage(this.marketObserver.toJSONString()));
+        handler.sendAnswerMessage(new DevGridUpdateMessage(this.gridObserver.toJSONString()));
+
+        BoardsUpdateMessage message = new BoardsUpdateMessage();
+        message.addPersonalBoard(player.getBoardObserver().toJSONString());
+        players.stream().filter(q -> player != q).forEach(q -> message.addOtherBoard(q.getBoardObserver().toJSONHandFreeString()));
+        try {
+            handler.sendAnswerMessage(message);
+        } catch (NullPointerException e) {
+            //TODO
+            //p.getClientHandler().sendErrorMessage();
+        }
+
+        players.stream().filter(q -> player != q).forEach(q -> q.getClientHandler().sendAnswerMessage(new PlayerReconnectionMessage(player.getNickname())));
+    }
 
     public void updateBoardVirtualView() {
         players.stream().forEach(p -> {

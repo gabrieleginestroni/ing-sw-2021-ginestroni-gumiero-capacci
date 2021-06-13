@@ -11,7 +11,7 @@ public class Player {
     private final String nickname;
     private Board board;
     private BoardObserver boardObserver;
-    private transient final ClientHandler clientHandler;
+    private transient ClientHandler clientHandler;
 
     public Player(String nickname, ClientHandler clientHandler) {
         this.clientHandler = clientHandler;
@@ -34,8 +34,9 @@ public class Player {
         return board;
     }
 
-
     public ClientHandler getClientHandler(){return this.clientHandler;}
 
-
+    public void refreshClientHandler(ClientHandler newClientHandler){
+        this.clientHandler = newClientHandler;
+    }
 }

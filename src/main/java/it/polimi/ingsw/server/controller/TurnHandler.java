@@ -28,18 +28,25 @@ public class TurnHandler {
         int index = players.indexOf(player);
         players.remove(player);
         disconnectedPlayers.put(player,index);
+        if(index < currentPlayer)
+            currentPlayer--;
     }
+
     public void notifyPlayerReconnection(Player player){
         int index = disconnectedPlayers.get(player);
         disconnectedPlayers.remove(player);
         players.add(index,player);
-
+        if(index <= currentPlayer)
+            this.nextPlayer();
     }
+
     public boolean isRoundOver(){
         return currentPlayer == players.size() - 1;
     }
 
     public Player getCurrentPlayer(){
+        if (currentPlayer == players.size())
+            currentPlayer = 0;
         return players.get(currentPlayer);
     }
 
