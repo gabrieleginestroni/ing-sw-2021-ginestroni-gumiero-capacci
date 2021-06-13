@@ -101,6 +101,7 @@ public class ClientHandler implements Runnable {
                 if (lobby != null) {
                     if(lobby.isPlayerDisconnected(nickname)){
                         lobby.reconnectClient(nickname, this);
+                        loginStatus = false;
                     }else {
                         if (lobby.isFull()) {
                             if (lobby.getSize() != 0)

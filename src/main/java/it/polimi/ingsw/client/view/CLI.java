@@ -234,7 +234,7 @@ public class CLI extends View{
                 if (id != 0) {
                     DevelopmentCard card = this.getDevelopmentCardByID(id);
                     int iStart = i;
-                    int[] max = new int[50]; //support array to count length of line
+                    int[] max = new int[lines]; //support array to count length of line
                     String cardTypeColor = " " + ConsoleColors.colorMap.get(card.getType().toString()) + "█" + ConsoleColors.colorMap.get("RESET");
 
                     //first row, card level
@@ -396,7 +396,7 @@ public class CLI extends View{
                     int iStart = i; //line where to start building the card(same for all the cards of same level)
                     for(int id : row){
                         i = iStart;
-                        int[] max = new int[50]; //support array to count length of line
+                        int[] max = new int[lines]; //support array to count length of line
                         Arrays.fill(max, 0);
                         DevelopmentCard card = this.getDevelopmentCardByID(id);
                         if(card != null) {
