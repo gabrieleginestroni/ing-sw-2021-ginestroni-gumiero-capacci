@@ -56,9 +56,7 @@ public class NetworkHandler implements Runnable {
                 success = false;
                 while(!success){
                     try {
-                        if(!(message instanceof Ping))
-                            message.selectView(view);
-                        else System.out.println("Pong arrived");
+                        message.selectView(view);
                         success = true;
 
                     } catch (invalidClientInputException e) {
