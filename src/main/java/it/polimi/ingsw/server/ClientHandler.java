@@ -173,6 +173,7 @@ public class ClientHandler implements Runnable {
             output.writeObject(message);
         } catch (IOException e) {
             System.out.println("SEND MESSAGE ERROR");
+            e.printStackTrace();
         }
     }
 

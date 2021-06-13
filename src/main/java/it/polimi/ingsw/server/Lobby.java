@@ -46,6 +46,8 @@ public class Lobby {
         reconnectedPlayer.ifPresent(p -> {
             p.refreshClientHandler(newClientHandler);
             controller.notifyPlayerReconnection(p);
+            players.add(p);
+            disconnectedPlayers.remove(p);
         });
     }
 
