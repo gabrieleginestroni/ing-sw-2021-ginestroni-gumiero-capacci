@@ -164,10 +164,10 @@ public class MultiplayerController extends Controller{
             Player exCurrentPlayer = this.getCurrentPlayer();
             turnHandler.notifyPlayerDisconnection(player);
             virtualView.setPlayers(turnHandler.getPlayers());
+            virtualView.notifyPlayerDisconnection(player.getNickname());
 
             if(exCurrentPlayer.equals(player)) {
                 this.setCurrentState(this.getStartTurnState());
-                virtualView.notifyPlayerDisconnection(player.getNickname());
                 virtualView.startTurn(getCurrentPlayer().getNickname(), null);
             }
         }
