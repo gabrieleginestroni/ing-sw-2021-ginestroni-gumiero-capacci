@@ -38,8 +38,8 @@ public class NetworkHandler implements Runnable {
             boolean success;
             while(!view.isGameOver()){
                 message = (AnswerMessage) input.readObject();
-                /*
-                if(message instanceof GameStartedMessage) {
+
+                 if(message instanceof GameStartedMessage) {
                     this.socket.setSoTimeout(10000);
                     new Thread(()->{
                         try {
@@ -52,12 +52,15 @@ public class NetworkHandler implements Runnable {
                         }
                     }).start();
                 }
-                 */
+
                 success = false;
                 while(!success){
                     try {
-                        message.selectView(view);
+                        if(!(message instanceof Ping))
+                            message.selectView(view);
+                        else System.out.println("Pong arrived");
                         success = true;
+
                     } catch (invalidClientInputException e) {
                         view.showMessage(e.getErrorMessage()+", please retry");
                     }
@@ -80,6 +83,12 @@ public class NetworkHandler implements Runnable {
             view.showMessage("Server stopped his execution");
         }catch (ClassNotFoundException e) {
             view.showMessage("Invalid stream");
+        } finally {
+            try {
+                this.socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

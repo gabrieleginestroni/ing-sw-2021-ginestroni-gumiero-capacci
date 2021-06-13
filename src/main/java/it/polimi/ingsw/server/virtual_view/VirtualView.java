@@ -52,8 +52,7 @@ public class VirtualView {
         try {
             handler.sendAnswerMessage(message);
         } catch (NullPointerException e) {
-            //TODO
-            //p.getClientHandler().sendErrorMessage();
+            e.printStackTrace();
         }
 
         players.stream().filter(q -> player != q).forEach(q -> q.getClientHandler().sendAnswerMessage(new PlayerReconnectionMessage(player.getNickname())));
@@ -69,8 +68,7 @@ public class VirtualView {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
     }
@@ -78,14 +76,11 @@ public class VirtualView {
     public void updateMarketVirtualView(){
         String marketJSON = this.marketObserver.toJSONString();
         MarketUpdateMessage message = new MarketUpdateMessage(marketJSON);
-        //TODO
-        //TESTING
         players.stream().forEach(p -> {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
 
             }
         });
@@ -97,8 +92,7 @@ public class VirtualView {
         try {
             players.get(0).getClientHandler().sendAnswerMessage(message);
         } catch (NullPointerException e) {
-            //TODO
-            //p.getClientHandler().sendErrorMessage();
+            e.printStackTrace();
 
         }
     }
@@ -112,8 +106,7 @@ public class VirtualView {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
 
             }
         });
@@ -140,8 +133,7 @@ public class VirtualView {
 
             return chosenLeaderList;
         } catch (IOException | ClassNotFoundException e) {
-            //TODO
-            //p.getClientHandler().sendErrorMessage();
+            e.printStackTrace();
             return null;
         }
     }
@@ -155,8 +147,7 @@ public class VirtualView {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
     }
@@ -167,8 +158,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-            //TODO
-            //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
     }
@@ -193,8 +183,7 @@ public class VirtualView {
             }
 
         } catch (IOException | ClassNotFoundException e){
-            //TODO
-            //p.getClientHandler().sendErrorMessage();
+            e.printStackTrace();
         }
         return resMap;
     }
@@ -206,8 +195,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
 
@@ -220,8 +208,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
 
@@ -234,8 +221,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
 
@@ -248,8 +234,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
 
@@ -262,8 +247,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
 
@@ -276,8 +260,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
 
@@ -289,8 +272,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
 
@@ -303,8 +285,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
 
@@ -317,8 +298,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
     }
@@ -330,13 +310,18 @@ public class VirtualView {
             playerHandler.sendAnswerMessage(new ProposeWhiteMarbleMessage(res1,res2));
 
             Message msg = playerHandler.waitMessage();
+            boolean success = false;
+            while(!success) {
+                if(msg instanceof ChosenWhiteMarbleMessage)
+                    success = true;
+                else
+                    msg = playerHandler.waitMessage();
+            }
 
-            if(msg instanceof ChosenWhiteMarbleMessage)
-                return ((ChosenWhiteMarbleMessage) msg).getRes();
+            return ((ChosenWhiteMarbleMessage) msg).getRes();
 
         } catch (IOException | ClassNotFoundException e){
-            //TODO
-            //p.getClientHandler().sendErrorMessage();
+            e.printStackTrace();
         }
         return null;
 
@@ -349,8 +334,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
     }
@@ -362,17 +346,23 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                //TODO
-                //p.getClientHandler().sendErrorMessage();
+                e.printStackTrace();
             }
         });
        try {
            Message msg = playerHandler.waitMessage();
-           if (msg instanceof ChosenMarketDepotMessage)
-               return ((ChosenMarketDepotMessage) msg).getChosenDepot();
+           boolean success = false;
+           while(!success) {
+               if (msg instanceof ChosenMarketDepotMessage)
+                   success = true;
+               else
+                   msg = playerHandler.waitMessage();
+           }
+
+           return ((ChosenMarketDepotMessage) msg).getChosenDepot();
+
        } catch (IOException | ClassNotFoundException e){
-           //TODO
-           //p.getClientHandler().sendErrorMessage();
+           e.printStackTrace();
        }
        return -1;
     }

@@ -59,24 +59,21 @@ public class ClientHandler implements Runnable {
             while(!this.gameLobby.isGameStarted())
                 TimeUnit.SECONDS.sleep(1);
 
-            //this.clientSocket.setSoTimeout(10000);
-            //t.start();
+            this.clientSocket.setSoTimeout(10000);
+            t.start();
 
             gamePhase();
 
-        } catch (SocketTimeoutException e){
-            //gameLobby.notifyClientDisconnection(this);
+        } catch(IOException e) {
+            t.interrupt();
+            if(gameLobby != null && lobbies.contains(gameLobby))
+                gameLobby.notifyClientDisconnection(this);
+            //System.out.println("Client stopped his execution");
         } catch (ClassNotFoundException e){
             System.out.println("Invalid stream from client");
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } catch(IOException e) {
-            t.interrupt();
-
-            if(gameLobby != null && lobbies.contains(gameLobby))
-                gameLobby.notifyClientDisconnection(this);
-            //System.out.println("Client stopped his execution");
-        } finally{
+        } finally {
             try {
                 clientSocket.close();
             } catch (IOException ioException) {
@@ -158,6 +155,7 @@ public class ClientHandler implements Runnable {
         while(!(controller.isGameOver() && controller.isRoundOver())){
             Message msg = waitMessage();
             controller.handleMessage(msg);
+
         }
     }
 
@@ -171,7 +169,7 @@ public class ClientHandler implements Runnable {
         try {
             output.writeObject(message);
         } catch (IOException e) {
-            System.out.println("SEND MESSAGE");
+            System.out.println("SEND MESSAGE ERROR");
         }
     }
 
