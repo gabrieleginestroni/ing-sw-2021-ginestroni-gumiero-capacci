@@ -165,6 +165,11 @@ public class GUI extends View{
     }
 
     @Override
+    public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
+
+    }
+
+    @Override
     public void visitInkwell(String nickname) {
         if(this.personalBoardView.getNickname().equals(nickname))
             this.personalBoardView.setInkwell();

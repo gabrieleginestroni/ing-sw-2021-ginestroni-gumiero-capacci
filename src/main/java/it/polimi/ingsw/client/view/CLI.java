@@ -818,6 +818,20 @@ public class CLI extends View{
     }
 
     @Override
+    public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
+        this.marketView = gson.fromJson(updatedMarket, MarketView.class);
+        this.personalBoardView = gson.fromJson(personalBoard, BoardView.class);
+        if(otherBoards.size() != 0) {
+            this.otherBoardsView = new ArrayList<>();
+            otherBoards.forEach(s -> otherBoardsView.add(gson.fromJson(s, BoardView.class)));
+        }
+        this.devGrid = gson.fromJson(updatedGrid, GridView.class);
+        buildCLI();
+        this.showMessage("Successfully reconnected to the match ");
+
+    }
+
+    @Override
     public void visitGameStarted(String str) {
         this.showMessage(str);
     }

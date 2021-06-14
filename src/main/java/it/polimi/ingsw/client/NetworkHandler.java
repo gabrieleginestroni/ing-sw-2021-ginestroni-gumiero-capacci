@@ -33,24 +33,27 @@ public class NetworkHandler implements Runnable {
 
     @Override
     public void run() {
+
+        Thread pingThread = new Thread(()->{
+            try {
+                while (!view.isGameOver()) {
+                    this.sendMessage(new Pong());
+                    TimeUnit.SECONDS.sleep(5);
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+
         try {
             AnswerMessage message;
             boolean success;
             while(!view.isGameOver()){
                 message = (AnswerMessage) input.readObject();
 
-                 if(message instanceof GameStartedMessage) {
+                 if(message instanceof GameStartedMessage || message instanceof ForcedReconnectionUpdateMessage) {
                     this.socket.setSoTimeout(10000);
-                    new Thread(()->{
-                        try {
-                            while (!view.isGameOver()) {
-                                this.sendMessage(new Pong());
-                                TimeUnit.SECONDS.sleep(5);
-                            }
-                        } catch (InterruptedException e) {
-                            return;
-                        }
-                    }).start();
+                    pingThread.start();
                 }
 
                 success = false;
@@ -77,13 +80,17 @@ public class NetworkHandler implements Runnable {
 
         }  catch(SocketTimeoutException e) {
             view.showMessage("Connection lost");
+
         } catch(IOException e) {
             view.showMessage("Server stopped his execution");
         }catch (ClassNotFoundException e) {
             view.showMessage("Invalid stream");
         } finally {
             try {
+                pingThread.interrupt();
+                this.socket.setSoTimeout(0);
                 this.socket.close();
+                Thread.currentThread().interrupt();
             } catch (IOException e) {
                 e.printStackTrace();
             }

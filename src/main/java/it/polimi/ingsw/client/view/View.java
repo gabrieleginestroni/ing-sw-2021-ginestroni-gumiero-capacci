@@ -75,6 +75,9 @@ public abstract class View {
 
     public abstract void visitBoardsUpdate(String personalBoard, List<String> otherBoards);
     public abstract void visitDevGridUpdate(String updatedGrid);
+    public abstract void visitLorenzoUpdate(String updatedLorenzo);
+    public abstract void visitMarketUpdate(String updatedMarket);
+    public abstract void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards,String updatedGrid,String updatedMarket);
     public abstract void visitGameStarted(String str);
     public abstract void visitInitialResource(int quantity);
     public abstract void visitInkwell(String nickname);
@@ -83,8 +86,6 @@ public abstract class View {
     public abstract void visitLobbyFull(String str);
     public abstract void visitLobbyNotReady(String str);
     public abstract void visitLoginSuccess(String currentPlayers);
-    public abstract void visitLorenzoUpdate(String updatedLorenzo);
-    public abstract void visitMarketUpdate(String updatedMarket);
     public abstract void visitRequestLobbySize(String str) throws invalidClientInputException;
     public abstract void visitNicknameAlreadyUsed(String str,String gameID);
     public abstract void visitWhiteMarbleProposal(Resource res1,Resource res2);

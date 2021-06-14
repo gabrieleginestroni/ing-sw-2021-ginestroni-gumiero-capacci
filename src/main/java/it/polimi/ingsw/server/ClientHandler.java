@@ -41,7 +41,7 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
 
-        Thread t = new Thread(()->{
+        Thread pingThread = new Thread(()->{
             try {
                 Controller controller= this.gameLobby.getController();
                 while (!(controller.isGameOver() && controller.isRoundOver())) {
@@ -49,7 +49,7 @@ public class ClientHandler implements Runnable {
                     TimeUnit.SECONDS.sleep(5);
                 }
             } catch (InterruptedException e) {
-                return;
+                Thread.currentThread().interrupt();
             }
         });
 
@@ -60,12 +60,13 @@ public class ClientHandler implements Runnable {
                 TimeUnit.SECONDS.sleep(1);
 
             this.clientSocket.setSoTimeout(10000);
-            t.start();
+            pingThread.start();
 
             gamePhase();
 
         } catch(IOException e) {
-            t.interrupt();
+            e.printStackTrace();
+            pingThread.interrupt();
             if(gameLobby != null && lobbies.contains(gameLobby))
                 gameLobby.notifyClientDisconnection(this);
             //System.out.println("Client stopped his execution");
@@ -75,7 +76,11 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
         } finally {
             try {
+                pingThread.interrupt();
+                clientSocket.setSoTimeout(0);
                 clientSocket.close();
+                Thread.currentThread().interrupt();
+
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -172,7 +177,7 @@ public class ClientHandler implements Runnable {
         try {
             output.writeObject(message);
         } catch (IOException e) {
-            System.out.println("SEND MESSAGE ERROR");
+            System.out.println("PING SENT WHILE PLAYER DISCONNECTED");
             e.printStackTrace();
         }
     }

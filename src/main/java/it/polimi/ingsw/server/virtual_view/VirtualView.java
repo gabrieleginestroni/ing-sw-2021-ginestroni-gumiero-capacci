@@ -43,10 +43,8 @@ public class VirtualView {
 
     public void forcedReconnectionUpdate(Player player){
         ClientHandler handler = player.getClientHandler();
-        handler.sendAnswerMessage(new MarketUpdateMessage(this.marketObserver.toJSONString()));
-        handler.sendAnswerMessage(new DevGridUpdateMessage(this.gridObserver.toJSONString()));
 
-        BoardsUpdateMessage message = new BoardsUpdateMessage();
+        ForcedReconnectionUpdateMessage message = new ForcedReconnectionUpdateMessage(this.gridObserver.toJSONString(),this.marketObserver.toJSONString());
         message.addPersonalBoard(player.getBoardObserver().toJSONString());
         players.stream().filter(q -> player != q).forEach(q -> message.addOtherBoard(q.getBoardObserver().toJSONHandFreeString()));
         try {
