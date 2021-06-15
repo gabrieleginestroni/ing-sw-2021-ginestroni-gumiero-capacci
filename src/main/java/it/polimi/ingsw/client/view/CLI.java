@@ -222,7 +222,45 @@ public class CLI extends View{
             //padding
             for (int h = 24; h < maxWidth; h++)
                 personalMatrix[i] += " ";
+
             i++;
+
+            //display PopeTiles
+            boolean[] tiles = playerView.getPopeTiles();
+            for(int h = 0; h < 3; h++){
+                //int space = h < 2 ? 5 : 4;
+                //personalMatrix[i] += " ".repeat(space);
+                //personalMatrix[i+1] += " ".repeat(space);
+
+                int space = (h == 0 ? 4 : (h == 1 ? 3 : 2));
+                int sectionLengthBefore = (h < 2 ? 1 : 2);
+                int sectionLengthAfter = (h == 0 ? 1 : 2);
+
+                personalMatrix[i] += " ".repeat(space);
+                personalMatrix[i+1] += " ".repeat(space);
+                personalMatrix[i] += ConsoleColors.colorMap.get("RED")+"░".repeat(sectionLengthBefore)+ConsoleColors.colorMap.get("RESET");
+                personalMatrix[i+1] += ConsoleColors.colorMap.get("RED")+"░".repeat(sectionLengthBefore)+ConsoleColors.colorMap.get("RESET");
+                String status = "";
+                if(tiles[h])
+                    status = ConsoleColors.colorMap.get("GREEN") + "VV";
+                else
+                    status = ConsoleColors.colorMap.get("RED") + "XX";
+
+                personalMatrix[i] += status + ConsoleColors.colorMap.get("RESET");
+                personalMatrix[i + 1] += status + ConsoleColors.colorMap.get("RESET");
+                personalMatrix[i] += ConsoleColors.colorMap.get("RED")+"░".repeat(sectionLengthAfter)+ConsoleColors.colorMap.get("RESET");
+                personalMatrix[i+1] += ConsoleColors.colorMap.get("RED")+"░".repeat(sectionLengthAfter)+ConsoleColors.colorMap.get("RESET");
+            }
+
+            //padding
+            for (int h = 24; h < maxWidth; h++) {
+                personalMatrix[i] += " ";
+                personalMatrix[i+1] += " ";
+            }
+
+            supportMatrix[i] = 1;
+            supportMatrix[i+1] = 1;
+            i += 2;
 
             //card slot
             personalMatrix[i] = "  Cardslot ";
