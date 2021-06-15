@@ -75,6 +75,13 @@ public class GameController extends GUIController implements Initializable {
     private Button strongboxButton;
     @FXML
     private Button exitButton;
+    @FXML
+    private Button cardslot_0;
+    @FXML
+    private Button cardslot_1;
+    @FXML
+    private Button cardslot_2;
+
 
     private List<Integer> depotToSwap = new ArrayList<>();
     private Map<Integer, Integer> leaderMap;
@@ -131,6 +138,15 @@ public class GameController extends GUIController implements Initializable {
         }
 
         changeSceneButton.setOnAction(actionEvent -> Platform.runLater(()-> view.changeScene(view.scenesMap.get(GUI.DEVELOPMENT))));
+
+        for(int i = 0; i <= 2; i++){
+            int index = i;
+            ((Button) pane.lookup("#cardslot_"+i)).setOnAction(actionEvent -> {
+                chosenCardSlot = index;
+                textMessage.setText(textMessage.getText().split("\n")[0]+"\n Chosen card slot: "+chosenCardSlot);
+                System.out.println(textMessage.getText());
+            });
+        }
 
     }
 
@@ -598,6 +614,63 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
+        resToRemove = new HashMap<>();
+        popUpEffect.setVisible(false);
+        popUp.setVisible(false);
+        textMessage.setText("");
+        textMessage.setText("Choose a card slot and resources to buy the card");
+
+        for(int i = 0; i <= 2; i++)
+            ((Button) pane.lookup("#cardslot_"+i)).setDisable(false);
+
+        for(int i = 0; i <= 2; i++){
+            int index = i;
+            Button depotButton = (Button) pane.lookup("#warehouseButton_"+i);
+            if(view.getPersonalBoardView().getWarehouseDepotQuantity().get(index) > 0) {
+                depotButton.setOnAction(actionEvent -> {
+                    Resource res = Resource.valueOf(view.getPersonalBoardView().getWarehouseDepotResource().get(index));
+                    Map<Resource, Integer> tmpMap;
+                    int addedQuantity = 1;
+                    if (resToRemove.get(index) != null) {
+                        tmpMap = resToRemove.get(index);
+                        if (resToRemove.get(index).get(res) != null)
+                            addedQuantity += resToRemove.get(index).get(res);
+                    } else
+                        tmpMap = new HashMap<>();
+                    tmpMap.put(res, addedQuantity);
+                    resToRemove.put(index, tmpMap);
+                    textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\n" + new Gson().toJson(resToRemove));
+                    System.out.println(textMessage.getText());
+
+                });
+                depotButton.setDisable(false);
+            }
+        }
+
+        List<String> resources = new ArrayList<>(Arrays.asList("coin","servant","stone","shield"));
+        for(String resStr : resources){
+            int index = 5;
+            if(view.getPersonalBoardView().getStrongBox().get(resStr.toUpperCase()) > 0) {
+                Button strongboxBtn = (Button) pane.lookup("#strongboxButton_" + resStr);
+                strongboxBtn.setOnAction(actionEvent -> {
+                    Resource res = Resource.valueOf(resStr.toUpperCase());
+                    Map<Resource, Integer> tmpMap;
+                    int addedQuantity = 1;
+                    if (resToRemove.get(index) != null) {
+                        tmpMap = resToRemove.get(index);
+                        if (resToRemove.get(index).get(res) != null)
+                            addedQuantity += resToRemove.get(index).get(res);
+                    } else
+                        tmpMap = new HashMap<>();
+                    tmpMap.put(res, addedQuantity);
+                    resToRemove.put(index, tmpMap);
+                    textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\n" + new Gson().toJson(resToRemove));
+                    System.out.println(textMessage.getText());
+                });
+                strongboxBtn.setDisable(false);
+            }
+        }
+
 
     }
 

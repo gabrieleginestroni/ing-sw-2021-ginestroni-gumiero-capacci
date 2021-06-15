@@ -975,6 +975,21 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <Button fx:id="cardslot_0" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="290.0" prefWidth="126.0" translateX="-18.0" translateY="80.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="cardslot_1" disable="true" layoutX="296.0" layoutY="114.0" mnemonicParsing="false" opacity="0.0" prefHeight="290.0" prefWidth="126.0" translateX="117.0" translateY="80.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="cardslot_2" disable="true" layoutX="296.0" layoutY="114.0" mnemonicParsing="false" opacity="0.0" prefHeight="290.0" prefWidth="126.0" translateX="256.0" translateY="80.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </StackPane>
          </children>

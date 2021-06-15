@@ -5,12 +5,18 @@ import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.server.model.Resource;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public abstract class GUIController {
     GUI view;
     NetworkHandler networkHandler;
+
+    static int chosenCardSlot;
+    static int chosenRow;
+    static int chosenCol;
+    static Map<Integer,Map<Resource,Integer>> resToRemove = new HashMap<>();
 
     public void setGUI(GUI view){
         this.view = view;

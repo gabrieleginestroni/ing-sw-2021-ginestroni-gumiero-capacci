@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1490.0" stylesheets="@/stylesheets/developmentStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.client.view.gui.controllers.DevelopmentController">
@@ -92,7 +93,16 @@
       </GridPane>
    </center>
    <right>
-      <Button fx:id="buyButton" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" styleClass="button_custom" text="Select Card" translateX="-200.0" BorderPane.alignment="CENTER" />
+      <Pane BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="buyButton" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" styleClass="button_custom" text="Select Card" translateX="-60.0" translateY="350.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffba1f" height="200.0" stroke="BLACK" strokeType="INSIDE" translateX="-120.0" translateY="500.0" width="200.0" />
+            <Label fx:id="textMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="15.0" prefHeight="170.0" prefWidth="176.0" textAlignment="CENTER" translateX="-120.0" translateY="500.0" wrapText="true">
+               <font>
+                  <Font name="Gabriola" size="24.0" />
+               </font></Label>
+         </children>
+      </Pane>
    </right>
    <left>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">

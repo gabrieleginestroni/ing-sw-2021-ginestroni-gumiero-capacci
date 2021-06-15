@@ -1,11 +1,13 @@
 package it.polimi.ingsw.client.view.gui.controllers;
 
 import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.server.messages.client_server.ChosenDevCardToPurchaseMessage;
 import it.polimi.ingsw.server.model.Resource;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -24,6 +26,9 @@ public class DevelopmentController extends GUIController implements Initializabl
     private Button buyButton;
     @FXML
     private BorderPane pane;
+    @FXML
+    private Label textMessage;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -33,6 +38,24 @@ public class DevelopmentController extends GUIController implements Initializabl
 
         changeSceneButton.setOnAction( actionEvent -> Platform.runLater(()-> view.changeScene(view.scenesMap.get(GUI.MAIN_GUI))));
 
+        StackPane devPane;
+        ImageView devImg;
+        for(int i = 0; i < 3 ; i++) {
+            for (int j = 0; j < 4; j++) {
+                devPane = (StackPane) pane.lookup("#dev_" + i + "_" + j);
+                int finalI = i;
+                int finalJ = j;
+                devPane.setOnMouseClicked(mouseEvent -> {
+                    chosenRow = finalI;
+                    chosenCol = finalJ;
+                    textMessage.setText("Selected ROW: "+chosenRow+" COL: "+chosenCol+"\n Please choose a card slot and resources ");
+                    view.changeScene(view.scenesMap.get(GUI.MAIN_GUI));
+                    textMessage.setVisible(true);
+                    buyButton.setDisable(false);
+                });
+
+            }
+        }
     }
 
     @Override
@@ -50,6 +73,17 @@ public class DevelopmentController extends GUIController implements Initializabl
                      devImg.setImage(GUI.developmentCardImg[0]);
             }
         }
+    }
+
+    @Override
+    public void visitDevCardSale(String currentPlayerNickname) {
+        textMessage.setText("Choose a card to buy");
+        buyButton.setDisable(true);
+        chosenCol = -1;
+        chosenRow = -1;
+        buyButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(chosenRow,chosenCol,super.resToRemove,super.chosenCardSlot)));
+
+
     }
 
     @Override
@@ -122,10 +156,6 @@ public class DevelopmentController extends GUIController implements Initializabl
 
     }
 
-    @Override
-    public void visitDevCardSale(String currentPlayerNickname) {
-
-    }
 
     @Override
     public void visitMiddleTurn(String currentPlayerNickname, String errorMessage) {
