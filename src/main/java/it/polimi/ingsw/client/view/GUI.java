@@ -215,14 +215,11 @@ public class GUI extends View{
 
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
-        super.currentPlayer = currentPlayerNickname;
-
         Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitStartTurn(currentPlayerNickname, errorMessage));
     }
 
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
-        Platform.runLater(() -> this.changeScene(scenesMap.get(DEVELOPMENT)));
         Platform.runLater(() -> controllersMap.get(DEVELOPMENT).visitDevCardSale(currentPlayerNickname));
         Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitDevCardSale(currentPlayerNickname));
     }

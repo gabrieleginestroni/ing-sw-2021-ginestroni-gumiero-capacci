@@ -590,59 +590,32 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
-        chosenCardSlot = -1;
+        if(currentPlayerNickname.equals(view.getNickname())) {
+            Platform.runLater(() -> view.changeScene(view.scenesMap.get(GUI.DEVELOPMENT)));
+            chosenCardSlot = -1;
 
-        resToRemove = new HashMap<>();
-        popUpEffect.setVisible(false);
-        popUp.setVisible(false);
-        sendButton.setOnAction(actionEvent -> {
-            this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(chosenRow, chosenCol, resToRemove, chosenCardSlot));
-            disableAllDepotButtons();
-        });
-        sendButton.setDisable(false);
-        textMessage.setText("");
-        textMessage.setText("Choose a card slot and resources to buy the card");
+            resToRemove = new HashMap<>();
+            popUpEffect.setVisible(false);
+            popUp.setVisible(false);
+            sendButton.setOnAction(actionEvent -> {
+                this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(chosenRow, chosenCol, resToRemove, chosenCardSlot));
+                disableAllDepotButtons();
+            });
+            sendButton.setDisable(false);
+            textMessage.setText("");
+            textMessage.setText("Choose a card slot and resources to buy the card");
 
-        for(int i = 0; i <= 2; i++)
-            pane.lookup("#cardslot_"+i).setDisable(false);
+            for (int i = 0; i <= 2; i++)
+                pane.lookup("#cardslot_" + i).setDisable(false);
 
-        for(int i = 0; i <= 2; i++){
-            int index = i;
-            Button depotButton = (Button) pane.lookup("#warehouseButton_"+i);
-            if(view.getPersonalBoardView().getWarehouseDepotQuantity().get(index) > 0) {
-                depotButton.setOnAction(actionEvent -> {
-                    Resource res = Resource.valueOf(view.getPersonalBoardView().getWarehouseDepotResource().get(index));
-                    Map<Resource, Integer> tmpMap;
-                    int addedQuantity = 1;
-                    if (resToRemove.get(index) != null) {
-                        tmpMap = resToRemove.get(index);
-                        if (resToRemove.get(index).get(res) != null)
-                            addedQuantity += resToRemove.get(index).get(res);
-                    } else
-                        tmpMap = new HashMap<>();
-                    tmpMap.put(res, addedQuantity);
-                    resToRemove.put(index, tmpMap);
-                    textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\n" + new Gson().toJson(resToRemove));
-                    System.out.println(textMessage.getText());
-
-                });
-                depotButton.setDisable(false);
-            }
-        }
-
-        List<Integer> activeLeaders = view.getPersonalBoardView().getActiveLeaders();
-        int leaderOffset = 0;
-        for (int i = 0; i <= 1; i++) {
-            if (i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("depots")) {
-                if(view.getPersonalBoardView().getLeaderDepotQuantity().get(i) > 0) {
-                    Button leaderBtn = (Button) pane.lookup("#leaderButton_" + i);
-                    int finalLeaderOffset = leaderOffset;
-                    leaderBtn.setOnAction(actionEvent -> {
-                        Resource res = Resource.valueOf(view.getPersonalBoardView().getLeaderDepotResource().get(finalLeaderOffset));
+            for (int i = 0; i <= 2; i++) {
+                int index = i;
+                Button depotButton = (Button) pane.lookup("#warehouseButton_" + i);
+                if (view.getPersonalBoardView().getWarehouseDepotQuantity().get(index) > 0) {
+                    depotButton.setOnAction(actionEvent -> {
+                        Resource res = Resource.valueOf(view.getPersonalBoardView().getWarehouseDepotResource().get(index));
                         Map<Resource, Integer> tmpMap;
                         int addedQuantity = 1;
-                        //TODO
-                        int index = finalLeaderOffset + 3;
                         if (resToRemove.get(index) != null) {
                             tmpMap = resToRemove.get(index);
                             if (resToRemove.get(index).get(res) != null)
@@ -655,37 +628,66 @@ public class GameController extends GUIController implements Initializable {
                         System.out.println(textMessage.getText());
 
                     });
-                    leaderBtn.setDisable(false);
+                    depotButton.setDisable(false);
                 }
-                leaderOffset ++;
             }
-        }
 
-        List<String> resources = new ArrayList<>(Arrays.asList("coin","servant","stone","shield"));
-        for(String resStr : resources){
-            int index = 5;
-            if(view.getPersonalBoardView().getStrongBox().get(resStr.toUpperCase()) > 0) {
-                Button strongboxBtn = (Button) pane.lookup("#strongboxButton_" + resStr);
-                strongboxBtn.setOnAction(actionEvent -> {
-                    Resource res = Resource.valueOf(resStr.toUpperCase());
-                    Map<Resource, Integer> tmpMap;
-                    int addedQuantity = 1;
-                    if (resToRemove.get(index) != null) {
-                        tmpMap = resToRemove.get(index);
-                        if (resToRemove.get(index).get(res) != null)
-                            addedQuantity += resToRemove.get(index).get(res);
-                    } else
-                        tmpMap = new HashMap<>();
-                    tmpMap.put(res, addedQuantity);
-                    resToRemove.put(index, tmpMap);
-                    textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\n" + new Gson().toJson(resToRemove));
-                    System.out.println(textMessage.getText());
-                });
-                strongboxBtn.setDisable(false);
+            List<Integer> activeLeaders = view.getPersonalBoardView().getActiveLeaders();
+            int leaderOffset = 0;
+            for (int i = 0; i <= 1; i++) {
+                if (i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("depots")) {
+                    if (view.getPersonalBoardView().getLeaderDepotQuantity().get(i) > 0) {
+                        Button leaderBtn = (Button) pane.lookup("#leaderButton_" + i);
+                        int finalLeaderOffset = leaderOffset;
+                        leaderBtn.setOnAction(actionEvent -> {
+                            Resource res = Resource.valueOf(view.getPersonalBoardView().getLeaderDepotResource().get(finalLeaderOffset));
+                            Map<Resource, Integer> tmpMap;
+                            int addedQuantity = 1;
+                            //TODO
+                            int index = finalLeaderOffset + 3;
+                            if (resToRemove.get(index) != null) {
+                                tmpMap = resToRemove.get(index);
+                                if (resToRemove.get(index).get(res) != null)
+                                    addedQuantity += resToRemove.get(index).get(res);
+                            } else
+                                tmpMap = new HashMap<>();
+                            tmpMap.put(res, addedQuantity);
+                            resToRemove.put(index, tmpMap);
+                            textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\n" + new Gson().toJson(resToRemove));
+                            System.out.println(textMessage.getText());
+
+                        });
+                        leaderBtn.setDisable(false);
+                    }
+                    leaderOffset++;
+                }
             }
-        }
 
-
+            List<String> resources = new ArrayList<>(Arrays.asList("coin", "servant", "stone", "shield"));
+            for (String resStr : resources) {
+                int index = 5;
+                if (view.getPersonalBoardView().getStrongBox().get(resStr.toUpperCase()) > 0) {
+                    Button strongboxBtn = (Button) pane.lookup("#strongboxButton_" + resStr);
+                    strongboxBtn.setOnAction(actionEvent -> {
+                        Resource res = Resource.valueOf(resStr.toUpperCase());
+                        Map<Resource, Integer> tmpMap;
+                        int addedQuantity = 1;
+                        if (resToRemove.get(index) != null) {
+                            tmpMap = resToRemove.get(index);
+                            if (resToRemove.get(index).get(res) != null)
+                                addedQuantity += resToRemove.get(index).get(res);
+                        } else
+                            tmpMap = new HashMap<>();
+                        tmpMap.put(res, addedQuantity);
+                        resToRemove.put(index, tmpMap);
+                        textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\n" + new Gson().toJson(resToRemove));
+                        System.out.println(textMessage.getText());
+                    });
+                    strongboxBtn.setDisable(false);
+                }
+            }
+        } else
+            textMessage.setText(currentPlayerNickname + " is purchasing a development card");
     }
 
     @Override
@@ -752,7 +754,7 @@ public class GameController extends GUIController implements Initializable {
             exitButton.setDisable(false);
 
         } else
-            textMessage.setText(currentPlayerNickname + " is choosing an action");
+            textMessage.setText(currentPlayerNickname + " is swapping depots");
 
     }
 
@@ -823,7 +825,7 @@ public class GameController extends GUIController implements Initializable {
             popUp.setVisible(true);
 
         } else
-            textMessage.setText(currentPlayerNickname + " is doing a market action");
+            textMessage.setText(currentPlayerNickname + " is placing resources in depots");
     }
 
     @Override

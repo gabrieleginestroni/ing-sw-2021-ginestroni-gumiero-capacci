@@ -74,9 +74,13 @@ public class DevelopmentController extends GUIController implements Initializabl
 
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
-        textMessage.setText("Choose a card to buy");
-        chosenCol = -1;
-        chosenRow = -1;
+        if(currentPlayerNickname.equals(view.getNickname())) {
+            textMessage.setText("Choose a card to buy");
+            chosenCol = -1;
+            chosenRow = -1;
+        }else{
+            textMessage.setText(currentPlayerNickname + " is purchasing a development card");
+        }
     }
 
     @Override
