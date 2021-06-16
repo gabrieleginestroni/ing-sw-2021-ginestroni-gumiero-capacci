@@ -111,6 +111,10 @@ public class GameController extends GUIController implements Initializable {
         warehouseButton_0.setDisable(true);
         warehouseButton_1.setDisable(true);
         warehouseButton_2.setDisable(true);
+        strongboxButton_coin.setDisable(true);
+        strongboxButton_servant.setDisable(true);
+        strongboxButton_shield.setDisable(true);
+        strongboxButton_stone.setDisable(true);
         leaderButton_0.setDisable(true);
         leaderButton_1.setDisable(true);
     }
@@ -591,13 +595,16 @@ public class GameController extends GUIController implements Initializable {
         resToRemove = new HashMap<>();
         popUpEffect.setVisible(false);
         popUp.setVisible(false);
-        sendButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(chosenRow, chosenCol, resToRemove, chosenCardSlot)));
+        sendButton.setOnAction(actionEvent -> {
+            this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(chosenRow, chosenCol, resToRemove, chosenCardSlot));
+            disableAllDepotButtons();
+        });
         sendButton.setDisable(false);
         textMessage.setText("");
         textMessage.setText("Choose a card slot and resources to buy the card");
 
         for(int i = 0; i <= 2; i++)
-            ((Button) pane.lookup("#cardslot_"+i)).setDisable(false);
+            pane.lookup("#cardslot_"+i).setDisable(false);
 
         for(int i = 0; i <= 2; i++){
             int index = i;
@@ -620,6 +627,37 @@ public class GameController extends GUIController implements Initializable {
 
                 });
                 depotButton.setDisable(false);
+            }
+        }
+
+        List<Integer> activeLeaders = view.getPersonalBoardView().getActiveLeaders();
+        int leaderOffset = 0;
+        for (int i = 0; i <= 1; i++) {
+            if (i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("depots")) {
+                if(view.getPersonalBoardView().getLeaderDepotQuantity().get(i) > 0) {
+                    Button leaderBtn = (Button) pane.lookup("#leaderButton_" + i);
+                    int finalLeaderOffset = leaderOffset;
+                    leaderBtn.setOnAction(actionEvent -> {
+                        Resource res = Resource.valueOf(view.getPersonalBoardView().getLeaderDepotResource().get(finalLeaderOffset));
+                        Map<Resource, Integer> tmpMap;
+                        int addedQuantity = 1;
+                        //TODO
+                        int index = finalLeaderOffset + 3;
+                        if (resToRemove.get(index) != null) {
+                            tmpMap = resToRemove.get(index);
+                            if (resToRemove.get(index).get(res) != null)
+                                addedQuantity += resToRemove.get(index).get(res);
+                        } else
+                            tmpMap = new HashMap<>();
+                        tmpMap.put(res, addedQuantity);
+                        resToRemove.put(index, tmpMap);
+                        textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\n" + new Gson().toJson(resToRemove));
+                        System.out.println(textMessage.getText());
+
+                    });
+                    leaderBtn.setDisable(false);
+                }
+                leaderOffset ++;
             }
         }
 
@@ -759,16 +797,28 @@ public class GameController extends GUIController implements Initializable {
                     });
                     button.setDisable(false);
                 }
-                leaderButton_0.setOnAction(newActionEvent -> {
-                    this.networkHandler.sendMessage(new ChosenMarketDepotMessage(3));
-                    disableAllDepotButtons();
-                });
-                leaderButton_1.setOnAction(newActionEvent -> {
-                    this.networkHandler.sendMessage(new ChosenMarketDepotMessage(4));
-                    disableAllDepotButtons();
-                });
-                leaderButton_0.setDisable(false);
-                leaderButton_1.setDisable(false);
+
+                List<Integer> activeLeaders = view.getPersonalBoardView().getActiveLeaders();
+                //enabling leader depots buttons
+
+                int offset = 0;
+                if(activeLeaders != null) {
+                    for (int i = 0; i < 2; i++){
+                        if(i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("depots")){
+                            for(int j = 0; j < 2; j++ ) {
+                                Button leaderBtn = (Button) pane.lookup("#leaderButton_" + i);
+                                int finalOffset = offset;
+                                leaderBtn.setOnAction(newActionEvent ->{
+                                    this.networkHandler.sendMessage(new ChosenMarketDepotMessage(3 + finalOffset));
+                                    disableAllDepotButtons();
+                                });
+                                leaderBtn.setDisable(false);
+                            }
+                            offset++;
+                        }
+                    }
+                }
+
             });
             popUp.setVisible(true);
 

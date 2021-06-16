@@ -3,7 +3,7 @@
 	"type" : "GREEN",
 	"level" : 1,
 	"cost" : {
-		"SHIELD" : 4
+		"SHIELD" : 2
 	},
 	"productionInput" : {
 		"COIN" : 2
