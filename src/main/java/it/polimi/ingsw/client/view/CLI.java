@@ -288,7 +288,7 @@ public class CLI extends View{
                         personalMatrix[i] += " ";
                     //personalMatrix[i] += "  ";
                     personalMatrix[i] += " N." + id; //debug
-                    if (id > 10)
+                    if (id >= 10)
                         max[i] += 10;
                     else
                         max[i] += 9;

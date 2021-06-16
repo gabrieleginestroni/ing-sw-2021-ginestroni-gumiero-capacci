@@ -90,6 +90,10 @@ public class GameController extends GUIController implements Initializable {
         networkHandler.sendMessage(new ChosenMarketMoveMessage(move,index));
         this.disableMarketButtons();
     }
+    private void setAllCardSlotButtonsDisable(boolean boo){
+        for(int i = 0; i <= 2; i++)
+            ((Button) pane.lookup("#cardslot_"+i)).setDisable(boo);
+    }
 
     private void disableMarketButtons(){
         for(int i = 0; i <= 1; i++)
@@ -452,6 +456,8 @@ public class GameController extends GUIController implements Initializable {
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
+
+
             popUpEffect.setVisible(true);
             textMessage.setText("");
 
@@ -463,13 +469,21 @@ public class GameController extends GUIController implements Initializable {
             leftButton.setVisible(true);
             leftButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenFirstMoveMessage(0)));
             centerButton.setVisible(false);
+
             rightButton.setText("Leader");
-            rightButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenFirstMoveMessage(1)));
+            if(view.getPersonalBoardView().getHiddenHand().isEmpty())
+                rightButton.setDisable(true);
+            else
+                rightButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenFirstMoveMessage(1)));
             rightButton.setVisible(true);
+
             popUp.setVisible(true);
 
-        } else
+        } else {
             textMessage.setText(currentPlayerNickname + " is choosing an action");
+            popUpEffect.setVisible(false);
+            popUp.setVisible(false);
+        }
     }
 
     @Override
@@ -491,6 +505,7 @@ public class GameController extends GUIController implements Initializable {
             rightButton.setText("Production");
             rightButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMainMoveMessage(2)));
             rightButton.setVisible(true);
+            rightButton.setDisable(false);
 
             popUp.setVisible(true);
         } else
@@ -566,6 +581,7 @@ public class GameController extends GUIController implements Initializable {
         leftButton.setVisible(false);
         centerButton.setVisible(false);
         rightButton.setVisible(false);
+        rightButton.setDisable(false);
 
         res0Button.setOnAction(actionEvent -> {
             networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res1));
@@ -592,14 +608,15 @@ public class GameController extends GUIController implements Initializable {
     public void visitDevCardSale(String currentPlayerNickname) {
         if(currentPlayerNickname.equals(view.getNickname())) {
             Platform.runLater(() -> view.changeScene(view.scenesMap.get(GUI.DEVELOPMENT)));
-            chosenCardSlot = -1;
 
             resToRemove = new HashMap<>();
+            setAllCardSlotButtonsDisable(false);
             popUpEffect.setVisible(false);
             popUp.setVisible(false);
             sendButton.setOnAction(actionEvent -> {
                 this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(chosenRow, chosenCol, resToRemove, chosenCardSlot));
                 disableAllDepotButtons();
+                setAllCardSlotButtonsDisable(true);
             });
             sendButton.setDisable(false);
             textMessage.setText("");
@@ -636,7 +653,7 @@ public class GameController extends GUIController implements Initializable {
             int leaderOffset = 0;
             for (int i = 0; i <= 1; i++) {
                 if (i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("depots")) {
-                    if (view.getPersonalBoardView().getLeaderDepotQuantity().get(i) > 0) {
+                    if (view.getPersonalBoardView().getLeaderDepotQuantity().get(leaderOffset) > 0) {
                         Button leaderBtn = (Button) pane.lookup("#leaderButton_" + i);
                         int finalLeaderOffset = leaderOffset;
                         leaderBtn.setOnAction(actionEvent -> {
@@ -693,6 +710,8 @@ public class GameController extends GUIController implements Initializable {
     @Override
     public void visitMiddleTurn(String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
+
+
             popUpEffect.setVisible(true);
             textMessage.setText("");
             String str = errorMessage == null? "" : errorMessage + "\n";
@@ -703,7 +722,10 @@ public class GameController extends GUIController implements Initializable {
             leftButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMiddleMoveMessage(0)));
             centerButton.setVisible(false);
             rightButton.setText("Leader action");
-            rightButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMiddleMoveMessage(1)));
+            if(view.getPersonalBoardView().getHiddenHand().isEmpty())
+                rightButton.setDisable(true);
+            else
+                rightButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenMiddleMoveMessage(1)));
             rightButton.setVisible(true);
             popUp.setVisible(true);
 
@@ -785,6 +807,7 @@ public class GameController extends GUIController implements Initializable {
 
             rightButton.setText("Place");
             rightButton.setVisible(true);
+            rightButton.setDisable(false);
             rightButton.setOnAction(actionEvent -> {
                 popUpEffect.setVisible(false);
                 popUp.setVisible(false);
