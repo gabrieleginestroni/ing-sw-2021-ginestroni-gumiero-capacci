@@ -79,13 +79,5 @@ public class EndGameState implements MultiplayerState{
         controller.getVirtualView().showResult(playersVictoryPoints.entrySet().iterator().next().getKey(), playersVictoryPoints);
 
         Server.lobbies.remove(controller.getGameID());
-        try {
-            controller.getCurrentPlayer().getClientHandler().getClientSocket().close();
-            List<Socket> socketList = controller.othersPlayers().stream().map(p -> p.getClientHandler().getClientSocket()).collect(Collectors.toList());
-            for(Socket socket : socketList)
-                socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

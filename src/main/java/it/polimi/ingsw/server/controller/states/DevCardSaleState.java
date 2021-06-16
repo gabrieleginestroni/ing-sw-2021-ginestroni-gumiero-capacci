@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.controller.states;
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.Player;
 
@@ -70,6 +71,8 @@ public class DevCardSaleState implements MultiplayerState {
         DevelopmentCard card;
         String strError;
 
+        System.out.println(cardSlot + ", " + row + ", " + col + ", " + (new Gson()).toJson(resToRemove));
+
         try {
             card = model.getCardFromGrid(row, col);
         } catch (emptyDevCardGridSlotSelectedException e) {
@@ -88,7 +91,7 @@ public class DevCardSaleState implements MultiplayerState {
         //check if can purchase the card and put it in the chosen cardSlot
         if(!board.canAddDevCard(cardSlot, card)) {
 
-            strError = "Cannot place card inside slot "+cardSlot;
+            strError = "Cannot place card inside slot " + cardSlot;
             throw new invalidMoveException(strError);
 
         }
@@ -105,14 +108,26 @@ public class DevCardSaleState implements MultiplayerState {
             tmpMap.merge(r, 1, Integer::sum);
         }
 
-
         //Check if total amount of each resource to remove is correct
-        for(Map.Entry<Resource,Integer> entry:cost.entrySet())
-            if(!tmpMap.get(entry.getKey()).equals(entry.getValue())) {
-                strError = "Incorrect number of " + entry.getKey() + " to remove, " + tmpMap.get(entry.getKey()) + " instead of " + entry.getValue();
+        for(Map.Entry<Resource,Integer> entry:cost.entrySet()){
+            if(tmpMap.get(entry.getKey()) == null){
+                strError = "Incorrect number of " + entry.getKey() + " to remove, 0 instead of " + entry.getValue();
+                throw new invalidMoveException(strError);
+            }else{
+                if(!tmpMap.get(entry.getKey()).equals(entry.getValue())) {
+                    strError = "Incorrect number of " + entry.getKey() + " to remove, " + tmpMap.get(entry.getKey()) + " instead of " + entry.getValue();
+                    throw new invalidMoveException(strError);
+                }
+            }
+        }
+
+        //Check if there are unrequested resources
+        for(Map.Entry<Resource,Integer> entry: tmpMap.entrySet()) {
+            if(cost.get(entry.getKey()) == null){
+                strError = "Unrequested resources found : " + entry.getKey();
                 throw new invalidMoveException(strError);
             }
-
+        }
 
         //check if each resource to remove is inside the depot chosen
         for(Map.Entry<Integer, Map<Resource,Integer>> entry:resToRemove.entrySet()) {

@@ -23,11 +23,11 @@ public class MainActionState implements SoloState,MultiplayerState {
                 ///*
                 //TODO TESTING
                 try {
-                    controller.getCurrentPlayer().getBoard().giveFaithPoints(23);
+                    controller.getCurrentPlayer().getBoard().giveFaithPoints(2);
                     controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.COIN, 30);
-                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SHIELD, 20);
-                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SERVANT, 10);
-                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.STONE, 50);
+                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SHIELD, 30);
+                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.SERVANT, 30);
+                    controller.getCurrentPlayer().getBoard().addStrongboxResource(Resource.STONE, 30);
                     /*
                     if(controller.getCurrentPlayer().getBoard().getWarehouseDepotResourceType(0) == null) {
                         controller.getCurrentPlayer().getBoard().addWarehouseDepotResource(Resource.COIN, 1, 0);

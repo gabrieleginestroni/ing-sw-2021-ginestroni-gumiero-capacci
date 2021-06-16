@@ -1014,7 +1014,7 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffba1f" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
             <Label fx:id="textMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="170.0" prefWidth="176.0" textAlignment="CENTER" wrapText="true">
                <font>
-                  <Font name="Gabriola" size="24.0" />
+                  <Font name="Gabriola" size="18.0" />
                </font></Label>
          </children>
       </StackPane>
@@ -1076,9 +1076,9 @@
                   <Image url="@../images/login_background.png" />
                </image>
             </ImageView>
-            <Label fx:id="popUpTextMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="112.0" prefWidth="270.0" textAlignment="CENTER" translateY="-40.0" wrapText="true">
+            <Label fx:id="popUpTextMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="112.0" prefWidth="342.0" textAlignment="CENTER" translateY="-40.0" wrapText="true">
                <font>
-                  <Font name="Gabriola" size="24.0" />
+                  <Font name="Gabriola" size="18.0" />
                </font>
             </Label>
             <Button fx:id="leftButton" mnemonicParsing="false" styleClass="button_custom_0" text="Button" translateX="-130.0" translateY="50.0">

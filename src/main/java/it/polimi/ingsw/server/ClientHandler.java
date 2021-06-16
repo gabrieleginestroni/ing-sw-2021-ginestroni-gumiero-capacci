@@ -77,7 +77,6 @@ public class ClientHandler implements Runnable {
         } finally {
             try {
                 pingThread.interrupt();
-                clientSocket.setSoTimeout(0);
                 clientSocket.close();
                 Thread.currentThread().interrupt();
 

@@ -24,6 +24,7 @@ public abstract class GUIController {
     public void setNetworkHandler(NetworkHandler networkHandler){
         this.networkHandler = networkHandler;
     }
+
     //------------------updates of view internal state---------------------
     public abstract void visitBoardsUpdate();
 

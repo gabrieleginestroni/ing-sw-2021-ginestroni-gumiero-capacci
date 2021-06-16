@@ -107,6 +107,14 @@ public class GameController extends GUIController implements Initializable {
 
     }
 
+    private void disableAllDepotButtons(){
+        warehouseButton_0.setDisable(true);
+        warehouseButton_1.setDisable(true);
+        warehouseButton_2.setDisable(true);
+        leaderButton_0.setDisable(true);
+        leaderButton_1.setDisable(true);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -544,79 +552,47 @@ public class GameController extends GUIController implements Initializable {
     }
 
     @Override
-    public void visitLobbyFull(String str) {
-
-    }
-
-    @Override
-    public void visitLobbyNotReady(String str) {
-
-    }
-
-    @Override
-    public void visitLoginSuccess(String currentPlayers) {
-
-    }
-
-    @Override
-    public void visitRequestLobbySize(String str) {
-
-    }
-
-    @Override
-    public void visitNicknameAlreadyUsed(String str, String gameID) {
-
-    }
-
-    @Override
-    public void visitInitialResource(int quantity) {
-
-    }
-
-
-    @Override
-    public void visitLeaderProposal(int[] proposedLeaderCards) {
-
-    }
-
-    @Override
     public void visitWhiteMarbleProposal(Resource res1, Resource res2) {
 
-            popUpEffect.setVisible(true);
+        popUpEffect.setVisible(true);
 
-            String str = "";
-            popUpTextMessage.setText(str + "Choose which white marble power you want to use");
+        String str = "";
+        popUpTextMessage.setText(str + "Choose which white marble power you want to use");
 
-            leftButton.setVisible(false);
-            centerButton.setVisible(false);
-            rightButton.setVisible(false);
+        leftButton.setVisible(false);
+        centerButton.setVisible(false);
+        rightButton.setVisible(false);
 
-            res0Button.setOnAction(actionEvent -> {
-                networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res1));
-                this.res0.setVisible(false);
-                this.res0Button.setDisable(true);
-            });
-            res1Button.setOnAction(actionEvent -> {
-                networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res2));
-                this.res1.setVisible(false);
-                this.res1Button.setDisable(true);
-            });
-            res0Button.setDisable(false);
-            res1Button.setDisable(false);
-            this.res0.setImage(new Image("./images/resources/" + res1.toString().toLowerCase() + ".png"));
-            this.res1.setImage(new Image("./images/resources/" + res2.toString().toLowerCase() + ".png"));
-            this.res0.setVisible(true);
-            this.res1.setVisible(true);
+        res0Button.setOnAction(actionEvent -> {
+            networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res1));
+            this.res0.setVisible(false);
+            this.res0Button.setDisable(true);
+        });
+        res1Button.setOnAction(actionEvent -> {
+            networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res2));
+            this.res1.setVisible(false);
+            this.res1Button.setDisable(true);
+        });
+        res0Button.setDisable(false);
+        res1Button.setDisable(false);
+        this.res0.setImage(new Image("./images/resources/" + res1.toString().toLowerCase() + ".png"));
+        this.res1.setImage(new Image("./images/resources/" + res2.toString().toLowerCase() + ".png"));
+        this.res0.setVisible(true);
+        this.res1.setVisible(true);
 
-            popUp.setVisible(true);
+        popUp.setVisible(true);
 
     }
 
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
+        chosenCardSlot = -1;
+
         resToRemove = new HashMap<>();
         popUpEffect.setVisible(false);
         popUp.setVisible(false);
+        sendButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(chosenRow, chosenCol, resToRemove, chosenCardSlot)));
+        sendButton.setDisable(false);
         textMessage.setText("");
         textMessage.setText("Choose a card slot and resources to buy the card");
 
@@ -696,16 +672,6 @@ public class GameController extends GUIController implements Initializable {
     }
 
     @Override
-    public void visitProductionState(String currentPlayerNickname, String errorMessage) {
-
-    }
-
-    @Override
-    public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
-
-    }
-
-    @Override
     public void visitSwapState(String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
             depotToSwap = new ArrayList<>();
@@ -759,7 +725,6 @@ public class GameController extends GUIController implements Initializable {
             popUpEffect.setVisible(true);
             textMessage.setText("");
 
-
             String str = errorMessage == null? "" : errorMessage + "\n";
             popUpTextMessage.setText(str + "Choose an action for "+res.toString());
 
@@ -811,13 +776,49 @@ public class GameController extends GUIController implements Initializable {
             textMessage.setText(currentPlayerNickname + " is doing a market action");
     }
 
-    private void disableAllDepotButtons(){
-        warehouseButton_0.setDisable(true);
-        warehouseButton_1.setDisable(true);
-        warehouseButton_2.setDisable(true);
-        leaderButton_0.setDisable(true);
-        leaderButton_1.setDisable(true);
+    @Override
+    public void visitLobbyFull(String str) {
+
+    }
+
+    @Override
+    public void visitLobbyNotReady(String str) {
+
+    }
+
+    @Override
+    public void visitLoginSuccess(String currentPlayers) {
+
+    }
+
+    @Override
+    public void visitRequestLobbySize(String str) {
+
+    }
+
+    @Override
+    public void visitNicknameAlreadyUsed(String str, String gameID) {
+
+    }
+
+    @Override
+    public void visitInitialResource(int quantity) {
+
     }
 
 
+    @Override
+    public void visitLeaderProposal(int[] proposedLeaderCards) {
+
+    }
+
+    @Override
+    public void visitProductionState(String currentPlayerNickname, String errorMessage) {
+
+    }
+
+    @Override
+    public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
+
+    }
 }

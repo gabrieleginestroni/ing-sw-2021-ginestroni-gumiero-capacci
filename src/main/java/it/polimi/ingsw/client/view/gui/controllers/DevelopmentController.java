@@ -23,8 +23,6 @@ public class DevelopmentController extends GUIController implements Initializabl
     @FXML
     private Button changeSceneButton;
     @FXML
-    private Button buyButton;
-    @FXML
     private BorderPane pane;
     @FXML
     private Label textMessage;
@@ -39,9 +37,8 @@ public class DevelopmentController extends GUIController implements Initializabl
         changeSceneButton.setOnAction( actionEvent -> Platform.runLater(()-> view.changeScene(view.scenesMap.get(GUI.MAIN_GUI))));
 
         StackPane devPane;
-        ImageView devImg;
         for(int i = 0; i < 3 ; i++) {
-            for (int j = 0; j < 4; j++) {
+            for(int j = 0; j < 4; j++) {
                 devPane = (StackPane) pane.lookup("#dev_" + i + "_" + j);
                 int finalI = i;
                 int finalJ = j;
@@ -49,9 +46,9 @@ public class DevelopmentController extends GUIController implements Initializabl
                     chosenRow = finalI;
                     chosenCol = finalJ;
                     textMessage.setText("Selected ROW: "+chosenRow+" COL: "+chosenCol+"\n Please choose a card slot and resources ");
+                    view.controllersMap.get(GUI.MAIN_GUI).
                     view.changeScene(view.scenesMap.get(GUI.MAIN_GUI));
                     textMessage.setVisible(true);
-                    buyButton.setDisable(false);
                 });
 
             }
@@ -64,7 +61,7 @@ public class DevelopmentController extends GUIController implements Initializabl
         StackPane devPane;
         ImageView devImg;
         for(int i = 0; i < 3 ; i++) {
-            for (int j = 0; j < 4; j++) {
+            for(int j = 0; j < 4; j++) {
                  devPane = (StackPane) pane.lookup("#dev_"+i+"_"+j);
                  devImg = (ImageView) devPane.getChildren().get(0);
                  if(devGrid[i][j] != 0){  //0 means that no cards a remaining in that slot
@@ -78,12 +75,8 @@ public class DevelopmentController extends GUIController implements Initializabl
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
         textMessage.setText("Choose a card to buy");
-        buyButton.setDisable(true);
         chosenCol = -1;
         chosenRow = -1;
-        buyButton.setOnAction(actionEvent -> this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(chosenRow,chosenCol,super.resToRemove,super.chosenCardSlot)));
-
-
     }
 
     @Override

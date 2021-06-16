@@ -18,10 +18,5 @@ public class SoloEndGameState extends EndGameState implements SoloState{
         controller.getVirtualView().showResult(winner, playersVictoryPoints);
 
         Server.lobbies.remove(controller.getGameID());
-        try {
-            controller.getCurrentPlayer().getClientHandler().getClientSocket().close();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
     }
 }
