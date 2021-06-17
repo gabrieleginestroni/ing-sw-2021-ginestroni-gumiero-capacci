@@ -1012,9 +1012,9 @@
       <StackPane layoutX="160.0" layoutY="592.0" styleClass="image">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffba1f" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-            <Label fx:id="textMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="170.0" prefWidth="176.0" textAlignment="CENTER" wrapText="true">
+            <Label fx:id="textMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" wrapText="true">
                <font>
-                  <Font name="Gabriola" size="18.0" />
+                  <Font name="Gabriola" size="16.0" />
                </font></Label>
          </children>
       </StackPane>

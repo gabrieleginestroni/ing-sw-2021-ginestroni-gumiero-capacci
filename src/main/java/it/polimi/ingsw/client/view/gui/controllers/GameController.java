@@ -9,9 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
@@ -85,6 +88,8 @@ public class GameController extends GUIController implements Initializable {
 
     private List<Integer> depotToSwap = new ArrayList<>();
     private Map<Integer, Integer> leaderMap;
+    private Map<Integer, Integer> wareHouseMap;
+    private Map<Resource, Integer> strongBoxMap;
 
     private void sendMarketMessage(int move, int index){
         networkHandler.sendMessage(new ChosenMarketMoveMessage(move,index));
@@ -111,6 +116,89 @@ public class GameController extends GUIController implements Initializable {
 
     }
 
+    private void enablePickResourceForProduction() {
+        for (int i = 0; i <= 2; i++) {
+            int index = i;
+            Button depotButton = (Button) pane.lookup("#warehouseButton_" + i);
+            if (view.getPersonalBoardView().getWarehouseDepotQuantity().get(index) > 0) {
+                depotButton.setOnAction(actionEvent -> {
+                    wareHouseMap.merge(index, 1, Integer::sum);
+                    printChosenResource(getResourceToPickForProduction());
+                });
+                depotButton.setDisable(false);
+            }
+        }
+
+        List<Integer> activeLeaders = view.getPersonalBoardView().getActiveLeaders();
+        int leaderOffset = 0;
+        for (int i = 0; i <= 1; i++) {
+            Button leaderBtn = (Button) pane.lookup("#leaderButton_" + i);
+            int finalLeaderOffset = 3 + leaderOffset;
+            if(i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("depots")) {
+                if (view.getPersonalBoardView().getLeaderDepotQuantity().get(leaderOffset) > 0) {
+                    leaderBtn.setOnAction(actionEvent -> {
+                        wareHouseMap.merge(finalLeaderOffset, 1, Integer::sum);
+                        printChosenResource(getResourceToPickForProduction());
+                    });
+                    leaderBtn.setDisable(false);
+                }
+                leaderOffset++;
+            }
+        }
+
+        List<String> resources = new ArrayList<>(Arrays.asList("coin", "servant", "stone", "shield"));
+        for (String resStr : resources) {
+            if (view.getPersonalBoardView().getStrongBox().get(resStr.toUpperCase()) > 0) {
+                Button strongboxBtn = (Button) pane.lookup("#strongboxButton_" + resStr);
+                strongboxBtn.setOnAction(actionEvent -> {
+                    Resource res = Resource.valueOf(resStr.toUpperCase());
+                    strongBoxMap.merge(res, 1, Integer::sum);
+                    printChosenResource(getResourceToPickForProduction());
+                });
+                strongboxBtn.setDisable(false);
+            }
+        }
+    }
+
+    private int getTotalSelectedResources(Resource res) {
+        int tot = 0;
+        for (int i = 0; i < 3; i++){
+            if (!view.getPersonalBoardView().getWarehouseDepotResource().get(i).equals("NULL") && Resource.valueOf(view.getPersonalBoardView().getWarehouseDepotResource().get(i)) == res) {
+                tot += (wareHouseMap != null && wareHouseMap.get(i) != null) ? wareHouseMap.get(i) : 0;
+                tot += (resToRemove != null && resToRemove.get(i) != null && resToRemove.get(i).get(res) != null) ? resToRemove.get(i).get(res) : 0;
+            }
+        }
+
+        for(int i = 0; i < 2; i++) {
+            if (!view.getPersonalBoardView().getLeaderDepotResource().get(i).equals("NULL") && Resource.valueOf(view.getPersonalBoardView().getLeaderDepotResource().get(i)) == res) {
+                tot += (wareHouseMap != null && wareHouseMap.get(3 + i) != null) ? wareHouseMap.get(3 + i) : 0;
+                tot += (resToRemove != null && resToRemove.get(3 + i) != null && resToRemove.get(3 + i).get(res) != null) ? resToRemove.get(3 + i).get(res) : 0;
+            }
+        }
+        tot += (strongBoxMap != null && strongBoxMap.get(res) != null) ? strongBoxMap.get(res) : 0;
+        tot += (resToRemove != null && resToRemove.get(5) != null && resToRemove.get(5).get(res) != null) ? resToRemove.get(5).get(res) : 0;
+
+        return tot;
+    }
+
+    private Map<Resource, Integer> getResourceToPickForProduction(){
+        if(0 <= chosenCardSlot && chosenCardSlot <= 2)
+            return view.getDevelopmentCardByID(view.getPersonalBoardView().getTopCardSlot(chosenCardSlot)).getProductionInput();
+        else if(chosenCardSlot < 5)
+            return new HashMap<>(){{put(view.getLeaderCardByID(view.getPersonalBoardView().getActiveLeaders().get(chosenCardSlot)).getResource(), 1);}};
+        return new HashMap<>();
+    }
+
+    private void printChosenResource(Map<Resource, Integer> tmpMap) {
+        String str = "Resource to choose:\n";
+        for (Map.Entry<Resource, Integer> entry : tmpMap.entrySet())
+            str += entry.getKey() + ": " + getTotalSelectedResources(entry.getKey()) + "/" + entry.getValue() + "\n";
+        textMessage.setText(textMessage.getText().split("\n")[0] + "\nChosen card slot: " + chosenCardSlot + "\n" + str);
+        //textMessage.setText("Chosen card slot: " + chosenCardSlot + "\n" + str);
+        //textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\nR2R:" + new Gson().toJson(resToRemove)+ "\nW:" + new Gson().toJson(wareHouseMap) + "\nS:" + new Gson().toJson(strongBoxMap));
+        System.out.println(textMessage.getText());
+    }
+
     private void disableAllDepotButtons(){
         warehouseButton_0.setDisable(true);
         warehouseButton_1.setDisable(true);
@@ -131,7 +219,7 @@ public class GameController extends GUIController implements Initializable {
 
         pane.setBackground(new Background(backgroundImage));
 
-        textMessage.setLineSpacing(-10);
+        textMessage.setLineSpacing(-15);
         popUpTextMessage.setLineSpacing(-10);
 
         for(int i = 0; i <= 1; i++){
@@ -154,16 +242,6 @@ public class GameController extends GUIController implements Initializable {
         }
 
         changeSceneButton.setOnAction(actionEvent -> Platform.runLater(()-> view.changeScene(view.scenesMap.get(GUI.DEVELOPMENT))));
-
-        for(int i = 0; i <= 2; i++){
-            int index = i;
-            ((Button) pane.lookup("#cardslot_"+i)).setOnAction(actionEvent -> {
-                chosenCardSlot = index;
-                textMessage.setText(textMessage.getText().split("\n")[0]+"\n Chosen card slot: "+chosenCardSlot);
-                System.out.println(textMessage.getText());
-            });
-        }
-
     }
 
 //----------------------------------UPDATE---------------------------------------------------------------------
@@ -619,11 +697,18 @@ public class GameController extends GUIController implements Initializable {
                 setAllCardSlotButtonsDisable(true);
             });
             sendButton.setDisable(false);
-            textMessage.setText("");
-            textMessage.setText("Choose a card slot and resources to buy the card");
+            textMessage.setText("Choose a card slot and resources to buy the card\n");
+            if(chosenRow >= 0)
+                printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost());
 
-            for (int i = 0; i <= 2; i++)
+            for(int i = 0; i <= 2; i++){
+                int index = i;
+                ((Button) pane.lookup("#cardslot_"+i)).setOnAction(actionEvent -> {
+                    chosenCardSlot = index;
+                    printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost());
+                });
                 pane.lookup("#cardslot_" + i).setDisable(false);
+            }
 
             for (int i = 0; i <= 2; i++) {
                 int index = i;
@@ -641,9 +726,7 @@ public class GameController extends GUIController implements Initializable {
                             tmpMap = new HashMap<>();
                         tmpMap.put(res, addedQuantity);
                         resToRemove.put(index, tmpMap);
-                        textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\n" + new Gson().toJson(resToRemove));
-                        System.out.println(textMessage.getText());
-
+                        printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost());
                     });
                     depotButton.setDisable(false);
                 }
@@ -670,9 +753,7 @@ public class GameController extends GUIController implements Initializable {
                                 tmpMap = new HashMap<>();
                             tmpMap.put(res, addedQuantity);
                             resToRemove.put(index, tmpMap);
-                            textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\n" + new Gson().toJson(resToRemove));
-                            System.out.println(textMessage.getText());
-
+                            printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost());
                         });
                         leaderBtn.setDisable(false);
                     }
@@ -697,8 +778,7 @@ public class GameController extends GUIController implements Initializable {
                             tmpMap = new HashMap<>();
                         tmpMap.put(res, addedQuantity);
                         resToRemove.put(index, tmpMap);
-                        textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\n" + new Gson().toJson(resToRemove));
-                        System.out.println(textMessage.getText());
+                        printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost());
                     });
                     strongboxBtn.setDisable(false);
                 }
@@ -889,7 +969,70 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitProductionState(String currentPlayerNickname, String errorMessage) {
+        if (currentPlayerNickname.equals(view.getNickname())) {
+            wareHouseMap = new HashMap<>();
+            strongBoxMap = new HashMap<>();
 
+            popUpEffect.setVisible(false);
+            popUp.setVisible(false);
+
+            String str = errorMessage == null ? "" : errorMessage + "\n";
+            textMessage.setText(str + "Please choose a production");
+
+            //ENABLE DEV CARD PRODUCTION
+            for (int j = 0; j <= 2; j++) {
+                int card = view.getPersonalBoardView().getTopCardSlot(j);
+                if (card != 0) {
+                    int finalJ = j;
+                    ((Button) pane.lookup("#cardslot_"+j)).setOnAction(actionEvent -> {
+                        chosenCardSlot = finalJ;
+                        enablePickResourceForProduction();
+                        printChosenResource(getResourceToPickForProduction());
+                    });
+                    pane.lookup("#cardslot_" + j).setDisable(false);
+                }
+            }
+
+            //ENABLE LEADER CARD PRODUCTION
+            //TODO
+            //ADD GIGA BUTTON
+            /*
+                List<Integer> activeLeaders = view.getPersonalBoardView().getActiveLeaders();
+                for (int i = 0; i <= 1; i++) {
+                    Button leaderBtn = (Button) pane.lookup("#leaderFullButton_" + i);
+                    int finalI = 3 + i;
+                    if(i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("production")){
+                        leaderBtn.setOnAction(actionEvent -> {
+                            chosenCardSlot = 3 + finalI;
+                            enablePickResourceForProduction();
+                            printChosenResource(getResourceToPickForProduction());
+                        });
+                        leaderBtn.setDisable(false);
+                    }
+                }
+            */
+
+            //TODO
+            //ADD BASE PRODUCTION
+
+            sendButton.setOnAction(actionEvent -> {
+                //TODO
+                //MAKE CHOOSE RESOURCE POPUP
+                this.networkHandler.sendMessage(new ChosenProductionMessage(chosenCardSlot, wareHouseMap, strongBoxMap, null));
+                disableAllDepotButtons();
+                setAllCardSlotButtonsDisable(true);
+            });
+            sendButton.setDisable(false);
+
+            exitButton.setOnAction(actionEvent -> {
+                exitButton.setDisable(true);
+                disableAllDepotButtons();
+                this.networkHandler.sendMessage(new ChosenProductionMessage(6, null, null, null));
+            });
+            exitButton.setDisable(false);
+
+        }else
+            textMessage.setText(currentPlayerNickname + " is activating production");
     }
 
     @Override
