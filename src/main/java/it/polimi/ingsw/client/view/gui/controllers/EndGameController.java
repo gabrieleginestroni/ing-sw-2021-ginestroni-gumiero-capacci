@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.view.gui.controllers;
 import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.server.model.Resource;
 
+import java.util.List;
 import java.util.Map;
 
 public class EndGameController extends GUIController {
@@ -125,6 +126,16 @@ public class EndGameController extends GUIController {
 
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
+
+    }
+
+    @Override
+    public void visitGameAbort() {
+
+    }
+
+    @Override
+    public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
 
     }
 }

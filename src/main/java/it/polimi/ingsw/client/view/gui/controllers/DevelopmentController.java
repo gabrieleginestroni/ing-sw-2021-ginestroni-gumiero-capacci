@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -191,6 +192,16 @@ public class DevelopmentController extends GUIController implements Initializabl
 
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
+
+    }
+
+    @Override
+    public void visitGameAbort() {
+
+    }
+
+    @Override
+    public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
 
     }
 

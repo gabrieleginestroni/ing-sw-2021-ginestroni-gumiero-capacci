@@ -44,8 +44,10 @@ public abstract class GUIController {
     public abstract void visitRequestLobbySize(String str);
 
     public abstract void visitNicknameAlreadyUsed(String str,String gameID);
+
     //------------------------- game updates--------------------------------------------
-    public abstract void visitGameStarted(String str); 
+
+    public abstract void visitGameStarted(String str);
 
     public abstract void visitInitialResource(int quantity); 
 
@@ -73,7 +75,10 @@ public abstract class GUIController {
 
     public abstract void visitSwapState(String currentPlayerNickname, String errorMessage); 
 
-    public abstract void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage); 
+    public abstract void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage);
 
+    public abstract void visitGameAbort();
+
+    public abstract void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards,String updatedGrid,String updatedMarket);
 }
 

@@ -365,6 +365,17 @@ public class VirtualView {
        return -1;
     }
 
+    public void gameAbort(){
+        GameAbortedMessage message = new GameAbortedMessage();
+        players.stream().forEach(p -> {
+            try{
+                p.getClientHandler().sendAnswerMessage(message);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     public String toJSONString(){
         return new Gson().toJson(this);
     }

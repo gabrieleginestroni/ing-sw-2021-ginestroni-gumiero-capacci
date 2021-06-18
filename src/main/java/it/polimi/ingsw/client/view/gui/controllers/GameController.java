@@ -53,9 +53,17 @@ public class GameController extends GUIController implements Initializable {
     @FXML
     private ImageView res1;
     @FXML
+    private ImageView res2;
+    @FXML
+    private ImageView res3;
+    @FXML
     private Button res0Button;
     @FXML
     private Button res1Button;
+    @FXML
+    private Button res2Button;
+    @FXML
+    private Button res3Button;
     @FXML
     private Button leaderButton_0;
     @FXML
@@ -90,6 +98,7 @@ public class GameController extends GUIController implements Initializable {
     private Map<Integer, Integer> leaderMap;
     private Map<Integer, Integer> wareHouseMap;
     private Map<Resource, Integer> strongBoxMap;
+    private Resource chosenResource;
 
     private void sendMarketMessage(int move, int index){
         networkHandler.sendMessage(new ChosenMarketMoveMessage(move,index));
@@ -114,6 +123,57 @@ public class GameController extends GUIController implements Initializable {
         else
             ((Label) pane.lookup("#leaderAction_" + index)).setText("Discard");
 
+    }
+
+
+    private void setChosenResource(Resource res){
+        chosenResource = res;
+        this.res0.setVisible(false);
+        this.res1.setVisible(false);
+        this.res2.setVisible(false);
+        this.res3.setVisible(false);
+        this.res0Button.setDisable(true);
+        this.res1Button.setDisable(true);
+        this.res2Button.setDisable(true);
+        this.res3Button.setDisable(true);
+        popUpEffect.setVisible(false);
+        popUp.setVisible(false);
+    }
+
+    private void enablePickOutputProduction() {
+        popUpEffect.setVisible(true);
+
+        String str = "";
+        popUpTextMessage.setText(str + "Choose resource to produce");
+
+        leftButton.setVisible(false);
+        centerButton.setVisible(false);
+        rightButton.setVisible(false);
+        rightButton.setDisable(false);
+
+        res0Button.setOnAction(actionEvent -> setChosenResource(Resource.COIN));
+        res1Button.setOnAction(actionEvent -> setChosenResource(Resource.STONE));
+        res2Button.setOnAction(actionEvent -> setChosenResource(Resource.SHIELD));
+        res3Button.setOnAction(actionEvent -> setChosenResource(Resource.SERVANT));
+
+        res0Button.setDisable(false);
+        res1Button.setDisable(false);
+        res2Button.setDisable(false);
+        res3Button.setDisable(false);
+        res0Button.setVisible(true);
+        res1Button.setVisible(true);
+        res2Button.setVisible(true);
+        res3Button.setVisible(true);
+        this.res0.setImage(new Image("./images/resources/coin.png"));
+        this.res1.setImage(new Image("./images/resources/stone.png"));
+        this.res2.setImage(new Image("./images/resources/shield.png"));
+        this.res3.setImage(new Image("./images/resources/servant.png"));
+        this.res0.setVisible(true);
+        this.res1.setVisible(true);
+        this.res2.setVisible(true);
+        this.res3.setVisible(true);
+
+        popUp.setVisible(true);
     }
 
     private void enablePickResourceForProduction() {
@@ -185,15 +245,23 @@ public class GameController extends GUIController implements Initializable {
         if(0 <= chosenCardSlot && chosenCardSlot <= 2)
             return view.getDevelopmentCardByID(view.getPersonalBoardView().getTopCardSlot(chosenCardSlot)).getProductionInput();
         else if(chosenCardSlot < 5)
-            return new HashMap<>(){{put(view.getLeaderCardByID(view.getPersonalBoardView().getActiveLeaders().get(chosenCardSlot)).getResource(), 1);}};
+            return new HashMap<>(){{put(view.getLeaderCardByID(view.getPersonalBoardView().getActiveLeaders().get(chosenCardSlot - 3)).getResource(), 1);}};
         return new HashMap<>();
     }
 
     private void printChosenResource(Map<Resource, Integer> tmpMap) {
         String str = "Resource to choose:\n";
-        for (Map.Entry<Resource, Integer> entry : tmpMap.entrySet())
-            str += entry.getKey() + ": " + getTotalSelectedResources(entry.getKey()) + "/" + entry.getValue() + "\n";
+        if(chosenCardSlot == 5){
+            int tot = 0;
+            for(int i = 0; i < Resource.values().length-2; i++)
+                tot += getTotalSelectedResources(Resource.values()[i]);
+            str += "TOT: "+ tot + "/2\n";
+        }else
+            for (Map.Entry<Resource, Integer> entry : tmpMap.entrySet())
+                str += entry.getKey() + ": " + getTotalSelectedResources(entry.getKey()) + "/" + entry.getValue() + "\n";
         textMessage.setText(textMessage.getText().split("\n")[0] + "\nChosen card slot: " + chosenCardSlot + "\n" + str);
+        if(chosenCardSlot > 2)
+            textMessage.setText(textMessage.getText()+"\nChosen resource to produce"+chosenResource.toString());
         //textMessage.setText("Chosen card slot: " + chosenCardSlot + "\n" + str);
         //textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\nR2R:" + new Gson().toJson(resToRemove)+ "\nW:" + new Gson().toJson(wareHouseMap) + "\nS:" + new Gson().toJson(strongBoxMap));
         System.out.println(textMessage.getText());
@@ -664,11 +732,15 @@ public class GameController extends GUIController implements Initializable {
         res0Button.setOnAction(actionEvent -> {
             networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res1));
             this.res0.setVisible(false);
+            this.res1.setVisible(false);
             this.res0Button.setDisable(true);
+            this.res1Button.setDisable(true);
         });
         res1Button.setOnAction(actionEvent -> {
             networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res2));
+            this.res0.setVisible(false);
             this.res1.setVisible(false);
+            this.res0Button.setDisable(true);
             this.res1Button.setDisable(true);
         });
         res0Button.setDisable(false);
@@ -972,6 +1044,7 @@ public class GameController extends GUIController implements Initializable {
         if (currentPlayerNickname.equals(view.getNickname())) {
             wareHouseMap = new HashMap<>();
             strongBoxMap = new HashMap<>();
+            resToRemove = new HashMap<>();
 
             popUpEffect.setVisible(false);
             popUp.setVisible(false);
@@ -993,32 +1066,34 @@ public class GameController extends GUIController implements Initializable {
                 }
             }
 
-            //ENABLE LEADER CARD PRODUCTION
-            //TODO
-            //ADD GIGA BUTTON
-            /*
-                List<Integer> activeLeaders = view.getPersonalBoardView().getActiveLeaders();
-                for (int i = 0; i <= 1; i++) {
-                    Button leaderBtn = (Button) pane.lookup("#leaderFullButton_" + i);
-                    int finalI = 3 + i;
-                    if(i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("production")){
-                        leaderBtn.setOnAction(actionEvent -> {
-                            chosenCardSlot = 3 + finalI;
-                            enablePickResourceForProduction();
-                            printChosenResource(getResourceToPickForProduction());
-                        });
-                        leaderBtn.setDisable(false);
-                    }
+            List<Integer> activeLeaders = view.getPersonalBoardView().getActiveLeaders();
+            for (int i = 0; i <= 1; i++) {
+                Button leaderBtn = (Button) pane.lookup("#leaderButton_" + i);
+                int finalI = 3 + i;
+                if(i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("production")){
+                    leaderBtn.setOnAction(actionEvent -> {
+                        chosenCardSlot = finalI;
+                        enablePickResourceForProduction();
+                        enablePickOutputProduction();
+                        printChosenResource(getResourceToPickForProduction());
+                    });
+                    leaderBtn.setDisable(false);
                 }
-            */
+            }
 
-            //TODO
-            //ADD BASE PRODUCTION
+
+            Button baseProdBtn = (Button) pane.lookup("#baseProduction");
+            baseProdBtn.setOnAction(actionEvent -> {
+                chosenCardSlot = 5;
+                enablePickResourceForProduction();
+                enablePickOutputProduction();
+                printChosenResource(getResourceToPickForProduction());
+            });
+            baseProdBtn.setDisable(false);
+
 
             sendButton.setOnAction(actionEvent -> {
-                //TODO
-                //MAKE CHOOSE RESOURCE POPUP
-                this.networkHandler.sendMessage(new ChosenProductionMessage(chosenCardSlot, wareHouseMap, strongBoxMap, null));
+                this.networkHandler.sendMessage(new ChosenProductionMessage(chosenCardSlot, wareHouseMap, strongBoxMap, chosenResource));
                 disableAllDepotButtons();
                 setAllCardSlotButtonsDisable(true);
             });
@@ -1037,6 +1112,52 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
+        popUpEffect.setVisible(true);
+
+        String str = "\n\n";
+        int i = 1;
+        for(Map.Entry<String, Integer> entry : gameResult.entrySet()){
+            str += i+": "+entry.getKey()+" ===> "+entry.getValue()+" POINTS\n";
+            i++;
+        }
+
+        popUpTextMessage.setText(winner+" WINS!!!"+str);
+
+        leftButton.setVisible(true);
+        centerButton.setVisible(false);
+        rightButton.setVisible(true);
+        rightButton.setDisable(true);
+
+        centerButton.setText("Close");
+        centerButton.setOnAction(actionEvent -> {
+            System.exit(0);
+        });
+
+        popUp.setVisible(true);
+    }
+
+
+    @Override
+    public void visitGameAbort() {
+        popUpEffect.setVisible(true);
+
+        popUpTextMessage.setText("Insufficient players number to continue the match");
+
+        leftButton.setVisible(true);
+        centerButton.setVisible(false);
+        rightButton.setVisible(true);
+        rightButton.setDisable(true);
+
+        centerButton.setText("Close");
+        centerButton.setOnAction(actionEvent -> {
+            System.exit(0);
+        });
+
+        popUp.setVisible(true);
+    }
+
+    @Override
+    public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
 
     }
 }

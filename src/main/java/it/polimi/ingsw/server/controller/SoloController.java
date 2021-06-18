@@ -45,22 +45,25 @@ public class SoloController extends Controller{
 
         List<LeaderCard> chosenLeaders = virtualView.propose4Leader(model.get4LeaderCards(), player);
 
-        for(LeaderCard leaderCard : chosenLeaders)
-            player.getBoard().addLeaderCard(leaderCard);
+        try {
+            for (LeaderCard leaderCard : chosenLeaders)
+                player.getBoard().addLeaderCard(leaderCard);
 
-        this.player.getBoard().setInkwell();
-        this.virtualView.gameStarted();
+            this.player.getBoard().setInkwell();
+            this.virtualView.gameStarted();
 
-        currentState = startTurnState;
-        virtualView.startTurn(this.player.getNickname(),null);
-
-
-        //currentState = StartGameState;
+            currentState = startTurnState;
+            virtualView.startTurn(this.player.getNickname(), null);
+        }catch (NullPointerException e){
+            Server.lobbies.remove(gameID);
+            Thread.currentThread().interrupt();
+        }
     }
 
     @Override
     public void notifyPlayerDisconnection(Player player) {
         Server.lobbies.remove(gameID);
+        Thread.currentThread().interrupt();
     }
 
     @Override
