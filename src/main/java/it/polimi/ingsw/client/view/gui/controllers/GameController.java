@@ -1121,11 +1121,18 @@ public class GameController extends GUIController implements Initializable {
             i++;
         }
 
-        popUpTextMessage.setText(winner+" WINS!!!"+str);
+        if(view.getNickname().equals(winner))
+            popUpTextMessage.setText("YOU WIN!!!"+str);
+        else
+            popUpTextMessage.setText(winner+" WINS!!!"+str);
 
-        leftButton.setVisible(true);
-        centerButton.setVisible(false);
-        rightButton.setVisible(true);
+
+        centerButton.setVisible(true);
+        centerButton.setDisable(false);
+
+        leftButton.setVisible(false);
+        leftButton.setDisable(true);
+        rightButton.setVisible(false);
         rightButton.setDisable(true);
 
         centerButton.setText("Close");
