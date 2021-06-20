@@ -792,8 +792,8 @@ public class CLI extends View{
 
             String[] gameMatrix = buildGameCLI(lines);
             //TO CLEAR CONSOLE?
-            //System.out.print("\033[H\033[2J");
-            //System.out.flush();
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
 
             for (i = 0; i < maxLines; i++) {
                 String str = "";
@@ -817,12 +817,12 @@ public class CLI extends View{
     @Override
     public void visitBoardsUpdate(String personalBoard, List<String> otherBoards) {
         this.personalBoardView = gson.fromJson(personalBoard, BoardView.class);
-        this.showMessage(this.personalBoardView.toString());
+        //this.showMessage(this.personalBoardView.toString());
         if(otherBoards.size() != 0) {
             this.otherBoardsView = new ArrayList<>();
             otherBoards.forEach(s -> otherBoardsView.add(gson.fromJson(s, BoardView.class)));
 
-            this.showMessage(this.otherBoardsView.toString());
+            //this.showMessage(this.otherBoardsView.toString());
         }
         buildCLI();
     }
@@ -830,7 +830,7 @@ public class CLI extends View{
     @Override
     public void visitDevGridUpdate(String updatedGrid) {
         this.devGrid = gson.fromJson(updatedGrid, GridView.class);
-        this.showMessage(this.devGrid.toString());
+        //this.showMessage(this.devGrid.toString());
         buildCLI();
     }
 
@@ -846,14 +846,14 @@ public class CLI extends View{
     @Override
     public void visitLorenzoUpdate(String updatedLorenzo) {
         this.lorenzoView = gson.fromJson(updatedLorenzo, LorenzoView.class);
-        this.showMessage(lorenzoView.toString());
+        //this.showMessage(lorenzoView.toString());
         buildCLI();
     }
 
     @Override
     public void visitMarketUpdate(String updatedMarket) {
         this.marketView = gson.fromJson(updatedMarket, MarketView.class);
-        this.showMessage(marketView.toString());
+        //this.showMessage(marketView.toString());
         buildCLI();
     }
 

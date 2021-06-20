@@ -125,24 +125,24 @@ public class SetupResourceController extends GUIController implements Initializa
 
         switch(dep){
             case 0:
-                depotImg0.setImage(new Image("./images/resources/" + str + ".png"));
+                depotImg0.setImage(new Image("/images/resources/" + str + ".png"));
                 depotImg0.setVisible(true);
                 break;
             case 1:
                 if(col == 0){
-                    depotImg1_0.setImage(new Image("./images/resources/" + str + ".png"));
+                    depotImg1_0.setImage(new Image("/images/resources/" + str + ".png"));
                     depotImg1_0.setVisible(true);
                 }else{
-                    depotImg1_1.setImage(new Image("./images/resources/" + str + ".png"));
+                    depotImg1_1.setImage(new Image("/images/resources/" + str + ".png"));
                     depotImg1_1.setVisible(true);
                 }
                 break;
             case 2:
                 if(col == 0){
-                    depotImg2_0.setImage(new Image("./images/resources/" + str + ".png"));
+                    depotImg2_0.setImage(new Image("/images/resources/" + str + ".png"));
                     depotImg2_0.setVisible(true);
                 }else{
-                    depotImg2_1.setImage(new Image("./images/resources/" + str + ".png"));
+                    depotImg2_1.setImage(new Image("/images/resources/" + str + ".png"));
                     depotImg2_1.setVisible(true);
                 }
                 break;
@@ -170,7 +170,7 @@ public class SetupResourceController extends GUIController implements Initializa
         rectangle.setArcHeight(30.0);
 
         ImagePattern pattern = new ImagePattern(
-                new Image("./images/warehouse.png", 350, 360, true, true)
+                new Image("/images/warehouse.png", 350, 360, true, true)
         );
 
         rectangle.setFill(pattern);

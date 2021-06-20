@@ -50,7 +50,7 @@ public class VirtualView {
         try {
             handler.sendAnswerMessage(message);
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         players.stream().filter(q -> player != q).forEach(q -> q.getClientHandler().sendAnswerMessage(new PlayerReconnectionMessage(player.getNickname())));
@@ -66,7 +66,7 @@ public class VirtualView {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
     }
@@ -78,7 +78,7 @@ public class VirtualView {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
 
             }
         });
@@ -90,7 +90,7 @@ public class VirtualView {
         try {
             players.get(0).getClientHandler().sendAnswerMessage(message);
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
 
         }
     }
@@ -104,7 +104,7 @@ public class VirtualView {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
 
             }
         });
@@ -131,7 +131,7 @@ public class VirtualView {
 
             return chosenLeaderList;
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }
@@ -145,7 +145,7 @@ public class VirtualView {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
     }
@@ -156,7 +156,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
     }
@@ -181,7 +181,7 @@ public class VirtualView {
             }
 
         } catch (IOException | ClassNotFoundException e){
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return resMap;
     }
@@ -193,7 +193,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
 
@@ -206,7 +206,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
 
@@ -219,7 +219,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
 
@@ -232,7 +232,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
 
@@ -245,7 +245,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
 
@@ -258,7 +258,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
 
@@ -270,7 +270,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
 
@@ -283,7 +283,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
 
@@ -296,7 +296,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
     }
@@ -319,7 +319,7 @@ public class VirtualView {
             return ((ChosenWhiteMarbleMessage) msg).getRes();
 
         } catch (IOException | ClassNotFoundException e){
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return null;
 
@@ -332,7 +332,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
     }
@@ -344,7 +344,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
        try {
@@ -360,7 +360,7 @@ public class VirtualView {
            return ((ChosenMarketDepotMessage) msg).getChosenDepot();
 
        } catch (IOException | ClassNotFoundException e){
-           e.printStackTrace();
+           //e.printStackTrace();
        }
        return -1;
     }
@@ -371,7 +371,7 @@ public class VirtualView {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         });
     }

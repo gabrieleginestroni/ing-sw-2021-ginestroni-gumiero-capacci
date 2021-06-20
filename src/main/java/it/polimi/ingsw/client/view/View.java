@@ -7,6 +7,7 @@ import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -34,11 +35,11 @@ public abstract class View {
         try{
 
             //Reading LeaderCards
-            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
+            Reader reader = new InputStreamReader(LeaderCard.class.getResourceAsStream("/LeaderCards.json"));
             leaderCards = gson.fromJson(reader, LeaderCard[].class);
 
             //Reading DevelopmentCards
-            reader = Files.newBufferedReader(Paths.get("src/main/resources/DevelopmentCards.json"));
+            reader = new InputStreamReader(DevelopmentCard.class.getResourceAsStream("/DevelopmentCards.json"));
             developmentCards = gson.fromJson(reader, DevelopmentCard[].class);
 
             reader.close();

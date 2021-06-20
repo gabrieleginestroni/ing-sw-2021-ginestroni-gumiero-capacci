@@ -10,6 +10,7 @@ import it.polimi.ingsw.server.virtual_view.GridObserver;
 import it.polimi.ingsw.server.virtual_view.MarketObserver;
 import it.polimi.ingsw.server.virtual_view.VirtualView;
 
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -51,14 +52,11 @@ public abstract class Game {
         Gson gson = new Gson();
 
         try{
-
-            //Reading LeaderCards
-            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/LeaderCards.json"));
+            Reader reader = new InputStreamReader(LeaderCard.class.getResourceAsStream("/LeaderCards.json"));
             LeaderCard[] tempArray = gson.fromJson(reader, LeaderCard[].class);
             leaderCards = Arrays.asList(tempArray);
-
             //Reading DevelopmentCards
-            reader = Files.newBufferedReader(Paths.get("src/main/resources/DevelopmentCards.json"));
+            reader = new InputStreamReader(DevelopmentCard.class.getResourceAsStream("/DevelopmentCards.json"));
             devCards = gson.fromJson(reader, DevelopmentCard[].class);
 
             reader.close();

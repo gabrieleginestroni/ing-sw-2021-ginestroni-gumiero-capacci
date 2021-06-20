@@ -164,10 +164,10 @@ public class GameController extends GUIController implements Initializable {
         res1Button.setVisible(true);
         res2Button.setVisible(true);
         res3Button.setVisible(true);
-        this.res0.setImage(new Image("./images/resources/coin.png"));
-        this.res1.setImage(new Image("./images/resources/stone.png"));
-        this.res2.setImage(new Image("./images/resources/shield.png"));
-        this.res3.setImage(new Image("./images/resources/servant.png"));
+        this.res0.setImage(new Image("/images/resources/coin.png"));
+        this.res1.setImage(new Image("/images/resources/stone.png"));
+        this.res2.setImage(new Image("/images/resources/shield.png"));
+        this.res3.setImage(new Image("/images/resources/servant.png"));
         this.res0.setVisible(true);
         this.res1.setVisible(true);
         this.res2.setVisible(true);
@@ -282,7 +282,7 @@ public class GameController extends GUIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        BackgroundImage backgroundImage = new BackgroundImage(new Image("./images/table_background.jpg",1490.0,810.0,false,true),BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("/images/table_background.jpg",1490.0,810.0,false,true),BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
         pane.setBackground(new Background(backgroundImage));
@@ -331,7 +331,7 @@ public class GameController extends GUIController implements Initializable {
             for(int j = 0 ; j <= i; j++){
                 ImageView resImg =(ImageView) pane.lookup("#player_warehouse_"+i+"_"+j);
                 if(j < warehouseDepotQuantity.get(i)) {
-                    resImg.setImage(new Image("./images/resources/" + warehouseDepotResource.get(i).toLowerCase() + ".png"));
+                    resImg.setImage(new Image("/images/resources/" + warehouseDepotResource.get(i).toLowerCase() + ".png"));
                     resImg.setVisible(true);
                 } else
                     resImg.setImage(null);
@@ -349,7 +349,7 @@ public class GameController extends GUIController implements Initializable {
                     for(int j = 0; j < 2; j++ ) {
                         ImageView resImg = (ImageView) pane.lookup("#player_leader_" + i + "_"+j);
                         if(j < leaderDepotQuantity.get(offset)){
-                            resImg.setImage(new Image("./images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png"));
+                            resImg.setImage(new Image("/images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png"));
                             resImg.setVisible(true);
                         } else
                             resImg.setImage(null);
@@ -430,7 +430,7 @@ public class GameController extends GUIController implements Initializable {
                     for(int j = 0 ; j <= i; j++){
                         ImageView resImg =(ImageView) pane.lookup("#otherplayer_"+playerIndex+"_warehouse_"+i+"_"+j);
                         if(j < warehouseDepotQuantity.get(i)) {
-                            resImg.setImage(new Image("./images/resources/" + warehouseDepotResource.get(i).toLowerCase() + ".png"));
+                            resImg.setImage(new Image("/images/resources/" + warehouseDepotResource.get(i).toLowerCase() + ".png"));
                             resImg.setVisible(true);
                         } else
                             resImg.setImage(null);
@@ -448,7 +448,7 @@ public class GameController extends GUIController implements Initializable {
                             for(int j = 0; j < 2; j++ ) {
                                 ImageView resImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_leader_" + i + "_"+j);
                                 if(j < leaderDepotQuantity.get(offset)){
-                                    resImg.setImage(new Image("./images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png"));
+                                    resImg.setImage(new Image("/images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png"));
                                     resImg.setVisible(true);
                                 } else
                                     resImg.setImage(null);
@@ -542,11 +542,11 @@ public class GameController extends GUIController implements Initializable {
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 4; j++){
                 ImageView marbleImg = (ImageView) pane.lookup("#marble_"+i+"_"+j);
-                marbleImg.setImage(new Image("./images/marbles/" + market[i][j].toLowerCase() + "Marble.png"));
+                marbleImg.setImage(new Image("/images/marbles/" + market[i][j].toLowerCase() + "Marble.png"));
             }
         }
         ImageView marbleImg = (ImageView) pane.lookup("#freemarble");
-        marbleImg.setImage(new Image("./images/marbles/" + view.getMarketView().getFreeMarble().toLowerCase() + "Marble.png"));
+        marbleImg.setImage(new Image("/images/marbles/" + view.getMarketView().getFreeMarble().toLowerCase() + "Marble.png"));
 
     }
 
@@ -745,8 +745,8 @@ public class GameController extends GUIController implements Initializable {
         });
         res0Button.setDisable(false);
         res1Button.setDisable(false);
-        this.res0.setImage(new Image("./images/resources/" + res1.toString().toLowerCase() + ".png"));
-        this.res1.setImage(new Image("./images/resources/" + res2.toString().toLowerCase() + ".png"));
+        this.res0.setImage(new Image("/images/resources/" + res1.toString().toLowerCase() + ".png"));
+        this.res1.setImage(new Image("/images/resources/" + res2.toString().toLowerCase() + ".png"));
         this.res0.setVisible(true);
         this.res1.setVisible(true);
 
