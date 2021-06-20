@@ -228,28 +228,30 @@ public class CLI extends View{
             //display PopeTiles
             boolean[] tiles = playerView.getPopeTiles();
             for(int h = 0; h < 3; h++){
-                //int space = h < 2 ? 5 : 4;
-                //personalMatrix[i] += " ".repeat(space);
-                //personalMatrix[i+1] += " ".repeat(space);
-
                 int space = (h == 0 ? 4 : (h == 1 ? 3 : 2));
-                int sectionLengthBefore = (h < 2 ? 1 : 2);
-                int sectionLengthAfter = (h == 0 ? 1 : 2);
+                int sectionLengthBefore = (h < 2 ? 1 : 2); //track before tiles
+                int sectionLengthAfter = (h == 0 ? 1 : 2); //track after tiles
 
                 personalMatrix[i] += " ".repeat(space);
                 personalMatrix[i+1] += " ".repeat(space);
-                personalMatrix[i] += ConsoleColors.colorMap.get("RED")+"░".repeat(sectionLengthBefore)+ConsoleColors.colorMap.get("RESET");
-                personalMatrix[i+1] += ConsoleColors.colorMap.get("RED")+"░".repeat(sectionLengthBefore)+ConsoleColors.colorMap.get("RESET");
                 String status = "";
-                if(tiles[h])
-                    status = ConsoleColors.colorMap.get("GREEN") + "VV";
-                else
-                    status = ConsoleColors.colorMap.get("RED") + "XX";
+                String color = "";
+                if(tiles[h]) {
+                    color = "GREEN";
+                    status = "VV";
+                }else {
+                    color = "RED";
+                    status = "XX";
+                }
 
-                personalMatrix[i] += status + ConsoleColors.colorMap.get("RESET");
-                personalMatrix[i + 1] += status + ConsoleColors.colorMap.get("RESET");
-                personalMatrix[i] += ConsoleColors.colorMap.get("RED")+"░".repeat(sectionLengthAfter)+ConsoleColors.colorMap.get("RESET");
-                personalMatrix[i+1] += ConsoleColors.colorMap.get("RED")+"░".repeat(sectionLengthAfter)+ConsoleColors.colorMap.get("RESET");
+                personalMatrix[i] += ConsoleColors.colorMap.get(color)+"░".repeat(sectionLengthBefore)+ConsoleColors.colorMap.get("RESET");
+                personalMatrix[i+1] += ConsoleColors.colorMap.get(color)+"░".repeat(sectionLengthBefore)+ConsoleColors.colorMap.get("RESET");
+
+                personalMatrix[i] += ConsoleColors.colorMap.get(color) + status + ConsoleColors.colorMap.get("RESET");
+                personalMatrix[i + 1] += ConsoleColors.colorMap.get(color) + status + ConsoleColors.colorMap.get("RESET");
+
+                personalMatrix[i] += ConsoleColors.colorMap.get(color)+"░".repeat(sectionLengthAfter)+ConsoleColors.colorMap.get("RESET");
+                personalMatrix[i+1] += ConsoleColors.colorMap.get(color)+"░".repeat(sectionLengthAfter)+ConsoleColors.colorMap.get("RESET");
             }
 
             //padding
@@ -286,7 +288,7 @@ public class CLI extends View{
                         personalMatrix[i] += " ";
                     //personalMatrix[i] += "  ";
                     personalMatrix[i] += " N." + id; //debug
-                    if (id > 10)
+                    if (id >= 10)
                         max[i] += 10;
                     else
                         max[i] += 9;
@@ -1022,7 +1024,6 @@ public class CLI extends View{
 
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
-        super.currentPlayer = currentPlayerNickname;
 
         if(this.nickname.equals(currentPlayerNickname)){
             showMessage(errorMessage);

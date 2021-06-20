@@ -159,12 +159,12 @@
             <ImageView fx:id="player_leader_0_1" fitHeight="26.0" fitWidth="32.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" translateX="61.5" translateY="75.0" visible="false" />
             <ImageView fx:id="player_leader_1_0" fitHeight="26.0" fitWidth="32.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" translateX="157.0" translateY="75.0" visible="false" />
             <ImageView fx:id="player_leader_1_1" fitHeight="26.0" fitWidth="32.0" layoutX="10.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" translateX="207.0" translateY="75.0" visible="false" />
-            <Button fx:id="leaderButton_0" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="34.0" prefWidth="86.0" translateX="9.0" translateY="73.0">
+            <Button fx:id="leaderButton_0" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="200.0" prefWidth="133.0" translateX="-14.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="leaderButton_1" disable="true" layoutX="10.0" layoutY="112.0" mnemonicParsing="false" opacity="0.0" prefHeight="34.0" prefWidth="86.0" translateX="154.0" translateY="73.0">
+            <Button fx:id="leaderButton_1" disable="true" layoutX="10.0" layoutY="112.0" mnemonicParsing="false" opacity="0.0" prefHeight="200.0" prefWidth="133.0" translateX="131.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -990,6 +990,11 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <Button fx:id="baseProduction" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="78.0" prefWidth="88.0" translateX="-138.0" translateY="127.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </StackPane>
          </children>
@@ -1012,9 +1017,9 @@
       <StackPane layoutX="160.0" layoutY="592.0" styleClass="image">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffba1f" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-            <Label fx:id="textMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="170.0" prefWidth="176.0" textAlignment="CENTER" wrapText="true">
+            <Label fx:id="textMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" wrapText="true">
                <font>
-                  <Font name="Gabriola" size="18.0" />
+                  <Font name="Gabriola" size="16.0" />
                </font></Label>
          </children>
       </StackPane>
@@ -1093,22 +1098,26 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <ImageView fx:id="res0" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="-65.0" translateY="50.0" visible="false">
-               <image>
-                  <Image url="@../images/resources/servant.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="res1" fitHeight="26.0" fitWidth="32.0" layoutX="196.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" translateX="65.0" translateY="50.0" visible="false">
-               <image>
-                  <Image url="@../images/resources/servant.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="res0Button" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="-65.0" translateY="50.0">
+            <ImageView fx:id="res0" visible="false" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="-45.0" translateY="50.0" />
+            <ImageView fx:id="res1" visible="false" fitHeight="26.0" fitWidth="32.0" layoutX="196.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" translateX="45.0" translateY="50.0" />
+            <Button fx:id="res0Button" disable="true" visible="false" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="-45.0" translateY="50.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="res1Button" disable="true" layoutX="194.0" layoutY="120.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="65.0" translateY="50.0">
+            <Button fx:id="res1Button" disable="true" visible="false" layoutX="194.0" layoutY="120.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="45.0" translateY="50.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ImageView fx:id="res2" visible="false" fitHeight="26.0" fitWidth="32.0" layoutX="196.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" translateX="-130.0" translateY="50.0" />
+            <ImageView fx:id="res3" visible="false" fitHeight="26.0" fitWidth="32.0" layoutX="196.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" translateX="130.0" translateY="50.0" />
+            <Button fx:id="res2Button" disable="true" visible="false" layoutX="194.0" layoutY="120.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="-130.0" translateY="50.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="res3Button" disable="true" visible="false" layoutX="194.0" layoutY="120.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="130.0" translateY="50.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

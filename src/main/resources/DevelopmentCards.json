@@ -3,10 +3,10 @@
 	"type" : "GREEN",
 	"level" : 1,
 	"cost" : {
-		"SHIELD" : 4
+		"SHIELD" : 2
 	},
 	"productionInput" : {
-		"COIN" : 2
+		"COIN" : 1
 	},
 	"productionOutput" : {
 		"FAITH" : 1
@@ -124,7 +124,7 @@
 		"SERVANT" : 1
 	},
 	"productionOutput" : {
-		"STONE" : 2,
+		"SHIELD" : 2,
 		"FAITH" : 1
 	},
 	"victoryPoints" : 4
@@ -240,7 +240,7 @@
 	},
 	"productionInput" : {
 		"COIN" : 1,
-		"SHIELD" : 1
+		"STONE" : 1
 	},
 	"productionOutput" : {
 		"SERVANT" : 3
@@ -545,7 +545,7 @@
 		"SHIELD" : 2,
 		"FAITH" : 1
 	},
-	"victoryPoints" : 1
+	"victoryPoints" : 10
 },{
 	"id" : 36,
 	"type" : "GREEN",

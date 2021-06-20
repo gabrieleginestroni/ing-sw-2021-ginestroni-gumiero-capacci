@@ -74,6 +74,8 @@ public class NetworkHandler implements Runnable {
 
             socket.close();
             System.out.println("Match ended, press enter to exit");
+            //TODO
+            //NOT WORKING WHEN PRESSING ENTER
             Scanner scanner = new Scanner(System.in);
             scanner.next();
             System.exit(0);

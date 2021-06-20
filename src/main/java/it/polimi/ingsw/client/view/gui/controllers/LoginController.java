@@ -17,6 +17,7 @@ import org.w3c.dom.Text;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 import java.util.Map;
 
 public class LoginController extends GUIController {
@@ -242,6 +243,16 @@ public class LoginController extends GUIController {
 
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
+
+    }
+
+    @Override
+    public void visitGameAbort() {
+
+    }
+
+    @Override
+    public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
 
     }
 }

@@ -26,7 +26,6 @@ public abstract class View {
     LeaderCard[] leaderCards;
 
     String nickname;
-    String currentPlayer;
 
 
     View(){
@@ -49,7 +48,7 @@ public abstract class View {
         }
         this.gameOver = false;
     }
-    public String getCurrentPlayer() { return this.currentPlayer;}
+
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }

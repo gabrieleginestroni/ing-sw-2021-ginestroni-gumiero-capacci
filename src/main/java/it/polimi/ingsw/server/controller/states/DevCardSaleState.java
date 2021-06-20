@@ -96,6 +96,7 @@ public class DevCardSaleState implements MultiplayerState {
 
         }
 
+
         Map<Resource, Integer> tmpMap = new HashMap<>();  //map of total resource amount to remove
         for(Map.Entry<Integer, Map<Resource,Integer>> entry:resToRemove.entrySet()) {
             for(Map.Entry<Resource,Integer> resourceEntry:entry.getValue().entrySet()) {
@@ -103,10 +104,24 @@ public class DevCardSaleState implements MultiplayerState {
             }
         }
 
+
+        //Check if there are unrequested resources
+        for(Map.Entry<Resource,Integer> entry: tmpMap.entrySet()) {
+            if(cost.get(entry.getKey()) == null){
+                strError = "Unrequested resources found : " + entry.getKey();
+                throw new invalidMoveException(strError);
+            }
+        }
+
+        System.out.println(new Gson().toJson(tmpMap));
+
         //Applying discounts
         for(Resource r : board.getDiscount()){
             tmpMap.merge(r, 1, Integer::sum);
         }
+
+        System.out.println("tmp: "+new Gson().toJson(tmpMap));
+        System.out.println("cost: "+ new Gson().toJson(cost));
 
         //Check if total amount of each resource to remove is correct
         for(Map.Entry<Resource,Integer> entry:cost.entrySet()){
@@ -118,14 +133,6 @@ public class DevCardSaleState implements MultiplayerState {
                     strError = "Incorrect number of " + entry.getKey() + " to remove, " + tmpMap.get(entry.getKey()) + " instead of " + entry.getValue();
                     throw new invalidMoveException(strError);
                 }
-            }
-        }
-
-        //Check if there are unrequested resources
-        for(Map.Entry<Resource,Integer> entry: tmpMap.entrySet()) {
-            if(cost.get(entry.getKey()) == null){
-                strError = "Unrequested resources found : " + entry.getKey();
-                throw new invalidMoveException(strError);
             }
         }
 

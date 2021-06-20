@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -74,9 +75,13 @@ public class DevelopmentController extends GUIController implements Initializabl
 
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
-        textMessage.setText("Choose a card to buy");
-        chosenCol = -1;
-        chosenRow = -1;
+        if(currentPlayerNickname.equals(view.getNickname())) {
+            textMessage.setText("Choose a card to buy");
+            chosenCol = -1;
+            chosenRow = -1;
+        }else{
+            textMessage.setText(currentPlayerNickname + " is purchasing a development card");
+        }
     }
 
     @Override
@@ -187,6 +192,16 @@ public class DevelopmentController extends GUIController implements Initializabl
 
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
+
+    }
+
+    @Override
+    public void visitGameAbort() {
+
+    }
+
+    @Override
+    public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
 
     }
 

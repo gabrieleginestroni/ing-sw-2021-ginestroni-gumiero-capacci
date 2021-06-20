@@ -68,10 +68,12 @@ public class MultiplayerController extends Controller{
         for(Player player : players) {
            threads.add(new Thread(()-> {
                List<LeaderCard> chosenLeaders = virtualView.propose4Leader(model.get4LeaderCards(), player);
-
-               for(LeaderCard leaderCard : chosenLeaders)
-                   player.getBoard().addLeaderCard(leaderCard);
-
+               try{
+                   for(LeaderCard leaderCard : chosenLeaders)
+                       player.getBoard().addLeaderCard(leaderCard);
+               }catch (NullPointerException e){
+                    virtualView.gameAbort();
+                }
            }));
            threads.get(threads.size() - 1).start();
         }
@@ -80,7 +82,6 @@ public class MultiplayerController extends Controller{
             try {
                 thread.join();
             }catch(InterruptedException e){
-                //TODO
             }
         }
 
@@ -150,12 +151,20 @@ public class MultiplayerController extends Controller{
 
     @Override
     public void notifyPlayerDisconnection(Player player) {
+        if(!Server.lobbies.get(gameID).isGameStarted()){
+            virtualView.gameAbort();
+            Server.lobbies.remove(gameID);
+            Thread.currentThread().interrupt();
+        }
+
         if(turnHandler.getConnectedPlayersNumber() == 2) {
             Server.lobbies.remove(gameID);
             List<Player> playersList = turnHandler.getPlayers();
             playersList.remove(player);
             try {
-                playersList.get(0).getClientHandler().sendAnswerMessage(new GameAbortedMessage());
+                virtualView.setPlayers(playersList);
+                virtualView.gameAbort();
+                killAll(playersList);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -171,6 +180,16 @@ public class MultiplayerController extends Controller{
                 virtualView.startTurn(getCurrentPlayer().getNickname(), null);
             }
         }
+    }
+
+    private void killAll(List<Player> playerList){
+        playerList.forEach(p -> {
+            try {
+                p.getClientHandler().getClientSocket().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override

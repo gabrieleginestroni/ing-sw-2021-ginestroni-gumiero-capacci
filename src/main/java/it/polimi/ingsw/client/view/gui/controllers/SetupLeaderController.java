@@ -199,4 +199,14 @@ public class SetupLeaderController extends GUIController {
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
 
     }
+
+    @Override
+    public void visitGameAbort() {
+
+    }
+
+    @Override
+    public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
+
+    }
 }
