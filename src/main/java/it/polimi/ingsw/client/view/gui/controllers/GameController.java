@@ -417,9 +417,12 @@ public class GameController extends GUIController implements Initializable {
             int playerIndex = 0;
             for(BoardView otherPlayer:otherPlayers){
 
+                Label label = (Label) pane.lookup("#otherplayer_"+playerIndex+"_nickname");
+                label.setText(otherPlayers.get(playerIndex).getNickname());
+
                 //updating strongbox
                 for(Map.Entry<String,Integer> strongbox: otherPlayer.getStrongBox().entrySet()){
-                    Label label = (Label)pane.lookup("#otherplayer_"+playerIndex+"_"+strongbox.getKey().toLowerCase());
+                    label = (Label) pane.lookup("#otherplayer_"+playerIndex+"_"+strongbox.getKey().toLowerCase());
                     label.setText(strongbox.getValue().toString());
                 }
 

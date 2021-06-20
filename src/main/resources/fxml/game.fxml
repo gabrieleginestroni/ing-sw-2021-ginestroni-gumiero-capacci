@@ -172,6 +172,11 @@
          </children>
       </GridPane>
       <StackPane layoutX="10.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
+         <Label fx:id="otherplayer_0_nickname" textFill="WHITE" translateX="-150.0" translateY="-148.0">
+            <font>
+               <Font name="Gabriola" size="16.0" />
+            </font>
+         </Label>
        <ImageView fx:id="otherplayer_0" fitHeight="265.0" fitWidth="372.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
          <StackPane fx:id="otherplayer_pane_0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="255.0" visible="false">
             <children>
@@ -380,10 +385,14 @@
 
             </children>
          </StackPane>
-         <ImageView fx:id="otherplayer_01" fitHeight="265.0" fitWidth="372.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
        </StackPane>
       <StackPane layoutX="500.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
          <children>
+            <Label fx:id="otherplayer_1_nickname" textFill="WHITE" translateX="-150.0" translateY="-148.0">
+               <font>
+                  <Font name="Gabriola" size="16.0" />
+               </font>
+            </Label>
             <ImageView fx:id="otherplayer_1" fitHeight="265.0" fitWidth="372.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
             <StackPane fx:id="otherplayer_pane_1" minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="255.0" visible="false">
                <children>
@@ -596,6 +605,11 @@
       </StackPane>
       <StackPane layoutX="990.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
          <children>
+            <Label fx:id="otherplayer_2_nickname" textFill="WHITE" translateX="-150.0" translateY="-148.0">
+               <font>
+                  <Font name="Gabriola" size="16.0" />
+               </font>
+            </Label>
             <ImageView fx:id="otherplayer_2" fitHeight="265.0" fitWidth="372.0" layoutX="10.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
             <StackPane fx:id="otherplayer_pane_2" minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="255.0" visible="false">
                <children>
@@ -1098,26 +1112,26 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <ImageView fx:id="res0" visible="false" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="-45.0" translateY="50.0" />
-            <ImageView fx:id="res1" visible="false" fitHeight="26.0" fitWidth="32.0" layoutX="196.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" translateX="45.0" translateY="50.0" />
-            <Button fx:id="res0Button" disable="true" visible="false" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="-45.0" translateY="50.0">
+            <ImageView fx:id="res0" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" translateX="-45.0" translateY="50.0" visible="false" />
+            <ImageView fx:id="res1" fitHeight="26.0" fitWidth="32.0" layoutX="196.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" translateX="45.0" translateY="50.0" visible="false" />
+            <Button fx:id="res0Button" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="-45.0" translateY="50.0" visible="false">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="res1Button" disable="true" visible="false" layoutX="194.0" layoutY="120.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="45.0" translateY="50.0">
+            <Button fx:id="res1Button" disable="true" layoutX="194.0" layoutY="120.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="45.0" translateY="50.0" visible="false">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fx:id="res2" visible="false" fitHeight="26.0" fitWidth="32.0" layoutX="196.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" translateX="-130.0" translateY="50.0" />
-            <ImageView fx:id="res3" visible="false" fitHeight="26.0" fitWidth="32.0" layoutX="196.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" translateX="130.0" translateY="50.0" />
-            <Button fx:id="res2Button" disable="true" visible="false" layoutX="194.0" layoutY="120.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="-130.0" translateY="50.0">
+            <ImageView fx:id="res2" fitHeight="26.0" fitWidth="32.0" layoutX="196.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" translateX="-130.0" translateY="50.0" visible="false" />
+            <ImageView fx:id="res3" fitHeight="26.0" fitWidth="32.0" layoutX="196.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" translateX="130.0" translateY="50.0" visible="false" />
+            <Button fx:id="res2Button" disable="true" layoutX="194.0" layoutY="120.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="-130.0" translateY="50.0" visible="false">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="res3Button" disable="true" visible="false" layoutX="194.0" layoutY="120.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="130.0" translateY="50.0">
+            <Button fx:id="res3Button" disable="true" layoutX="194.0" layoutY="120.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="33.0" translateX="130.0" translateY="50.0" visible="false">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

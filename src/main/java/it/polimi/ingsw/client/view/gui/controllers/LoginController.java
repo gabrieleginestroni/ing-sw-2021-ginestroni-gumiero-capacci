@@ -102,17 +102,26 @@ public class LoginController extends GUIController {
 
     @Override
     public void visitNicknameAlreadyUsed(String str, String gameID) {
-
+        message.setText(str);
+        message.setVisible(true);
+        topTextField.setVisible(false);
+        topLabel.setVisible(false);
     }
 
     @Override
     public void visitLobbyFull(String str) {
-
+        message.setText(str);
+        message.setVisible(true);
+        bottomTextField.setVisible(false);
+        bottomLabel.setVisible(false);
     }
 
     @Override
     public void visitLobbyNotReady(String str) {
-
+        message.setText(str);
+        message.setVisible(true);
+        bottomTextField.setVisible(false);
+        bottomLabel.setVisible(false);
     }
 
     @Override
