@@ -45,7 +45,7 @@ public class MarketObserverTest {
         Player p1 = new Player("giagum",null);
         VirtualView vv = new VirtualView();
         SoloGame solo = new SoloGame(p1,vv);
-        System.out.println(solo.getMarketObserver().toString());
+        //System.out.println(solo.getMarketObserver().toString());
 
         JsonObject observerJSON = JsonParser.parseString(solo.getMarketObserver().toJSONString()).getAsJsonObject();
         String[][] marketOld;
@@ -64,11 +64,11 @@ public class MarketObserverTest {
             if(randMove == 0) {
                 rand = ThreadLocalRandom.current().nextInt(0, 3);
                 solo.doHorizontalMoveMarket(rand);
-                System.out.println("Horizontal: "+rand);
+                //System.out.println("Horizontal: "+rand);
             }else {
                 rand = ThreadLocalRandom.current().nextInt(0, 4);
                 solo.doVerticalMoveMarket(rand);
-                System.out.println("Vertical: "+rand);
+                //System.out.println("Vertical: "+rand);
             }
 
             observerJSON = JsonParser.parseString(solo.getMarketObserver().toJSONString()).getAsJsonObject();
@@ -80,6 +80,6 @@ public class MarketObserverTest {
             else
                 testAssertVertical(marketOld, marketNew, freeMarbleOld, freeMarbleNew, rand);
         }
-        System.out.println(solo.getMarketObserver().toString());
+        //System.out.println(solo.getMarketObserver().toString());
     }
 }

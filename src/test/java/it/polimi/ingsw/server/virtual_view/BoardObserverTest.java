@@ -129,6 +129,7 @@ public class BoardObserverTest {
         }
     }
 
+    /*
     @Test
     public void testToString() throws addResourceLimitExceededException, invalidResourceTypeException, duplicatedWarehouseTypeException, invalidSwapException, emptyDevCardGridSlotSelectedException, developmentCardSlotLimitExceededException, invalidDevelopmentCardLevelPlacementException, removeResourceLimitExceededException {
         Player p1 = new Player("giagum",null);
@@ -137,7 +138,6 @@ public class BoardObserverTest {
         Board b1 = p1.getBoard();
         BoardObserver ob1 = p1.getBoardObserver();
 
-        //TODO remove println
         System.out.println(ob1.toString());
 
         b1.setInkwell();
@@ -181,6 +181,6 @@ public class BoardObserverTest {
         b1.giveFaithPoints(7);
         b1.computeActivationPopeTile(1);
         System.out.println(ob1.toString());
-
     }
+     */
 }
