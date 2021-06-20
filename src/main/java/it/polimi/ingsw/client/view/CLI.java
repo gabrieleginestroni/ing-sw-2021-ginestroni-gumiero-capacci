@@ -791,9 +791,9 @@ public class CLI extends View{
                 lorenzoMatrix = buildLorenzoCLI(lorenzoView, lines);
 
             String[] gameMatrix = buildGameCLI(lines);
-            //TO CLEAR CONSOLE?
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            //TO CLEAR CONSOLE
+            //System.out.print("\033[H\033[2J");
+            //System.out.flush();
 
             for (i = 0; i < maxLines; i++) {
                 String str = "";
