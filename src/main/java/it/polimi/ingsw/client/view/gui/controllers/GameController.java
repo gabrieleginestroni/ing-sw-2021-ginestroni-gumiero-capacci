@@ -260,8 +260,8 @@ public class GameController extends GUIController implements Initializable {
             for (Map.Entry<Resource, Integer> entry : tmpMap.entrySet())
                 str += entry.getKey() + ": " + getTotalSelectedResources(entry.getKey()) + "/" + entry.getValue() + "\n";
         textMessage.setText(textMessage.getText().split("\n")[0] + "\nChosen card slot: " + chosenCardSlot + "\n" + str);
-        if(chosenCardSlot > 2)
-            textMessage.setText(textMessage.getText()+"\nChosen resource to produce"+chosenResource.toString());
+        if(chosenCardSlot > 2 && chosenResource != null)
+            textMessage.setText(textMessage.getText()+"\nChosen resource to produce: "+chosenResource.toString());
         //textMessage.setText("Chosen card slot: " + chosenCardSlot + "\n" + str);
         //textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\nR2R:" + new Gson().toJson(resToRemove)+ "\nW:" + new Gson().toJson(wareHouseMap) + "\nS:" + new Gson().toJson(strongBoxMap));
         System.out.println(textMessage.getText());
