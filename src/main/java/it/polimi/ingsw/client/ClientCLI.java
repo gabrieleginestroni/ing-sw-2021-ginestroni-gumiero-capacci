@@ -17,10 +17,10 @@ public class ClientCLI {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         CLI view = new CLI();
-        //System.out.println("Insert server ip address:");
-        //String ip = scanner.nextLine();
+        System.out.println("Insert server ip address:");
+        String ip = scanner.nextLine();
         //String ip = "94.176.46.205";
-        String ip = "localhost";
+        //String ip = "localhost";
         view.showMessage("Insert server port number:");
         int port = Integer.parseInt(scanner.nextLine().trim());
 

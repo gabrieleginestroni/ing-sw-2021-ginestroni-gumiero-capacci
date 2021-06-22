@@ -733,7 +733,7 @@ public class CLI extends View{
         i++;
         matrix[i] = "    ";
         for(int j = 0; j < lorenzoView.getBlackCrossMarker(); j++)
-            matrix[i] += ConsoleColors.colorMap.get("BLACK") + ConsoleColors.resourceMap.get(Resource.FAITH) + ConsoleColors.colorMap.get("RESET");
+            matrix[i] += ConsoleColors.colorMap.get("GREY") + ConsoleColors.resourceMap.get(Resource.FAITH) + ConsoleColors.colorMap.get("RESET");
 
         for(int j = lorenzoView.getBlackCrossMarker(); j < 24; j++)
             matrix[i] += "░";
@@ -792,8 +792,8 @@ public class CLI extends View{
 
             String[] gameMatrix = buildGameCLI(lines);
             //TO CLEAR CONSOLE
-            //System.out.print("\033[H\033[2J");
-            //System.out.flush();
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
 
             for (i = 0; i < maxLines; i++) {
                 String str = "";
