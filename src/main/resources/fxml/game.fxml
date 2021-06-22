@@ -1095,7 +1095,7 @@
                   <Image url="@../images/login_background.png" />
                </image>
             </ImageView>
-            <Label fx:id="popUpTextMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="154.0" prefWidth="342.0" textAlignment="CENTER" translateY="-40.0" wrapText="true">
+            <Label fx:id="popUpTextMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="195.0" prefWidth="342.0" textAlignment="CENTER" translateY="-25.0" wrapText="true">
                <font>
                   <Font name="Gabriola" size="18.0" />
                </font>
