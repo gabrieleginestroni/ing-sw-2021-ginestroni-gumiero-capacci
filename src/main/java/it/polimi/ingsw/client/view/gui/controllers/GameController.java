@@ -310,6 +310,13 @@ public class GameController extends GUIController implements Initializable {
         }
 
         changeSceneButton.setOnAction(actionEvent -> Platform.runLater(()-> view.changeScene(view.scenesMap.get(GUI.DEVELOPMENT))));
+
+        popUp.setOnMouseDragged(event -> {
+            popUp.setTranslateX(event.getX() + popUp.getTranslateX());
+            popUp.setTranslateY(event.getY() + popUp.getTranslateY());
+            event.consume();
+        });
+
     }
 
 //----------------------------------UPDATE---------------------------------------------------------------------
@@ -1057,7 +1064,7 @@ public class GameController extends GUIController implements Initializable {
             String str = errorMessage == null ? "" : errorMessage + "\n";
             textMessage.setText(str + "Please choose a production");
 
-            //ENABLE DEV CARD PRODUCTION
+            //enabling card slots
             for (int j = 0; j <= 2; j++) {
                 int card = view.getPersonalBoardView().getTopCardSlot(j);
                 if (card != 0) {
@@ -1070,7 +1077,7 @@ public class GameController extends GUIController implements Initializable {
                     pane.lookup("#cardslot_" + j).setDisable(false);
                 }
             }
-
+            //enabling leader
             List<Integer> activeLeaders = view.getPersonalBoardView().getActiveLeaders();
             for (int i = 0; i <= 1; i++) {
                 Button leaderBtn = (Button) pane.lookup("#leaderButton_" + i);
@@ -1093,6 +1100,8 @@ public class GameController extends GUIController implements Initializable {
                 enablePickResourceForProduction();
                 enablePickOutputProduction();
                 printChosenResource(getResourceToPickForProduction());
+                baseProdBtn.setDisable(true);
+
             });
             baseProdBtn.setDisable(false);
 
@@ -1107,6 +1116,21 @@ public class GameController extends GUIController implements Initializable {
             exitButton.setOnAction(actionEvent -> {
                 exitButton.setDisable(true);
                 disableAllDepotButtons();
+
+                // disabling cardslot
+                for (int j = 0; j <= 2; j++) {
+                    int card = view.getPersonalBoardView().getTopCardSlot(j);
+                    if (card != 0)
+                        pane.lookup("#cardslot_"+j).setDisable(true);
+                }
+
+                //disabling leader
+                for (int i = 0; i <= 1; i++)
+                    if(i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("production"))
+                        pane.lookup("#leaderButton_" + i).setDisable(true);
+                //disabling board production
+                baseProdBtn.setDisable(true);
+
                 this.networkHandler.sendMessage(new ChosenProductionMessage(6, null, null, null));
             });
             exitButton.setDisable(false);

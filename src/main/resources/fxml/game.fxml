@@ -1088,14 +1088,14 @@
          </font>
       </Label>
       <Rectangle fx:id="popUpEffect" arcHeight="5.0" arcWidth="5.0" height="810.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" visible="false" width="1490.0" />
-      <StackPane fx:id="popUp" layoutX="549.0" layoutY="259.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="252.0" prefWidth="402.0" styleClass="image2" visible="false">
+      <StackPane fx:id="popUp" layoutX="549.0" layoutY="260.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="252.0" prefWidth="402.0" styleClass="image2" visible="false">
          <children>
             <ImageView fx:id="popupBackground" fitHeight="467.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" rotate="270.0">
                <image>
                   <Image url="@../images/login_background.png" />
                </image>
             </ImageView>
-            <Label fx:id="popUpTextMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="112.0" prefWidth="342.0" textAlignment="CENTER" translateY="-40.0" wrapText="true">
+            <Label fx:id="popUpTextMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="154.0" prefWidth="342.0" textAlignment="CENTER" translateY="-40.0" wrapText="true">
                <font>
                   <Font name="Gabriola" size="18.0" />
                </font>
