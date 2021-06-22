@@ -113,9 +113,9 @@ public class CLI extends View{
                     personalMatrix[i] += str;
                     for (j = 0; j < playerView.getStrongBox().get(res.toString()) && j < maxWidth - str.length(); j++) {
                         personalMatrix[i] += ConsoleColors.colorMap.get(res.getColor().toUpperCase()) + ConsoleColors.resourceMap.get(res) + ConsoleColors.colorMap.get("RESET");
-                        if (j == maxWidth - 2 - str.length()) {
-                            personalMatrix[i] += "+";
-                            j++;
+                        if (j == maxWidth - 3 - str.length()) {
+                            personalMatrix[i] += "+ ";
+                            j += 3;
                         }
                     }
                     j += str.length();
@@ -130,9 +130,9 @@ public class CLI extends View{
             personalMatrix[i] += "Warehouse Depots";
             i++;
             //represent warehouse depots in reverse order, as in the original game
-            for(int index = 2; index >= 0; index--){
+            for(int index = 0; index <= 2; index++){
                 String res = playerView.getWarehouseDepotResource().get(index);
-                int quantity = playerView.getWarehouseDepotQuantity().get(index); //reverse
+                int quantity = playerView.getWarehouseDepotQuantity().get(index);
                 for (int j = 0; j < quantity; j++)
                     personalMatrix[i] += ConsoleColors.colorMap.get(Resource.valueOf(res).getColor().toUpperCase())+ConsoleColors.resourceMap.get(Resource.valueOf(res))+ConsoleColors.colorMap.get("RESET");
                 //blank - for every unused space in depot
@@ -164,51 +164,6 @@ public class CLI extends View{
                 supportMatrix[i] = 1;
                 i++;
             }
-
-            //display hiddenHand
-            if(playerView.getHiddenHand() != null && playerView.getHiddenHand().size() > 0){
-                personalMatrix[i] += "Hidden Hand";
-                i++;
-                int iStart = i;
-                int index = 0;
-                for(int j = 0; j < playerView.getHiddenHand().size(); j++) {
-                    i = iStart;
-                    String[] matrixNew = buildLeaderCard(this.getLeaderCardByID(playerView.getHiddenHand().get(j)));
-                    for (String s : matrixNew) {
-                        personalMatrix[i] += s;
-                        supportMatrix[i] = 1;
-                        i++;
-                    }
-                    index += 16; //card length
-                }
-                int iEnd = i;
-                for(i = iStart; i < iEnd; i++)
-                    for(int j = index; j < maxWidth; j++)
-                        personalMatrix[i] += " ";
-            }
-
-            if(playerView.getActiveLeaders() != null && playerView.getActiveLeaders().size() > 0){
-                personalMatrix[i] += "Active Leaders";
-                i++;
-                int iStart = i;
-                int index = 0;
-                for(int j = 0; j < playerView.getActiveLeaders().size(); j++) {
-                    i = iStart;
-                    String[] matrixNew = buildLeaderCard(this.getLeaderCardByID(playerView.getActiveLeaders().get(j)));
-                    for (String s : matrixNew) {
-                        personalMatrix[i] += s;
-                        supportMatrix[i] = 1;
-                        i++;
-                    }
-                    index += 16; //card length
-                }
-                int iEnd = i;
-                for(i = iStart; i < iEnd; i++)
-                    for(int j = index; j < maxWidth; j++)
-                        personalMatrix[i] += " ";
-            }
-
-            i++;
 
             //display Faith Track
             personalMatrix[i] = "      Faith Track: ";
@@ -406,6 +361,50 @@ public class CLI extends View{
 
             }
 
+            //display hiddenHand
+            i++;
+            if(playerView.getHiddenHand() != null && playerView.getHiddenHand().size() > 0){
+                personalMatrix[i] += "Hidden Hand";
+                i++;
+                int iStart = i;
+                int index = 0;
+                for(int j = 0; j < playerView.getHiddenHand().size(); j++) {
+                    i = iStart;
+                    String[] matrixNew = buildLeaderCard(this.getLeaderCardByID(playerView.getHiddenHand().get(j)));
+                    for (String s : matrixNew) {
+                        personalMatrix[i] += s;
+                        supportMatrix[i] = 1;
+                        i++;
+                    }
+                    index += 16; //card length
+                }
+                int iEnd = i;
+                for(i = iStart; i < iEnd; i++)
+                    for(int j = index; j < maxWidth; j++)
+                        personalMatrix[i] += " ";
+            }
+
+            if(playerView.getActiveLeaders() != null && playerView.getActiveLeaders().size() > 0){
+                personalMatrix[i] += "Active Leaders";
+                i++;
+                int iStart = i;
+                int index = 0;
+                for(int j = 0; j < playerView.getActiveLeaders().size(); j++) {
+                    i = iStart;
+                    String[] matrixNew = buildLeaderCard(this.getLeaderCardByID(playerView.getActiveLeaders().get(j)));
+                    for (String s : matrixNew) {
+                        personalMatrix[i] += s;
+                        supportMatrix[i] = 1;
+                        i++;
+                    }
+                    index += 16; //card length
+                }
+                int iEnd = i;
+                for(i = iStart; i < iEnd; i++)
+                    for(int j = index; j < maxWidth; j++)
+                        personalMatrix[i] += " ";
+            }
+
             for (int j = 0; j < personalMatrix.length; j++) {
                 //System.out.println("RIGA "+j+" =>"+"("+personalMatrix[j].length()+") "+new Gson().toJson(personalMatrix[j]));
                 //if(j < 2 || j >= 6 && j <= 8 || j == 12 || j == 15 || j > i) {
@@ -538,6 +537,9 @@ public class CLI extends View{
                 for(int j = 0; j < maxSize + 8; j++)
                     gameMatrix[i] += " ";
 
+                for(int j = i; i < j+7; i++)
+                    gameMatrix[i] = " ".repeat(67); //blank line
+
                 String[][] market = this.marketView.getMarket();
                 int dimMax = 1;
                 String dot;
@@ -593,24 +595,6 @@ public class CLI extends View{
                     gameMatrix[i] = " ".repeat(67); //blank line
                     i++;
                 }
-
-/* OLD MARKET VERSION
-                //parsing market to have a list of color for every row separated by a space
-                tmp = this.marketView.toString().toUpperCase().replaceAll(" +", " ").split("\n");
-                int a = 0; //counter to avoid writing first line
-                for (String row : tmp) {
-                    if (a != 0){
-                        //modify line replacing the color name with the a colored █
-                        for (Map.Entry<String, String> entry : ConsoleColors.colorMap.entrySet())
-                            row = row.replace(entry.getKey(), entry.getValue() + " █" + ConsoleColors.colorMap.get("RESET"));
-
-                        //add padding to center line in middle of gameMatrix
-                        gameMatrix[i] = " ".repeat(30)+ row.replaceAll("}", "")+ " ".repeat(31);
-                        i++;
-                    }
-                    a++;
-                }
-*/
             }
         }catch (Exception e){
             //OK
@@ -722,8 +706,8 @@ public class CLI extends View{
     private String[] buildLorenzoCLI(LorenzoView lorenzoView, int lines) {
         String[] matrix = new String[lines];
         Arrays.fill(matrix, " ");
-        //10 blank rows to start
-        int i = 15;
+        //14 blank rows to start
+        int i = 14;
 
         //display Faith Track
         matrix[i] = "Lorenzo";
