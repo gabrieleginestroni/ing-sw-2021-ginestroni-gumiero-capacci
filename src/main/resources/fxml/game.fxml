@@ -1019,19 +1019,19 @@
             <Image url="@../images/wooden_sign.png" />
          </image>
       </ImageView>
-      <Label layoutX="14.0" layoutY="658.0" text="DEVELOPMENT GRID" translateX="2.0">
+      <Label layoutX="14.0" layoutY="658.0" text="DEVELOPMENT GRID" translateX="4.0">
          <font>
-            <Font name="Cambria Bold" size="13.0" />
+            <Font name="Cambria Bold" size="12.0" />
          </font>
       </Label>
       <Button fx:id="changeSceneButton" layoutX="10.0" layoutY="645.0" mnemonicParsing="false" opacity="0.0" prefHeight="47.0" prefWidth="132.0" text="Button">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <StackPane layoutX="160.0" layoutY="592.0" styleClass="image">
+      <StackPane layoutX="160.0" layoutY="592.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="201.0" prefWidth="201.0" styleClass="image">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffba1f" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-            <Label fx:id="textMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="200.0" prefWidth="200.0" textAlignment="CENTER" wrapText="true">
+            <Label fx:id="textMessage" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="200.0" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Gabriola" size="16.0" />
                </font></Label>

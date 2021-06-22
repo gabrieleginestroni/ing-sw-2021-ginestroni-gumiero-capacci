@@ -629,6 +629,8 @@ public class GameController extends GUIController implements Initializable {
             popUp.setVisible(true);
 
         } else {
+            sendButton.setDisable(true);
+            exitButton.setDisable(true);
             textMessage.setText(currentPlayerNickname + " is choosing an action");
             popUpEffect.setVisible(false);
             popUp.setVisible(false);
