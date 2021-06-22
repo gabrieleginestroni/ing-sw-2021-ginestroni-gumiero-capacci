@@ -172,7 +172,7 @@
          </children>
       </GridPane>
       <StackPane layoutX="10.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
-         <Label fx:id="otherplayer_0_nickname" textFill="WHITE" translateX="-150.0" translateY="-148.0">
+         <Label fx:id="otherplayer_0_nickname" prefHeight="19.0" prefWidth="281.0" textFill="WHITE" translateX="-50.0" translateY="-148.0">
             <font>
                <Font name="Gabriola" size="16.0" />
             </font>
@@ -388,7 +388,7 @@
        </StackPane>
       <StackPane layoutX="500.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
          <children>
-            <Label fx:id="otherplayer_1_nickname" textFill="WHITE" translateX="-150.0" translateY="-148.0">
+            <Label fx:id="otherplayer_1_nickname" prefHeight="19.0" prefWidth="281.0" textFill="WHITE" translateX="-50.0" translateY="-148.0">
                <font>
                   <Font name="Gabriola" size="16.0" />
                </font>
@@ -605,7 +605,7 @@
       </StackPane>
       <StackPane layoutX="990.0" layoutY="25.0" prefHeight="265.0" prefWidth="372.0" styleClass="board">
          <children>
-            <Label fx:id="otherplayer_2_nickname" textFill="WHITE" translateX="-150.0" translateY="-148.0">
+            <Label fx:id="otherplayer_2_nickname" prefHeight="19.0" prefWidth="281.0" textFill="WHITE" translateX="-50.0" translateY="-148.0">
                <font>
                   <Font name="Gabriola" size="16.0" />
                </font>

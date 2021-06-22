@@ -93,7 +93,7 @@ public class GameController extends GUIController implements Initializable {
     @FXML
     private Button cardslot_2;
 
-
+    private int connectedOtherPlayersNumber;
     private List<Integer> depotToSwap = new ArrayList<>();
     private Map<Integer, Integer> leaderMap;
     private Map<Integer, Integer> wareHouseMap;
@@ -281,12 +281,10 @@ public class GameController extends GUIController implements Initializable {
         leaderButton_1.setDisable(true);
     }
 
-    private void updateOtherPlayer(int playerIndex){
-        BoardView otherPlayer = view.getOtherBoardsView().get(playerIndex);
-
+    private void updateOtherPlayer(int playerIndex, BoardView otherPlayer){
 
         Label label = (Label) pane.lookup("#otherplayer_"+playerIndex+"_nickname");
-        label.setText(view.getOtherBoardsView().get(playerIndex).getNickname());
+        label.setText(otherPlayer.getNickname());
 
         //updating strongbox
         for(Map.Entry<String,Integer> strongbox: otherPlayer.getStrongBox().entrySet()){
@@ -521,11 +519,13 @@ public class GameController extends GUIController implements Initializable {
         List<BoardView> otherPlayers = view.getOtherBoardsView();
         if(otherPlayers != null){
             int playerIndex = 0;
-            for(BoardView otherPlayer:otherPlayers){
-                int finalPlayerIndex = playerIndex;
-                Platform.runLater(() -> updateOtherPlayer(finalPlayerIndex));
-                playerIndex++;
-            }
+            try {
+                for (BoardView otherPlayer : otherPlayers) {
+                    int finalPlayerIndex = playerIndex;
+                    Platform.runLater(() -> updateOtherPlayer(finalPlayerIndex, otherPlayer));
+                    playerIndex++;
+                }
+            } catch (Exception ignored){ }
         }
     }
 
@@ -612,6 +612,7 @@ public class GameController extends GUIController implements Initializable {
 //--------------------------GAME PHASES-----------------------------------------------------------------------------
     @Override
     public void visitGameStarted(String str) {
+        this.connectedOtherPlayersNumber = view.getOtherBoardsView().size();
         if (view.getOtherBoardsView() != null) {
             for (int i = 0; i < view.getOtherBoardsView().size(); i++) {
                 ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_" + i);
@@ -1211,7 +1212,36 @@ public class GameController extends GUIController implements Initializable {
     }
 
     @Override
-    public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
+    public void visitForcedReconnectionUpdate() {
+        this.connectedOtherPlayersNumber = view.getOtherBoardsView().size();
+        Platform.runLater(this::visitBoardsUpdate);
+        Platform.runLater(this::visitMarketUpdate);
+        Platform.runLater(this::visitDevGridUpdate);
 
+    }
+
+    @Override
+    public void visitPlayerDisconnection(String nickname) {
+        this.connectedOtherPlayersNumber -= 1;
+
+        Label label = (Label) pane.lookup("#otherplayer_"+connectedOtherPlayersNumber+"_nickname");
+        label.setText(nickname + " (DISCONNECTED)");
+
+        ImageView disconnectedBoard = (ImageView) pane.lookup("#otherplayer_" + connectedOtherPlayersNumber);
+        disconnectedBoard.setImage(GUI.punchBoardImg.get("boardBack"));
+        StackPane otherPlayerPane = (StackPane) pane.lookup("#otherplayer_pane_" + connectedOtherPlayersNumber);
+        otherPlayerPane.setVisible(false); //disabling other players images overlay
+
+    }
+
+
+
+    @Override
+    public void visitPlayerReconnection(String nickname) {
+        this.connectedOtherPlayersNumber += 1;
+        ImageView reconnectedBoard = (ImageView) pane.lookup("#otherplayer_" + (connectedOtherPlayersNumber - 1));
+        reconnectedBoard.setImage(GUI.punchBoardImg.get("boardFront"));
+        StackPane otherPlayerPane = (StackPane) pane.lookup("#otherplayer_pane_" + (connectedOtherPlayersNumber - 1));
+        otherPlayerPane.setVisible(true); //enabling other players images overlay
     }
 }

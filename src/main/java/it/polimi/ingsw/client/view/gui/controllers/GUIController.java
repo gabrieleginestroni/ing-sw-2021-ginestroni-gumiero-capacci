@@ -79,6 +79,10 @@ public abstract class GUIController {
 
     public abstract void visitGameAbort();
 
-    public abstract void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards,String updatedGrid,String updatedMarket);
+    public abstract void visitForcedReconnectionUpdate();
+
+    public abstract void visitPlayerDisconnection(String nickname);
+
+    public abstract void visitPlayerReconnection(String nickname);
 }
 

@@ -201,7 +201,17 @@ public class DevelopmentController extends GUIController implements Initializabl
     }
 
     @Override
-    public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
+    public void visitForcedReconnectionUpdate() {
+
+    }
+
+    @Override
+    public void visitPlayerDisconnection(String nickname) {
+
+    }
+
+    @Override
+    public void visitPlayerReconnection(String nickname) {
 
     }
 

@@ -39,6 +39,7 @@ public class VirtualView {
 
     public void notifyPlayerDisconnection(String nickname){
         players.stream().forEach(p -> p.getClientHandler().sendAnswerMessage(new PlayerDisconnectionMessage(nickname)));
+        updateBoardVirtualView();
     }
 
     public void forcedReconnectionUpdate(Player player){
@@ -54,6 +55,7 @@ public class VirtualView {
         }
 
         players.stream().filter(q -> player != q).forEach(q -> q.getClientHandler().sendAnswerMessage(new PlayerReconnectionMessage(player.getNickname())));
+        updateBoardVirtualView();
     }
 
     public void updateBoardVirtualView() {

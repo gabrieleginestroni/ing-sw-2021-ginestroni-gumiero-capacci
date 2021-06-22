@@ -22,7 +22,6 @@ public class GUI extends View{
     public static final String SETUP_LEADER = "setupLeader.fxml";
     public static final String SETUP_RESOURCE = "setupResource.fxml";
     public static final String MAIN_GUI = "game.fxml";
-    public static final String END_GAME = "endGame.fxml";
     public static final String DEVELOPMENT = "development.fxml";
     public static  Image[] leaderCardImg;
     public static  Image[] developmentCardImg;
@@ -51,7 +50,7 @@ public class GUI extends View{
         Arrays.stream(tmpImgName).forEach(s -> punchBoardImg.put(s,new Image("/images/punchboard/" + s + ".png")));
         punchBoardImg.put("faith",new Image("/images/resources/faith.png"));
 
-        List<String> fxml = new ArrayList<>(Arrays.asList(SETUP_LEADER, SETUP_RESOURCE, MAIN_GUI, END_GAME,DEVELOPMENT));
+        List<String> fxml = new ArrayList<>(Arrays.asList(SETUP_LEADER, SETUP_RESOURCE, MAIN_GUI,DEVELOPMENT));
         try {
             for (String path : fxml) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + path));
@@ -77,20 +76,6 @@ public class GUI extends View{
             entry.getValue().setNetworkHandler(networkHandler);
     }
 
-    @Override
-    public void visitGameAbort() {
-        //TODO
-    }
-
-    @Override
-    public void visitPlayerDisconnection(String nickname) {
-        //TODO
-    }
-
-    @Override
-    public void visitPlayerReconnection(String nickname) {
-        //TODO
-    }
 
     public static void setStg(Stage stg) {
         GUI.stg = stg;
@@ -100,7 +85,39 @@ public class GUI extends View{
         stg.setScene(scene);
     }
 
-//---------------------LOGIN PHASE---------------------------------------------------------------
+//------------------------------RECONNECTION FA ----------------------------------------------------------
+    @Override
+    public void visitGameAbort() {
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitGameAbort());
+    }
+
+    @Override
+    public void visitPlayerDisconnection(String nickname) {
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitPlayerDisconnection(nickname));
+    }
+
+    @Override
+    public void visitPlayerReconnection(String nickname) {
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitPlayerReconnection(nickname));
+    }
+
+    @Override
+    public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
+        Gson gson = new Gson();
+        this.marketView = gson.fromJson(updatedMarket, MarketView.class);
+        this.personalBoardView = gson.fromJson(personalBoard, BoardView.class);
+        if(otherBoards.size() != 0) {
+            this.otherBoardsView = new ArrayList<>();
+            otherBoards.forEach(s -> otherBoardsView.add(gson.fromJson(s, BoardView.class)));
+        }
+        this.devGrid = gson.fromJson(updatedGrid, GridView.class);
+
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitPlayerReconnection(nickname));
+    }
+//--------------------------------------------------------------------------------------------------------------------
+
+
+    //---------------------LOGIN PHASE---------------------------------------------------------------
     @Override
     public void showMessage(String str) {
 
@@ -164,10 +181,6 @@ public class GUI extends View{
         Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitMarketUpdate());
     }
 
-    @Override
-    public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
-
-    }
 
     @Override
     public void visitInkwell(String nickname) {
