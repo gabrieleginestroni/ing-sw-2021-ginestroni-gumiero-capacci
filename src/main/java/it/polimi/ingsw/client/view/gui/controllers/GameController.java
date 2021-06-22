@@ -604,10 +604,6 @@ public class GameController extends GUIController implements Initializable {
         }
     }
 
-    @Override
-    public void visitDevGridUpdate() {
-
-    }
 
 //--------------------------GAME PHASES-----------------------------------------------------------------------------
     @Override
@@ -1032,42 +1028,6 @@ public class GameController extends GUIController implements Initializable {
 
         } else
             textMessage.setText(currentPlayerNickname + " is placing resources in depots");
-    }
-
-    @Override
-    public void visitLobbyFull(String str) {
-
-    }
-
-    @Override
-    public void visitLobbyNotReady(String str) {
-
-    }
-
-    @Override
-    public void visitLoginSuccess(String currentPlayers) {
-
-    }
-
-    @Override
-    public void visitRequestLobbySize(String str) {
-
-    }
-
-    @Override
-    public void visitNicknameAlreadyUsed(String str, String gameID) {
-
-    }
-
-    @Override
-    public void visitInitialResource(int quantity) {
-
-    }
-
-
-    @Override
-    public void visitLeaderProposal(int[] proposedLeaderCards) {
-
     }
 
     @Override

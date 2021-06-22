@@ -26,63 +26,63 @@ public abstract class GUIController {
     }
 
     //------------------updates of view internal state---------------------
-    public abstract void visitBoardsUpdate();
+    public void visitBoardsUpdate(){ }
 
-    public abstract void visitLorenzoUpdate();
+    public void visitLorenzoUpdate(){ }
 
-    public abstract void visitMarketUpdate();
+    public void visitMarketUpdate(){ }
 
-    public abstract void visitDevGridUpdate();
+    public void visitDevGridUpdate(){ }
 
     //--------------------- main menu updates---------------------------------
-    public abstract void visitLobbyFull(String str);
+    public void visitLobbyFull(String str){ }
 
-    public abstract void visitLobbyNotReady(String str);
+    public void visitLobbyNotReady(String str){ }
 
-    public abstract void visitLoginSuccess(String currentPlayers);
+    public void visitLoginSuccess(String currentPlayers){ }
 
-    public abstract void visitRequestLobbySize(String str);
+    public void visitRequestLobbySize(String str){ }
 
-    public abstract void visitNicknameAlreadyUsed(String str,String gameID);
+    public void visitNicknameAlreadyUsed(String str,String gameID){ }
 
     //------------------------- game updates--------------------------------------------
 
-    public abstract void visitGameStarted(String str);
+    public void visitGameStarted(String str){ }
 
-    public abstract void visitInitialResource(int quantity); 
+    public void visitInitialResource(int quantity){ }
 
-    public abstract void visitInkwell(String nickname); 
+    public void visitInkwell(String nickname){ }
 
-    public abstract void visitLeaderProposal(int[] proposedLeaderCards); 
+    public void visitLeaderProposal(int[] proposedLeaderCards){ }
 
-    public abstract void visitWhiteMarbleProposal(Resource res1, Resource res2); 
+    public void visitWhiteMarbleProposal(Resource res1, Resource res2){ }
 
-    public abstract void visitStartTurn(String currentPlayerNickname, String errorMessage);
+    public void visitStartTurn(String currentPlayerNickname, String errorMessage){ }
 
-    public abstract void visitDevCardSale(String currentPlayerNickname); 
+    public void visitDevCardSale(String currentPlayerNickname){ }
 
-    public abstract void visitMiddleTurn(String currentPlayerNickname, String errorMessage); 
+    public void visitMiddleTurn(String currentPlayerNickname, String errorMessage){ }
 
-    public abstract void visitLeaderAction(String currentPlayerNickname); 
+    public void visitLeaderAction(String currentPlayerNickname){ }
 
-    public abstract void visitMainActionState(String currentPlayerNickname, String errorMessage); 
+    public void visitMainActionState(String currentPlayerNickname, String errorMessage){ }
 
-    public abstract void visitProductionState(String currentPlayerNickname, String errorMessage); 
+    public void visitProductionState(String currentPlayerNickname, String errorMessage){ }
 
-    public abstract void visitGameOverState(String winner, Map<String, Integer> gameResult); 
+    public void visitGameOverState(String winner, Map<String, Integer> gameResult){ }
 
-    public abstract void visitMarketState(String currentPlayerNickname, String errorMessage); 
+    public void visitMarketState(String currentPlayerNickname, String errorMessage){ }
 
-    public abstract void visitSwapState(String currentPlayerNickname, String errorMessage); 
+    public void visitSwapState(String currentPlayerNickname, String errorMessage){ }
 
-    public abstract void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage);
+    public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage){ }
 
-    public abstract void visitGameAbort();
+    public void visitGameAbort(){ }
 
-    public abstract void visitForcedReconnectionUpdate();
+    public void visitForcedReconnectionUpdate(){ }
 
-    public abstract void visitPlayerDisconnection(String nickname);
+    public void visitPlayerDisconnection(String nickname){ }
 
-    public abstract void visitPlayerReconnection(String nickname);
+    public void visitPlayerReconnection(String nickname){ }
 }
 
