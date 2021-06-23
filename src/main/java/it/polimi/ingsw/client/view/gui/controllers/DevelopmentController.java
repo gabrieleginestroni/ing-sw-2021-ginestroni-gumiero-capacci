@@ -84,4 +84,10 @@ public class DevelopmentController extends GUIController implements Initializabl
         }
     }
 
+    @Override
+    public void visitForcedReconnectionUpdate() {
+        Platform.runLater(() -> this.visitDevGridUpdate());
+    }
+
+
 }

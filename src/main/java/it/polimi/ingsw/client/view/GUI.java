@@ -25,6 +25,7 @@ public class GUI extends View{
     public static final String DEVELOPMENT = "development.fxml";
     public static  Image[] leaderCardImg;
     public static  Image[] developmentCardImg;
+    public static  Image[] developmentCardImgSmall;
     public static Map<String,Image> punchBoardImg = new HashMap<>();
 
     public static Stage stg;
@@ -37,6 +38,7 @@ public class GUI extends View{
 
         leaderCardImg = new Image[super.leaderCards.length + 1];
         developmentCardImg = new Image[super.developmentCards.length + 1];
+        developmentCardImgSmall = new Image[super.developmentCards.length + 1];
 
         for(int index = 1; index <= super.leaderCards.length; index++ )
             leaderCardImg[index] = new Image("/images/leaderCardsFront/leader" + index + ".png");
@@ -44,6 +46,10 @@ public class GUI extends View{
         developmentCardImg[0] = new Image("/images/devGridEmptySlot.png");
         for(int index = 1; index <= super.developmentCards.length; index++ )
             developmentCardImg[index] = new Image("/images/developmentCardsFront/development" + index + ".png");
+
+        developmentCardImgSmall[0] = new Image("/images/devGridEmptySlot.png");
+        for(int index = 1; index <= super.developmentCards.length; index++ )
+            developmentCardImgSmall[index] = new Image("/images/developmentCardsFront/small/development" + index + ".png");
 
         String[] tmpImgName = new String[] {"add2BlackCross","blackCross","boardBack","boardFront","discard2Blue",
         "discard2Green","discard2Purple","discard2Yellow","shuffleActionToken"};
@@ -112,7 +118,9 @@ public class GUI extends View{
         }
         this.devGrid = gson.fromJson(updatedGrid, GridView.class);
 
-        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitPlayerReconnection(nickname));
+        Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitForcedReconnectionUpdate());
+        Platform.runLater(() -> controllersMap.get(LOGIN).visitForcedReconnectionUpdate());
+        Platform.runLater(() -> controllersMap.get(DEVELOPMENT).visitForcedReconnectionUpdate());
     }
 //--------------------------------------------------------------------------------------------------------------------
 

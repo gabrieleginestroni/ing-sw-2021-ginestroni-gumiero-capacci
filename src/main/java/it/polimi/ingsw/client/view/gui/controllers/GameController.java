@@ -363,7 +363,7 @@ public class GameController extends GUIController implements Initializable {
             for(int j = 0; j < 3; j++){
                 ImageView devImg = (ImageView) pane.lookup("#otherplayer_"+playerIndex+"_cardslot_"+i+"_"+j);
                 if(j < cardslots[i].size()){
-                    devImg.setImage(GUI.developmentCardImg[cardslots[i].get(j)]);
+                    devImg.setImage(GUI.developmentCardImgSmall[cardslots[i].get(j)]);
                     devImg.setVisible(true);
                 } else
                     devImg.setImage(null);
@@ -373,7 +373,6 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/images/table_background.jpg",1490.0,810.0,false,true),BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -615,7 +614,6 @@ public class GameController extends GUIController implements Initializable {
                 otherPlayer.setImage(GUI.punchBoardImg.get("boardFront"));
                 StackPane otherPlayerPane = (StackPane) pane.lookup("#otherplayer_pane_" + i);
                 otherPlayerPane.setVisible(true); //enabling other players images overlay
-
             }
         }
     }
@@ -1174,10 +1172,14 @@ public class GameController extends GUIController implements Initializable {
     @Override
     public void visitForcedReconnectionUpdate() {
         this.connectedOtherPlayersNumber = view.getOtherBoardsView().size();
-        Platform.runLater(this::visitBoardsUpdate);
-        Platform.runLater(this::visitMarketUpdate);
-        Platform.runLater(this::visitDevGridUpdate);
-
+        Platform.runLater(() -> this.visitBoardsUpdate());
+        Platform.runLater(() -> this.visitMarketUpdate());
+        for (int i = 0; i < view.getOtherBoardsView().size(); i++) {
+            ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_" + i);
+            otherPlayer.setImage(GUI.punchBoardImg.get("boardFront"));
+            StackPane otherPlayerPane = (StackPane) pane.lookup("#otherplayer_pane_" + i);
+            otherPlayerPane.setVisible(true); //enabling other players images overlay
+        }
     }
 
     @Override

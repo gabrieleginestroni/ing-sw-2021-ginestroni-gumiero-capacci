@@ -369,15 +369,15 @@
                      <Image url="@../images/punchboard/inkwell.png" />
                   </image>
                </ImageView>
-               <ImageView fx:id="otherplayer_0_cardslot_0_0" fitHeight="127.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="59.0" />
-               <ImageView fx:id="otherplayer_0_cardslot_0_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="42.0" />
-               <ImageView fx:id="otherplayer_0_cardslot_0_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="25.0" />
-               <ImageView fx:id="otherplayer_0_cardslot_1_0" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="59.0" />
-               <ImageView fx:id="otherplayer_0_cardslot_1_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="42.0" />
-               <ImageView fx:id="otherplayer_0_cardslot_1_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="25.0" />
-               <ImageView fx:id="otherplayer_0_cardslot_2_0" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="59.0" />
-               <ImageView fx:id="otherplayer_0_cardslot_2_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="42.0" />
-               <ImageView fx:id="otherplayer_0_cardslot_2_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="25.0" />
+               <ImageView fx:id="otherplayer_0_cardslot_0_0" fitHeight="114.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="59.0" />
+               <ImageView fx:id="otherplayer_0_cardslot_0_1" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="42.0" />
+               <ImageView fx:id="otherplayer_0_cardslot_0_2" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="25.0" />
+               <ImageView fx:id="otherplayer_0_cardslot_1_0" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="59.0" />
+               <ImageView fx:id="otherplayer_0_cardslot_1_1" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="42.0" />
+               <ImageView fx:id="otherplayer_0_cardslot_1_2" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="25.0" />
+               <ImageView fx:id="otherplayer_0_cardslot_2_0" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="59.0" />
+               <ImageView fx:id="otherplayer_0_cardslot_2_1" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="42.0" />
+               <ImageView fx:id="otherplayer_0_cardslot_2_2" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="25.0" />
                <Label fx:id="otherplayer_0_coin" text="##" textFill="WHITE" translateX="-150.0" translateY="75.0" />
                <Label fx:id="otherplayer_0_servant" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-113.0" translateY="75.0" />
                <Label fx:id="otherplayer_0_shield" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-113.0" translateY="97.0" />
@@ -586,15 +586,15 @@
                         <Image url="@../images/punchboard/inkwell.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="otherplayer_1_cardslot_0_0" fitHeight="127.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="59.0" />
-                  <ImageView fx:id="otherplayer_1_cardslot_0_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="42.0" />
-                  <ImageView fx:id="otherplayer_1_cardslot_0_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="25.0" />
-                  <ImageView fx:id="otherplayer_1_cardslot_1_0" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="59.0" />
-                  <ImageView fx:id="otherplayer_1_cardslot_1_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="42.0" />
-                  <ImageView fx:id="otherplayer_1_cardslot_1_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="25.0" />
-                  <ImageView fx:id="otherplayer_1_cardslot_2_0" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="59.0" />
-                  <ImageView fx:id="otherplayer_1_cardslot_2_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="42.0" />
-                  <ImageView fx:id="otherplayer_1_cardslot_2_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="25.0" />
+                  <ImageView fx:id="otherplayer_1_cardslot_0_0" fitHeight="114.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="59.0" />
+                  <ImageView fx:id="otherplayer_1_cardslot_0_1" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="42.0" />
+                  <ImageView fx:id="otherplayer_1_cardslot_0_2" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="25.0" />
+                  <ImageView fx:id="otherplayer_1_cardslot_1_0" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="59.0" />
+                  <ImageView fx:id="otherplayer_1_cardslot_1_1" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="42.0" />
+                  <ImageView fx:id="otherplayer_1_cardslot_1_2" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="25.0" />
+                  <ImageView fx:id="otherplayer_1_cardslot_2_0" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="59.0" />
+                  <ImageView fx:id="otherplayer_1_cardslot_2_1" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="42.0" />
+                  <ImageView fx:id="otherplayer_1_cardslot_2_2" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="25.0" />
                   <Label fx:id="otherplayer_1_coin" text="##" textFill="WHITE" translateX="-150.0" translateY="75.0" />
                   <Label fx:id="otherplayer_1_servant" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-113.0" translateY="75.0" />
                   <Label fx:id="otherplayer_1_shield" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-113.0" translateY="97.0" />
@@ -803,15 +803,15 @@
                         <Image url="@../images/punchboard/inkwell.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="otherplayer_2_cardslot_0_0" fitHeight="127.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="59.0" />
-                  <ImageView fx:id="otherplayer_2_cardslot_0_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="42.0" />
-                  <ImageView fx:id="otherplayer_2_cardslot_0_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="25.0" />
-                  <ImageView fx:id="otherplayer_2_cardslot_1_0" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="59.0" />
-                  <ImageView fx:id="otherplayer_2_cardslot_1_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="42.0" />
-                  <ImageView fx:id="otherplayer_2_cardslot_1_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="25.0" />
-                  <ImageView fx:id="otherplayer_2_cardslot_2_0" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="59.0" />
-                  <ImageView fx:id="otherplayer_2_cardslot_2_1" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="42.0" />
-                  <ImageView fx:id="otherplayer_2_cardslot_2_2" fitHeight="127.0" fitWidth="67.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="25.0" />
+                  <ImageView fx:id="otherplayer_2_cardslot_0_0" fitHeight="114.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0" translateY="59.0" />
+                  <ImageView fx:id="otherplayer_2_cardslot_0_1" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="42.0" />
+                  <ImageView fx:id="otherplayer_2_cardslot_0_2" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="-9.0" translateY="25.0" />
+                  <ImageView fx:id="otherplayer_2_cardslot_1_0" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="59.0" />
+                  <ImageView fx:id="otherplayer_2_cardslot_1_1" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="42.0" />
+                  <ImageView fx:id="otherplayer_2_cardslot_1_2" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="63.0" translateY="25.0" />
+                  <ImageView fx:id="otherplayer_2_cardslot_2_0" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="59.0" />
+                  <ImageView fx:id="otherplayer_2_cardslot_2_1" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="42.0" />
+                  <ImageView fx:id="otherplayer_2_cardslot_2_2" fitHeight="114.0" fitWidth="75.0" layoutX="163.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" translateX="136.0" translateY="25.0" />
                   <Label fx:id="otherplayer_2_coin" text="##" textFill="WHITE" translateX="-150.0" translateY="75.0" />
                   <Label fx:id="otherplayer_2_servant" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-113.0" translateY="75.0" />
                   <Label fx:id="otherplayer_2_shield" layoutX="189.0" layoutY="134.0" text="##" textFill="WHITE" translateX="-113.0" translateY="97.0" />
