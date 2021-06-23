@@ -32,7 +32,7 @@ public class ResourceManagementState implements MultiplayerState {
                             controller.getModel().vaticanReport(activatedSection);
                     });
                 }
-                if (controller.getMediator().isMarketStateEnded()) { //market action not ended
+                if (controller.getMediator().isMarketStateEnded()) { //market action ended
                     if (!controller.getMediator().isLeaderActionDone()) { //player can do a leader action
                         controller.setCurrentState(controller.getMiddleTurnState());
                         controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
