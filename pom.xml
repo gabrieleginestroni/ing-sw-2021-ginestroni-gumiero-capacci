@@ -88,6 +88,11 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+              <artifactSet>
+                <excludes>
+                  <exclude>org.openjfx</exclude>
+                </excludes>
+              </artifactSet>
               <shadedArtifactAttached>true</shadedArtifactAttached>
               <shadedClassifierName>project-classifier</shadedClassifierName>
               <outputFile>deliverables/final/jar/server_${project.artifactId}.jar</outputFile>
@@ -107,6 +112,11 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+              <artifactSet>
+                <excludes>
+                  <exclude>org.openjfx</exclude>
+                </excludes>
+              </artifactSet>
               <shadedArtifactAttached>true</shadedArtifactAttached>
               <shadedClassifierName>project-classifier</shadedClassifierName>
               <outputFile>deliverables/final/jar/cli_${project.artifactId}.jar</outputFile>

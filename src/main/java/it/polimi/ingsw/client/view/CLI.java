@@ -104,28 +104,28 @@ public class CLI extends View{
 
             personalMatrix[1] += "Strongbox";
             //show resource in strongbox
-            for(Resource res : Resource.values()) {
-                int j = 0;
-                if(res != Resource.FAITH && res != Resource.WHITE) {
-                    String str = "TOT: "+playerView.getStrongBox().get(res.toString())+" ";
-                    if(playerView.getStrongBox().get(res.toString()) < 10)
-                        str += " ";
-                    personalMatrix[i] += str;
-                    for (j = 0; j < playerView.getStrongBox().get(res.toString()) && j < maxWidth - str.length(); j++) {
-                        personalMatrix[i] += ConsoleColors.colorMap.get(res.getColor().toUpperCase()) + ConsoleColors.resourceMap.get(res) + ConsoleColors.colorMap.get("RESET");
-                        if (j == maxWidth - 3 - str.length()) {
-                            personalMatrix[i] += "+ ";
-                            j += 3;
-                        }
+            List<Resource> resources = new ArrayList<>(Arrays.asList(Resource.COIN, Resource.SERVANT, Resource.STONE, Resource.SHIELD));
+            for (Resource res : resources) {
+                int j;
+                String resChar = ConsoleColors.colorMap.get(res.getColor().toUpperCase()) + ConsoleColors.resourceMap.get(res) + ConsoleColors.colorMap.get("RESET");
+                String str = "TOT "+resChar+": "+playerView.getStrongBox().get(res.toString())+" ";
+                if(playerView.getStrongBox().get(res.toString()) < 10)
+                    str += " ";
+                personalMatrix[i] += str;
+                int strlength = 10;
+                for (j = strlength; j < playerView.getStrongBox().get(res.toString()) + strlength && j < maxWidth; j++) {
+                    personalMatrix[i] += resChar;
+                    if (j == maxWidth - 3) {
+                        personalMatrix[i] += "+ ";
+                        j += 3;
                     }
-                    j += str.length();
                 }
                 for (int a = j; a < maxWidth; a++)
                     personalMatrix[i] += " ";
                 supportMatrix[i] = 1;
                 i++;
             }
-
+            i++; //blank line
 
             personalMatrix[i] += "Warehouse Depots";
             i++;
@@ -164,9 +164,10 @@ public class CLI extends View{
                 supportMatrix[i] = 1;
                 i++;
             }
+            i++;//blank line
 
             //display Faith Track
-            personalMatrix[i] = "      Faith Track: ";
+            personalMatrix[i] = "  Faith Track  ";
             i++;
             for(int j = 0; j < playerView.getFaithTrackMarker(); j++)
                 personalMatrix[i] += ConsoleColors.colorMap.get("RED") + ConsoleColors.resourceMap.get(Resource.FAITH) + ConsoleColors.colorMap.get("RESET");
@@ -217,13 +218,12 @@ public class CLI extends View{
 
             supportMatrix[i] = 1;
             supportMatrix[i+1] = 1;
-            i += 2;
+            i += 3; //2 rows tiles + blank line
 
             //card slot
-            personalMatrix[i] = "  Cardslot ";
+            personalMatrix[i] = "  Cardslots ";
             i++;
             for(int a = 0; a < 3; a++) {
-                i++; //blank line
                 int id = playerView.getTopCardSlot(a);
                 int maxSize = 11;
                 if (id != 0) {
@@ -345,6 +345,8 @@ public class CLI extends View{
                     //set spacing
                     for (int j = iStart; j <= i; j++)
                         personalMatrix[j] += " ".repeat(maxWidth-max[j] - 4);
+
+                    i++; //blank row
                 }else{
                     for(int j = 0; j < 5; j++) {
                         personalMatrix[i] = "|";
@@ -354,15 +356,13 @@ public class CLI extends View{
                         i++;
                     }
                 }
-                i++;
                 //padding for blank row
                 for (int h = 0; h < maxSize + 4; h++)
                     personalMatrix[i] += " ";
-
+                i++;
             }
 
             //display hiddenHand
-            i++;
             if(playerView.getHiddenHand() != null && playerView.getHiddenHand().size() > 0){
                 personalMatrix[i] += "Hidden Hand";
                 i++;
@@ -537,8 +537,8 @@ public class CLI extends View{
                 for(int j = 0; j < maxSize + 8; j++)
                     gameMatrix[i] += " ";
 
-                for(int j = i; i < j+7; i++)
-                    gameMatrix[i] = " ".repeat(67); //blank line
+                for(int j = i; i < j+4; i++) //4 blank lines
+                    gameMatrix[i] = " ".repeat(67);
 
                 String[][] market = this.marketView.getMarket();
                 int dimMax = 1;
@@ -558,8 +558,6 @@ public class CLI extends View{
                         /*
                         *  Marble example, add 2 █ every line until middle then decrease
                         *    ██
-                        *   ████
-                        *  ██████
                         *   ████
                         *    ██
                         */

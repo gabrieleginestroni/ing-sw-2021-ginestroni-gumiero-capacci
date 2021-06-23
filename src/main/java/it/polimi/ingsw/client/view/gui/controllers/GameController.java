@@ -608,8 +608,8 @@ public class GameController extends GUIController implements Initializable {
 //--------------------------GAME PHASES-----------------------------------------------------------------------------
     @Override
     public void visitGameStarted(String str) {
-        this.connectedOtherPlayersNumber = view.getOtherBoardsView().size();
         if (view.getOtherBoardsView() != null) {
+            this.connectedOtherPlayersNumber = view.getOtherBoardsView().size();
             for (int i = 0; i < view.getOtherBoardsView().size(); i++) {
                 ImageView otherPlayer = (ImageView) pane.lookup("#otherplayer_" + i);
                 otherPlayer.setImage(GUI.punchBoardImg.get("boardFront"));
