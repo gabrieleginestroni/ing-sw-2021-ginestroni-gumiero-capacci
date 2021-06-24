@@ -1152,21 +1152,22 @@ public class GameController extends GUIController implements Initializable {
 
     @Override
     public void visitGameAbort() {
-        popUpEffect.setVisible(true);
-
-        popUpTextMessage.setText("Insufficient players number to continue the match");
-
-        leftButton.setVisible(true);
-        centerButton.setVisible(false);
-        rightButton.setVisible(true);
+        leftButton.setVisible(false);
+        leftButton.setDisable(true);
+        rightButton.setVisible(false);
         rightButton.setDisable(true);
+
+        centerButton.setVisible(true);
+        centerButton.setDisable(false);
 
         centerButton.setText("Close");
         centerButton.setOnAction(actionEvent -> {
             System.exit(0);
         });
 
+        popUpTextMessage.setText("Insufficient players number to continue the match or invalid game setup");
         popUp.setVisible(true);
+        popUpEffect.setVisible(true);
     }
 
     @Override

@@ -65,7 +65,6 @@ public class ClientHandler implements Runnable {
             gamePhase();
 
         } catch(IOException e) {
-            e.printStackTrace();
             pingThread.interrupt();
             if(gameLobby != null && lobbies.contains(gameLobby))
                 gameLobby.notifyClientDisconnection(this);
@@ -176,8 +175,7 @@ public class ClientHandler implements Runnable {
         try {
             output.writeObject(message);
         } catch (IOException e) {
-            System.out.println("PING SENT WHILE PLAYER DISCONNECTED");
-            e.printStackTrace();
+            //System.out.println("PING SENT WHILE PLAYER DISCONNECTED");
         }
     }
 

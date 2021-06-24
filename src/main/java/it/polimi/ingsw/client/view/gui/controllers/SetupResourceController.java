@@ -29,6 +29,8 @@ public class SetupResourceController extends GUIController implements Initializa
     @FXML
     private StackPane popUp;
     @FXML
+    private Button abortBtn;
+    @FXML
     private Button depot0;
     @FXML
     private Button depot1;
@@ -199,4 +201,16 @@ public class SetupResourceController extends GUIController implements Initializa
         depot2.setDisable(false);
     }
 
+    @Override
+    public void visitGameAbort() {
+        abortBtn.setOnAction(actionEvent -> Platform.runLater(() -> {
+            System.exit(0);
+        }));
+        abortBtn.setDisable(false);
+        abortBtn.setVisible(true);
+
+        disableDepotButtons();
+        disablePopUp();
+        message.setText("    Game Aborted");
+    }
 }

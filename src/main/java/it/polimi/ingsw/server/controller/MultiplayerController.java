@@ -73,6 +73,9 @@ public class MultiplayerController extends Controller{
                        player.getBoard().addLeaderCard(leaderCard);
                }catch (NullPointerException e){
                     virtualView.gameAbort();
+                    Server.lobbies.remove(this.gameID);
+                    killAll(this.players);
+                    Thread.currentThread().interrupt();
                 }
            }));
            threads.get(threads.size() - 1).start();
@@ -82,6 +85,7 @@ public class MultiplayerController extends Controller{
             try {
                 thread.join();
             }catch(InterruptedException e){
+                Thread.currentThread().interrupt();
             }
         }
 
@@ -94,12 +98,15 @@ public class MultiplayerController extends Controller{
                 Player player = shuffledPlayers.get(i);
                 threads.add(new Thread(() -> {
                     Map<Resource, Integer> resMap = virtualView.proposeInitialResources(1, player);
-                    for (Map.Entry<Resource, Integer> res : resMap.entrySet()) {
-                        try {
+                    try {
+                        for (Map.Entry<Resource, Integer> res : resMap.entrySet())
                             player.getBoard().addWarehouseDepotResource(res.getKey(), 1, res.getValue());
-                        } catch (addResourceLimitExceededException | invalidResourceTypeException | duplicatedWarehouseTypeException e) {
-                            //TODO
-                        }
+                    } catch (addResourceLimitExceededException | invalidResourceTypeException | duplicatedWarehouseTypeException ignored) {
+                    }catch (NullPointerException e){
+                        virtualView.gameAbort();
+                        Server.lobbies.remove(this.gameID);
+                        killAll(this.players);
+                        Thread.currentThread().interrupt();
                     }
                 }));
             }
@@ -114,18 +121,20 @@ public class MultiplayerController extends Controller{
                 threads.add(new Thread(() -> {
                     Map<Resource, Integer> resMap = virtualView.proposeInitialResources(2, player);
 
-                    for (Map.Entry<Resource, Integer> res : resMap.entrySet()) {
-                        try {
+                    try {
+                        for (Map.Entry<Resource, Integer> res : resMap.entrySet()) {
                             if(resMap.size() == 1)
                                 player.getBoard().addWarehouseDepotResource(res.getKey(), 2, res.getValue());
                             else
                                 player.getBoard().addWarehouseDepotResource(res.getKey(), 1, res.getValue());
-                        } catch (addResourceLimitExceededException | invalidResourceTypeException | duplicatedWarehouseTypeException e) {
-                            //TODO
                         }
+                    }catch (addResourceLimitExceededException | invalidResourceTypeException | duplicatedWarehouseTypeException ignored) {
+                    }catch (NullPointerException e){
+                        virtualView.gameAbort();
+                        Server.lobbies.remove(this.gameID);
+                        killAll(this.players);
+                        Thread.currentThread().interrupt();
                     }
-
-
                 }));
             }
         }
@@ -138,7 +147,7 @@ public class MultiplayerController extends Controller{
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                //TODO
+                Thread.currentThread().interrupt();
             }
         }
 
@@ -165,8 +174,7 @@ public class MultiplayerController extends Controller{
                 virtualView.setPlayers(playersList);
                 virtualView.gameAbort();
                 killAll(playersList);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ignored) {
             }
         }
         else {
@@ -186,8 +194,7 @@ public class MultiplayerController extends Controller{
         playerList.forEach(p -> {
             try {
                 p.getClientHandler().getClientSocket().close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException ignored) {
             }
         });
     }

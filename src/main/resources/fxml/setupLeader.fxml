@@ -58,7 +58,7 @@
                   <Image url="@../images/login_background.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="43.0" layoutY="280.0" text="Choose 2 Leader cards">
+            <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" layoutX="43.0" layoutY="280.0" text="Choose 2 Leader cards">
                <font>
                   <Font name="Gabriola" size="24.0" />
                </font>

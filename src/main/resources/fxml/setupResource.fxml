@@ -37,6 +37,7 @@
                     <font>
                         <Font name="Gabriola" size="12.0" />
                     </font></Label>
+            <Button fx:id="abortBtn" disable="true" layoutX="119.0" layoutY="472.0" mnemonicParsing="false" styleClass="button_custom_1" text="EXIT" visible="false" />
             </children>
         </Pane>
       <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="360.0" layoutX="36.0" layoutY="114.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="350.0" />

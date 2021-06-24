@@ -115,12 +115,16 @@ public class LoginController extends GUIController implements Initializable {
         message.setVisible(true);
         topTextField.setVisible(false);
         topLabel.setVisible(false);
+        bottomTextField.setVisible(true);
+        bottomLabel.setVisible(true);
     }
 
     @Override
     public void visitLobbyFull(String str) {
         message.setText(str);
         message.setVisible(true);
+        topTextField.setVisible(true);
+        topLabel.setVisible(true);
         bottomTextField.setVisible(false);
         bottomLabel.setVisible(false);
     }
@@ -129,6 +133,8 @@ public class LoginController extends GUIController implements Initializable {
     public void visitLobbyNotReady(String str) {
         message.setText(str);
         message.setVisible(true);
+        topTextField.setVisible(true);
+        topLabel.setVisible(true);
         bottomTextField.setVisible(false);
         bottomLabel.setVisible(false);
     }

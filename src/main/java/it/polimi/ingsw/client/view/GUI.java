@@ -95,6 +95,8 @@ public class GUI extends View{
     @Override
     public void visitGameAbort() {
         Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitGameAbort());
+        Platform.runLater(() -> controllersMap.get(SETUP_LEADER).visitGameAbort());
+        Platform.runLater(() -> controllersMap.get(SETUP_RESOURCE).visitGameAbort());
     }
 
     @Override

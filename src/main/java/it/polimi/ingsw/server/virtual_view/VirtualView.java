@@ -184,6 +184,7 @@ public class VirtualView {
 
         } catch (IOException | ClassNotFoundException e){
             //e.printStackTrace();
+            return null;
         }
         return resMap;
     }

@@ -26,6 +26,8 @@ public class SetupLeaderController extends GUIController {
     @FXML
     private Label leaderText;
     @FXML
+    private Label message;
+    @FXML
     private Button sendLeader;
 
     private final List<Integer> chosenLeader = new ArrayList<>();
@@ -83,4 +85,16 @@ public class SetupLeaderController extends GUIController {
         leaderText.setVisible(true);
     }
 
+    @Override
+    public void visitGameAbort(){
+        sendLeader.setOnAction(actionEvent -> Platform.runLater(()-> {
+            System.exit(0);
+        }));
+        sendLeader.setDisable(false);
+        sendLeader.getStyleClass().add("button_custom_1");
+        sendLeader.setText("EXIT");
+
+        leaderText.setVisible(false);
+        message.setText("         Game Aborted");
+    }
 }
