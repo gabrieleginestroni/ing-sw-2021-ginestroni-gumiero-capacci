@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.NetworkHandler;
 import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.server.model.Resource;
+import javafx.beans.property.BooleanProperty;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ public abstract class GUIController {
     static int chosenRow;
     static int chosenCol;
     static Map<Integer,Map<Resource,Integer>> resToRemove = new HashMap<>();
+    static BooleanProperty devTextVisibleProperty;
 
     public void setGUI(GUI view){
         this.view = view;

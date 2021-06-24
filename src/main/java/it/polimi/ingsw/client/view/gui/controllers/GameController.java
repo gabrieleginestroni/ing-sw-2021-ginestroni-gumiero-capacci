@@ -785,6 +785,7 @@ public class GameController extends GUIController implements Initializable {
             popUpEffect.setVisible(false);
             popUp.setVisible(false);
             sendButton.setOnAction(actionEvent -> {
+                devTextVisibleProperty.setValue(false);
                 this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(chosenRow, chosenCol, resToRemove, chosenCardSlot));
                 disableAllDepotButtons();
                 setAllCardSlotButtonsDisable(true);

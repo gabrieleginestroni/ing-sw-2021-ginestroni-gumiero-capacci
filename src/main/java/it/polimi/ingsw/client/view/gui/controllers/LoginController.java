@@ -43,6 +43,8 @@ public class LoginController extends GUIController implements Initializable {
     @FXML
     private Label message;
 
+    private String gameName;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logInButton.setDefaultButton(true);
@@ -75,6 +77,7 @@ public class LoginController extends GUIController implements Initializable {
             logInButton.setOnAction( actionEvent -> Platform.runLater(()-> {
                 String nickname = bottomTextField.getText();
                 String gameId = topTextField.getText();
+                this.gameName = gameId;
 
                 if(nickname.replaceAll(" ", "").length() > 0 && nickname.length() < 20 && gameId.replaceAll(" ", "").length() > 0) {
                     view.setNickname(nickname);
@@ -142,8 +145,8 @@ public class LoginController extends GUIController implements Initializable {
     @Override
     public void visitLoginSuccess(String currentPlayers) {
         setAllNotVisible();
-        message.setText("Login success!\n" +
-                "Current players:\n" + currentPlayers);
+        message.setText("Login success!\nGameID: " + gameName +
+                "\nCurrent players:\n" + currentPlayers);
         message.setPrefHeight(300);
         message.setVisible(true);
     }

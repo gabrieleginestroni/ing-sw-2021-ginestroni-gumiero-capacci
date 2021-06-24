@@ -2,13 +2,13 @@ package it.polimi.ingsw.client.view.gui.controllers;
 
 import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.server.messages.client_server.ChosenLeaderMessage;
-import it.polimi.ingsw.server.model.Resource;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.util.*;
@@ -24,13 +24,14 @@ public class SetupLeaderController extends GUIController {
     @FXML
     private StackPane leader3;
     @FXML
-    private Label leaderText;
-    @FXML
     private Label message;
     @FXML
     private Button sendLeader;
+    @FXML
+    private Pane pane;
 
     private final List<Integer> chosenLeader = new ArrayList<>();
+    private int[] proposedLeader;
 
     public void sendLeaderMessage(){
         Platform.runLater(()-> {
@@ -48,21 +49,6 @@ public class SetupLeaderController extends GUIController {
         });
     }
 
-    @Override
-    public void visitLeaderProposal(int[] proposedLeaderCards) {
-
-        setLeaderImage(proposedLeaderCards[0], leader0);
-        setLeaderImage(proposedLeaderCards[1], leader1);
-        setLeaderImage(proposedLeaderCards[2], leader2);
-        setLeaderImage(proposedLeaderCards[3], leader3);
-
-        leader0.setOnMouseClicked(ActionEvent -> setChosenLeader(0));
-        leader1.setOnMouseClicked(ActionEvent -> setChosenLeader(1));
-        leader2.setOnMouseClicked(ActionEvent -> setChosenLeader(2));
-        leader3.setOnMouseClicked(ActionEvent -> setChosenLeader(3));
-
-    }
-
     public void setLeaderImage(int cardId, StackPane pane){
         ImageView img = new ImageView(new Image("/images/leaderCardsFront/leader" + cardId + ".png", 170.0, 260.0, false, true));
         pane.getChildren().add(img);
@@ -76,17 +62,40 @@ public class SetupLeaderController extends GUIController {
             if(chosenLeader.size() > 2)
                 chosenLeader.remove(0);
         }
-        StringBuilder txt = new StringBuilder("You chose: \n ");
+
+        int j = 0;
         for(Integer leader: chosenLeader){
-            txt.append(leader);
-            txt.append(" ");
+            ImageView leaderImage = (ImageView) pane.lookup("#chosenLeader" + j);
+            leaderImage.setImage(GUI.leaderCardImg[proposedLeader[chosenLeader.get(j)]]);
+            leaderImage.setVisible(true);
+            j++;
         }
-        leaderText.setText(String.valueOf(txt));
-        leaderText.setVisible(true);
+    }
+
+    @Override
+    public void visitLeaderProposal(int[] proposedLeaderCards) {
+
+        proposedLeader = proposedLeaderCards;
+
+        setLeaderImage(proposedLeaderCards[0], leader0);
+        setLeaderImage(proposedLeaderCards[1], leader1);
+        setLeaderImage(proposedLeaderCards[2], leader2);
+        setLeaderImage(proposedLeaderCards[3], leader3);
+
+        leader0.setOnMouseClicked(ActionEvent -> setChosenLeader(0));
+        leader1.setOnMouseClicked(ActionEvent -> setChosenLeader(1));
+        leader2.setOnMouseClicked(ActionEvent -> setChosenLeader(2));
+        leader3.setOnMouseClicked(ActionEvent -> setChosenLeader(3));
+
     }
 
     @Override
     public void visitGameAbort(){
+        leader0.setDisable(true);
+        leader1.setDisable(true);
+        leader2.setDisable(true);
+        leader3.setDisable(true);
+
         sendLeader.setOnAction(actionEvent -> Platform.runLater(()-> {
             System.exit(0);
         }));
@@ -94,7 +103,6 @@ public class SetupLeaderController extends GUIController {
         sendLeader.getStyleClass().add("button_custom_1");
         sendLeader.setText("EXIT");
 
-        leaderText.setVisible(false);
-        message.setText("         Game Aborted");
+        message.setText("   Game Aborted");
     }
 }

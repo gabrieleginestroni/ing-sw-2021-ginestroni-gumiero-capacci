@@ -37,6 +37,8 @@ public class DevelopmentController extends GUIController implements Initializabl
 
         changeSceneButton.setOnAction( actionEvent -> Platform.runLater(()-> view.changeScene(view.scenesMap.get(GUI.MAIN_GUI))));
 
+        devTextVisibleProperty = textMessage.visibleProperty();
+
         StackPane devPane;
         for(int i = 0; i < 3 ; i++) {
             for(int j = 0; j < 4; j++) {
@@ -51,7 +53,6 @@ public class DevelopmentController extends GUIController implements Initializabl
                     view.changeScene(view.scenesMap.get(GUI.MAIN_GUI));
                     textMessage.setVisible(true);
                 });
-
             }
         }
     }
@@ -79,6 +80,7 @@ public class DevelopmentController extends GUIController implements Initializabl
             textMessage.setText("Choose a card to buy");
             chosenCol = -1;
             chosenRow = -1;
+            devTextVisibleProperty.setValue(true);
         }else{
             textMessage.setText(currentPlayerNickname + " is purchasing a development card");
         }
