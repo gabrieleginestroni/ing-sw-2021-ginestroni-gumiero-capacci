@@ -140,10 +140,7 @@ public class GUI extends View{
 
     @Override
     public void visitLobbyFull(String str) {
-        //TODO TEST SCENE
-        Platform.runLater(() -> {
-            controllersMap.get(LOGIN).visitLobbyFull(str);
-        });
+        Platform.runLater(() -> controllersMap.get(LOGIN).visitLobbyFull(str));
     }
 
     @Override

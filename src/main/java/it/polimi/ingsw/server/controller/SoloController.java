@@ -33,9 +33,6 @@ public class SoloController extends Controller{
     public static final SoloState swapState = new SwapState();
     public static final SoloState whiteMarbleState = new WhiteMarbleState();
 
-
-
-    //TODO
     public SoloController(Player player,String gameID) {
         super(new VirtualView(),gameID);
         this.player = player;

@@ -100,14 +100,12 @@ public class VirtualView {
     public void updateGridVirtualView(){
         String gridJSON = this.gridObserver.toJSONString();
         DevGridUpdateMessage message = new DevGridUpdateMessage(gridJSON);
-        //TODO
-        //TESTING
+
         players.stream().forEach(p -> {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
                 //e.printStackTrace();
-
             }
         });
     }

@@ -701,7 +701,6 @@ public class GameController extends GUIController implements Initializable {
         if(currentPlayerNickname.equals(view.getNickname())){
             List<Integer> hiddenHand = view.getPersonalBoardView().getHiddenHand();
 
-            //TODO check if works
             leaderMap = new HashMap<>();
             leaderMap.put(0, 0);
             leaderMap.put(1, 0);
@@ -839,7 +838,6 @@ public class GameController extends GUIController implements Initializable {
                             Resource res = Resource.valueOf(view.getPersonalBoardView().getLeaderDepotResource().get(finalLeaderOffset));
                             Map<Resource, Integer> tmpMap;
                             int addedQuantity = 1;
-                            //TODO
                             int index = finalLeaderOffset + 3;
                             if (resToRemove.get(index) != null) {
                                 tmpMap = resToRemove.get(index);

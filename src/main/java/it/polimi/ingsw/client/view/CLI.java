@@ -15,6 +15,11 @@ public class CLI extends View{
     private final Scanner scanner;
     private final Gson gson;
 
+    @Override
+    public Scanner getScanner() {
+        return scanner;
+    }
+
     public CLI(){
         this.scanner = new Scanner(System.in);
         this.gson = new Gson();
@@ -129,7 +134,7 @@ public class CLI extends View{
 
             personalMatrix[i] += "Warehouse Depots";
             i++;
-            //represent warehouse depots in reverse order, as in the original game
+            //represent warehouse depots, as in the original game
             for(int index = 0; index <= 2; index++){
                 String res = playerView.getWarehouseDepotResource().get(index);
                 int quantity = playerView.getWarehouseDepotQuantity().get(index);
@@ -241,8 +246,7 @@ public class CLI extends View{
                         personalMatrix[i] += ConsoleColors.colorMap.get(card.getType().toString()) + "█" + ConsoleColors.colorMap.get("RESET");
                     if (card.getLevel() == 1) //add a space for card of level 1
                         personalMatrix[i] += " ";
-                    //personalMatrix[i] += "  ";
-                    personalMatrix[i] += " N." + id; //debug
+                    personalMatrix[i] += " N." + id;
                     if (id >= 10)
                         max[i] += 10;
                     else
@@ -283,13 +287,6 @@ public class CLI extends View{
                         iProdStart++;
                     }
 
-                    //compute max size to set end of each line on same offset, now fixed to maxSize
-                            /*
-                            for (int j : max)
-                                if (maxSize < j)
-                                    maxSize = j;
-                             */
-
                     //last row, victory point
                     personalMatrix[i] += cardTypeColor;
                     for (int j = 0; j < maxSize / 2; j++) //center victory points value
@@ -304,7 +301,6 @@ public class CLI extends View{
                         for (int h = max[j]; h < maxSize; h++)
                             personalMatrix[j] += " ";
                         personalMatrix[j] += cardTypeColor;
-                        //System.out.println("RIGA "+j+" =>"+"("+gameMatrix[j].length()+") "+new Gson().toJson(gameMatrix[j]));
                         max[j] = maxSize;
                     }
 
@@ -350,15 +346,12 @@ public class CLI extends View{
                 }else{
                     for(int j = 0; j < 5; j++) {
                         personalMatrix[i] = "|";
-                        for (int h = 1; h < maxSize + 3; h++)
+                        for (int h = 0; h < maxSize + 2; h++)
                             personalMatrix[i] += " ";
                         personalMatrix[i] += "|";
                         i++;
                     }
                 }
-                //padding for blank row
-                for (int h = 0; h < maxSize + 4; h++)
-                    personalMatrix[i] += " ";
                 i++;
             }
 
@@ -406,9 +399,6 @@ public class CLI extends View{
             }
 
             for (int j = 0; j < personalMatrix.length; j++) {
-                //System.out.println("RIGA "+j+" =>"+"("+personalMatrix[j].length()+") "+new Gson().toJson(personalMatrix[j]));
-                //if(j < 2 || j >= 6 && j <= 8 || j == 12 || j == 15 || j > i) {
-
                 //if support matrix value is set to 1 it's a line containing color so padding already done
                 if(supportMatrix[j] == 0) {
                     personalMatrix[j] += " ".repeat(Math.max(0, maxWidth - personalMatrix[j].length()));
@@ -416,8 +406,7 @@ public class CLI extends View{
                 }
             }
         } catch (Exception e) {
-            //OK
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return Arrays.copyOf(personalMatrix, (i < 30 ? 30 : i+1));
     }
@@ -777,14 +766,17 @@ public class CLI extends View{
             System.out.print("\033[H\033[2J");
             System.out.flush();
 
+            String str;
             for (i = 0; i < maxLines; i++) {
-                String str = "";
+                str = "";
                 if (personalMatrix.length > i)
                     str += personalMatrix[i];
                 else
                     str += " ".repeat(maxWidth);
-                str += gameMatrix[i] +lorenzoMatrix[i];
-                if (otherBoardsView != null)
+                str += gameMatrix[i];
+                if(otherBoardsView == null)
+                    str += lorenzoMatrix[i];
+                else
                     for (int j = 0; j < otherBoardsView.size(); j++) {
                         if (otherMatrix[j].length > i)
                             str += otherMatrix[j][i];
@@ -1095,7 +1087,7 @@ public class CLI extends View{
                         }
 
                         if(indexMap.get(depot) < addedQuantity)
-                            throw new invalidClientInputException("Cannot pick " + addedQuantity + " " + entry.getKey() + " from depot " +depot+", only " + indexMap.get(depot) + " available");//TODO fix bug loop
+                            throw new invalidClientInputException("Cannot pick " + addedQuantity + " " + entry.getKey() + " from depot " +depot+", only " + indexMap.get(depot) + " available");
 
                         indexMap.put(depot, indexMap.get(depot) - addedQuantity);
                         quantity += addedQuantity; //progressive count of resource to remove
@@ -1110,9 +1102,8 @@ public class CLI extends View{
                             tmpMap = new HashMap<>();
                         tmpMap.put(entry.getKey(), addedQuantity);
                         resToRemove.put(depot, tmpMap);
-                        this.showMessage(new Gson().toJson(resToRemove)); //TODO DEBUG
                     }else {
-                        throw new invalidClientInputException("Cannot buy card, only " + availableQuantity + " " + entry.getKey() + ", " + entry.getValue() + " needed");//TODO fix bug
+                        throw new invalidClientInputException("Cannot buy card, only " + availableQuantity + " " + entry.getKey() + ", " + entry.getValue() + " needed");
                     }
                 }
             }
@@ -1212,13 +1203,13 @@ public class CLI extends View{
                     if(card != 0)
                         productionInput = this.getDevelopmentCardByID(card).getProductionInput();
                     else
-                        throw new invalidClientInputException("No development card in slot "+productionIndex);//TODO fix bug
+                        throw new invalidClientInputException("No development card in slot "+productionIndex);
                 } else {
                     int card;
                     if(personalBoardView.getActiveLeaders() != null && personalBoardView.getActiveLeaders().size() > productionIndex - 3)
                         card = personalBoardView.getActiveLeaders().get(productionIndex-3);
                     else
-                        throw new invalidClientInputException("No active leader selected "+(productionIndex-3));//TODO fix bug
+                        throw new invalidClientInputException("No active leader selected "+(productionIndex-3));
                     productionInput = new HashMap<>();
                     productionInput.put(this.getLeaderCardByID(card).getResource(), 1);
                 }
@@ -1243,7 +1234,7 @@ public class CLI extends View{
                                 addedQuantity = remainingToPick;
                             }
                             if(indexMap.get(depot) < addedQuantity)
-                                throw new invalidClientInputException("Cannot pick " + addedQuantity + " " + entry.getKey() + " from depot " +depot+", only " + indexMap.get(depot) + " available");//TODO fix bug
+                                throw new invalidClientInputException("Cannot pick " + addedQuantity + " " + entry.getKey() + " from depot " +depot+", only " + indexMap.get(depot) + " available");
 
                             quantity += addedQuantity; //progressive count of resource to remove
 
@@ -1253,9 +1244,6 @@ public class CLI extends View{
                             else
                                 strongBoxMap.merge(entry.getKey(), addedQuantity, Integer::sum);
                             indexMap.put(depot, indexMap.get(depot) - addedQuantity);
-
-                            this.showMessage(new Gson().toJson(wareHouseMap)); //TODO DEBUG
-                            this.showMessage(new Gson().toJson(strongBoxMap)); //TODO DEBUG
                         } else {
                             throw new invalidClientInputException("Cannot activate production, only " + availableQuantity + " " + entry.getKey() + ", " + entry.getValue() + " needed");
                         }
@@ -1334,9 +1322,6 @@ public class CLI extends View{
                             wareHouseMap.merge(depot, addedQuantity, Integer::sum);
                         } else
                             strongBoxMap.merge(Resource.values()[res], addedQuantity, Integer::sum);
-
-                        this.showMessage(new Gson().toJson(wareHouseMap)); //TODO DEBUG
-                        this.showMessage(new Gson().toJson(strongBoxMap)); //TODO DEBUG
                     } else {
                         throw new invalidClientInputException("Cannot activate production, only " + availableQuantity + ", 2 needed");
 

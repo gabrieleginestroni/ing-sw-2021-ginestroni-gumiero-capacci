@@ -43,10 +43,6 @@ public class MultiplayerController extends Controller{
     public static final MultiplayerState swapState = new SwapState();
     public static final MultiplayerState whiteMarbleState = new WhiteMarbleState();
 
-
-
-
-    //TODO
     public MultiplayerController(List<Player> players,String gameID) {
 
         super(new VirtualView(),gameID);

@@ -67,6 +67,9 @@ public class NetworkHandler implements Runnable {
                     }
                     catch(Exception e){
                         //e.printStackTrace();
+                        //consume the exception if it was thrown from the CLI
+                        if(view.getScanner() != null && view.getScanner().hasNextLine())
+                            view.getScanner().nextLine();
                         view.showMessage("Invalid input, please retry");
                     }
                 }
@@ -74,10 +77,8 @@ public class NetworkHandler implements Runnable {
 
             socket.close();
             System.out.println("Match ended, press enter to exit");
-            //TODO
-            //NOT WORKING WHEN PRESSING ENTER
             Scanner scanner = new Scanner(System.in);
-            scanner.next();
+            scanner.nextLine();
             System.exit(0);
 
         }  catch(SocketTimeoutException e) {
@@ -93,8 +94,7 @@ public class NetworkHandler implements Runnable {
                 this.socket.setSoTimeout(0);
                 this.socket.close();
                 Thread.currentThread().interrupt();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException ignored) {
             }
         }
     }
@@ -102,8 +102,7 @@ public class NetworkHandler implements Runnable {
     public void sendMessage(Message message)  {
         try {
             output.writeObject(message);
-        } catch (IOException e) {
-            //TODO
+        } catch (IOException ignored) {
         }
     }
 
