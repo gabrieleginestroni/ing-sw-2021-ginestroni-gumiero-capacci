@@ -17,7 +17,7 @@
    <children>
       <ImageView fitHeight="588.0" fitWidth="422.0" rotate="180.0">
          <image>
-            <Image url="@../images/table_background.jpg" />
+            <Image url="@../images/table_background.png" />
          </image>
       </ImageView>
       <GridPane layoutY="-1.0" prefHeight="588.0">

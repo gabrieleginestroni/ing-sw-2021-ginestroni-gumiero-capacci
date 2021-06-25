@@ -31,7 +31,7 @@ public class DevelopmentController extends GUIController implements Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        BackgroundImage backgroundImage = new BackgroundImage(new Image("/images/table_background.jpg",1490.0,810.0,false,true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("/images/table_background.png",1490.0,810.0,false,true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
         pane.setBackground(new Background(backgroundImage));
 
