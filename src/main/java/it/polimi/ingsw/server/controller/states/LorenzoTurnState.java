@@ -15,7 +15,7 @@ public class LorenzoTurnState extends EndTurnState implements SoloState {
             controller.getMediator().refresh();
         }else{
             controller.setCurrentState(controller.getEndGameState());
-            controller.getEndTurnState().visitEndGameState(null, controller);
+            controller.getEndGameState().visitEndGameState(null, controller);
         }
     }
 }
