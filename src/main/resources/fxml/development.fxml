@@ -100,6 +100,7 @@
                <font>
                   <Font name="Gabriola" size="24.0" />
                </font></Label>
+            <ImageView fx:id="chosenDev" fitHeight="234.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" translateX="-95.0" translateY="530.0" />
          </children>
       </Pane>
    </right>

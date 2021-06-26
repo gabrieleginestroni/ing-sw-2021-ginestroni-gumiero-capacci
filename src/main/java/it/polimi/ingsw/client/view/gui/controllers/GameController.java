@@ -222,6 +222,12 @@ public class GameController extends GUIController implements Initializable {
         }
     }
 
+    private void resetAllProductionMap(){
+        wareHouseMap = new HashMap<>();
+        strongBoxMap = new HashMap<>();
+        resToRemove = new HashMap<>();
+    }
+
     private int getTotalSelectedResources(Resource res) {
         int tot = 0;
         for (int i = 0; i < 3; i++){
@@ -785,11 +791,24 @@ public class GameController extends GUIController implements Initializable {
             popUp.setVisible(false);
             sendButton.setOnAction(actionEvent -> {
                 devTextVisibleProperty.setValue(false);
+                chosenDevImg.setValue(null);
                 this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(chosenRow, chosenCol, resToRemove, chosenCardSlot));
                 disableAllDepotButtons();
                 setAllCardSlotButtonsDisable(true);
+                exitButton.setDisable(true);
             });
             sendButton.setDisable(false);
+
+            exitButton.setOnAction(actionEvent -> {
+                devTextVisibleProperty.setValue(false);
+                chosenDevImg.setValue(null);
+                this.networkHandler.sendMessage(new ChosenDevCardToPurchaseMessage(-1, -1, resToRemove, chosenCardSlot));
+                disableAllDepotButtons();
+                setAllCardSlotButtonsDisable(true);
+                exitButton.setDisable(true);
+            });
+            exitButton.setDisable(false);
+
             textMessage.setText("Choose a card slot and resources to buy the card\n");
             if(chosenRow >= 0)
                 printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost());
@@ -1030,10 +1049,8 @@ public class GameController extends GUIController implements Initializable {
     @Override
     public void visitProductionState(String currentPlayerNickname, String errorMessage) {
         if (currentPlayerNickname.equals(view.getNickname())) {
-            wareHouseMap = new HashMap<>();
-            strongBoxMap = new HashMap<>();
-            resToRemove = new HashMap<>();
 
+            resetAllProductionMap();
             popUpEffect.setVisible(false);
             popUp.setVisible(false);
 
@@ -1046,6 +1063,7 @@ public class GameController extends GUIController implements Initializable {
                 if (card != 0) {
                     int finalJ = j;
                     ((Button) pane.lookup("#cardslot_"+j)).setOnAction(actionEvent -> {
+                        resetAllProductionMap();
                         chosenCardSlot = finalJ;
                         enablePickResourceForProduction();
                         printChosenResource(getResourceToPickForProduction());
@@ -1060,6 +1078,7 @@ public class GameController extends GUIController implements Initializable {
                 int finalI = 3 + i;
                 if(i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("production")){
                     leaderBtn.setOnAction(actionEvent -> {
+                        resetAllProductionMap();
                         chosenCardSlot = finalI;
                         enablePickResourceForProduction();
                         enablePickOutputProduction();
@@ -1072,6 +1091,7 @@ public class GameController extends GUIController implements Initializable {
 
             Button baseProdBtn = (Button) pane.lookup("#baseProduction");
             baseProdBtn.setOnAction(actionEvent -> {
+                resetAllProductionMap();
                 chosenCardSlot = 5;
                 enablePickResourceForProduction();
                 enablePickOutputProduction();
@@ -1086,6 +1106,7 @@ public class GameController extends GUIController implements Initializable {
                 this.networkHandler.sendMessage(new ChosenProductionMessage(chosenCardSlot, wareHouseMap, strongBoxMap, chosenResource));
                 disableAllDepotButtons();
                 setAllCardSlotButtonsDisable(true);
+                resetAllProductionMap();
             });
             sendButton.setDisable(false);
 
@@ -1108,6 +1129,7 @@ public class GameController extends GUIController implements Initializable {
                 baseProdBtn.setDisable(true);
 
                 this.networkHandler.sendMessage(new ChosenProductionMessage(6, null, null, null));
+                resetAllProductionMap();
             });
             exitButton.setDisable(false);
 

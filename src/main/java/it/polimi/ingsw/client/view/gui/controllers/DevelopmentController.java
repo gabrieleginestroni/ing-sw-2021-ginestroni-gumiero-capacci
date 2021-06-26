@@ -27,6 +27,8 @@ public class DevelopmentController extends GUIController implements Initializabl
     private BorderPane pane;
     @FXML
     private Label textMessage;
+    @FXML
+    private ImageView chosenDev;
 
 
     @Override
@@ -38,6 +40,7 @@ public class DevelopmentController extends GUIController implements Initializabl
         changeSceneButton.setOnAction( actionEvent -> Platform.runLater(()-> view.changeScene(view.scenesMap.get(GUI.MAIN_GUI))));
 
         devTextVisibleProperty = textMessage.visibleProperty();
+        chosenDevImg = chosenDev.imageProperty();
 
         StackPane devPane;
         for(int i = 0; i < 3 ; i++) {
@@ -48,11 +51,18 @@ public class DevelopmentController extends GUIController implements Initializabl
                 devPane.setOnMouseClicked(mouseEvent -> {
                     chosenRow = finalI;
                     chosenCol = finalJ;
-                    textMessage.setText("Selected ROW: "+chosenRow+" COL: "+chosenCol+"\n Please choose a card slot and resources ");
-                    view.controllersMap.get(GUI.MAIN_GUI).
-                    view.changeScene(view.scenesMap.get(GUI.MAIN_GUI));
-                    textMessage.setVisible(true);
+                    if(view.getDevGridView().getGridId(chosenRow,chosenCol) != 0) {  //0 means that no cards a remaining in that slot
+                        textMessage.setText("Please choose a card slot and resources ");
+                        chosenDev.setImage(GUI.developmentCardImg[view.getDevGridView().getGridId(chosenRow, chosenCol)]);
+                        view.changeScene(view.scenesMap.get(GUI.MAIN_GUI));
+                        textMessage.setVisible(true);
+                    } else { //empty grid slot
+                        textMessage.setText("Cannot select an empty grid slot, please choose another card");
+                        chosenDev.setImage(null);
+                        textMessage.setVisible(true);
+                    }
                 });
+
             }
         }
     }
@@ -77,6 +87,7 @@ public class DevelopmentController extends GUIController implements Initializabl
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
         if(currentPlayerNickname.equals(view.getNickname())) {
+            chosenCardSlot = 0;
             textMessage.setText("Choose a card to buy");
             chosenCol = -1;
             chosenRow = -1;
