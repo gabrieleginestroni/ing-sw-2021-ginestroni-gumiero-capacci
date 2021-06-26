@@ -3,9 +3,9 @@
 Masters of Renaissance, a family strategy game for 1-4 players in the acclaimed world of Lorenzo il Magnifico, is the final test 
 of "Software Engineering" course at Politecnico di Milano (2020/2021).
 
-![Logo](src/main/resources/images/login_image.jpg)
+<img src="https://cf.geekdo-images.com/-zdSgCFfOGAsgZ6M-Rjw1w__opengraph/img/FEzUn1bObXKe0ajQ7m7U1dbJaVY=/fit-in/1200x630/filters:strip_icc()/pic4782992.jpg" width="236px" height="315px"  />
 
-#Group members:
+# Group members:
 - ##  [Gabriele Ginestroni](https://github.com/gabrieleginestroni)
 - ##  [Giacomo Gumiero](https://github.com/giagum)
 - ##  [Tommaso Capacci](https://github.com/TommasoCapacci)
@@ -30,19 +30,19 @@ of "Software Engineering" course at Politecnico di Milano (2020/2021).
 ## Setup
 In [deliveries/jar](https://github.com/gabrieleginestroni/ing-sw-2021-ginestroni-gumiero-capacci/tree/master/deliverables/final/jar) folder there are three jar files. Here's how to run the provided jars:
 
-- #####server.jar
+- ##### server.jar
   ```shell
    > java -jar server.jar [-p PORT_NUMBER]
     ```
   * _port_number_ specifies the port where the server will be hosted (port 50000 used if no port has been specified). 
   
-- #####cli.jar
+- ##### cli.jar
   ```shell
    > java -jar cli.jar [-ip SERVER_IP] [-p PORT_NUMBER]
   ```
   * _server_ip_ specifies the server ip address (localhost if no ip has been specified)\
   * _port_number_ specifies the server port  (port 50000 used if no port has been specified).
-- #####gui.jar
+- ##### gui.jar
   ```shell
   > java -jar gui.jar
     ```
