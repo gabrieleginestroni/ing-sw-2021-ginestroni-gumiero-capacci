@@ -40,7 +40,7 @@ In [deliveries/jar](https://github.com/gabrieleginestroni/ing-sw-2021-ginestroni
   ```shell
    > java -jar cli.jar [-ip SERVER_IP] [-p PORT_NUMBER]
   ```
-  * _server_ip_ specifies the server ip address (localhost if no ip has been specified)\
+  * _server_ip_ specifies the server ip address (localhost if no ip has been specified).
   * _port_number_ specifies the server port  (port 50000 used if no port has been specified).
 - ##### gui.jar
   ```shell
