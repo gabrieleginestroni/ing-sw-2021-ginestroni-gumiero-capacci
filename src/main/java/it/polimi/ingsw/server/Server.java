@@ -9,21 +9,22 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Server {
     public static final ConcurrentHashMap<String,Lobby> lobbies = new ConcurrentHashMap<>();
     public static void main(String[] args) {
-        int port = 0;
+        int port = 50000; //default port
         for (int i = 0; i < args.length; i++){
             if (args[i].equals("-p")){
                 i++;
                 try{
                     port = Integer.parseInt(args[i]);
                 }catch (Exception e){
-                    System.out.println("Usage: Server.java -p <port_number>");
+                    System.out.println("Usage: server.jar [-p PORT_NUMBER]");
                     System.exit(-1);
                 }
             }
         }
 
+
         if(port < 1 || port > 65535){
-            System.out.println("Usage: Server.java -p <port_number>");
+            System.out.println("Usage: server.jar [-p PORT_NUMBER]");
             System.exit(-1);
         }
 

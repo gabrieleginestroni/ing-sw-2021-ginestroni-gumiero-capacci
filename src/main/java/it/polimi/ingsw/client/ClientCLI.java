@@ -15,15 +15,36 @@ import java.util.concurrent.TimeUnit;
 
 public class ClientCLI {
     public static void main(String[] args) {
+        int port = 50000;
+        String ip ="localhost";
+        for (int i = 0; i < args.length; i++){
+            if (args[i].equals("-p")){
+                i++;
+                try{
+                    port = Integer.parseInt(args[i]);
+                }catch (Exception e){
+                    System.out.println("Usage: cli.jar [-ip SERVER_IP] [-p PORT_NUMBER]");
+                    System.exit(-1);
+                }
+            }
+            else if (args[i].equals("-ip")){
+                i++;
+                try{
+                    ip = args[i];
+                }catch (Exception e){
+                    System.out.println("Usage: cli.jar [-ip SERVER_IP] [-p PORT_NUMBER]");
+                    System.exit(-1);
+                }
+            }
+        }
+
+        if(port < 1 || port > 65535){
+            System.out.println("Usage: cli.jar [-ip SERVER_IP] [-p PORT_NUMBER]");
+            System.exit(-1);
+        }
+
         Scanner scanner = new Scanner(System.in);
         CLI view = new CLI();
-        System.out.println("Insert server ip address:");
-        String ip = scanner.nextLine();
-        //String ip = "94.176.46.205";
-        //String ip = "localhost";
-        view.showMessage("Insert server port number:");
-        int port = Integer.parseInt(scanner.nextLine().trim());
-
         try {
             Socket socket = new Socket(ip, port);
             System.out.println(socket);
