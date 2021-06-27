@@ -14,6 +14,10 @@ import javafx.scene.layout.StackPane;
 import java.util.*;
 import java.util.List;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that manages the setup leader scene
+ */
 public class SetupLeaderController extends GUIController {
     @FXML
     private StackPane leader0;
@@ -33,6 +37,9 @@ public class SetupLeaderController extends GUIController {
     private final List<Integer> chosenLeader = new ArrayList<>();
     private int[] proposedLeader;
 
+    /**
+     * Send message containing the two chosen leaders
+     */
     public void sendLeaderMessage(){
         Platform.runLater(()-> {
             int[] arr = new int[2];
@@ -49,11 +56,20 @@ public class SetupLeaderController extends GUIController {
         });
     }
 
-    public void setLeaderImage(int cardId, StackPane pane){
+    /**
+     * Add image to leader pane
+     * @param cardId cardId of the card
+     * @param pane pane where to add the card
+     */
+    private void setLeaderImage(int cardId, StackPane pane){
         ImageView img = new ImageView(new Image("/images/leaderCardsFront/leader" + cardId + ".png", 170.0, 260.0, false, true));
         pane.getChildren().add(img);
     }
 
+    /**
+     * Add specified leader to chosen leaders list
+     * @param i index of chosen leader
+     */
     private void setChosenLeader(int i){
         if(chosenLeader.size() == 0 || i != chosenLeader.get(chosenLeader.size()-1))
             chosenLeader.add(i);
@@ -64,7 +80,7 @@ public class SetupLeaderController extends GUIController {
         }
 
         int j = 0;
-        for(Integer leader: chosenLeader){
+        for(Integer ignored: chosenLeader){
             ImageView leaderImage = (ImageView) pane.lookup("#chosenLeader" + j);
             leaderImage.setImage(GUI.leaderCardImg[proposedLeader[chosenLeader.get(j)]]);
             leaderImage.setVisible(true);
@@ -72,9 +88,12 @@ public class SetupLeaderController extends GUIController {
         }
     }
 
+    /**
+     * Set images and bind actions of the 4 leaders
+     * {@inheritDoc}
+     */
     @Override
     public void visitLeaderProposal(int[] proposedLeaderCards) {
-
         proposedLeader = proposedLeaderCards;
 
         setLeaderImage(proposedLeaderCards[0], leader0);
@@ -86,9 +105,11 @@ public class SetupLeaderController extends GUIController {
         leader1.setOnMouseClicked(ActionEvent -> setChosenLeader(1));
         leader2.setOnMouseClicked(ActionEvent -> setChosenLeader(2));
         leader3.setOnMouseClicked(ActionEvent -> setChosenLeader(3));
-
     }
 
+    /**
+     * Show game abort message and display exit button
+     */
     @Override
     public void visitGameAbort(){
         leader0.setDisable(true);

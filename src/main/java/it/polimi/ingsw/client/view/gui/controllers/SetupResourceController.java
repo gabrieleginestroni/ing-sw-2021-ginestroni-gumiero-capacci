@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view.gui.controllers;
 
 import it.polimi.ingsw.server.messages.client_server.ChosenInitialResourcesMessage;
-import it.polimi.ingsw.server.model.Resource;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,10 +16,13 @@ import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that manages the setup resource scene
+ */
 public class SetupResourceController extends GUIController implements Initializable {
     @FXML
     private Rectangle rectangle;
@@ -64,6 +66,9 @@ public class SetupResourceController extends GUIController implements Initializa
     private int chosenDepot;
     private final Map<Integer, Integer> resMap = new HashMap<>();
 
+    /**
+     * @param ind Depot to place the resource
+     */
     private void chooseDepot(int ind){
         chosenDepot = ind;
 
@@ -73,19 +78,20 @@ public class SetupResourceController extends GUIController implements Initializa
         popUp.setVisible(true);
     }
 
-    public void chooseResource(int res){
+    /**
+     * @param res Chosen resource
+     */
+    private void chooseResource(int res){
         if(chosenQty == 0) {
             resMap.put(res, chosenDepot);
             this.setChosenRes(res, chosenDepot, 0);
             chosenQty++;
-        }
-        else{
+        } else{
             for(Map.Entry<Integer,Integer> entry : resMap.entrySet()){
                 if(entry.getKey() == res && entry.getValue() == chosenDepot && (chosenDepot == 1 || chosenDepot == 2)) {
                     this.setChosenRes(res, chosenDepot, 1);
                     chosenQty++;
-                }
-                else if(entry.getKey() != res && chosenDepot != entry.getValue()){
+                } else if(entry.getKey() != res && chosenDepot != entry.getValue()){
                     resMap.put(res,chosenDepot);
                     this.setChosenRes(res, chosenDepot, 0);
                     chosenQty++;
@@ -100,14 +106,19 @@ public class SetupResourceController extends GUIController implements Initializa
             message.setText("Please wait for other players");
             this.disableDepotButtons();
             networkHandler.sendMessage(new ChosenInitialResourcesMessage(resMap));
-
         }else{
-            String s = requestedQty > 1? "s" : "";
+            String s = requestedQty > 1 ? "s" : "";
             message.setTextFill(new Color(0, 0, 0, 1));
             message.setText("Choose "+ requestedQty +" resource" + s + " and the depot where to store it");
         }
     }
 
+    /**
+     *
+     * @param res chosen resource
+     * @param dep chosen depot
+     * @param col chosen field
+     */
     private void setChosenRes(int res, int dep, int col){
         String str = "";
         switch(res){
@@ -151,17 +162,26 @@ public class SetupResourceController extends GUIController implements Initializa
         }
     }
 
+    /**
+     * Disable popup
+     */
     private void disablePopUp(){
         popUpEffect.setVisible(false);
         popUp.setVisible(false);
     }
 
+    /**
+     * Disable depot buttons
+     */
     private void disableDepotButtons(){
         depot0.setDisable(true);
         depot1.setDisable(true);
         depot2.setDisable(true);
     }
 
+    /**
+     * Initialize scene displaying warehouse image and resource to choose
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         requestedQty = 0;
@@ -185,11 +205,15 @@ public class SetupResourceController extends GUIController implements Initializa
         shieldButton.setOnAction(ActionEvent -> chooseResource(3));
     }
 
+    /**
+     * Enable depot buttons in wharehouse to choose where to place the resource
+     * {@inheritDoc}
+     */
     @Override
     public void visitInitialResource(int quantity) {
         requestedQty = quantity;
 
-        String s = requestedQty > 1? "s" : "";
+        String s = requestedQty > 1 ? "s" : "";
         message.setText("Choose "+ requestedQty +" resource" + s + " and the depot where to store it");
 
         depot0.setOnAction(ActionEvent -> chooseDepot(0));
@@ -201,6 +225,9 @@ public class SetupResourceController extends GUIController implements Initializa
         depot2.setDisable(false);
     }
 
+    /**
+     * Show game abort message and display exit button
+     */
     @Override
     public void visitGameAbort() {
         abortBtn.setOnAction(actionEvent -> Platform.runLater(() -> {

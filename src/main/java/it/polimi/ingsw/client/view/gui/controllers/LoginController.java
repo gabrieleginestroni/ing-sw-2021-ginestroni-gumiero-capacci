@@ -1,32 +1,26 @@
 package it.polimi.ingsw.client.view.gui.controllers;
 
 import it.polimi.ingsw.client.NetworkHandler;
-import it.polimi.ingsw.client.view.BoardView;
 import it.polimi.ingsw.client.view.GUI;
-import it.polimi.ingsw.client.view.GridView;
-import it.polimi.ingsw.client.view.MarketView;
-import it.polimi.ingsw.client.view.exceptions.invalidClientInputException;
 import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
 import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
-import it.polimi.ingsw.server.model.Resource;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import org.w3c.dom.Text;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that manages the login scene
+ */
 public class LoginController extends GUIController implements Initializable {
     @FXML
     private Button logInButton;
@@ -45,6 +39,9 @@ public class LoginController extends GUIController implements Initializable {
 
     private String gameName;
 
+    /**
+     * Enable submit button to login
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logInButton.setDefaultButton(true);
@@ -54,6 +51,9 @@ public class LoginController extends GUIController implements Initializable {
         Platform.runLater(()-> sendLoginRequest());
     }
 
+    /**
+     * Send login request to server after retriving values and performing checks
+     */
     private void sendLoginRequest() {
         try {
             Socket socket = new Socket(topTextField.getText(), Integer.parseInt(bottomTextField.getText()));
@@ -99,8 +99,10 @@ public class LoginController extends GUIController implements Initializable {
 
     }
 
+    /**
+     * Disable gameID and nickname input and buttons
+     */
     private void setAllNotVisible(){
-
         logInButton.setVisible(false);
         logInButton.setDisable(true);
         bottomTextField.setVisible(false);
@@ -109,9 +111,12 @@ public class LoginController extends GUIController implements Initializable {
         bottomLabel.setVisible(false);
         loginLog.setVisible(false);
         message.setVisible(false);
-
     }
 
+    /**
+     * Show error message and propose to change the nickname
+     * {@inheritDoc}
+     */
     @Override
     public void visitNicknameAlreadyUsed(String str, String gameID) {
         message.setText(str);
@@ -122,6 +127,10 @@ public class LoginController extends GUIController implements Initializable {
         bottomLabel.setVisible(true);
     }
 
+    /**
+     * Show error message and propose to change gameId
+     * {@inheritDoc}
+     */
     @Override
     public void visitLobbyFull(String str) {
         message.setText(str);
@@ -132,6 +141,10 @@ public class LoginController extends GUIController implements Initializable {
         bottomLabel.setVisible(false);
     }
 
+    /**
+     * Show error message and propose tho change gameId
+     * {@inheritDoc}
+     */
     @Override
     public void visitLobbyNotReady(String str) {
         message.setText(str);
@@ -142,6 +155,10 @@ public class LoginController extends GUIController implements Initializable {
         bottomLabel.setVisible(false);
     }
 
+    /**
+     * Show success message and display current players that have logged in to the game
+     * {@inheritDoc}
+     */
     @Override
     public void visitLoginSuccess(String currentPlayers) {
         setAllNotVisible();
@@ -151,11 +168,18 @@ public class LoginController extends GUIController implements Initializable {
         message.setVisible(true);
     }
 
+    /**
+     * Automatically jump scene to main
+     */
     @Override
     public void visitForcedReconnectionUpdate() {
         view.changeScene(view.scenesMap.get(GUI.MAIN_GUI));
     }
 
+    /**
+     * Show form to input number of players of the game
+     * {@inheritDoc}
+     */
     @Override
     public void visitRequestLobbySize(String str) {
         message.setText(str);

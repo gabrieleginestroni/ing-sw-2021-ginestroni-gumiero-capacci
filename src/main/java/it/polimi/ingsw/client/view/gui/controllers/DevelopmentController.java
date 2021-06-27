@@ -1,8 +1,6 @@
 package it.polimi.ingsw.client.view.gui.controllers;
 
 import it.polimi.ingsw.client.view.GUI;
-import it.polimi.ingsw.server.messages.client_server.ChosenDevCardToPurchaseMessage;
-import it.polimi.ingsw.server.model.Resource;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,12 +11,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 
-
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that manages the dev card grid scene
+ */
 public class DevelopmentController extends GUIController implements Initializable {
 
     @FXML
@@ -31,6 +30,9 @@ public class DevelopmentController extends GUIController implements Initializabl
     private ImageView chosenDev;
 
 
+    /**
+     * Initialize the scene at game start, setup of the background image and all the card images inside the pane
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/images/table_background.png",1490.0,810.0,false,true), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -55,18 +57,19 @@ public class DevelopmentController extends GUIController implements Initializabl
                         textMessage.setText("Please choose a card slot and resources ");
                         chosenDev.setImage(GUI.developmentCardImg[view.getDevGridView().getGridId(chosenRow, chosenCol)]);
                         view.changeScene(view.scenesMap.get(GUI.MAIN_GUI));
-                        textMessage.setVisible(true);
                     } else { //empty grid slot
                         textMessage.setText("Cannot select an empty grid slot, please choose another card");
                         chosenDev.setImage(null);
-                        textMessage.setVisible(true);
                     }
+                    textMessage.setVisible(true);
                 });
-
             }
         }
     }
 
+    /**
+     * Rebuild the dev grid when the client receives the updated grid
+     */
     @Override
     public void visitDevGridUpdate() {
         int[][] devGrid = view.getDevGridView().getGrid();
@@ -84,6 +87,9 @@ public class DevelopmentController extends GUIController implements Initializabl
         }
     }
 
+    /**
+     * Enable the possibility to chose a card for the current player and alert the others
+     */
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
         if(currentPlayerNickname.equals(view.getNickname())) {
@@ -97,10 +103,11 @@ public class DevelopmentController extends GUIController implements Initializabl
         }
     }
 
+    /**
+     * Update dev grid when the player reconnects
+     */
     @Override
     public void visitForcedReconnectionUpdate() {
         Platform.runLater(() -> this.visitDevGridUpdate());
     }
-
-
 }

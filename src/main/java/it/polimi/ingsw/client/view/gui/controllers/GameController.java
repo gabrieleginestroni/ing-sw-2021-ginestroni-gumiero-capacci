@@ -9,21 +9,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
+
 import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.util.*;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that manages of the main scene
+ */
 public class GameController extends GUIController implements Initializable {
 
-    @FXML
-    private GridPane market;
     @FXML
     private Pane pane;
     @FXML
@@ -86,12 +86,6 @@ public class GameController extends GUIController implements Initializable {
     private Button strongboxButton;
     @FXML
     private Button exitButton;
-    @FXML
-    private Button cardslot_0;
-    @FXML
-    private Button cardslot_1;
-    @FXML
-    private Button cardslot_2;
 
     private int connectedOtherPlayersNumber;
     private List<Integer> depotToSwap = new ArrayList<>();
@@ -102,32 +96,51 @@ public class GameController extends GUIController implements Initializable {
     private double popupX;
     private double popupY;
 
+    /**
+     * Send market move message to server
+     * @param move the move chosed (horizontal / vertical)
+     * @param index the line / column chosen
+     */
     private void sendMarketMessage(int move, int index){
         networkHandler.sendMessage(new ChosenMarketMoveMessage(move,index));
         this.disableMarketButtons();
     }
+
+    /**
+     * Disable / Enable all cardslot buttons
+     * @param boo true for disabling, false for enabling buttons
+     */
     private void setAllCardSlotButtonsDisable(boolean boo){
         for(int i = 0; i <= 2; i++)
             ((Button) pane.lookup("#cardslot_"+i)).setDisable(boo);
     }
 
+    /**
+     * disable all the arrows around the market
+     */
     private void disableMarketButtons(){
         for(int i = 0; i <= 1; i++)
             for(int j = 0; j <= (i == 0 ? 2 : 3); j++)
                 ((Button) pane.lookup("#market_" + i + "_" + j)).setDisable(true);
     }
 
+    /**
+     * Add to leader Map the action
+     * @param index the number of the leader
+     * @param move the move chosen (Activate / Discard)
+     */
     private void setLeaderAction(int index, int move){
         leaderMap.put(index, move);
-
         if(move == 1)
             ((Label) pane.lookup("#leaderAction_" + index)).setText("Activate");
         else
             ((Label) pane.lookup("#leaderAction_" + index)).setText("Discard");
-
     }
 
-
+    /**
+     * Disable popup and set chosen resource
+     * @param res the chosen resource
+     */
     private void setChosenResource(Resource res){
         chosenResource = res;
         this.res0.setVisible(false);
@@ -142,6 +155,9 @@ public class GameController extends GUIController implements Initializable {
         popUp.setVisible(false);
     }
 
+    /**
+     * enable popup to pick output production from
+     */
     private void enablePickOutputProduction() {
         popUpEffect.setVisible(true);
 
@@ -178,6 +194,9 @@ public class GameController extends GUIController implements Initializable {
         popUp.setVisible(true);
     }
 
+    /**
+     * Enable depot to pick resources for production input
+     */
     private void enablePickResourceForProduction() {
         for (int i = 0; i <= 2; i++) {
             int index = i;
@@ -222,12 +241,20 @@ public class GameController extends GUIController implements Initializable {
         }
     }
 
+    /**
+     * reset map used for activating production
+     */
     private void resetAllProductionMap(){
         wareHouseMap = new HashMap<>();
         strongBoxMap = new HashMap<>();
         resToRemove = new HashMap<>();
     }
 
+    /**
+     * Get total amount of the specified resource available in all depots
+     * @param res the specified resource
+     * @return total amount of the specified resource available
+     */
     private int getTotalSelectedResources(Resource res) {
         int tot = 0;
         for (int i = 0; i < 3; i++){
@@ -243,12 +270,16 @@ public class GameController extends GUIController implements Initializable {
                 tot += (resToRemove != null && resToRemove.get(3 + i) != null && resToRemove.get(3 + i).get(res) != null) ? resToRemove.get(3 + i).get(res) : 0;
             }
         }
+
         tot += (strongBoxMap != null && strongBoxMap.get(res) != null) ? strongBoxMap.get(res) : 0;
         tot += (resToRemove != null && resToRemove.get(5) != null && resToRemove.get(5).get(res) != null) ? resToRemove.get(5).get(res) : 0;
 
         return tot;
     }
 
+    /**
+     * @return map of resource required to activate production
+     */
     private Map<Resource, Integer> getResourceToPickForProduction(){
         if(0 <= chosenCardSlot && chosenCardSlot <= 2)
             return view.getDevelopmentCardByID(view.getPersonalBoardView().getTopCardSlot(chosenCardSlot)).getProductionInput();
@@ -257,6 +288,10 @@ public class GameController extends GUIController implements Initializable {
         return new HashMap<>();
     }
 
+    /**
+     * Display chosen resource and cardslot in text message
+     * @param tmpMap map of picked resource
+     */
     private void printChosenResource(Map<Resource, Integer> tmpMap) {
         String str = "Resource to choose:\n";
         if(chosenCardSlot == 5){
@@ -270,11 +305,12 @@ public class GameController extends GUIController implements Initializable {
         textMessage.setText(textMessage.getText().split("\n")[0] + "\nChosen card slot: " + chosenCardSlot + "\n" + str);
         if(chosenCardSlot > 2 && chosenResource != null)
             textMessage.setText(textMessage.getText()+"\nChosen resource to produce: "+chosenResource.toString());
-        //textMessage.setText("Chosen card slot: " + chosenCardSlot + "\n" + str);
-        //textMessage.setText(textMessage.getText().split("\n")[0] + "\n Chosen card slot: " + chosenCardSlot + "\nR2R:" + new Gson().toJson(resToRemove)+ "\nW:" + new Gson().toJson(wareHouseMap) + "\nS:" + new Gson().toJson(strongBoxMap));
         System.out.println(textMessage.getText());
     }
 
+    /**
+     * Disable depot buttons
+     */
     private void disableAllDepotButtons(){
         warehouseButton_0.setDisable(true);
         warehouseButton_1.setDisable(true);
@@ -287,6 +323,11 @@ public class GameController extends GUIController implements Initializable {
         leaderButton_1.setDisable(true);
     }
 
+    /**
+     * Update other player view
+     * @param playerIndex player index in turn
+     * @param otherPlayer updated board of the other player
+     */
     private void updateOtherPlayer(int playerIndex, BoardView otherPlayer){
 
         Label label = (Label) pane.lookup("#otherplayer_"+playerIndex+"_nickname");
@@ -377,6 +418,9 @@ public class GameController extends GUIController implements Initializable {
         }
     }
 
+    /**
+     * Initialize the scene at game start, setup of the background image, market and leader cards images and other boards
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/images/table_background.png",1490.0,810.0,false,true),BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -391,7 +435,7 @@ public class GameController extends GUIController implements Initializable {
             for(int j = 0; j <= (i == 0 ? 2 : 3); j++){
                 int move = i;
                 int index = j;
-                ((Button) pane.lookup("#market_" + i + "_" + j)).setOnAction(actionEvent -> sendMarketMessage(move, index) );
+                ((Button) pane.lookup("#market_" + i + "_" + j)).setOnAction(actionEvent -> sendMarketMessage(move, index));
             }
         }
 
@@ -413,15 +457,19 @@ public class GameController extends GUIController implements Initializable {
             popupY = event.getY();
             event.consume();
         });
+
         popUp.setOnMouseDragged(event -> {
             popUp.setTranslateX(event.getX() + popUp.getTranslateX() - popupX);
             popUp.setTranslateY(event.getY() + popUp.getTranslateY() - popupY);
             event.consume();
         });
-
     }
 
 //----------------------------------UPDATE---------------------------------------------------------------------
+
+    /**
+     * Rebuild the board when the client receives the updated board
+     */
     @Override
     public void visitBoardsUpdate() {
 
@@ -455,7 +503,7 @@ public class GameController extends GUIController implements Initializable {
         if(activeLeaders != null) {
             for (int i = 0; i < 2; i++){
                 if(i < activeLeaders.size() && view.getLeaderCardByID(activeLeaders.get(i)).getPower().equals("depots")){
-                    for(int j = 0; j < 2; j++ ) {
+                    for(int j = 0; j < 2; j++ ){
                         ImageView resImg = (ImageView) pane.lookup("#player_leader_" + i + "_"+j);
                         if(j < leaderDepotQuantity.get(offset)){
                             resImg.setImage(new Image("/images/resources/" + leaderDepotResource.get(offset).toLowerCase() + ".png"));
@@ -467,7 +515,6 @@ public class GameController extends GUIController implements Initializable {
                 }
             }
         }
-
 
         //updating hidden hand
         for(int i = 0; i < 2; i++){
@@ -495,8 +542,7 @@ public class GameController extends GUIController implements Initializable {
             if(i == player.getFaithTrackMarker()) {
                 cellImg.setImage(GUI.punchBoardImg.get("faith"));
                 cellImg.setVisible(true);
-            }
-            else
+            } else
                 cellImg.setImage(null);
         }
 
@@ -534,6 +580,9 @@ public class GameController extends GUIController implements Initializable {
         }
     }
 
+    /**
+     * Refresh Lorenzo faith points and update action token when the client receives the updated lorenzo status
+     */
     @Override
     public void visitLorenzoUpdate() {
         for(int i = 1; i < 25; i++){
@@ -565,6 +614,9 @@ public class GameController extends GUIController implements Initializable {
             tokenImg.setImage(null);
     }
 
+    /**
+     * Refresh market marbles when the client receives the updated market
+     */
     @Override
     public void visitMarketUpdate() {
         String[][] market = view.getMarketView().getMarket();
@@ -574,28 +626,32 @@ public class GameController extends GUIController implements Initializable {
                 marbleImg.setImage(new Image("/images/marbles/" + market[i][j].toLowerCase() + "Marble.png"));
             }
         }
+
         ImageView marbleImg = (ImageView) pane.lookup("#freemarble");
         marbleImg.setImage(new Image("/images/marbles/" + view.getMarketView().getFreeMarble().toLowerCase() + "Marble.png"));
-
     }
 
+    /**
+     * Set inkwell to the player that owns it
+     * {@inheritDoc}
+     */
     @Override
     public void visitInkwell(String nickname) {
 
         List<BoardView> otherPlayers = view.getOtherBoardsView();
-            int playerIndex = 0;
-            ImageView inkwellImg;
-        if (view.getNickname().equals(nickname)) {   //player gets inkwell
+        int playerIndex = 0;
+        ImageView inkwellImg;
+        if (view.getNickname().equals(nickname)) {  //player gets inkwell
             inkwellImg = (ImageView) pane.lookup("#player_inkwell");
             inkwellImg.setVisible(true);
             if(otherPlayers != null) {
-                for (BoardView otherPlayer : otherPlayers) {
+                for (BoardView ignored : otherPlayers) {
                     inkwellImg = (ImageView) pane.lookup("#otherplayer_" + playerIndex + "_inkwell");
                     inkwellImg.setVisible(false);
                     playerIndex++;
                 }
             }
-        } else {                  //other player gets inkwell
+        } else {    //other player gets inkwell
             inkwellImg = (ImageView) pane.lookup("#player_inkwell");
             inkwellImg.setVisible(false);
             for (BoardView otherPlayer : otherPlayers) {
@@ -611,6 +667,11 @@ public class GameController extends GUIController implements Initializable {
 
 
 //--------------------------GAME PHASES-----------------------------------------------------------------------------
+
+    /**
+     * Show other players board when game starts
+     * {@inheritDoc}
+     */
     @Override
     public void visitGameStarted(String str) {
         if (view.getOtherBoardsView() != null) {
@@ -624,6 +685,10 @@ public class GameController extends GUIController implements Initializable {
         }
     }
 
+    /**
+     * Enable popup menu that propose action to choose from for current player, notify other players of turn start
+     * {@inheritDoc}
+     */
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
@@ -633,7 +698,7 @@ public class GameController extends GUIController implements Initializable {
             textMessage.setText("");
 
 
-            String str = errorMessage == null? "" : errorMessage + "\n";
+            String str = errorMessage == null ? "" : errorMessage + "\n";
             popUpTextMessage.setText(str + "Choose an action");
 
             leftButton.setText("Main");
@@ -659,12 +724,16 @@ public class GameController extends GUIController implements Initializable {
         }
     }
 
+    /**
+     * Enable popup menu that propose main action to choose from for current player, notify other players of main action start
+     * {@inheritDoc}
+     */
     @Override
     public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
             popUpEffect.setVisible(true);
 
-            String str = errorMessage == null? "" : errorMessage + "\n";
+            String str = errorMessage == null ? "" : errorMessage + "\n";
             popUpTextMessage.setText(str + "Choose a main action");
 
             leftButton.setText("Market");
@@ -685,23 +754,30 @@ public class GameController extends GUIController implements Initializable {
             textMessage.setText(currentPlayerNickname + " is choosing main action");
     }
 
+    /**
+     * Enable market buttons that allows the current player to choose the move to perform
+     * {@inheritDoc}
+     */
     @Override
     public void visitMarketState(String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())){
             popUpEffect.setVisible(false);
             popUp.setVisible(false);
 
-            String str = errorMessage == null? "" : errorMessage + "\n";
+            String str = errorMessage == null ? "" : errorMessage + "\n";
             textMessage.setText(str + "Please choose a market move");
 
             for (int i = 0; i <= 1; i++)
                 for (int j = 0; j <= (i == 0 ? 2 : 3); j++)
                     pane.lookup("#market_" + i + "_" + j).setDisable(false);
-
         }else
             textMessage.setText(currentPlayerNickname + " is choosing a market move");
     }
 
+    /**
+     * Enable leader buttons that allows the current player to choose if activate o discard the card
+     * @param currentPlayerNickname player that is playing the turn
+     */
     @Override
     public void visitLeaderAction(String currentPlayerNickname) {
         if(currentPlayerNickname.equals(view.getNickname())){
@@ -720,7 +796,7 @@ public class GameController extends GUIController implements Initializable {
                 networkHandler.sendMessage(new ChosenLeaderActionMessage(leaderMap));
 
                 int i = 0;
-                for(Integer cardId : hiddenHand){
+                for(Integer ignored : hiddenHand){
                     pane.lookup("#discard_" + i).setVisible(false);
                     pane.lookup("#activate_" + i).setVisible(false);
                     i++;
@@ -733,7 +809,7 @@ public class GameController extends GUIController implements Initializable {
             });
 
             int i = 0;
-            for(Integer cardId : hiddenHand){
+            for(Integer ignored : hiddenHand){
                 pane.lookup("#discard_" + i).setVisible(true);
                 pane.lookup("#activate_" + i).setVisible(true);
                 i++;
@@ -742,6 +818,10 @@ public class GameController extends GUIController implements Initializable {
             textMessage.setText(currentPlayerNickname + " is doing a leader action");
     }
 
+    /**
+     * Enable popup to choose resource from
+     * {@inheritDoc}
+     */
     @Override
     public void visitWhiteMarbleProposal(Resource res1, Resource res2) {
 
@@ -762,6 +842,7 @@ public class GameController extends GUIController implements Initializable {
             this.res0Button.setDisable(true);
             this.res1Button.setDisable(true);
         });
+
         res1Button.setOnAction(actionEvent -> {
             networkHandler.sendMessage(new ChosenWhiteMarbleMessage(res2));
             this.res0.setVisible(false);
@@ -769,17 +850,23 @@ public class GameController extends GUIController implements Initializable {
             this.res0Button.setDisable(true);
             this.res1Button.setDisable(true);
         });
+
         res0Button.setDisable(false);
         res1Button.setDisable(false);
+
         this.res0.setImage(new Image("/images/resources/" + res1.toString().toLowerCase() + ".png"));
         this.res1.setImage(new Image("/images/resources/" + res2.toString().toLowerCase() + ".png"));
+
         this.res0.setVisible(true);
         this.res1.setVisible(true);
 
         popUp.setVisible(true);
-
     }
 
+    /**
+     * Enable cardslots to place card and depots to pick resources to buy it
+     * {@inheritDoc}
+     */
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
         if(currentPlayerNickname.equals(view.getNickname())) {
@@ -902,14 +989,16 @@ public class GameController extends GUIController implements Initializable {
             textMessage.setText(currentPlayerNickname + " is purchasing a development card");
     }
 
+    /**
+     * Enable popup to choose whether to perform a leader action before ending the turn and notify other players
+     * {@inheritDoc}
+     */
     @Override
     public void visitMiddleTurn(String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
-
-
             popUpEffect.setVisible(true);
             textMessage.setText("");
-            String str = errorMessage == null? "" : errorMessage + "\n";
+            String str = errorMessage == null ? "" : errorMessage + "\n";
             popUpTextMessage.setText(str + "Choose an action");
 
             leftButton.setText("Skip leader");
@@ -928,12 +1017,16 @@ public class GameController extends GUIController implements Initializable {
             textMessage.setText(currentPlayerNickname + " is in middle turn");
     }
 
+    /**
+     * Enable swappable depots and notify other players
+     * {@inheritDoc}
+     */
     @Override
     public void visitSwapState(String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
             depotToSwap = new ArrayList<>();
             sendButton.setDisable(true);
-            String str = errorMessage == null? "" : errorMessage + "\n";
+            String str = errorMessage == null ? "" : errorMessage + "\n";
             textMessage.setText(str + "Swap depots");
 
             Button button;
@@ -963,18 +1056,21 @@ public class GameController extends GUIController implements Initializable {
                 } );
                 button.setDisable(false);
             }
+
             exitButton.setOnAction(actionEvent -> {
                 exitButton.setDisable(true);
                 disableAllDepotButtons();
                 this.networkHandler.sendMessage(new ChosenSwapDepotMessage(-1,-1));
             });
             exitButton.setDisable(false);
-
         } else
             textMessage.setText(currentPlayerNickname + " is swapping depots");
-
     }
 
+    /**
+     * Enable popup to show action proposal for the specified resource and notify other players
+     * {@inheritDoc}
+     */
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
         if(currentPlayerNickname.equals(view.getNickname())) {
@@ -982,7 +1078,7 @@ public class GameController extends GUIController implements Initializable {
             popUpEffect.setVisible(true);
             textMessage.setText("");
 
-            String str = errorMessage == null? "" : errorMessage + "\n";
+            String str = errorMessage == null ? "" : errorMessage + "\n";
             popUpTextMessage.setText(str + "Choose an action for "+res.toString());
 
             leftButton.setText("Discard");
@@ -1038,14 +1134,16 @@ public class GameController extends GUIController implements Initializable {
                         }
                     }
                 }
-
             });
             popUp.setVisible(true);
-
         } else
             textMessage.setText(currentPlayerNickname + " is placing resources in depots");
     }
 
+    /**
+     * Enable buttons for base, cardslot and leader production and notify other players
+     * {@inheritDoc}
+     */
     @Override
     public void visitProductionState(String currentPlayerNickname, String errorMessage) {
         if (currentPlayerNickname.equals(view.getNickname())) {
@@ -1071,6 +1169,7 @@ public class GameController extends GUIController implements Initializable {
                     pane.lookup("#cardslot_" + j).setDisable(false);
                 }
             }
+
             //enabling leader
             List<Integer> activeLeaders = view.getPersonalBoardView().getActiveLeaders();
             for (int i = 0; i <= 1; i++) {
@@ -1088,7 +1187,6 @@ public class GameController extends GUIController implements Initializable {
                 }
             }
 
-
             Button baseProdBtn = (Button) pane.lookup("#baseProduction");
             baseProdBtn.setOnAction(actionEvent -> {
                 resetAllProductionMap();
@@ -1100,7 +1198,6 @@ public class GameController extends GUIController implements Initializable {
 
             });
             baseProdBtn.setDisable(false);
-
 
             sendButton.setOnAction(actionEvent -> {
                 this.networkHandler.sendMessage(new ChosenProductionMessage(chosenCardSlot, wareHouseMap, strongBoxMap, chosenResource));
@@ -1137,6 +1234,10 @@ public class GameController extends GUIController implements Initializable {
             textMessage.setText(currentPlayerNickname + " is activating production");
     }
 
+    /**
+     * Enable popup to show game result
+     * {@inheritDoc}
+     */
     @Override
     public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
         popUpEffect.setVisible(true);
@@ -1171,6 +1272,9 @@ public class GameController extends GUIController implements Initializable {
     }
 
 
+    /**
+     * Enable popup that alert of game aborted
+     */
     @Override
     public void visitGameAbort() {
         leftButton.setVisible(false);
@@ -1191,6 +1295,9 @@ public class GameController extends GUIController implements Initializable {
         popUpEffect.setVisible(true);
     }
 
+    /**
+     * Reactivate other players board
+     */
     @Override
     public void visitForcedReconnectionUpdate() {
         this.connectedOtherPlayersNumber = view.getOtherBoardsView().size();
@@ -1204,6 +1311,10 @@ public class GameController extends GUIController implements Initializable {
         }
     }
 
+    /**
+     * Disable board of the player that has disconnected
+     * {@inheritDoc}
+     */
     @Override
     public void visitPlayerDisconnection(String nickname) {
         this.connectedOtherPlayersNumber -= 1;
@@ -1215,11 +1326,12 @@ public class GameController extends GUIController implements Initializable {
         disconnectedBoard.setImage(GUI.punchBoardImg.get("boardBack"));
         StackPane otherPlayerPane = (StackPane) pane.lookup("#otherplayer_pane_" + connectedOtherPlayersNumber);
         otherPlayerPane.setVisible(false); //disabling other players images overlay
-
     }
 
-
-
+    /**
+     * Enable the board of the player that has reconnected
+     * {@inheritDoc}
+     */
     @Override
     public void visitPlayerReconnection(String nickname) {
         this.connectedOtherPlayersNumber += 1;
