@@ -83,8 +83,9 @@ public class VirtualView {
         players.stream().filter(q -> player != q).forEach(q -> message.addOtherBoard(q.getBoardObserver().toJSONHandFreeString()));
         try {
             handler.sendAnswerMessage(message);
-        } catch (NullPointerException e) {
-            //e.printStackTrace();
+        } catch (NullPointerException ignored) {
+            // the catch of this exception is needed because some test use incomplete
+            // instances of Player that have "null" as ClientHandler.
         }
 
         players.stream().filter(q -> player != q).forEach(q -> q.getClientHandler().sendAnswerMessage(new PlayerReconnectionMessage(player.getNickname())));
@@ -102,8 +103,7 @@ public class VirtualView {
             players.stream().filter(q -> p != q).forEach(q -> message.addOtherBoard(q.getBoardObserver().toJSONHandFreeString()));
             try {
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
     }
@@ -117,9 +117,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
-
+            } catch (NullPointerException ignored) {
             }
         });
     }
@@ -132,9 +130,7 @@ public class VirtualView {
         LorenzoUpdateMessage message = new LorenzoUpdateMessage(lorenzoJSON);
         try {
             players.get(0).getClientHandler().sendAnswerMessage(message);
-        } catch (NullPointerException e) {
-            //e.printStackTrace();
-
+        } catch (NullPointerException ignored) {
         }
     }
 
@@ -148,8 +144,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try {
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
     }
@@ -182,7 +177,6 @@ public class VirtualView {
 
             return chosenLeaderList;
         } catch (IOException | ClassNotFoundException e) {
-            //e.printStackTrace();
             return null;
         }
     }
@@ -199,8 +193,7 @@ public class VirtualView {
 
             try {
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
     }
@@ -214,8 +207,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
     }
@@ -248,7 +240,6 @@ public class VirtualView {
             }
 
         } catch (IOException | ClassNotFoundException e){
-            //e.printStackTrace();
             return null;
         }
         return resMap;
@@ -263,8 +254,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
 
@@ -281,8 +271,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
 
@@ -299,8 +288,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
 
@@ -317,8 +305,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
 
@@ -336,8 +323,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
 
@@ -354,8 +340,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
 
@@ -373,8 +358,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
 
@@ -391,8 +375,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
 
@@ -409,8 +392,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
     }
@@ -441,8 +423,7 @@ public class VirtualView {
 
             return ((ChosenWhiteMarbleMessage) msg).getRes();
 
-        } catch (IOException | ClassNotFoundException e){
-            //e.printStackTrace();
+        } catch (IOException | ClassNotFoundException ignored){
         }
         return null;
 
@@ -460,8 +441,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
     }
@@ -481,8 +461,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
        try {
@@ -497,8 +476,7 @@ public class VirtualView {
 
            return ((ChosenMarketDepotMessage) msg).getChosenDepot();
 
-       } catch (IOException | ClassNotFoundException e){
-           //e.printStackTrace();
+       } catch (IOException | ClassNotFoundException ignored){
        }
        return -1;
     }
@@ -512,8 +490,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             try{
                 p.getClientHandler().sendAnswerMessage(message);
-            } catch (NullPointerException e) {
-                //e.printStackTrace();
+            } catch (NullPointerException ignored) {
             }
         });
     }
