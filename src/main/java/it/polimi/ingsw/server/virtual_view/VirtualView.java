@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server.virtual_view;
 
-import com.google.gson.Gson;
 import it.polimi.ingsw.server.ClientHandler;
 
 import it.polimi.ingsw.server.controller.Player;
@@ -26,7 +25,7 @@ public class VirtualView {
     private transient List<Player> players;
 
     /**
-     * All private attributes of this class are set to null;
+     * All the private attributes of this class are set to null;
      */
     public VirtualView() {
         this.marketObserver = null;
@@ -100,9 +99,7 @@ public class VirtualView {
         players.stream().forEach(p -> {
             BoardsUpdateMessage message = new BoardsUpdateMessage();
             message.addPersonalBoard(p.getBoardObserver().toJSONString());
-            players.stream().filter(q -> p != q).forEach(q -> {
-                message.addOtherBoard(q.getBoardObserver().toJSONHandFreeString());
-            });
+            players.stream().filter(q -> p != q).forEach(q -> message.addOtherBoard(q.getBoardObserver().toJSONHandFreeString()));
             try {
                 p.getClientHandler().sendAnswerMessage(message);
             } catch (NullPointerException e) {
