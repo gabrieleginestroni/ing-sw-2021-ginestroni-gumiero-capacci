@@ -3,7 +3,6 @@ package it.polimi.ingsw.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
@@ -42,7 +41,7 @@ public class Server {
         while (true) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                new Thread(new ClientHandler(clientSocket,lobbies)).start();
+                new Thread(new ClientHandler(clientSocket)).start();
             } catch (IOException e) {
                 System.out.println("connection dropped");
             }

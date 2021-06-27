@@ -31,7 +31,7 @@ public class LorenzoObserver {
     }
 
     /**
-     * Changes Lorenzo's last drawn token action notifies to the virtual view a change of the Lorenzo status
+     * Changes Lorenzo's last drawn token action and notifies to the virtual view a change of the Lorenzo status
      * @param lastDrawnActionToken New last drawn token action
      */
     public void notifyLastDrawnActionToken(String lastDrawnActionToken){

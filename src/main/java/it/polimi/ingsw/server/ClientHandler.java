@@ -5,19 +5,23 @@ import it.polimi.ingsw.server.controller.Player;
 import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
 import it.polimi.ingsw.server.messages.client_server.LoginSizeMessage;
 import it.polimi.ingsw.server.messages.client_server.Message;
-import it.polimi.ingsw.server.messages.client_server.Pong;
 import it.polimi.ingsw.server.messages.server_client.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * The class represents a virtual client connected to the server. It offers a TCP socket connection to the client's
+ * network handler.
+ * The run method handles the client's connection and messages during the entire virtual client's life, from login
+ * to game phase, including the game termination.
+ */
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
     private final ConcurrentHashMap<String,Lobby> lobbies;
@@ -25,9 +29,13 @@ public class ClientHandler implements Runnable {
     private ObjectOutputStream output;
     private ObjectInputStream input;
 
-    public ClientHandler(Socket clientSocket, ConcurrentHashMap<String,Lobby> lobbies) {
+    /**
+     *
+     * @param clientSocket Client's socket
+     */
+    public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
-        this.lobbies = lobbies;
+        this.lobbies = Server.lobbies;
         this.gameLobby = null;
         try {
             output = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -38,6 +46,11 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Handles the client's login phase. After login phase ends, it waits for client's messages. When a message
+     * arrives, this method passes it to the controller, running the response behaviour according
+     * to the state pattern's protocol
+     */
     @Override
     public void run() {
 
@@ -85,7 +98,11 @@ public class ClientHandler implements Runnable {
         }
     }
 
-
+    /**
+     * Handles the messages protocol until the client is added to a lobby successfully
+     * @throws IOException In case the connections drops during the login
+     * @throws ClassNotFoundException In case a message not defined in the communication protocol arrives to the server
+     */
     private void loginPhase() throws IOException, ClassNotFoundException {
 
         System.out.println("Accepted client:" + " " + clientSocket.toString());
@@ -155,6 +172,11 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Handles the messages protocol until the game is over
+     * @throws IOException In case the connections drops during the game
+     * @throws ClassNotFoundException In case a message not defined in the communication protocol arrives to the server
+     */
     private void gamePhase() throws IOException, ClassNotFoundException {
         Controller controller= this.gameLobby.getController();
 
@@ -165,24 +187,41 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Sends a message to all the clients currently connected to the lobby using the
+     * {@link #sendAnswerMessage(AnswerMessage)} method
+     * @param message Message to send
+     */
     public void sendAnswerToAllPlayers(AnswerMessage message){
         List<Player> players = gameLobby.getPlayers();
 
         players.stream().forEach(p ->  p.getClientHandler().sendAnswerMessage(message));
     }
 
+    /**
+     * Sends a message to the client through the tcp socket of the client handler
+     * @param message Message to send
+     */
     public void sendAnswerMessage(AnswerMessage message) {
         try {
             output.writeObject(message);
-        } catch (IOException e) {
-            //System.out.println("PING SENT WHILE PLAYER DISCONNECTED");
-        }
+        } catch (IOException ignored) { }
     }
 
+    /**
+     * Returns the last message received from the client (or waits for a new incoming message)
+     * @return Message received from the client
+     * @throws IOException In case the connection drops
+     * @throws ClassNotFoundException In case a message not defined in the communication protocol arrives to the server
+     */
     public Message waitMessage() throws IOException, ClassNotFoundException {
         return (Message)input.readObject();
     }
 
+    /**
+     *
+     * @return The client's socket
+     */
     public Socket getClientSocket() {
         return clientSocket;
     }
