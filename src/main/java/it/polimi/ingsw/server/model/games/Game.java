@@ -2,7 +2,6 @@ package it.polimi.ingsw.server.model.games;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.server.exceptions.emptyDevCardGridSlotSelectedException;
-import it.polimi.ingsw.server.model.Color;
 import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
@@ -12,8 +11,6 @@ import it.polimi.ingsw.server.virtual_view.VirtualView;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -199,12 +196,15 @@ public abstract class Game {
         return gridObserver;
     }
 
-    //TODO documentation
+    /**
+     * This method propagates the request to check if the specified column is empty or not to the right DevelopmentCardGrid for the current Game.
+     * @param col The index of the column to check.
+     * @return TRUE if the column is empty, FALSE otherwise.
+     */
     public boolean isColumnEmpty(int col){
         return devCardsGrid.isColumnEmpty(col);
     }
 
-    //TODO documentation
     public abstract void vaticanReport(int sectionIndex);
 
     public abstract int addFaithLorenzo(int points);

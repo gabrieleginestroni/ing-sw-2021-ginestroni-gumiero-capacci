@@ -116,7 +116,11 @@ public class DevelopmentCardGrid {
         return tempStatus;
     }
 
-    //TODO documentation
+    /**
+     * Returns TRUE only if the specified column does not contain cards.
+     * @param col The index of the column to check.
+     * @return TRUE if the column is empty, FALSE otherwise.
+     */
     public boolean isColumnEmpty(int col){
         for(int i = 0; i <= 2; i++)
             if(!grid[i][col].isEmpty())
