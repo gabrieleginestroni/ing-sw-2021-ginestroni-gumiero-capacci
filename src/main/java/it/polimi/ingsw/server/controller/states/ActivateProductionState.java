@@ -102,8 +102,8 @@ public class ActivateProductionState implements MultiplayerState {
                 }
 
                 //check if the total amount of checkMap resources is the same of the one required by the card
-                for(Map.Entry<Resource, Integer> entry:checkMap.entrySet()){
-                    if(!entry.getValue().equals(prodInput.get(entry.getKey())))
+                for(Map.Entry<Resource, Integer> entry:prodInput.entrySet()){
+                    if(!entry.getValue().equals(checkMap.get(entry.getKey())))
                         throw new invalidMoveException("Wrong number of resources selected");
                 }
 

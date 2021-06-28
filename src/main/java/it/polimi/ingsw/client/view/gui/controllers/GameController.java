@@ -1326,6 +1326,8 @@ public class GameController extends GUIController implements Initializable {
         disconnectedBoard.setImage(GUI.punchBoardImg.get("boardBack"));
         StackPane otherPlayerPane = (StackPane) pane.lookup("#otherplayer_pane_" + connectedOtherPlayersNumber);
         otherPlayerPane.setVisible(false); //disabling other players images overlay
+        GridPane leaderGrid = (GridPane) pane.lookup("#otherplayer_" + connectedOtherPlayersNumber +"_leadergrid");
+        leaderGrid.setVisible(false);
     }
 
     /**
@@ -1339,5 +1341,7 @@ public class GameController extends GUIController implements Initializable {
         reconnectedBoard.setImage(GUI.punchBoardImg.get("boardFront"));
         StackPane otherPlayerPane = (StackPane) pane.lookup("#otherplayer_pane_" + (connectedOtherPlayersNumber - 1));
         otherPlayerPane.setVisible(true); //enabling other players images overlay
+        GridPane leaderGrid = (GridPane) pane.lookup("#otherplayer_" + (connectedOtherPlayersNumber - 1) +"_leadergrid");
+        leaderGrid.setVisible(true);
     }
 }

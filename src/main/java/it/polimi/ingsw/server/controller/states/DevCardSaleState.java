@@ -82,12 +82,13 @@ public class DevCardSaleState implements MultiplayerState {
         }
 
         Map<Resource,Integer> cost = card.getCost();
-        for(Map.Entry<Resource,Integer> entry:cost.entrySet())
-            if(board.getResourceNumber(entry.getKey()) < entry.getValue()) {
-                strError = "Not enough "+ entry.getKey()+", "+board.getResourceNumber(entry.getKey())+" ("+entry.getValue()+" needed)";
+        for(Map.Entry<Resource,Integer> entry:cost.entrySet()) {
+            int discount = board.getDiscount().contains(entry.getKey()) ? 1 : 0;
+            if (board.getResourceNumber(entry.getKey()) + discount < entry.getValue()) {
+                strError = "Not enough " + entry.getKey() + ", " + (board.getResourceNumber(entry.getKey()) + discount) + " (" + entry.getValue() + " needed)";
                 throw new invalidMoveException(strError);
             }
-
+        }
         //check if can purchase the card and put it in the chosen cardSlot
         if(!board.canAddDevCard(cardSlot, card)) {
 

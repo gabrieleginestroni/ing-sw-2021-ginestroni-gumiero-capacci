@@ -80,7 +80,7 @@
             <ImageView fx:id="marble_2_3" fitHeight="34.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <GridPane layoutX="390.0" layoutY="25.0" prefHeight="265.0" prefWidth="100.0">
+      <GridPane fx:id="otherplayer_0_leadergrid" layoutX="390.0" layoutY="25.0" prefHeight="265.0" prefWidth="100.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
         </columnConstraints>
@@ -97,7 +97,7 @@
             <ImageView fx:id="otherplayer_0_leader_1_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="182.0" visible="false" />
          </children>
       </GridPane>
-      <GridPane layoutX="880.0" layoutY="25.0" prefHeight="265.0" prefWidth="100.0">
+      <GridPane fx:id="otherplayer_1_leadergrid" layoutX="880.0" layoutY="25.0" prefHeight="265.0" prefWidth="100.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
          </columnConstraints>
@@ -114,7 +114,7 @@
             <ImageView fx:id="otherplayer_1_leader_1_1" fitHeight="14.0" fitWidth="17.0" layoutX="10.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" translateX="51.0" translateY="182.0" visible="false" />   
          </children>
       </GridPane>
-      <GridPane layoutX="1370.0" layoutY="25.0" prefHeight="265.0" prefWidth="100.0">
+      <GridPane fx:id="otherplayer_2_leadergrid" layoutX="1370.0" layoutY="25.0" prefHeight="265.0" prefWidth="100.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="265.0" />
          </columnConstraints>
