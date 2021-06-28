@@ -1,12 +1,14 @@
 package it.polimi.ingsw.client.view;
 
-import it.polimi.ingsw.server.model.cards.DevelopmentCard;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that contains all board elements
+ */
 public class BoardView {
     private final String nickname;
     private final ArrayList<String> whiteMarbles;
@@ -23,6 +25,10 @@ public class BoardView {
     private final List<Integer> leaderDepotQuantity;
     private boolean inkwell;
 
+    /**
+     * Initialize all elements empty except username
+     * @param nickname player's username
+     */
     public BoardView(String nickname) {
         this.nickname = nickname;
         whiteMarbles = null;
@@ -40,32 +46,57 @@ public class BoardView {
         inkwell = false;
     }
 
+    /**
+     * @return personal pope tiles status
+     */
     public boolean[] getPopeTiles() { return popeTiles; }
 
+    /**
+     * @return personal strongbox
+     */
     public Map<String, Integer> getStrongBox() {
         return strongBox;
     }
 
+    /**
+     * @return list of resources in warehouse depots
+     */
     public List<String> getWarehouseDepotResource() {
         return warehouseDepotResource;
     }
 
+    /**
+     * @return list of resources quantity in warehouse depots
+     */
     public List<Integer> getWarehouseDepotQuantity() {
         return warehouseDepotQuantity;
     }
 
+    /**
+     * @return list of active leader cards
+     */
     public List<Integer> getActiveLeaders() {
         return activeLeaders;
     }
 
+    /**
+     * @return list of development cards in card slots
+     */
     public ArrayList<Integer>[] getCardSlot() {
         return cardSlot;
     }
 
+    /**
+     * @return if player has inkwell
+     */
     public boolean hasInkwell() {
         return inkwell;
     }
 
+    /**
+     * @param index cardslot number
+     * @return top card in required slot
+     */
     public int getTopCardSlot(int index) {
         int card;
         try {
@@ -76,34 +107,58 @@ public class BoardView {
         return card;
     }
 
+    /**
+     * @return personal faith points
+     */
     public int getFaithTrackMarker() {
         return faithTrackMarker;
     }
 
+    /**
+     * @return list of resources in leader depots
+     */
     public List<String> getLeaderDepotResource() {
         return leaderDepotResource;
     }
 
+    /**
+     * @return list of resources quantity in leader depots
+     */
     public List<Integer> getLeaderDepotQuantity() {
         return leaderDepotQuantity;
     }
 
+    /**
+     * @return player nickname
+     */
     public String getNickname() {
         return nickname;
     }
 
+    /**
+     * @return list of personal active discounts
+     */
     public ArrayList<String> getDiscounts() {
         return discounts;
     }
 
+    /**
+     * set inkwell to player
+     */
     public void setInkwell() {
         this.inkwell = true;
     }
 
+    /**
+     * @return player list of hidden leader cards
+     */
     public List<Integer> getHiddenHand() {
         return hiddenHand;
     }
 
+    /**
+     * @return string of all board's element
+     */
     @Override
     public String toString() {
         return "BoardView{" +

@@ -1,9 +1,30 @@
 package it.polimi.ingsw.client.view;
 
+/**
+* @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+* Class that contains market
+ */
 public class MarketView {
     private String[][] market;
     private String freeMarble;
 
+    /**
+     * @return market
+     */
+    public String[][] getMarket() {
+        return market;
+    }
+
+    /**
+     * @return free marble
+     */
+    public String getFreeMarble() {
+        return freeMarble;
+    }
+
+    /**
+     * @return market representation
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder("\n");
@@ -18,13 +39,5 @@ public class MarketView {
                 "market=" + str +
                 "freeMarble='" + freeMarble + '\'' +
                 '}';
-    }
-
-    public String[][] getMarket() {
-        return market;
-    }
-
-    public String getFreeMarble() {
-        return freeMarble;
     }
 }

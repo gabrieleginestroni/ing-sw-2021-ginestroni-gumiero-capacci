@@ -2,12 +2,18 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.server.model.Resource;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that contains color codes for fancy CLI and symbols used to represent resources
+ */
 public class ConsoleColors {
+
+    /**
+     * Map of colors and their code for console
+     */
     public static final Map<String, String> colorMap = new HashMap<>(){{
         put("RESET", "\033[0m");
         put("RED", "\033[0;31m");
@@ -21,7 +27,9 @@ public class ConsoleColors {
     }};
 
 
-    //no symbols, to avoid shift because size of symbol is > 1
+    /**
+     * Map of resources and their symbol for representation
+     */
     public static final Map<Resource, String> resourceMap = new HashMap<>(){{
         put(Resource.SHIELD, "\u15E0");//, or \u07DC or \u080F
         put(Resource.SERVANT, "\u1333");//👨 2A30, or 0536
@@ -32,7 +40,6 @@ public class ConsoleColors {
     }};
 
     /*
-
     //safe version
     public static final Map<Resource, String> resourceMap = new HashMap<>(){{
         put(Resource.SHIELD, "S");//🛡
@@ -43,7 +50,7 @@ public class ConsoleColors {
         put(Resource.WHITE, "-");//□
     }};
 
-    //with symbols
+    //perfect symbols, but too large in console
     public static final Map<Resource, String> resourceMap = new HashMap<>(){{
         put(Resource.SHIELD, "\uD83D\uDEE1");//🛡
         put(Resource.SERVANT, "\uD83D\uDC68");//👨

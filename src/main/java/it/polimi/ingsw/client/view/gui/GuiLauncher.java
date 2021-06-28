@@ -1,28 +1,30 @@
 package it.polimi.ingsw.client.view.gui;
 
-import it.polimi.ingsw.client.ClientGUI;
 import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.client.view.gui.controllers.GUIController;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that starts the GUI
+ */
 public class GuiLauncher extends Application {
     public static void main(String[] args) {
         launch(args);
     }
 
 
+    /**
+     * Launch GUI
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         GUI.setStg(primaryStage);
-        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         Scene loginScene = new Scene(loader.load());
         GUIController controller = loader.getController();
