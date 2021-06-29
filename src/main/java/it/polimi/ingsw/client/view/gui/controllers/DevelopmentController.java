@@ -98,8 +98,6 @@ public class DevelopmentController extends GUIController implements Initializabl
             chosenCol = -1;
             chosenRow = -1;
             devTextVisibleProperty.setValue(true);
-        }else{
-            textMessage.setText(currentPlayerNickname + " is purchasing a development card");
         }
     }
 

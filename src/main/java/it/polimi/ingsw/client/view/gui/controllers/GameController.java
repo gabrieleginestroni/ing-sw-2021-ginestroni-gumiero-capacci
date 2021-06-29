@@ -83,8 +83,6 @@ public class GameController extends GUIController implements Initializable {
     @FXML
     private Button strongboxButton_stone;
     @FXML
-    private Button strongboxButton;
-    @FXML
     private Button exitButton;
 
     private int connectedOtherPlayersNumber;
@@ -204,7 +202,7 @@ public class GameController extends GUIController implements Initializable {
             if (view.getPersonalBoardView().getWarehouseDepotQuantity().get(index) > 0) {
                 depotButton.setOnAction(actionEvent -> {
                     wareHouseMap.merge(index, 1, Integer::sum);
-                    printChosenResource(getResourceToPickForProduction());
+                    printChosenResource(getResourceToPickForProduction(), 1);
                 });
                 depotButton.setDisable(false);
             }
@@ -219,7 +217,7 @@ public class GameController extends GUIController implements Initializable {
                 if (view.getPersonalBoardView().getLeaderDepotQuantity().get(leaderOffset) > 0) {
                     leaderBtn.setOnAction(actionEvent -> {
                         wareHouseMap.merge(finalLeaderOffset, 1, Integer::sum);
-                        printChosenResource(getResourceToPickForProduction());
+                        printChosenResource(getResourceToPickForProduction(), 1);
                     });
                     leaderBtn.setDisable(false);
                 }
@@ -234,7 +232,7 @@ public class GameController extends GUIController implements Initializable {
                 strongboxBtn.setOnAction(actionEvent -> {
                     Resource res = Resource.valueOf(resStr.toUpperCase());
                     strongBoxMap.merge(res, 1, Integer::sum);
-                    printChosenResource(getResourceToPickForProduction());
+                    printChosenResource(getResourceToPickForProduction(), 1);
                 });
                 strongboxBtn.setDisable(false);
             }
@@ -289,23 +287,29 @@ public class GameController extends GUIController implements Initializable {
     }
 
     /**
+     *
      * Display chosen resource and cardslot in text message
      * @param tmpMap map of picked resource
+     * @param actionType different types of action, 0 when purchasing a development, 1 when activating production
      */
-    private void printChosenResource(Map<Resource, Integer> tmpMap) {
+    private void printChosenResource(Map<Resource, Integer> tmpMap, int actionType) {
         String str = "Resource to choose:\n";
         if(chosenCardSlot == 5){
             int tot = 0;
             for(int i = 0; i < Resource.values().length-2; i++)
                 tot += getTotalSelectedResources(Resource.values()[i]);
             str += "TOT: "+ tot + "/2\n";
-        }else
-            for (Map.Entry<Resource, Integer> entry : tmpMap.entrySet())
-                str += entry.getKey() + ": " + getTotalSelectedResources(entry.getKey()) + "/" + entry.getValue() + "\n";
+        }else {
+            for (Map.Entry<Resource, Integer> entry : tmpMap.entrySet()) {
+                int discount = 0;
+                if(actionType == 0 && view.getPersonalBoardView().getDiscounts().contains(entry.getKey().toString()))
+                    discount = 1;
+                str += entry.getKey() + ": " + getTotalSelectedResources(entry.getKey()) + "/" + (entry.getValue() - discount)+ "\n";
+            }
+        }
         textMessage.setText(textMessage.getText().split("\n")[0] + "\nChosen card slot: " + chosenCardSlot + "\n" + str);
         if(chosenCardSlot > 2 && chosenResource != null)
             textMessage.setText(textMessage.getText()+"\nChosen resource to produce: "+chosenResource.toString());
-        System.out.println(textMessage.getText());
     }
 
     /**
@@ -329,6 +333,13 @@ public class GameController extends GUIController implements Initializable {
      * @param otherPlayer updated board of the other player
      */
     private void updateOtherPlayer(int playerIndex, BoardView otherPlayer){
+
+        ImageView inkwellImg = (ImageView) pane.lookup("#otherplayer_" + playerIndex + "_inkwell");
+        if (otherPlayer.hasInkwell())  //player has inkwell
+            inkwellImg.setVisible(true);
+        else
+            inkwellImg.setVisible(false);
+
 
         Label label = (Label) pane.lookup("#otherplayer_"+playerIndex+"_nickname");
         label.setText(otherPlayer.getNickname());
@@ -472,9 +483,15 @@ public class GameController extends GUIController implements Initializable {
      */
     @Override
     public void visitBoardsUpdate() {
-
         //updating player board
         BoardView player = view.getPersonalBoardView();
+
+        ImageView inkwellImg = (ImageView) pane.lookup("#player_inkwell");
+        if (player.hasInkwell()) //player has inkwell
+            inkwellImg.setVisible(true);
+        else
+            inkwellImg.setVisible(false);
+
         //updating strongbox
         for(Map.Entry<String,Integer> strongbox: player.getStrongBox().entrySet()){
             Label label = (Label)pane.lookup("#player_"+strongbox.getKey().toLowerCase());
@@ -793,7 +810,6 @@ public class GameController extends GUIController implements Initializable {
             sendButton.setDisable(false);
             sendButton.setOnAction(actionEvent -> {
                 System.out.println(new Gson().toJson(leaderMap));
-                networkHandler.sendMessage(new ChosenLeaderActionMessage(leaderMap));
 
                 int i = 0;
                 for(Integer ignored : hiddenHand){
@@ -806,6 +822,7 @@ public class GameController extends GUIController implements Initializable {
                 leaderAction_1.setText("");
 
                 sendButton.setDisable(true);
+                networkHandler.sendMessage(new ChosenLeaderActionMessage(leaderMap));
             });
 
             int i = 0;
@@ -883,6 +900,7 @@ public class GameController extends GUIController implements Initializable {
                 disableAllDepotButtons();
                 setAllCardSlotButtonsDisable(true);
                 exitButton.setDisable(true);
+                sendButton.setDisable(true);
             });
             sendButton.setDisable(false);
 
@@ -893,19 +911,18 @@ public class GameController extends GUIController implements Initializable {
                 disableAllDepotButtons();
                 setAllCardSlotButtonsDisable(true);
                 exitButton.setDisable(true);
+                sendButton.setDisable(true);
             });
             exitButton.setDisable(false);
 
             textMessage.setText("Choose a card slot and resources to buy the card\n");
-            if(chosenRow >= 0)
-                printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost());
 
             for(int i = 0; i <= 2; i++){
                 int index = i;
                 ((Button) pane.lookup("#cardslot_"+i)).setOnAction(actionEvent -> {
                     chosenCardSlot = index;
                     if(chosenRow >= 0)
-                        printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost());
+                        printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost(), 0);
                 });
                 pane.lookup("#cardslot_" + i).setDisable(false);
             }
@@ -927,7 +944,7 @@ public class GameController extends GUIController implements Initializable {
                         tmpMap.put(res, addedQuantity);
                         resToRemove.put(index, tmpMap);
                         if(chosenRow >= 0)
-                            printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost());
+                            printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost(), 0);
                     });
                     depotButton.setDisable(false);
                 }
@@ -954,7 +971,7 @@ public class GameController extends GUIController implements Initializable {
                             tmpMap.put(res, addedQuantity);
                             resToRemove.put(index, tmpMap);
                             if(chosenRow >= 0)
-                                printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost());
+                                printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost(), 0);
                         });
                         leaderBtn.setDisable(false);
                     }
@@ -980,7 +997,7 @@ public class GameController extends GUIController implements Initializable {
                         tmpMap.put(res, addedQuantity);
                         resToRemove.put(index, tmpMap);
                         if(chosenRow >= 0)
-                            printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost());
+                            printChosenResource(view.getDevelopmentCardByID(view.getDevGridView().getGridId(chosenRow, chosenCol)).getCost(), 0);
                     });
                     strongboxBtn.setDisable(false);
                 }
@@ -1164,7 +1181,7 @@ public class GameController extends GUIController implements Initializable {
                         resetAllProductionMap();
                         chosenCardSlot = finalJ;
                         enablePickResourceForProduction();
-                        printChosenResource(getResourceToPickForProduction());
+                        printChosenResource(getResourceToPickForProduction(), 1);
                     });
                     pane.lookup("#cardslot_" + j).setDisable(false);
                 }
@@ -1181,7 +1198,7 @@ public class GameController extends GUIController implements Initializable {
                         chosenCardSlot = finalI;
                         enablePickResourceForProduction();
                         enablePickOutputProduction();
-                        printChosenResource(getResourceToPickForProduction());
+                        printChosenResource(getResourceToPickForProduction(), 1);
                     });
                     leaderBtn.setDisable(false);
                 }
@@ -1193,7 +1210,7 @@ public class GameController extends GUIController implements Initializable {
                 chosenCardSlot = 5;
                 enablePickResourceForProduction();
                 enablePickOutputProduction();
-                printChosenResource(getResourceToPickForProduction());
+                printChosenResource(getResourceToPickForProduction(), 1);
                 baseProdBtn.setDisable(true);
 
             });
@@ -1208,6 +1225,7 @@ public class GameController extends GUIController implements Initializable {
             sendButton.setDisable(false);
 
             exitButton.setOnAction(actionEvent -> {
+                sendButton.setDisable(true);
                 exitButton.setDisable(true);
                 disableAllDepotButtons();
 
