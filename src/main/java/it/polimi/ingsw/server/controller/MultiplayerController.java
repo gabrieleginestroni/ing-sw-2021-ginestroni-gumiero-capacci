@@ -9,7 +9,6 @@ import it.polimi.ingsw.server.exceptions.invalidResourceTypeException;
 
 import it.polimi.ingsw.server.messages.client_server.Message;
 
-import it.polimi.ingsw.server.messages.server_client.GameAbortedMessage;
 import it.polimi.ingsw.server.model.Resource;
 import it.polimi.ingsw.server.model.cards.LeaderCard;
 import it.polimi.ingsw.server.model.games.Game;
@@ -23,6 +22,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * The controller class of a Multiplayer Game.
+ */
 public class MultiplayerController extends Controller{
     private final MultiplayerGame model;
     private MultiplayerState currentState;
@@ -43,10 +46,12 @@ public class MultiplayerController extends Controller{
     public static final MultiplayerState swapState = new SwapState();
     public static final MultiplayerState whiteMarbleState = new WhiteMarbleState();
 
+    /**
+     * @param players The list of the players that are going to play in the relative Multiplayer Game.
+     * @param gameID The gameID of the Multiplayer Game.
+     */
     public MultiplayerController(List<Player> players,String gameID) {
-
         super(new VirtualView(),gameID);
-
 
         this.players = players;
 
@@ -151,9 +156,14 @@ public class MultiplayerController extends Controller{
 
         currentState = startTurnState;
         virtualView.startTurn(this.turnHandler.getCurrentPlayer().getNickname(),null);
-
     }
 
+    /**
+     * This method is used to notify the disconnection of the specified player in the game which can lead to 2 events:
+     * if the number of remaining players is >=2 the Multiplayer Game continues updating the list of connected players in the
+     * VirtualView and simply skipping disconnected players' turns, otherwise the game is aborted.
+     * @param player The disconnected player.
+     */
     @Override
     public void notifyPlayerDisconnection(Player player) {
         if(!Server.lobbies.get(gameID).isGameStarted()){
@@ -186,6 +196,10 @@ public class MultiplayerController extends Controller{
         }
     }
 
+    /**
+     * This method is used to safely close the socket connection of every ClientHandler involved in the game.
+     * @param playerList The list of the players actually connected with the lobby.
+     */
     private void killAll(List<Player> playerList){
         playerList.forEach(p -> {
             try {
@@ -195,6 +209,18 @@ public class MultiplayerController extends Controller{
         });
     }
 
+    /**
+     * @return The CommunicationMediator valid for this Multiplayer Controller.
+     */
+    public CommunicationMediator getMediator() {
+        return mediator;
+    }
+
+    /**
+     * This method is used to notify every player that a specified player reconnected with success to the match,
+     * updates the list of connected players in the VirtualView and forces the complete update for the reconnected player's view.
+     * @param player The reconnected player.
+     */
     @Override
     public void notifyPlayerReconnection(Player player) {
         turnHandler.notifyPlayerReconnection(player);
@@ -202,16 +228,28 @@ public class MultiplayerController extends Controller{
         virtualView.forcedReconnectionUpdate(player);
     }
 
+    /**
+     * This method is used to resolve double dispatching problems delegating the handling of a message to the
+     * actual current state of the controller: that allows to execute the right code for the specific dynamic type of the message
+     * and the specific dynamic type of the state.
+     * @param message The message that the ClientHandler of a certain player just received.
+     */
     @Override
     public void handleMessage(Message message) {
         message.handleMessage(this.currentState,this);
     }
 
+    /**
+     * @return TRUE only if someone arrived at the end of the FaithTrack or purchased the 7th Development Card.
+     */
     @Override
     public boolean isGameOver() {
         return model.isGameOver();
     }
 
+    /**
+     * @return TRUE only if the current state is the EndTurnState and the current player is the last player in the shift schedule.
+     */
     @Override
     public boolean isRoundOver() {
         if(currentState instanceof EndTurnState)
@@ -220,86 +258,74 @@ public class MultiplayerController extends Controller{
             return false;
     }
 
+    /**
+     * @return The current player.
+     */
     @Override
     public Player getCurrentPlayer() {
         return this.turnHandler.getCurrentPlayer();
     }
 
-    public CommunicationMediator getMediator() {
-        return mediator;
-    }
-
+    /**
+     * Passes the turn to the next player.
+     */
     @Override
     public void nextPlayer() {
         this.turnHandler.nextPlayer();
     }
 
+    /**
+     * @return The list that contains all other players than the current.
+     */
     @Override
     public List<Player> othersPlayers() {
         return this.turnHandler.getOtherPlayers();
     }
 
+    /**
+     * @param state The new current state.
+     */
     @Override
     public void setCurrentState(State state) {
         this.currentState = (MultiplayerState) state;
     }
 
-
+    @Override
+    public Game getModel() { return model; }
 
     @Override
-    public Game getModel() {
-        return model;
-    }
+    public State getMarketState() { return marketState; }
 
     @Override
-    public State getMarketState() {
-        return marketState;
-    }
+    public State getActivateProductionState() { return activateProductionState; }
 
     @Override
-    public State getActivateProductionState() {
-        return activateProductionState;
-    }
+    public State getLeaderActionState() { return leaderActionState; }
 
     @Override
-    public State getLeaderActionState() {
-        return leaderActionState;
-    }
+    public State getDevCardSaleState() { return devCardSaleState; }
 
     @Override
-    public State getDevCardSaleState() {
-        return devCardSaleState;
-    }
+    public State getResourceManagementState() {return resourceManagementState; }
 
     @Override
-    public State getResourceManagementState() {return resourceManagementState;    }
+    public State getSwapState() {return swapState; }
 
     @Override
-    public State getSwapState() {return swapState;    }
+    public State getWhiteMarbleState() {return whiteMarbleState; }
 
     @Override
-    public State getWhiteMarbleState() {return whiteMarbleState;    }
+    public State getStartTurnState() { return startTurnState; }
 
     @Override
-    public State getStartTurnState() {
-        return startTurnState;
-    }
+    public State getMiddleTurnState() { return middleTurnState; }
 
     @Override
-    public State getMiddleTurnState() { return middleTurnState;
-    }
+    public State getEndTurnState() { return endTurnState; }
 
     @Override
-    public State getEndTurnState() { return endTurnState;
-    }
+    public State getMainActionState() {return mainActionState; }
 
     @Override
-    public State getMainActionState() {return mainActionState;
-    }
-
-    @Override
-    public State getEndGameState() { return endGameState;
-    }
-
-
+    public State getEndGameState() { return endGameState; }
 }

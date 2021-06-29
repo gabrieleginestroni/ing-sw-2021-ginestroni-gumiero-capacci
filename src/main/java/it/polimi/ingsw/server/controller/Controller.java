@@ -1,7 +1,5 @@
 package it.polimi.ingsw.server.controller;
 
-import it.polimi.ingsw.server.controller.states.MultiplayerState;
-import it.polimi.ingsw.server.controller.states.SoloState;
 import it.polimi.ingsw.server.controller.states.State;
 import it.polimi.ingsw.server.messages.client_server.Message;
 import it.polimi.ingsw.server.model.games.Game;
@@ -9,11 +7,18 @@ import it.polimi.ingsw.server.virtual_view.VirtualView;
 
 import java.util.List;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * The abstract class that represents the concept of Controller.
+ */
 public abstract class Controller {
-
     String gameID;
     VirtualView virtualView;
 
+    /**
+     * @param virtualView The VirtualView relative to the game the controller is going to handle.
+     * @param gameID The gameID of the game.
+     */
     public Controller(VirtualView virtualView,String gameID) {
         this.virtualView = virtualView;
         this.gameID = gameID;
@@ -39,10 +44,6 @@ public abstract class Controller {
 
     public abstract void setCurrentState(State state);
 
-    public VirtualView getVirtualView() {
-        return this.virtualView;
-    }
-
     public abstract Game getModel();
 
     public abstract State getMarketState();
@@ -59,6 +60,16 @@ public abstract class Controller {
     public abstract State getMainActionState();
     public abstract State getEndGameState();
 
+    /**
+     * @return The reference to the VirtualView relative to the game the controller is handling
+     */
+    public VirtualView getVirtualView() {
+        return this.virtualView;
+    }
+
+    /**
+     * @return The gameID of the game the controller is handling.
+     */
     public String getGameID() {
         return gameID;
     }

@@ -14,6 +14,10 @@ import it.polimi.ingsw.server.virtual_view.VirtualView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * The controller class of a Solo Game.
+ */
 public class SoloController extends Controller{
     private final SoloGame model;
     private SoloState currentState;
@@ -33,6 +37,10 @@ public class SoloController extends Controller{
     public static final SoloState swapState = new SwapState();
     public static final SoloState whiteMarbleState = new WhiteMarbleState();
 
+    /**
+     * @param player The player that is going to play the relative Solo Game.
+     * @param gameID The gameID of the Solo Game.
+     */
     public SoloController(Player player,String gameID) {
         super(new VirtualView(),gameID);
         this.player = player;
@@ -57,21 +65,38 @@ public class SoloController extends Controller{
         }
     }
 
+    /**
+     * This method is used to notify the disconnection of the only player in the game,
+     * that leads to the elimination of the game.
+     * @param player The disconnected player.
+     */
     @Override
     public void notifyPlayerDisconnection(Player player) {
         Server.lobbies.remove(gameID);
         Thread.currentThread().interrupt();
     }
 
-    @Override
-    public void notifyPlayerReconnection(Player player) {
-
-    }
-
+    /**
+     * This method is used to resolve double dispatching problems delegating the handling of a message to the
+     * actual current state of the controller: that allows to execute the right code for the specific dynamic type of the message
+     * and the specific dynamic type of the state.
+     * @param message The message that the ClientHandler of the only player just received.
+     */
     @Override
     public void handleMessage(Message message) {
         message.handleMessage(this.currentState,this);
     }
+
+    /**
+     * @param state The new current state.
+     */
+    @Override
+    public void setCurrentState(State state) {
+        this.currentState = (SoloState) state;
+    }
+
+    @Override
+    public void notifyPlayerReconnection(Player player) {}
 
     @Override
     public boolean isGameOver() {
@@ -98,15 +123,8 @@ public class SoloController extends Controller{
 
     @Override
     public List<Player> othersPlayers() {
-        return new ArrayList<Player>();
+        return new ArrayList<>();
     }
-
-
-    @Override
-    public void setCurrentState(State state) {
-        this.currentState = (SoloState) state;
-    }
-
 
     @Override
     public Game getModel() {
@@ -134,13 +152,13 @@ public class SoloController extends Controller{
     }
 
     @Override
-    public State getResourceManagementState() { return resourceManagementState;    }
+    public State getResourceManagementState() { return resourceManagementState; }
 
     @Override
-    public State getSwapState() {return swapState;    }
+    public State getSwapState() {return swapState; }
 
     @Override
-    public State getWhiteMarbleState() {return whiteMarbleState;    }
+    public State getWhiteMarbleState() {return whiteMarbleState; }
 
     @Override
     public State getStartTurnState() {
@@ -148,17 +166,14 @@ public class SoloController extends Controller{
     }
 
     @Override
-    public State getMiddleTurnState() { return middleTurnState;    }
+    public State getMiddleTurnState() { return middleTurnState; }
 
     @Override
-    public State getEndTurnState() { return endTurnState;
-    }
+    public State getEndTurnState() { return endTurnState; }
 
     @Override
-    public State getMainActionState() { return mainActionState;
-    }
+    public State getMainActionState() { return mainActionState; }
 
     @Override
-    public State getEndGameState() { return endGameState;
-    }
+    public State getEndGameState() { return endGameState; }
 }
