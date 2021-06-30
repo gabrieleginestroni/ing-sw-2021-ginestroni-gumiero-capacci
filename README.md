@@ -34,14 +34,14 @@ In [deliveries/jar](https://github.com/gabrieleginestroni/ing-sw-2021-ginestroni
   ```shell
    > java -jar server.jar [-p PORT_NUMBER]
     ```
-  * _port_number_ specifies the port where the server will be hosted (port 50000 used if no port has been specified). 
+  * _port_number_ specifies the port where the server will be hosted (port 50000 used if no port has been specified) 
   
 - ##### cli.jar
   ```shell
    > java -jar cli.jar [-ip SERVER_IP] [-p PORT_NUMBER]
   ```
-  * _server_ip_ specifies the server ip address (localhost if no ip has been specified).
-  * _port_number_ specifies the server port  (port 50000 used if no port has been specified).
+  * _server_ip_ specifies the server ip address (localhost if no ip has been specified)
+  * _port_number_ specifies the server port  (port 50000 used if no port has been specified)
   * It is recommended to use Linux shell to run the cli.jar due to incorrect Unicode printing in Windows' shell
   * For Windows users it is possible to run the jar from Intellij IDE. However, some special symbols won't be displayed
 - ##### gui.jar

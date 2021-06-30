@@ -11,6 +11,10 @@ import it.polimi.ingsw.server.model.cards.ResourceRequirement;
 
 import java.util.*;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that implements all visits for fancy CLI
+ */
 public class CLI extends View{
     private final Scanner scanner;
     private final Gson gson;
@@ -25,28 +29,50 @@ public class CLI extends View{
         this.gson = new Gson();
     }
 
+    /**
+     * Simply print message
+     * {@inheritDoc}
+     */
     @Override
     public void showMessage(String str) {
         if(str != null)
             System.out.println(str);
     }
 
+    /**
+     * Abort game if there are less than 2 players connected to the game
+     */
     @Override
     public void visitGameAbort() {
         this.showMessage("Insufficient players number to continue the match");
     }
 
+    /**
+     * Display nickname of player who has disconnected
+     * {@inheritDoc}
+     */
     @Override
     public void visitPlayerDisconnection(String nickname) {
         this.showMessage(nickname + " disconnected!");
     }
 
+    /**
+     * Display nickname of player who has reconnected
+     * {@inheritDoc}
+     */
     @Override
     public void visitPlayerReconnection(String nickname) {
         this.showMessage(nickname + " reconnected!");
     }
 
-    //get depot where resource is available
+    /**
+     * get depot where resource is available
+     * @param depot list of depot
+     * @param quantity list of depot quantity
+     * @param resource resource to find
+     * @param i offset used for leader depots(3)
+     * @return map of depot where resource is available and its quantity
+     */
     private Map.Entry<Integer, Integer> getDepotResource(List<String> depot, List<Integer> quantity, Resource resource, int i){
         int offset = i;
         for(String s: depot) {
@@ -57,8 +83,11 @@ public class CLI extends View{
         return null;
     }
 
-    //Print where the required resource is available inside depots, updating the current status based
-    //on the previous choices made
+    /**
+     * Print where the required resource is available inside depots, updating the current status based on the previous choices made
+     * @param indexMap map of depot number and number of resources available in it
+     * @return number of resources available in depots
+     */
     private int printIndexMap(Map<Integer, Integer> indexMap){
         String depotName;
         int availableQuantity = 0;
@@ -75,7 +104,11 @@ public class CLI extends View{
         return availableQuantity;
     }
 
-    //Create map of depots where resource is available
+    /**
+     * Create map of depots where resource is available
+     * @param resource resource to find in depots
+     * @return map of all depots where resource is available and its quantity in all depots, strongbox included
+     */
     private Map<Integer, Integer> getIndexMap(Resource resource){
         Map<Integer, Integer> indexMap = new HashMap<>();
         Map.Entry<Integer, Integer> warehouseRes = getDepotResource(super.personalBoardView.getWarehouseDepotResource(), super.personalBoardView.getWarehouseDepotQuantity(), resource, 0);
@@ -91,6 +124,13 @@ public class CLI extends View{
     }
 
 
+    /**
+     * Method that builds board column in fancy CLI used for displaying both personal and other player board
+     * @param playerView boardView to print
+     * @param lines max number of lines to use
+     * @param maxWidth max length for every line
+     * @return array of lines, each one with same fixed length
+     */
     private String[] buildPersonalBoardCLI(BoardView playerView, int lines, int maxWidth) {
         String[] personalMatrix = new String[lines];
         int[] supportMatrix = new int[lines];
@@ -411,6 +451,11 @@ public class CLI extends View{
         return Arrays.copyOf(personalMatrix, (i < 30 ? 30 : i+1));
     }
 
+    /**
+     * Method that builds game column in fancy CLI used for development card grid and market
+     * @param lines max number of lines to use
+     * @return array of lines, each with same fixed length
+     */
     private String[] buildGameCLI(int lines){
         String[] gameMatrix = new String[lines];
         Arrays.fill(gameMatrix, "");
@@ -602,6 +647,11 @@ public class CLI extends View{
         return gameMatrix;
     }
 
+    /**
+     * Method that builds a leader card for fancy CLI printing
+     * @param leaderCard the leader card to print
+     * @return array of lines, each with fixed length
+     */
     private String[] buildLeaderCard(LeaderCard leaderCard){
         String[] matrix = new String[6];
         Arrays.fill(matrix, "");
@@ -689,7 +739,12 @@ public class CLI extends View{
     }
 
 
-    //lorenzo status
+    /**
+     * Method that builds Lorenzo status for fancy CLI
+     * @param lorenzoView lorenzo info
+     * @param lines number of lines to use
+     * @return array of lines to print
+     */
     private String[] buildLorenzoCLI(LorenzoView lorenzoView, int lines) {
         String[] matrix = new String[lines];
         Arrays.fill(matrix, " ");
@@ -720,7 +775,10 @@ public class CLI extends View{
         return matrix;
     }
 
-    //proposing 4 leader card to chose
+    /**
+     * proposing 4 leader card to choose from
+     * @param proposedLeaderCards array of cardIds to choose from
+     */
     private void build4Leaders(int[] proposedLeaderCards){
         String[] matrix = new String[6];
         Arrays.fill(matrix, " ");
@@ -734,6 +792,10 @@ public class CLI extends View{
             System.out.println(matrix[i]);
     }
 
+    /**
+     * Method that calls all the others auxiliary method that generates lines to print in fancy CLI for each game component
+     * and merges them, printing in column
+     */
     public void buildCLI() {
         int lines = 55; //number of lines;
         int maxWidth = 32; //maxWidth of each line;
@@ -788,6 +850,10 @@ public class CLI extends View{
         }
     }
 
+    /**
+     * Method that process boards updated boards arrived from server and prints updated info in fancy CLI
+     * {inheritDoc}
+     */
     @Override
     public void visitBoardsUpdate(String personalBoard, List<String> otherBoards) {
         this.personalBoardView = gson.fromJson(personalBoard, BoardView.class);
@@ -801,6 +867,10 @@ public class CLI extends View{
         buildCLI();
     }
 
+    /**
+     * Method that process updated grid arrived from server and prints updated info in fancy CLI
+     * {inheritDoc}
+     */
     @Override
     public void visitDevGridUpdate(String updatedGrid) {
         this.devGrid = gson.fromJson(updatedGrid, GridView.class);
@@ -808,6 +878,10 @@ public class CLI extends View{
         buildCLI();
     }
 
+    /**
+     * Method that sets inkwell
+     * {inheritDoc}
+     */
     @Override
     public void visitInkwell(String nickname) {
         this.showMessage(nickname + " receives inkwell");
@@ -817,6 +891,10 @@ public class CLI extends View{
             this.otherBoardsView.stream().filter(p -> p.getNickname().equals(nickname)).forEach(BoardView::setInkwell);
     }
 
+    /**
+     * Method that process the updated Lorenzo view arrived from server and prints it in fancy CLI
+     * {inheritDoc}
+     */
     @Override
     public void visitLorenzoUpdate(String updatedLorenzo) {
         this.lorenzoView = gson.fromJson(updatedLorenzo, LorenzoView.class);
@@ -824,6 +902,10 @@ public class CLI extends View{
         buildCLI();
     }
 
+    /**
+     * Method that process the updated Market view arrived from server and prints it in fancy CLI
+     * {inheritDoc}
+     */
     @Override
     public void visitMarketUpdate(String updatedMarket) {
         this.marketView = gson.fromJson(updatedMarket, MarketView.class);
@@ -831,6 +913,10 @@ public class CLI extends View{
         buildCLI();
     }
 
+    /**
+     * Method that updates all game info when a player disconnects and prints it in fancy CLI
+     * {inheritDoc}
+     */
     @Override
     public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
         this.marketView = gson.fromJson(updatedMarket, MarketView.class);
@@ -845,11 +931,19 @@ public class CLI extends View{
 
     }
 
+    /**
+     * Method that prints game started alert
+     * {inheritDoc}
+     */
     @Override
     public void visitGameStarted(String str) {
         this.showMessage(str);
     }
 
+    /**
+     * Method that handles player initial choice of a resource when playing a multiplayer game
+     * {inheritDoc}
+     */
     @Override
     public void visitInitialResource(int quantity)  {
 
@@ -911,6 +1005,10 @@ public class CLI extends View{
         }
     }
 
+    /**
+     * Method that handles player choice of leader cards at the start of the game
+     * {inheritDoc}
+     */
     @Override
     public void visitLeaderProposal(int[] proposedLeaderCards) {
         int[] chosenLeaderCards = new int[2];
@@ -930,6 +1028,10 @@ public class CLI extends View{
         this.networkHandler.sendMessage(new ChosenLeaderMessage(chosenLeaderCards));
     }
 
+    /**
+     * Method that warns the user that chosen game is full, making him to choose another
+     * {inheritDoc}
+     */
     @Override
     public void visitLobbyFull(String str) {
         this.showMessage(str);
@@ -938,6 +1040,10 @@ public class CLI extends View{
         this.networkHandler.sendMessage(new LoginRequestMessage(gameID,nickname));
     }
 
+    /**
+     * Method that warns user that chosen game is not ready, making him to choose another
+     * {inheritDoc}
+     */
     @Override
     public void visitLobbyNotReady(String str) {
         this.showMessage(str);
@@ -946,11 +1052,19 @@ public class CLI extends View{
         this.networkHandler.sendMessage(new LoginRequestMessage(gameID,nickname));
     }
 
+    /**
+     * Method that alerts user he has logged successfully in the game, displaying nicknames of current players connected to the game
+     * {inheritDoc}
+     */
     @Override
     public void visitLoginSuccess(String currentPlayers) {
         this.showMessage("Login success. Current players: \n" + currentPlayers);
     }
 
+    /**
+     * Method that makes the user choose size of the game, if he is creating one
+     * {inheritDoc}
+     */
     @Override
     public void visitRequestLobbySize(String str) throws invalidClientInputException {
         this.showMessage(str);
@@ -961,6 +1075,10 @@ public class CLI extends View{
 
     }
 
+    /**
+     * Method that warns the user he has chosen a nickname already used by someone else, making him change it
+     * {inheritDoc}
+     */
     @Override
     public void visitNicknameAlreadyUsed(String str,String gameID) {
         this.showMessage(str);
@@ -977,6 +1095,10 @@ public class CLI extends View{
         this.networkHandler.sendMessage(new LoginRequestMessage(gameID,nickname));
     }
 
+    /**
+     * Method that handles player having two white marble leader power active, making him choose what power to use for every white marble
+     * {inheritDoc}
+     */
     @Override
     public void visitWhiteMarbleProposal(Resource res1, Resource res2) {
         int res = 0;
@@ -996,6 +1118,11 @@ public class CLI extends View{
 
     }
 
+    /**
+     * Method that handles start of player turn, making user choose for a main action or a leader action,
+     * also alerting other players of the choice
+     * {inheritDoc}
+     */
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
 
@@ -1024,6 +1151,12 @@ public class CLI extends View{
         }
     }
 
+    /**
+     * Method handling dev card sale action, from the choice of the card to the choice of the slot to place it
+     * and the resources to use for purchasing it
+     * also alerting other players of the choice
+     * {inheritDoc}
+     */
     @Override
     public void visitDevCardSale(String currentPlayerNickname) throws invalidClientInputException {
         if(this.nickname.equals(currentPlayerNickname)){
@@ -1114,6 +1247,11 @@ public class CLI extends View{
 
     }
 
+    /**
+     * Method for middle turn state, when players has to decide whether to do a leader action or and the turn
+     * also alerting other players of the choice
+     * {inheritDoc}
+     */
     @Override
     public void visitMiddleTurn(String currentPlayerNickname,String errorMessage) {
 
@@ -1138,6 +1276,11 @@ public class CLI extends View{
 
     }
 
+    /**
+     * Method that handles player leader action
+     * also alerting other players of the choice
+     * {inheritDoc}
+     */
     @Override
     public void visitLeaderAction(String currentPlayerNickname) {
         if(this.nickname.equals(currentPlayerNickname)){
@@ -1156,6 +1299,11 @@ public class CLI extends View{
             this.showMessage(currentPlayerNickname + " is executing a leader action");
     }
 
+    /**
+     * Method that handles player main action
+     * also alerting other players of the choice
+     * {inheritDoc}
+     */
     @Override
     public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
 
@@ -1175,6 +1323,11 @@ public class CLI extends View{
             this.showMessage(currentPlayerNickname + " is choosing main action");
     }
 
+    /**
+     * Method that handles player activating a production action
+     * also alerting other players of the choice
+     * {inheritDoc}
+     */
     @Override
     public void visitProductionState(String currentPlayerNickname, String errorMessage) throws invalidClientInputException {
         if(this.nickname.equals(currentPlayerNickname)){
@@ -1353,6 +1506,10 @@ public class CLI extends View{
 
     }
 
+    /**
+     * Method that alerts the player that game is over, printing winners and game results
+     * {inheritDoc}
+     */
     @Override
     public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
         if(this.nickname.equals(winner))
@@ -1367,6 +1524,11 @@ public class CLI extends View{
         super.gameOver = true;
     }
 
+    /**
+     * Method that handles player making a market action
+     * also alerting other players of the choice
+     * {inheritDoc}
+     */
     @Override
     public void visitMarketState(String currentPlayerNickname, String errorMessage) {
         if(this.nickname.equals(currentPlayerNickname)){
@@ -1403,6 +1565,11 @@ public class CLI extends View{
             this.showMessage(currentPlayerNickname + " is doing a market move");
     }
 
+    /**
+     * Method that handles player making a swap action
+     * also alerting other players of the choice
+     * {inheritDoc}
+     */
     @Override
     public void visitSwapState(String currentPlayerNickname, String errorMessage) {
         if(this.nickname.equals(currentPlayerNickname)){
@@ -1425,6 +1592,11 @@ public class CLI extends View{
             this.showMessage(currentPlayerNickname + " is swapping depots");
     }
 
+    /**
+     * Method that handles player placing resources in depot or discarding it after a market action
+     * also alerting other players of the choice
+     * {inheritDoc}
+     */
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
         if(this.nickname.equals(currentPlayerNickname)){
