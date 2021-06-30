@@ -250,11 +250,14 @@ public class ActivateProductionState implements MultiplayerState {
                     board.removeStrongboxResource(entry.getKey(), entry.getValue());
                 for (Map.Entry<Integer, Integer> entry : warehouseMap.entrySet()) {
                     int depotIndex = entry.getKey();
-                    res = board.getWarehouseDepotResourceType(depotIndex);
-                    if(0 <= depotIndex && depotIndex <= 2)
+                    if(0 <= depotIndex && depotIndex <= 2) {
+                        res = board.getWarehouseDepotResourceType(depotIndex);
                         board.removeWarehouseDepotResource(res, entry.getValue(), depotIndex);
-                    else
-                        board.removeLeaderDepotResource(res, entry.getValue(), depotIndex-3);
+                    }
+                    else {
+                        res = board.getLeaderDepotResourceType(depotIndex - 3);
+                        board.removeLeaderDepotResource(res, entry.getValue(), depotIndex - 3);
+                    }
                 }
             }catch (invalidStrongBoxRemoveException | invalidResourceTypeException | removeResourceLimitExceededException e) {
                 throw new invalidMoveException("Generic board production error");
