@@ -5,6 +5,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that starts the server and creates all the ClientHandler threads.
+ */
 public class Server {
     public static final ConcurrentHashMap<String,Lobby> lobbies = new ConcurrentHashMap<>();
     public static void main(String[] args) {

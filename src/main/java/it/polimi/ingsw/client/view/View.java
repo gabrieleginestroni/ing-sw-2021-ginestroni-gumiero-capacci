@@ -9,12 +9,14 @@ import it.polimi.ingsw.server.model.cards.LeaderCard;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Abstract class that represents the concept of the view used by clients.
+ */
 public abstract class View {
     GridView devGrid;
     BoardView personalBoardView;
@@ -28,7 +30,6 @@ public abstract class View {
     LeaderCard[] leaderCards;
 
     String nickname;
-
 
     View(){
         Gson gson = new Gson();
@@ -51,10 +52,10 @@ public abstract class View {
         this.gameOver = false;
     }
 
-    public Scanner getScanner(){ return  null;}
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+    public Scanner getScanner(){ return null;}
     public boolean isGameOver(){return this.gameOver;}
     public String getNickname(){return this.nickname;}
     public List<BoardView> getOtherBoardsView(){ return this.otherBoardsView;}
@@ -104,12 +105,21 @@ public abstract class View {
     public abstract void visitSwapState(String currentPlayerNickname,String errorMessage);
     public abstract void visitResourceManagementState(Resource res,String currentPlayerNickname,String errorMessage);
 
-
+    /**
+     * Method used to get the reference to a specified Development Card from only its ID.
+     * @param cardID The Development Card ID.
+     * @return The reference to the right Development Card.
+     */
     public DevelopmentCard getDevelopmentCardByID(int cardID){
         if(cardID > 0 && cardID <= developmentCards.length) return this.developmentCards[cardID-1];
         return null;
     }
 
+    /**
+     * Method used to get the reference to a specified Leader Card from only its ID.
+     * @param cardID The Leader Card ID.
+     * @return The reference to the right Leader Card.
+     */
     public LeaderCard getLeaderCardByID(int cardID){
         if(cardID > 0 && cardID <= leaderCards.length) return this.leaderCards[cardID-1];
         return null;

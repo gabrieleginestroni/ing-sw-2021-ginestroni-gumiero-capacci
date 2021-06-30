@@ -7,8 +7,21 @@ import it.polimi.ingsw.server.model.Resource;
 
 import java.util.Map;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that represents the state in which the current player chose to perform a swap of 2 warehouse depots
+ * during a Market Action.
+ */
 public class SwapState implements MultiplayerState,SoloState {
 
+    /**
+     * This method is used to perform the swap of the 2 specified depots and, after that, the controllers continues to
+     * cycle in the same state until the current player does not want to do that anymore: at that point the controller
+     * switches back to the ResourceManagement state.
+     * @param dep1 The index of the first depot to swap.
+     * @param dep2 The index of the second depot to swap.
+     * @param controller The controller that handles the current game.
+     */
     @Override
     public void visitSwapState(int dep1,int dep2,Controller controller) {
         try {
@@ -34,60 +47,37 @@ public class SwapState implements MultiplayerState,SoloState {
             controller.getVirtualView().proposeSwap(controller.getCurrentPlayer().getNickname(),e.getErrorMessage());
         }
     }
-    @Override
-    public void visitStartTurnState(int move, Controller controller) {
-
-    }
 
     @Override
-    public void visitMainActionState(int move, Controller controller) {
-
-    }
+    public void visitStartTurnState(int move, Controller controller) { }
 
     @Override
-    public void visitMiddleTurnState(int move, Controller controller) {
-
-    }
+    public void visitMainActionState(int move, Controller controller) { }
 
     @Override
-    public void visitEndTurnState(Controller controller) {
-
-    }
+    public void visitMiddleTurnState(int move, Controller controller) { }
 
     @Override
-    public void visitEndGameState(String winner, Controller controller) {
-
-    }
+    public void visitEndTurnState(Controller controller) { }
 
     @Override
-    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) {
-
-    }
+    public void visitEndGameState(String winner, Controller controller) { }
 
     @Override
-    public void visitMarketState(int move, int index, Controller controller) {
-
-    }
+    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) { }
 
     @Override
-    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) {
-
-    }
+    public void visitMarketState(int move, int index, Controller controller) { }
 
     @Override
-    public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) {
-
-    }
+    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) { }
 
     @Override
-    public void visitResourceManagementState(String errorMessage,Controller controller) {
-
-    }
-
-
+    public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) { }
 
     @Override
-    public void visitWhiteMarbleState(Controller controller) {
+    public void visitResourceManagementState(String errorMessage,Controller controller) { }
 
-    }
+    @Override
+    public void visitWhiteMarbleState(Controller controller) { }
 }

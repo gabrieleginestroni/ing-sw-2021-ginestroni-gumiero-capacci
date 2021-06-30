@@ -3,7 +3,25 @@ package it.polimi.ingsw.server.controller.states;
 import it.polimi.ingsw.server.controller.Controller;
 import it.polimi.ingsw.server.controller.states.exceptions.invalidMoveException;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that represents the Solo version of the ResourceManagement state.
+ */
 public class SoloResourceManagementState extends ResourceManagementState implements SoloState {
+
+    /**
+     * This method is used in a Solo Game to perform the action chose by the current player and then the right state transition
+     * on the base of the choices of the current player: the controller continues to cycle on the same
+     * state until the current player asks to do a swap, in which case the controller switches to the Swap state.
+     * After the Market Action end, if the current player has already done a Leader Action the controller automatically
+     * terminates his turn, otherwise the controller switches to the MiddleTurn state.
+     * In the case the action chose doesn't resolve positively it appears that the player hasn't done
+     * a Main Action yet, so the controller switches to the StartTurn state if he has neither done a Leader Action,
+     * otherwise switches to the MainAction state. Finally, if after the Market Action the game is
+     * over, the controller switches to the EndGame state (both of current player and Lorenzo can win).
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
+     * @param controller The controller that handles the current game.
+     */
     @Override
     public void visitResourceManagementState(String errorMessage, Controller controller) {
         try{
@@ -46,6 +64,5 @@ public class SoloResourceManagementState extends ResourceManagementState impleme
         } catch (invalidMoveException e) {
             controller.getResourceManagementState().visitResourceManagementState(e.getErrorMessage(),controller);
         }
-
     }
 }

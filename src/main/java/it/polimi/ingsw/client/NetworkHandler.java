@@ -13,12 +13,20 @@ import java.net.SocketTimeoutException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that represents the thread used by clients to handle the communication with the server in both directions.
+ */
 public class NetworkHandler implements Runnable {
     private final View view;
     final Socket socket;
     ObjectOutputStream output;
     ObjectInputStream input;
 
+    /**
+     * @param socket Server's socket.
+     * @param view The View valid for the specific client.
+     */
     public NetworkHandler(Socket socket, View view) {
         this.socket = socket;
         try {
@@ -31,9 +39,19 @@ public class NetworkHandler implements Runnable {
         this.view = view;
     }
 
+    /**
+     * Method used to send a Message to the server.
+     * @param message The Message that has to be sent to the server.
+     */
+    public void sendMessage(Message message)  {
+        try {
+            output.writeObject(message);
+        } catch (IOException ignored) {
+        }
+    }
+
     @Override
     public void run() {
-
         Thread pingThread = new Thread(()->{
             try {
                 while (!view.isGameOver()) {
@@ -83,7 +101,6 @@ public class NetworkHandler implements Runnable {
 
         }  catch(SocketTimeoutException e) {
             view.showMessage("Connection lost");
-
         } catch(IOException e) {
             view.showMessage("Server stopped his execution");
         }catch (ClassNotFoundException e) {
@@ -98,12 +115,4 @@ public class NetworkHandler implements Runnable {
             }
         }
     }
-
-    public void sendMessage(Message message)  {
-        try {
-            output.writeObject(message);
-        } catch (IOException ignored) {
-        }
-    }
-
 }

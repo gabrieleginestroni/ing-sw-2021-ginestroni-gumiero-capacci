@@ -12,58 +12,31 @@ import it.polimi.ingsw.server.model.board.Board;
 import it.polimi.ingsw.server.model.cards.DevelopmentCard;
 import it.polimi.ingsw.server.model.games.Game;
 
-import it.polimi.ingsw.server.virtual_view.VirtualView;
-
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that represents the state in which the current player chose to perform an Development Card Purchase Action and
+ * now has to choose the card to buy.
+ */
 public class DevCardSaleState implements MultiplayerState {
 
-
-    @Override
-    public void visitStartTurnState(int move, Controller controller) {
-
-    }
-
-    @Override
-    public void visitMainActionState(int move, Controller controller) {
-
-    }
-
-    @Override
-    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller){
-        try {
-            commonVisit(row, col, resToRemove, cardSlot, controller);
-            if (!controller.getMediator().isLeaderActionDone()) {
-                System.out.println("Multiplayer turn end!");
-                controller.setCurrentState(controller.getMiddleTurnState());
-                controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
-            } else {
-                controller.setCurrentState(controller.getEndTurnState());
-                controller.getEndTurnState().visitEndTurnState(controller);
-            }
-        } catch(invalidMoveException e) {
-            System.out.println(controller.getCurrentPlayer().getNickname() + " " + e.getErrorMessage());
-            if(controller.getMediator().isLeaderActionDone()) {
-                controller.setCurrentState(controller.getMainActionState());
-                controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), e.getErrorMessage()+"\nPlease do a main action");
-            } else {
-                controller.setCurrentState(controller.getStartTurnState());
-                controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(),e.getErrorMessage());
-            }
-        }
-    }
-
-    @Override
-    public void visitMarketState(int move, int index, Controller controller) {
-
-    }
-
-    @Override
-    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) {
-
-    }
-
+    /**
+     * This method is used to perform the code in common between the multiplayer and the solo version of this state:
+     * the controller checks the action chose by the player if it is possible to apply it and, in case this
+     * check resolves positively, applies that action to the model.
+     * @param row The row index of the card the current player requested to buy.
+     * @param col The column index of the card the current player requested to buy.
+     * @param resToRemove A double-map that contains the indexes of the depots the player chose to get resources from
+     *                    (0 - 2 for warehouse depots, 3 - 4 for leader depots and 5 for strongbox) mapped to an inner
+     *                    map that contains the type of the resource to remove mapped to the quantity to remove.
+     * @param cardSlot The index of the CardSlot in the current player's board where he wants to place the purchased card.
+     * @param controller The controller that handles the current game.
+     * @throws invalidMoveException Thrown when the current player requests any kind of unacceptable move: this exception
+     *                              contains a error message string that will be shown to the current player in the
+     *                              next state he will navigate to.
+     */
     void commonVisit(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) throws invalidMoveException{
         Player currentPlayer = controller.getCurrentPlayer();
         Game model = controller.getModel();
@@ -214,38 +187,75 @@ public class DevCardSaleState implements MultiplayerState {
         controller.getMediator().setMainActionDone();
     }
 
+    /**
+     * This method is used in a Multiplayer Game to perform the Development Card purchase and then the right state transition
+     * on the base of the past choices of the current player: after the purchase of the Development Card, if the current player
+     * has already done a Leader Action the controller automatically terminates his turn, otherwise the controller switches to the
+     * MiddleTurn state. In the case the purchase doesn't resolve positively it appears that the player hasn't done
+     * a Main Action yet, so the controller switches to the StartTurn state if he has neither done a Leader Action,
+     * otherwise switches to the MainAction state.
+     * @param row The row index of the card the current player requested to buy.
+     * @param col The column index of the card the current player requested to buy.
+     * @param resToRemove A double-map that contains the indexes of the depots the player chose to get resources from
+     *                    (0 - 2 for warehouse depots, 3 - 4 for leader depots and 5 for strongbox) mapped to an inner
+     *                    map that contains the type of the resource to remove mapped to the quantity to remove.
+     * @param cardSlot The index of the CardSlot in the current player's board where he wants to place the purchased card.
+     * @param controller The controller that handles the current game.
+     */
     @Override
-    public void visitMiddleTurnState(int move, Controller controller) {
-
+    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller){
+        try {
+            commonVisit(row, col, resToRemove, cardSlot, controller);
+            if (!controller.getMediator().isLeaderActionDone()) {
+                System.out.println("Multiplayer turn end!");
+                controller.setCurrentState(controller.getMiddleTurnState());
+                controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
+            } else {
+                controller.setCurrentState(controller.getEndTurnState());
+                controller.getEndTurnState().visitEndTurnState(controller);
+            }
+        } catch(invalidMoveException e) {
+            System.out.println(controller.getCurrentPlayer().getNickname() + " " + e.getErrorMessage());
+            if(controller.getMediator().isLeaderActionDone()) {
+                controller.setCurrentState(controller.getMainActionState());
+                controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), e.getErrorMessage()+"\nPlease do a main action");
+            } else {
+                controller.setCurrentState(controller.getStartTurnState());
+                controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(),e.getErrorMessage());
+            }
+        }
     }
 
     @Override
-    public void visitEndTurnState(Controller controller) {
-
-    }
+    public void visitStartTurnState(int move, Controller controller) { }
 
     @Override
-    public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) {
-
-    }
+    public void visitMainActionState(int move, Controller controller) { }
 
     @Override
-    public void visitResourceManagementState(String errorMessage,Controller controller) {
-
-    }
+    public void visitMarketState(int move, int index, Controller controller) { }
 
     @Override
-    public void visitSwapState(int dep1,int dep2,Controller controller) {
-
-    }
+    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) { }
 
     @Override
-    public void visitWhiteMarbleState(Controller controller) {
-
-    }
+    public void visitMiddleTurnState(int move, Controller controller) { }
 
     @Override
-    public void visitEndGameState(String winner,Controller controller) {
+    public void visitEndTurnState(Controller controller) { }
 
-    }
+    @Override
+    public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) { }
+
+    @Override
+    public void visitResourceManagementState(String errorMessage,Controller controller) { }
+
+    @Override
+    public void visitSwapState(int dep1,int dep2,Controller controller) { }
+
+    @Override
+    public void visitWhiteMarbleState(Controller controller) { }
+
+    @Override
+    public void visitEndGameState(String winner,Controller controller) { }
 }
