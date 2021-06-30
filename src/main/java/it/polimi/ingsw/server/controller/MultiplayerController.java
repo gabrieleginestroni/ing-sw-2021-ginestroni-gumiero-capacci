@@ -212,6 +212,7 @@ public class MultiplayerController extends Controller{
     /**
      * @return The CommunicationMediator valid for this Multiplayer Controller.
      */
+    @Override
     public CommunicationMediator getMediator() {
         return mediator;
     }
