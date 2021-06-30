@@ -106,6 +106,11 @@ public class ActivateProductionState implements MultiplayerState {
                     if(!entry.getValue().equals(checkMap.get(entry.getKey())))
                         throw new invalidMoveException("Wrong number of resources selected");
                 }
+                //check unrequested resources
+                for(Map.Entry<Resource, Integer> entry:checkMap.entrySet()){
+                    if(!entry.getValue().equals(prodInput.get(entry.getKey())))
+                        throw new invalidMoveException("Unrequested resource found: " + entry.getKey());
+                }
 
                 //check if the selected quantity of resources is present
                 for(Map.Entry<Integer, Integer> entry: warehouseMap.entrySet()){

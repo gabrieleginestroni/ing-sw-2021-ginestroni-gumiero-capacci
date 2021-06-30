@@ -1215,7 +1215,7 @@ public class CLI extends View{
                 }
 
                 for (Map.Entry<Resource, Integer> entry : productionInput.entrySet()) {
-
+                    quantity = 0;
                     Map<Integer, Integer> indexMap = getIndexMap(entry.getKey());
 
                     //Keeps asking where to pick the same resource if selected resources are not enough
