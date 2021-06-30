@@ -6,6 +6,10 @@ import it.polimi.ingsw.server.model.Resource;
 
 import java.util.Map;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * This interface represents the behaviour of the states of a generic Controller.
+ */
 public interface State {
 
     void visitStartTurnState(int move, Controller controller);

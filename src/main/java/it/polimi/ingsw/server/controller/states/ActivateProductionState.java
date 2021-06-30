@@ -14,38 +14,37 @@ import it.polimi.ingsw.server.model.cards.LeaderCard;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that represents the state in which the current player chose to perform an ActivateProduction Action and
+ * now has to choose the productions to activate.
+ */
 public class ActivateProductionState implements MultiplayerState {
-    @Override
-    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) {
-        try {
-            commonVisit(productionIndex, wareHouseMap, strongBoxMap, chosenResource, controller);
-            if(productionIndex != 6) {
-                controller.getVirtualView().productionAction(controller.getCurrentPlayer().getNickname(), null);
-            }else {
-                if (!controller.getMediator().isMainActionDone()) { //this means that no production has been correctly activated
-                    if(controller.getMediator().isLeaderActionDone()) {
-                        controller.setCurrentState(controller.getMainActionState());
-                        controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), "Please do a main action");
-                    } else {
-                        controller.setCurrentState(controller.getStartTurnState());
-                        controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(),null);
-                    }
 
-                } else {
-                    if (!controller.getMediator().isLeaderActionDone()) {
-                        controller.setCurrentState(controller.getMiddleTurnState());
-                        controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
-                    } else {
-                        controller.setCurrentState(controller.getEndTurnState());
-                        controller.getEndTurnState().visitEndTurnState(controller);
-                    }
-                }
-            }
-        } catch (invalidMoveException e) {
-            controller.getVirtualView().productionAction(controller.getCurrentPlayer().getNickname(), e.getErrorMessage());
-        }
-    }
-
+    /**
+     * This method is used to perform the code in common between the multiplayer and the solo version of this state:
+     * the controller checks the action chose by the player if it is possible to apply it and, in case this
+     * check resolves positively, applies that action to the model.
+     * @param productionIndex The integer that represents the choice of the player: 0 - 2 for the activation of the
+     *                        production of the DevelopmentCard placed at the top of the relative CardSlot in the board
+     *                        of the current player, 3 - 4 for the production power of the relative active Leader Cards,
+     *                        5 for the base production of every board and 6 to receive outputs. Every chosen index is
+     *                        saved in a data structure in the CommunicationMediator: in this way every time this visit
+     *                        is called it checks if the specified productionIndex has been already activated, in order
+     *                        not to allow multiple activations of the same production in the same turn.
+     * @param warehouseMap The map that contains the indexes of the Warehouse or Leader Depots the current player
+     *                     chose to get resources from, mapped to the number of resources to remove: 0 - 2 for
+     *                     Warehouse Depots, 3 - 4 for Leader Depots.
+     * @param strongBoxMap The map that contains the resources the current player chose to get from the Strongbox,
+     *                     each one mapped to the quantity of that specific resource to remove.
+     * @param chosenResource This parameter is nullable because it is only used for those production that produce as
+     *                       output a resource at player's choice (Board and Leader productions): in case it is not
+     *                       null it can only be COIN, SERVANT, SHIELD or STONE, not FAITH.
+     * @param controller The controller that handles the current game.
+     * @throws invalidMoveException Thrown when the current player requests any kind of unacceptable move: this exception
+     *                              contains a error message string that will be shown to the current player in the
+     *                              next state he will navigate to.
+     */
     void commonVisit(int productionIndex, Map<Integer, Integer> warehouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) throws invalidMoveException {
         Player currentPlayer = controller.getCurrentPlayer();
         Board board = currentPlayer.getBoard();
@@ -288,64 +287,95 @@ public class ActivateProductionState implements MultiplayerState {
                         controller.getModel().vaticanReport(activatedSectionIndex);
                 }
             }
-
-
         }
+    }
 
+    /**
+     * This method is used in a Multiplayer Game to perform the activation of the specified production and then the right state
+     * transition on the base of the past choices of the current player: the controller continues to cycle on the ActivationProduction
+     * state until the current player asks to terminate this process and, after that, if the current player has already done
+     * a Leader Action the controller automatically terminates his turn, otherwise the controller switches to the MiddleTurn state.
+     * In the case the activation of the productions doesn't resolve positively it appears that the player hasn't done
+     * a Main Action yet, so the controller switches to the StartTurn state if he has neither done a Leader Action,
+     * otherwise switches to the MainAction state.
+     * @param productionIndex The integer that represents the choice of the player: 0 - 2 for the activation of the
+     *                        production of the DevelopmentCard placed at the top of the relative CardSlot in the board
+     *                        of the current player, 3 - 4 for the production power of the relative active Leader Cards,
+     *                        5 for the base production of every board and 6 to receive outputs. Every chosen index is
+     *                        saved in a data structure in the CommunicationMediator: in this way every time this visit
+     *                        is called it checks if the specified productionIndex has been already activated, in order
+     *                        not to allow multiple activations of the same production in the same turn.
+     * @param wareHouseMap The map that contains the indexes of the Warehouse or Leader Depots the current player
+     *                     chose to get resources from, mapped to the number of resources to remove: 0 - 2 for
+     *                     Warehouse Depots, 3 - 4 for Leader Depots.
+     * @param strongBoxMap The map that contains the resources the current player chose to get from the Strongbox,
+     *                     each one mapped to the quantity of that specific resource to remove.
+     * @param chosenResource This parameter is nullable because it is only used for those production that produce as
+     *                       output a resource at player's choice (Board and Leader productions): in case it is not
+     *                       null it can only be COIN, SERVANT, SHIELD or STONE, not FAITH.
+     * @param controller The controller that handles the current game.
+     */
+    @Override
+    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) {
+        try {
+            commonVisit(productionIndex, wareHouseMap, strongBoxMap, chosenResource, controller);
+            if(productionIndex != 6) {
+                controller.getVirtualView().productionAction(controller.getCurrentPlayer().getNickname(), null);
+            }else {
+                if (!controller.getMediator().isMainActionDone()) { //this means that no production has been correctly activated
+                    if(controller.getMediator().isLeaderActionDone()) {
+                        controller.setCurrentState(controller.getMainActionState());
+                        controller.getVirtualView().mainAction(controller.getCurrentPlayer().getNickname(), "Please do a main action");
+                    } else {
+                        controller.setCurrentState(controller.getStartTurnState());
+                        controller.getVirtualView().startTurn(controller.getCurrentPlayer().getNickname(),null);
+                    }
+
+                } else {
+                    if (!controller.getMediator().isLeaderActionDone()) {
+                        controller.setCurrentState(controller.getMiddleTurnState());
+                        controller.getVirtualView().middleTurn(controller.getCurrentPlayer().getNickname(), null);
+                    } else {
+                        controller.setCurrentState(controller.getEndTurnState());
+                        controller.getEndTurnState().visitEndTurnState(controller);
+                    }
+                }
+            }
+        } catch (invalidMoveException e) {
+            controller.getVirtualView().productionAction(controller.getCurrentPlayer().getNickname(), e.getErrorMessage());
+        }
     }
 
     @Override
-    public void visitStartTurnState(int move, Controller controller) {
-
-    }
+    public void visitStartTurnState(int move, Controller controller) { }
 
     @Override
-    public void visitMainActionState(int move, Controller controller) {
-
-    }
+    public void visitMainActionState(int move, Controller controller) { }
 
     @Override
-    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) {
-
-    }
+    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) { }
 
     @Override
-    public void visitMarketState(int move, int index, Controller controller) {
-
-    }
+    public void visitMarketState(int move, int index, Controller controller) { }
 
     @Override
-    public void visitMiddleTurnState(int move, Controller controller) {
-
-    }
+    public void visitMiddleTurnState(int move, Controller controller) { }
 
     @Override
-    public void visitEndTurnState(Controller controller) {
-
-    }
+    public void visitEndTurnState(Controller controller) { }
 
     @Override
-    public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) {
-
-    }
+    public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) { }
 
     @Override
-    public void visitResourceManagementState(String errorMessage,Controller controller) {
-
-    }
+    public void visitResourceManagementState(String errorMessage,Controller controller) { }
 
     @Override
-    public void visitSwapState(int dep1,int dep2,Controller controller) {
-
-    }
+    public void visitSwapState(int dep1,int dep2,Controller controller) { }
 
     @Override
-    public void visitWhiteMarbleState(Controller controller) {
-
-    }
+    public void visitWhiteMarbleState(Controller controller) { }
 
     @Override
-    public void visitEndGameState(String winner, Controller controller) {
-
-    }
+    public void visitEndGameState(String winner, Controller controller) { }
 }

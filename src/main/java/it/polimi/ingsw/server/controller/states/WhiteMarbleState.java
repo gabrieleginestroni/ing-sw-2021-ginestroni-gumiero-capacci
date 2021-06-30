@@ -7,7 +7,22 @@ import it.polimi.ingsw.server.model.Resource;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that represents the state in which the current player has performed a Market Action and the controller is now
+ * checking what to do with all non-resource Marbles (Faith and White) obtained with the move.
+ */
 public class WhiteMarbleState implements MultiplayerState,SoloState {
+
+    /**
+     * This method is used to give all the obtained Faith points to the current player and, if the player has some
+     * WhiteMarble power activated, transforms all the White Marbles: if the player has only one power activated simply
+     * converts all the White Marbles in the right resource, otherwise if he has 2 powers of that kind activated
+     * asks for each one of the White Marbles in which resource convert it. Finally, if the current player hasn't got any
+     * White Marble power activated simply removes all White Marbles. At the end of this process the controller
+     * switches his current state to the ResourceManagement state.
+     * @param controller The controller that handles the current game.
+     */
     @Override
     public void visitWhiteMarbleState(Controller controller) {
         List<Resource> whiteMarbles = controller.getCurrentPlayer().getBoard().getWhiteMarbles();
@@ -46,59 +61,35 @@ public class WhiteMarbleState implements MultiplayerState,SoloState {
     }
 
     @Override
-    public void visitStartTurnState(int move, Controller controller) {
-
-    }
+    public void visitStartTurnState(int move, Controller controller) { }
 
     @Override
-    public void visitMainActionState(int move, Controller controller) {
-
-    }
+    public void visitMainActionState(int move, Controller controller) { }
 
     @Override
-    public void visitMiddleTurnState(int move, Controller controller) {
-
-    }
+    public void visitMiddleTurnState(int move, Controller controller) { }
 
     @Override
-    public void visitEndTurnState(Controller controller) {
-
-    }
+    public void visitEndTurnState(Controller controller) { }
 
     @Override
-    public void visitEndGameState(String winner, Controller controller) {
-
-    }
+    public void visitEndGameState(String winner, Controller controller) { }
 
     @Override
-    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) {
-
-    }
+    public void visitDevCardSaleState(int row, int col, Map<Integer, Map<Resource, Integer>> resToRemove, int cardSlot, Controller controller) { }
 
     @Override
-    public void visitMarketState(int move, int index, Controller controller) {
-
-    }
+    public void visitMarketState(int move, int index, Controller controller) { }
 
     @Override
-    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) {
-
-    }
+    public void visitActivateProductionState(int productionIndex, Map<Integer, Integer> wareHouseMap, Map<Resource, Integer> strongBoxMap, Resource chosenResource, Controller controller) { }
 
     @Override
-    public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) {
-
-    }
+    public void visitLeaderActionState(Map<Integer, Integer> actionMap, Controller controller) { }
 
     @Override
-    public void visitResourceManagementState(String errorMessage,Controller controller) {
-
-    }
+    public void visitResourceManagementState(String errorMessage,Controller controller) { }
 
     @Override
-    public void visitSwapState(int dep1,int dep2,Controller controller) {
-
-    }
-
-
+    public void visitSwapState(int dep1,int dep2,Controller controller) { }
 }

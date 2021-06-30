@@ -1,18 +1,17 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.view.CLI;
-import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.server.messages.client_server.LoginRequestMessage;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Gabriele Ginestroni, Giacomo Gumiero, Tommaso Capacci
+ * Class that launches the CLI version of the client, creates the NetworkHandler thread and handles the send
+ * of the first LoginRequestMessage.
+ */
 public class ClientCLI {
     public static void main(String[] args) {
         int port = 50000;
