@@ -10,7 +10,7 @@ public class LorenzoUpdateMessage implements AnswerMessage {
     private final String updatedLorenzo;
 
     /**
-     * @param updatedLorenzo The JSON file that represents the updated LorenzoView class.
+     * @param updatedLorenzo The JSON file that represents the updated LorenzoView.
      */
     public LorenzoUpdateMessage(String updatedLorenzo) {
         this.updatedLorenzo = updatedLorenzo;

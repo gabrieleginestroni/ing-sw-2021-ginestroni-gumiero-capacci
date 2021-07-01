@@ -92,7 +92,7 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to set the reference to a specific NetworkHandler in the GUI class and in every scene controller.
+     * {@inheritDoc}
      * @param networkHandler The new NetworkHandler.
      */
     @Override
@@ -105,7 +105,7 @@ public class GUI extends View{
     //------------------------------RECONNECTION FA ----------------------------------------------------------
 
     /**
-     * Method used to show in the view the contents of the GameAbort message.
+     * {@inheritDoc}
      */
     @Override
     public void visitGameAbort() {
@@ -115,7 +115,8 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the PlayerDisconnection message.
+     * {@inheritDoc}
+     * @param nickname Disconnected player.
      */
     @Override
     public void visitPlayerDisconnection(String nickname) {
@@ -123,7 +124,8 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the PlayerReconnection message.
+     * {@inheritDoc}
+     * @param nickname The reconnected player's nickname
      */
     @Override
     public void visitPlayerReconnection(String nickname) {
@@ -131,7 +133,13 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the ForcedReconnectionUpdate message.
+     * {@inheritDoc}
+     * @param personalBoard The JSON file that represents the updated BoardView of a player's
+     *                      PersonalBoard at the actual state of the game.
+     * @param otherBoards The JSON file that represents the list of the updated HiddenHand-free BoardView of the PersonalBoards
+     *                    of every other player at the actual state of the game.
+     * @param updatedGrid The JSON file that represents the updated GridView at the actual state of the game.
+     * @param updatedMarket The JSON file that represents the updated MarketView at the actual state of the game.
      */
     @Override
     public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
@@ -155,7 +163,11 @@ public class GUI extends View{
     public void showMessage(String str) { }
 
     /**
-     * Method used to show in the view the contents of the NicknameAlreadyUsed message.
+     * {@inheritDoc}
+     * @param str The string contained in every NicknameAlreadyUsed that says that
+     *            the nickname chosen by the player is already used inside the requested
+     *            lobby.
+     * @param gameID The gameID of the game the client was previously trying to connect to.
      */
     @Override
     public void visitNicknameAlreadyUsed(String str,String gameID) {
@@ -163,7 +175,8 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the LobbyFull message.
+     * {@inheritDoc}
+     * @param str The string contained in every LobbyFull message that simply
      */
     @Override
     public void visitLobbyFull(String str) {
@@ -171,7 +184,8 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the LobbyNotReady message.
+     * {@inheritDoc}
+     * @param str The string contained in every LobbyNotReady message that simply
      */
     @Override
     public void visitLobbyNotReady(String str) {
@@ -179,7 +193,9 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the LoginSuccess message.
+     * {@inheritDoc}
+     * @param currentPlayers The string contained in every LoginSuccess message that simply
+     *                       contains the nicknames of the players connected to the same lobby
      */
     @Override
     public void visitLoginSuccess(String currentPlayers) {
@@ -187,7 +203,9 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the RequestLobbySize message.
+     * {@inheritDoc}
+     * @param str The string contained in every RequestLobbySize that contains the text message
+     *            that has to be printed in the player's view.
      */
     @Override
     public void visitRequestLobbySize(String str) {
@@ -197,7 +215,10 @@ public class GUI extends View{
     //---------------------UPDATES-------------------------------------------------------------
 
     /**
-     * Method used to show in the view the contents of the BoardsUpdate message.
+     * {@inheritDoc}
+     * @param personalBoard The JSON file that represents the updated BoardView of a player's
+     *                      PersonalBoard at the actual state of the game.
+     * @param otherBoards The JSON file that represents the list of the updated HiddenHand-free BoardView of the PersonalBoards
      */
     @Override
     public void visitBoardsUpdate(String personalBoard, List<String> otherBoards) {
@@ -210,7 +231,8 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the DevGridUpdate message.
+     * {@inheritDoc}
+     * @param updatedGrid The JSON file that represents the updated GridView at the actual state of the game.
      */
     @Override
     public void visitDevGridUpdate(String updatedGrid) {
@@ -219,7 +241,8 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the LorenzoUpdate message.
+     * {@inheritDoc}
+     * @param updatedLorenzo The JSON file that represents the updated LorenzoView.
      */
     @Override
     public void visitLorenzoUpdate(String updatedLorenzo) {
@@ -228,7 +251,8 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the MarketUpdate message.
+     * {@inheritDoc}
+     * @param updatedMarket The JSON file that represents the updated MarketView at the actual state of the game.
      */
     @Override
     public void visitMarketUpdate(String updatedMarket) {
@@ -237,7 +261,8 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the Inkwell message.
+     * {@inheritDoc}
+     * @param nickname First player's nickname.
      */
     @Override
     public void visitInkwell(String nickname) {
@@ -251,7 +276,9 @@ public class GUI extends View{
 //--------------------GAME PHASE--------------------------------------------------------------------------
 
     /**
-     * Method used to show in the view the contents of the GameStarted message.
+     * {@inheritDoc}
+     * @param str The string contained in every GameStarted message that simply
+     *            says that the setup phase of the game ended and the turn of the first
      */
     @Override
     public void visitGameStarted(String str) {
@@ -264,7 +291,8 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the InitialResource message.
+     * {@inheritDoc}
+     * @param quantity The number of resources to choose.
      */
     @Override
     public void visitInitialResource(int quantity) {
@@ -275,7 +303,8 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the LeaderProposal message.
+     * {@inheritDoc}
+     * @param proposedLeaderCards The integer array that contains the 4 cardIDs of the proposed Leader Cards.
      */
     @Override
     public void visitLeaderProposal(int[] proposedLeaderCards) {
@@ -286,7 +315,9 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the WhiteMarbleProposal message.
+     * {@inheritDoc}
+     * @param res1 The resource that represents the first White Marble Effect.
+     * @param res2 The resource that represents the second White Marble Effect.
      */
     @Override
     public void visitWhiteMarbleProposal(Resource res1, Resource res2) {
@@ -294,15 +325,18 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the StartTurn message.
+     * {@inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
         Platform.runLater(() -> controllersMap.get(MAIN_GUI).visitStartTurn(currentPlayerNickname, errorMessage));
     }
-    
+
     /**
-     * Method used to show in the view the contents of the DevCardSale message.
+     * {@inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
      */
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
@@ -311,7 +345,9 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the MiddleTurn message.
+     * {@inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitMiddleTurn(String currentPlayerNickname, String errorMessage) {
@@ -319,7 +355,8 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the LeaderAction message.
+     * {@inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
      */
     @Override
     public void visitLeaderAction(String currentPlayerNickname) {
@@ -327,7 +364,9 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the MainActionState message.
+     * {@inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
@@ -335,7 +374,9 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the ProductionState message.
+     * {@inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitProductionState(String currentPlayerNickname, String errorMessage) {
@@ -343,7 +384,9 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the GameOverState message.
+     * {@inheritDoc}
+     * @param winner Winner's nickname.
+     * @param gameResult The map that contains the nicknames of every player
      */
     @Override
     public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
@@ -351,7 +394,9 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the MarketState message.
+     * {@inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitMarketState(String currentPlayerNickname, String errorMessage) {
@@ -359,7 +404,9 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the SwapState message.
+     * {@inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitSwapState(String currentPlayerNickname, String errorMessage) {
@@ -367,7 +414,10 @@ public class GUI extends View{
     }
 
     /**
-     * Method used to show in the view the contents of the ResourceManagementState message.
+     * {@inheritDoc}
+     * @param res The proposed resource.
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {

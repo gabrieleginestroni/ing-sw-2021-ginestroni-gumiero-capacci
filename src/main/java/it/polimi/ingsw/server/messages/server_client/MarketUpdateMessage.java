@@ -10,7 +10,7 @@ public class MarketUpdateMessage implements AnswerMessage {
     private final String updatedMarket;
 
     /**
-     * @param updatedMarket The JSON file that represents the updated MarketView class at the actual state of the game.
+     * @param updatedMarket The JSON file that represents the updated MarketView at the actual state of the game.
      */
     public MarketUpdateMessage(String updatedMarket) {
         this.updatedMarket = updatedMarket;

@@ -10,7 +10,7 @@ public class DevGridUpdateMessage implements AnswerMessage {
     private final String updatedGrid;
 
     /**
-     * @param updatedGrid The JSON file that represents the updated GridView class at the actual state of the game.
+     * @param updatedGrid The JSON file that represents the updated GridView at the actual state of the game.
      */
     public DevGridUpdateMessage(String updatedGrid) {
         this.updatedGrid = updatedGrid;

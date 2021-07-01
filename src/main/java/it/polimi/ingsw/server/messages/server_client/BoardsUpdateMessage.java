@@ -22,7 +22,7 @@ public class BoardsUpdateMessage implements AnswerMessage {
 
     /**
      * This method is used to set the information regarding the view of the personal board of the player.
-     * @param personalBoard The JSON file that represents the updated BoardView class of the relative
+     * @param personalBoard The JSON file that represents the updated BoardView of a player's
      *                      PersonalBoard at the actual state of the game.
      */
     public void addPersonalBoard(String personalBoard) {
@@ -31,7 +31,7 @@ public class BoardsUpdateMessage implements AnswerMessage {
 
     /**
      * This method is used to append to a list the information regarding the view of the personal board of one of the other players.
-     * @param otherBoard The JSON file that represents the updated HiddenHand-free BoardView class of the PersonalBoard
+     * @param otherBoard The JSON file that represents the updated HiddenHand-free BoardView of the PersonalBoard
      *                   of one of the other players at the actual state of the game.
      */
     public void addOtherBoard(String otherBoard) {
