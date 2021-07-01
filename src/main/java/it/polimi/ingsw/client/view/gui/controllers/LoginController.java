@@ -115,7 +115,8 @@ public class LoginController extends GUIController implements Initializable {
 
     /**
      * Show error message and propose to change the nickname
-     * {@inheritDoc}
+     * @param str Error Message
+     * @param gameID gameId chosen
      */
     @Override
     public void visitNicknameAlreadyUsed(String str, String gameID) {
@@ -129,7 +130,7 @@ public class LoginController extends GUIController implements Initializable {
 
     /**
      * Show error message and propose to change gameId
-     * {@inheritDoc}
+     * @param str Error message
      */
     @Override
     public void visitLobbyFull(String str) {
@@ -143,7 +144,7 @@ public class LoginController extends GUIController implements Initializable {
 
     /**
      * Show error message and propose tho change gameId
-     * {@inheritDoc}
+     * @param str Error message
      */
     @Override
     public void visitLobbyNotReady(String str) {
@@ -157,7 +158,7 @@ public class LoginController extends GUIController implements Initializable {
 
     /**
      * Show success message and display current players that have logged in to the game
-     * {@inheritDoc}
+     * @param currentPlayers current players that have logged in to the game
      */
     @Override
     public void visitLoginSuccess(String currentPlayers) {
@@ -178,7 +179,7 @@ public class LoginController extends GUIController implements Initializable {
 
     /**
      * Show form to input number of players of the game
-     * {@inheritDoc}
+     * @param str Error message
      */
     @Override
     public void visitRequestLobbySize(String str) {

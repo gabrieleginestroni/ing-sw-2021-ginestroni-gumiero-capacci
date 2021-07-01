@@ -650,7 +650,7 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Set inkwell to the player that owns it
-     * {@inheritDoc}
+     * @param nickname player that owns the inkwell
      */
     @Override
     public void visitInkwell(String nickname) {
@@ -687,7 +687,7 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Show other players board when game starts
-     * {@inheritDoc}
+     * @param str message of game started
      */
     @Override
     public void visitGameStarted(String str) {
@@ -704,7 +704,8 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Enable popup menu that propose action to choose from for current player, notify other players of turn start
-     * {@inheritDoc}
+     * @param currentPlayerNickname player that starts the turn
+     * @param errorMessage error message to display, if previous action generated one
      */
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
@@ -743,7 +744,8 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Enable popup menu that propose main action to choose from for current player, notify other players of main action start
-     * {@inheritDoc}
+     * @param currentPlayerNickname player that is playing the turn
+     * @param errorMessage error message to display, if previous action generated one
      */
     @Override
     public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
@@ -773,7 +775,8 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Enable market buttons that allows the current player to choose the move to perform
-     * {@inheritDoc}
+     * @param currentPlayerNickname player that is playing the turn
+     * @param errorMessage error message to display, if previous action generated one
      */
     @Override
     public void visitMarketState(String currentPlayerNickname, String errorMessage) {
@@ -837,7 +840,8 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Enable popup to choose resource from
-     * {@inheritDoc}
+     * @param res1 First resource to choose from
+     * @param res2 Second resource to choose from
      */
     @Override
     public void visitWhiteMarbleProposal(Resource res1, Resource res2) {
@@ -882,7 +886,7 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Enable cardslots to place card and depots to pick resources to buy it
-     * {@inheritDoc}
+     * @param currentPlayerNickname player that is buying the card
      */
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
@@ -1008,7 +1012,8 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Enable popup to choose whether to perform a leader action before ending the turn and notify other players
-     * {@inheritDoc}
+     * @param currentPlayerNickname player that is playing the turn
+     * @param errorMessage error message to display, if previous action generated one
      */
     @Override
     public void visitMiddleTurn(String currentPlayerNickname, String errorMessage) {
@@ -1036,7 +1041,8 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Enable swappable depots and notify other players
-     * {@inheritDoc}
+     * @param currentPlayerNickname player that is playing the turn
+     * @param errorMessage error message to display, if previous action generated one
      */
     @Override
     public void visitSwapState(String currentPlayerNickname, String errorMessage) {
@@ -1086,7 +1092,9 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Enable popup to show action proposal for the specified resource and notify other players
-     * {@inheritDoc}
+     * @param res resource to manage
+     * @param currentPlayerNickname player that is playing the turn
+     * @param errorMessage error message to display, if previous action generated one
      */
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {
@@ -1159,7 +1167,8 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Enable buttons for base, cardslot and leader production and notify other players
-     * {@inheritDoc}
+     * @param currentPlayerNickname player that is playing the turn
+     * @param errorMessage error message to display, if previous action generated one
      */
     @Override
     public void visitProductionState(String currentPlayerNickname, String errorMessage) {
@@ -1254,7 +1263,8 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Enable popup to show game result
-     * {@inheritDoc}
+     * @param winner game winner
+     * @param gameResult map of all players score
      */
     @Override
     public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
@@ -1331,7 +1341,7 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Disable board of the player that has disconnected
-     * {@inheritDoc}
+     * @param nickname of the player that has disconnected
      */
     @Override
     public void visitPlayerDisconnection(String nickname) {
@@ -1350,7 +1360,7 @@ public class GameController extends GUIController implements Initializable {
 
     /**
      * Enable the board of the player that has reconnected
-     * {@inheritDoc}
+     * @param nickname of the player that has reconnected
      */
     @Override
     public void visitPlayerReconnection(String nickname) {

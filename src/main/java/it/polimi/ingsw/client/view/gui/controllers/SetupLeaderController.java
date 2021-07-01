@@ -90,7 +90,7 @@ public class SetupLeaderController extends GUIController {
 
     /**
      * Set images and bind actions of the 4 leaders
-     * {@inheritDoc}
+     * @param proposedLeaderCards array of cardId leaders to choose from
      */
     @Override
     public void visitLeaderProposal(int[] proposedLeaderCards) {

@@ -207,7 +207,7 @@ public class SetupResourceController extends GUIController implements Initializa
 
     /**
      * Enable depot buttons in wharehouse to choose where to place the resource
-     * {@inheritDoc}
+     * @param quantity number of resources to choose
      */
     @Override
     public void visitInitialResource(int quantity) {

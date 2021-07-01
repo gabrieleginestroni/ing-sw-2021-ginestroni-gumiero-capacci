@@ -31,7 +31,6 @@ public class CLI extends View{
 
     /**
      * Simply print message
-     * {@inheritDoc}
      */
     @Override
     public void showMessage(String str) {
@@ -49,16 +48,17 @@ public class CLI extends View{
 
     /**
      * Display nickname of player who has disconnected
-     * {@inheritDoc}
+     * @param nickname The disconnected player's nickname.
      */
     @Override
     public void visitPlayerDisconnection(String nickname) {
         this.showMessage(nickname + " disconnected!");
     }
 
+
     /**
      * Display nickname of player who has reconnected
-     * {@inheritDoc}
+     * @param nickname The reconnected player's nickname
      */
     @Override
     public void visitPlayerReconnection(String nickname) {
@@ -850,9 +850,12 @@ public class CLI extends View{
         }
     }
 
+
     /**
      * Method that process boards updated boards arrived from server and prints updated info in fancy CLI
-     * {inheritDoc}
+     * @param personalBoard The JSON file that represents the updated BoardView of a player's
+     *                      PersonalBoard at the actual state of the game.
+     * @param otherBoards The JSON file that represents the list of the updated HiddenHand-free BoardView of the PersonalBoards
      */
     @Override
     public void visitBoardsUpdate(String personalBoard, List<String> otherBoards) {
@@ -867,9 +870,10 @@ public class CLI extends View{
         buildCLI();
     }
 
+
     /**
      * Method that process updated grid arrived from server and prints updated info in fancy CLI
-     * {inheritDoc}
+     * @param updatedGrid The JSON file that represents the updated GridView at the actual state of the game.
      */
     @Override
     public void visitDevGridUpdate(String updatedGrid) {
@@ -878,9 +882,10 @@ public class CLI extends View{
         buildCLI();
     }
 
+
     /**
      * Method that sets inkwell
-     * {inheritDoc}
+     * @param nickname First player's nickname.
      */
     @Override
     public void visitInkwell(String nickname) {
@@ -891,9 +896,10 @@ public class CLI extends View{
             this.otherBoardsView.stream().filter(p -> p.getNickname().equals(nickname)).forEach(BoardView::setInkwell);
     }
 
+
     /**
      * Method that process the updated Lorenzo view arrived from server and prints it in fancy CLI
-     * {inheritDoc}
+     * @param updatedLorenzo The JSON file that represents the updated LorenzoView.
      */
     @Override
     public void visitLorenzoUpdate(String updatedLorenzo) {
@@ -902,9 +908,10 @@ public class CLI extends View{
         buildCLI();
     }
 
+
     /**
      * Method that process the updated Market view arrived from server and prints it in fancy CLI
-     * {inheritDoc}
+     * @param updatedMarket The JSON file that represents the updated MarketView at the actual state of the game.
      */
     @Override
     public void visitMarketUpdate(String updatedMarket) {
@@ -915,7 +922,12 @@ public class CLI extends View{
 
     /**
      * Method that updates all game info when a player disconnects and prints it in fancy CLI
-     * {inheritDoc}
+     * @param personalBoard The JSON file that represents the updated BoardView of a player's
+     *                      PersonalBoard at the actual state of the game.
+     * @param otherBoards The JSON file that represents the list of the updated HiddenHand-free BoardView of the PersonalBoards
+     *                    of every other player at the actual state of the game.
+     * @param updatedGrid The JSON file that represents the updated GridView at the actual state of the game.
+     * @param updatedMarket The JSON file that represents the updated MarketView at the actual state of the game.
      */
     @Override
     public void visitForcedReconnectionUpdate(String personalBoard, List<String> otherBoards, String updatedGrid, String updatedMarket) {
@@ -931,18 +943,21 @@ public class CLI extends View{
 
     }
 
+
     /**
      * Method that prints game started alert
-     * {inheritDoc}
+     * @param str The string contained in every GameStarted message that simply
+     *            says that the setup phase of the game ended and the turn of the first
      */
     @Override
     public void visitGameStarted(String str) {
         this.showMessage(str);
     }
 
+
     /**
      * Method that handles player initial choice of a resource when playing a multiplayer game
-     * {inheritDoc}
+     * @param quantity The number of resources to choose.
      */
     @Override
     public void visitInitialResource(int quantity)  {
@@ -1007,7 +1022,7 @@ public class CLI extends View{
 
     /**
      * Method that handles player choice of leader cards at the start of the game
-     * {inheritDoc}
+     * @param proposedLeaderCards The integer array that contains the 4 cardIDs of the proposed Leader Cards.
      */
     @Override
     public void visitLeaderProposal(int[] proposedLeaderCards) {
@@ -1030,7 +1045,7 @@ public class CLI extends View{
 
     /**
      * Method that warns the user that chosen game is full, making him to choose another
-     * {inheritDoc}
+     * @param str The string contained in every LobbyFull message that simply
      */
     @Override
     public void visitLobbyFull(String str) {
@@ -1042,7 +1057,7 @@ public class CLI extends View{
 
     /**
      * Method that warns user that chosen game is not ready, making him to choose another
-     * {inheritDoc}
+     * @param str The string contained in every LobbyNotReady message that simply
      */
     @Override
     public void visitLobbyNotReady(String str) {
@@ -1054,7 +1069,8 @@ public class CLI extends View{
 
     /**
      * Method that alerts user he has logged successfully in the game, displaying nicknames of current players connected to the game
-     * {inheritDoc}
+     * @param currentPlayers The string contained in every LoginSuccess message that simply
+     *                       contains the nicknames of the players connected to the same lobby
      */
     @Override
     public void visitLoginSuccess(String currentPlayers) {
@@ -1063,7 +1079,9 @@ public class CLI extends View{
 
     /**
      * Method that makes the user choose size of the game, if he is creating one
-     * {inheritDoc}
+     * @param str The string contained in every RequestLobbySize that contains the text message
+     *            that has to be printed in the player's view.
+     * @throws invalidClientInputException
      */
     @Override
     public void visitRequestLobbySize(String str) throws invalidClientInputException {
@@ -1077,7 +1095,10 @@ public class CLI extends View{
 
     /**
      * Method that warns the user he has chosen a nickname already used by someone else, making him change it
-     * {inheritDoc}
+     * @param str The string contained in every NicknameAlreadyUsed that says that
+     *            the nickname chosen by the player is already used inside the requested
+     *            lobby.
+     * @param gameID The gameID of the game the client was previously trying to connect to.
      */
     @Override
     public void visitNicknameAlreadyUsed(String str,String gameID) {
@@ -1097,7 +1118,8 @@ public class CLI extends View{
 
     /**
      * Method that handles player having two white marble leader power active, making him choose what power to use for every white marble
-     * {inheritDoc}
+     * @param res1 The resource that represents the first White Marble Effect.
+     * @param res2 The resource that represents the second White Marble Effect.
      */
     @Override
     public void visitWhiteMarbleProposal(Resource res1, Resource res2) {
@@ -1121,7 +1143,8 @@ public class CLI extends View{
     /**
      * Method that handles start of player turn, making user choose for a main action or a leader action,
      * also alerting other players of the choice
-     * {inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitStartTurn(String currentPlayerNickname, String errorMessage) {
@@ -1155,7 +1178,8 @@ public class CLI extends View{
      * Method handling dev card sale action, from the choice of the card to the choice of the slot to place it
      * and the resources to use for purchasing it
      * also alerting other players of the choice
-     * {inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @throws invalidClientInputException
      */
     @Override
     public void visitDevCardSale(String currentPlayerNickname) throws invalidClientInputException {
@@ -1250,7 +1274,8 @@ public class CLI extends View{
     /**
      * Method for middle turn state, when players has to decide whether to do a leader action or and the turn
      * also alerting other players of the choice
-     * {inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitMiddleTurn(String currentPlayerNickname,String errorMessage) {
@@ -1279,7 +1304,7 @@ public class CLI extends View{
     /**
      * Method that handles player leader action
      * also alerting other players of the choice
-     * {inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
      */
     @Override
     public void visitLeaderAction(String currentPlayerNickname) {
@@ -1302,7 +1327,8 @@ public class CLI extends View{
     /**
      * Method that handles player main action
      * also alerting other players of the choice
-     * {inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitMainActionState(String currentPlayerNickname, String errorMessage) {
@@ -1326,7 +1352,9 @@ public class CLI extends View{
     /**
      * Method that handles player activating a production action
      * also alerting other players of the choice
-     * {inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
+     * @throws invalidClientInputException
      */
     @Override
     public void visitProductionState(String currentPlayerNickname, String errorMessage) throws invalidClientInputException {
@@ -1508,7 +1536,8 @@ public class CLI extends View{
 
     /**
      * Method that alerts the player that game is over, printing winners and game results
-     * {inheritDoc}
+     * @param winner Winner's nickname.
+     * @param gameResult The map that contains the nicknames of every player
      */
     @Override
     public void visitGameOverState(String winner, Map<String, Integer> gameResult) {
@@ -1527,7 +1556,8 @@ public class CLI extends View{
     /**
      * Method that handles player making a market action
      * also alerting other players of the choice
-     * {inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitMarketState(String currentPlayerNickname, String errorMessage) {
@@ -1568,7 +1598,8 @@ public class CLI extends View{
     /**
      * Method that handles player making a swap action
      * also alerting other players of the choice
-     * {inheritDoc}
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitSwapState(String currentPlayerNickname, String errorMessage) {
@@ -1595,7 +1626,9 @@ public class CLI extends View{
     /**
      * Method that handles player placing resources in depot or discarding it after a market action
      * also alerting other players of the choice
-     * {inheritDoc}
+     * @param res The proposed resource.
+     * @param currentPlayerNickname Current player's nickname.
+     * @param errorMessage A nullable string that, in case of error, contains a message for the current player.
      */
     @Override
     public void visitResourceManagementState(Resource res, String currentPlayerNickname, String errorMessage) {

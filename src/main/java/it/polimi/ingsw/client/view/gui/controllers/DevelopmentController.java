@@ -89,6 +89,7 @@ public class DevelopmentController extends GUIController implements Initializabl
 
     /**
      * Enable the possibility to chose a card for the current player and alert the others
+     * @param currentPlayerNickname player that is buying the card
      */
     @Override
     public void visitDevCardSale(String currentPlayerNickname) {
