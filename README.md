@@ -28,6 +28,8 @@ of "Software Engineering" course at Politecnico di Milano (2020/2021).
 [![GREEN](http://placehold.it/15/44bb44/44bb44)]() Implemented &nbsp;&nbsp;&nbsp;&nbsp;[![RED](http://placehold.it/15/f03c15/f03c15)]() Not Implemented 
 
 ## Setup
+To run the jars you need at least JRE version 11. Check Oracle's [download page](https://www.oracle.com/java/technologies/javase-downloads.html) for more info.
+
 In [deliveries/jar](https://github.com/gabrieleginestroni/ing-sw-2021-ginestroni-gumiero-capacci/tree/master/deliverables/final/jar) folder there are three jar files. Here's how to run the provided jars:
 
 - ##### server.jar

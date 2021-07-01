@@ -1214,16 +1214,15 @@ public class CLI extends View{
                     success = true;
             }
 
-            //Applying discounts
             List<String> discounts = super.personalBoardView.getDiscounts();
-            for(String s : discounts){
-                if(cardCost.get(Resource.valueOf(s)) != null)
-                    cardCost.put(Resource.valueOf(s), cardCost.get(Resource.valueOf(s))-1);
-            }
 
             for(Map.Entry<Resource,Integer> entry:cardCost.entrySet()) {
                 int quantity = 0;
                 int availableQuantity;
+
+                //Applying discounts
+                if(discounts.contains(entry.getKey().toString()))
+                    quantity = 1;
 
                 Map<Integer, Integer> indexMap = getIndexMap(entry.getKey());
 
