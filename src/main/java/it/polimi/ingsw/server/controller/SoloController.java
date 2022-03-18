@@ -36,7 +36,6 @@ public class SoloController extends Controller{
     public static final SoloState resourceManagementState = new SoloResourceManagementState();
     public static final SoloState swapState = new SwapState();
     public static final SoloState whiteMarbleState = new WhiteMarbleState();
-
     /**
      * @param player The player that is going to play the relative Solo Game.
      * @param gameID The gameID of the Solo Game.
@@ -49,7 +48,6 @@ public class SoloController extends Controller{
         mediator = new CommunicationMediator();
 
         List<LeaderCard> chosenLeaders = virtualView.propose4Leader(model.get4LeaderCards(), player);
-
         try {
             for (LeaderCard leaderCard : chosenLeaders)
                 player.getBoard().addLeaderCard(leaderCard);

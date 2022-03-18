@@ -13,19 +13,19 @@ of "Software Engineering" course at Politecnico di Milano (2020/2021).
 ## Implemented Functionalities
 | Functionality | Status |
 |:-----------------------|:------------------------------------:|
-| Basic rules | [![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
-| Complete rules | [![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
-| Socket |[![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
-| CLI | [![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
-| GUI |[![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
-| Multiple games | [![GREEN](http://placehold.it/15/44bb44/44bb44)]()|
-| Resilience to disconnections | [![GREEN](http://placehold.it/15/44bb44/44bb44)]() |
-| Parameters editor | [![RED](http://placehold.it/15/f03c15/f03c15)]() |
-| Local game | [![RED](http://placehold.it/15/f03c15/f03c15)]() |
-| Persistence | [![RED](http://placehold.it/15/f03c15/f03c15)]() |
+| Basic rules | [![GREEN](http://via.placeholder.com/15/44bb44/44bb44)]() |
+| Complete rules | [![GREEN](http://via.placeholder.com/15/44bb44/44bb44)]() |
+| Socket |[![GREEN](http://via.placeholder.com/15/44bb44/44bb44)]() |
+| CLI | [![GREEN](http://via.placeholder.com/15/44bb44/44bb44)]() |
+| GUI |[![GREEN](http://via.placeholder.com/15/44bb44/44bb44)]() |
+| Multiple games | [![GREEN](http://via.placeholder.com/15/44bb44/44bb44)]()|
+| Resilience to disconnections | [![GREEN](http://via.placeholder.com/15/44bb44/44bb44)]() |
+| Parameters editor | [![RED](http://via.placeholder.com/15/f03c15/f03c15)]() |
+| Local game | [![RED](http://via.placeholder.com/15/f03c15/f03c15)]() |
+| Persistence | [![RED](http://via.placeholder.com/15/f03c15/f03c15)]() |
 
 #### Legend
-[![GREEN](http://placehold.it/15/44bb44/44bb44)]() Implemented &nbsp;&nbsp;&nbsp;&nbsp;[![RED](http://placehold.it/15/f03c15/f03c15)]() Not Implemented 
+[![GREEN](http://via.placeholder.com/15/44bb44/44bb44)]() Implemented &nbsp;&nbsp;&nbsp;&nbsp;[![RED](http://via.placeholder.com/15/f03c15/f03c15)]() Not Implemented 
 
 ## Setup
 To run the jars you need at least JRE version 11. Check Oracle's [download page](https://www.oracle.com/java/technologies/javase-downloads.html) for more info.

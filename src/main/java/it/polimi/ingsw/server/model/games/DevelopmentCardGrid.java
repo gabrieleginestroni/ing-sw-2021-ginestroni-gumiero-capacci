@@ -79,7 +79,7 @@ public class DevelopmentCardGrid {
     public boolean thereAreNotRemainingCards(Color color){
         int column = color.getColumn();
 
-        for(int i = 0; i < 2;  i++)
+        for(int i = 0; i <= 2;  i++)
             if(!grid[i][column].isEmpty())
                 return false;
 
