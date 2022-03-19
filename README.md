@@ -1,9 +1,13 @@
 # Masters of Renaissance - IngSw 2021 final test
 
+<img src="https://cf.geekdo-images.com/-zdSgCFfOGAsgZ6M-Rjw1w__opengraph/img/FEzUn1bObXKe0ajQ7m7U1dbJaVY=/fit-in/1200x630/filters:strip_icc()/pic4782992.jpg" width=216px height=288px align="right" />
+
 Masters of Renaissance, a family strategy game for 1-4 players in the acclaimed world of Lorenzo il Magnifico, is the final test 
 of "Software Engineering" course at Politecnico di Milano (2020/2021).
 
-<img src="https://cf.geekdo-images.com/-zdSgCFfOGAsgZ6M-Rjw1w__opengraph/img/FEzUn1bObXKe0ajQ7m7U1dbJaVY=/fit-in/1200x630/filters:strip_icc()/pic4782992.jpg" width="236px" height="315px"  />
+**Teacher**: Pierluigi San Pietro
+
+**Final Score**: 30/30
 
 # Group members:
 - ##  [Gabriele Ginestroni](https://github.com/gabrieleginestroni)
