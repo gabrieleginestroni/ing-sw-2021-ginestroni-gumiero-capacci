@@ -9,6 +9,9 @@ of "Software Engineering" course at Politecnico di Milano (2020/2021).
 
 **Final Score**: 30/30
 
+<br />
+<br />
+
 # Group members:
 - ##  [Gabriele Ginestroni](https://github.com/gabrieleginestroni)
 - ##  [Giacomo Gumiero](https://github.com/giagum)
