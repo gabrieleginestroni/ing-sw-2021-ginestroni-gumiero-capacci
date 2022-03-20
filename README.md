@@ -12,10 +12,10 @@ of "Software Engineering" course at Politecnico di Milano (2020/2021).
 <br />
 <br />
 
-# Group members:
-- ##  [Gabriele Ginestroni](https://github.com/gabrieleginestroni)
-- ##  [Giacomo Gumiero](https://github.com/giagum)
-- ##  [Tommaso Capacci](https://github.com/TommasoCapacci)
+## Group members:
+- ###  [Gabriele Ginestroni](https://github.com/gabrieleginestroni)
+- ###  [Giacomo Gumiero](https://github.com/giagum)
+- ###  [Tommaso Capacci](https://github.com/TommasoCapacci)
 
 ## Implemented Functionalities
 | Functionality | Status |
@@ -33,6 +33,17 @@ of "Software Engineering" course at Politecnico di Milano (2020/2021).
 
 #### Legend
 [![GREEN](http://via.placeholder.com/15/44bb44/44bb44)]() Implemented &nbsp;&nbsp;&nbsp;&nbsp;[![RED](http://via.placeholder.com/15/f03c15/f03c15)]() Not Implemented 
+
+## Tools
+
+Tool | Description
+--------|------------
+Intellij | IDE
+Astah UML | UML Diagrams
+Maven | Project Management
+JavaFX | GUI
+JUnit 5 | Testing
+
 
 ## Setup
 To run the jars you need at least JRE version 11. Check Oracle's [download page](https://www.oracle.com/java/technologies/javase-downloads.html) for more info.
