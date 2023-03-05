@@ -34,8 +34,8 @@ of "Software Engineering" course at Politecnico di Milano (2020/2021).
 #### Legend
 [![GREEN](http://via.placeholder.com/15/44bb44/44bb44)]() Implemented &nbsp;&nbsp;&nbsp;&nbsp;[![RED](http://via.placeholder.com/15/f03c15/f03c15)]() Not Implemented
 ## Screenshots
-![cli](cli.png)
-![gui](gui.png)
+![cli](cli.PNG)
+![gui](gui.PNG)
 ## Tools
 
 Tool | Description
